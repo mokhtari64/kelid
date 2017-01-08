@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/my_background">
+
+    <TextView
+        android:text="@string/area_info"
+        style="@style/my_header"/>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_masahat"
+            android:layout_width="match_parent"
+            android:gravity="right"
+            android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/masahat"
+            android:layout_weight="1"
+            android:hint="@string/area"
+            android:inputType="number"
+            android:editable="true"
+            android:enabled="true" />
+        </android.support.design.widget.TextInputLayout>
+
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_zirbana"
+            android:layout_width="match_parent"
+            android:gravity="right"
+            android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/zirbana"
+            android:inputType="number"
+
+            android:hint="@string/building_area"
+            android:editable="true"
+            android:enabled="true" />
+        </android.support.design.widget.TextInputLayout>
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_arse"
+            android:layout_width="match_parent"
+            android:gravity="right"
+            android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/arse"
+            android:inputType="number"
+
+            android:hint="@string/arse"
+            android:editable="true"
+            android:enabled="true" />
+        </android.support.design.widget.TextInputLayout>
+
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_arz_khyaban"
+            android:layout_width="match_parent"
+            android:gravity="right"
+            android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/arz_khyaban"
+            android:inputType="number"
+            android:layout_weight="9"
+            android:editable="true"
+            android:hint="@string/arz_khyaban"
+            android:enabled="true" />
+        </android.support.design.widget.TextInputLayout>
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_hashye_melk"
+            android:layout_width="match_parent"
+            android:gravity="right"
+            android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/hashye_melk"
+            android:inputType="number"
+
+            android:hint="@string/hashye_melk"
+            android:editable="true"
+            android:enabled="true" />
+        </android.support.design.widget.TextInputLayout>
+
+
+
+
+</LinearLayout>

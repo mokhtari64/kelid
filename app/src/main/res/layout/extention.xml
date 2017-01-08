@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_material_light">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/my_main_background">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/asansor"
+                android:textOff="@string/asansor"
+                android:textOn="@string/asansor"
+                android:layout_weight="1"
+                android:background="@drawable/my_toggle_background"
+                android:layout_margin="1dp" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/parking"
+                android:textOff="@string/parking"
+                android:textOn="@string/parking"
+                android:layout_weight="1"
+                android:background="@drawable/my_toggle_background"
+                android:layout_margin="1dp" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/anbari"
+                android:textOff="@string/anbari"
+                android:textOn="@string/anbari"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/service_farangi"
+                android:textOff="@string/service_farangi"
+                android:textOn="@string/service_farangi"
+                android:layout_weight="1"
+                android:background="@drawable/my_toggle_background"
+                android:layout_margin="1dp" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/gachbori"
+                android:textOff="@string/gachbori"
+                android:textOn="@string/gachbori"
+                android:layout_weight="1"
+                android:background="@drawable/my_toggle_background"
+                android:layout_margin="1dp" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/rangkari"
+                android:textOff="@string/rang_plastic"
+                android:textOn="@string/rang_plastic"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/jakozi"
+                android:textOff="@string/jakozi"
+                android:textOn="@string/jakozi"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/iphone_tasviri"
+                android:textOff="@string/iphone_tasviri"
+                android:textOn="@string/iphone_tasviri"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/coler_abi"
+                android:textOff="@string/coler_abi"
+                android:textOn="@string/coler_abi"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/pakage"
+                android:textOff="@string/pakage"
+                android:textOn="@string/pakage"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/shofaj"
+                android:textOff="@string/shofaj"
+                android:textOn="@string/shofaj"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/garmayesh_az_kaf"
+                android:textOff="@string/garmayesh_az_kaf"
+                android:textOn="@string/garmayesh_az_kaf"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/ab_garmkon"
+                android:textOff="@string/ab_garmkon"
+                android:textOn="@string/ab_garmkon"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/ab_garmkon_khorshidi"
+                android:textOff="@string/ab_garmkon_khorshidi"
+                android:textOn="@string/ab_garmkon_khorshidi"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/darb_barghi"
+                android:textOff="@string/darb_barghi"
+                android:textOn="@string/darb_barghi"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/panjere_dojedare"
+                android:textOff="@string/panjere_do_jedare"
+                android:textOn="@string/panjere_do_jedare"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/upvc"
+                android:textOff="@string/upvc"
+                android:textOn="@string/upvc"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/kaf_parket"
+                android:textOff="@string/parket"
+                android:textOn="@string/parket"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/komod_divari"
+                android:textOff="@string/komod_divari"
+                android:textOn="@string/komod_divari"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/security_system"
+                android:textOff="@string/security_system"
+                android:textOn="@string/security_system"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/kaf_moket"
+                android:textOff="@string/moket"
+                android:textOn="@string/moket"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/system_bargh_hoshmand"
+                android:textOff="@string/system_bargh_hoshmand"
+                android:textOn="@string/system_bargh_hoshmand"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/system_etfa_harigh"
+                android:textOff="@string/system_etfa_harigh"
+                android:textOn="@string/system_etfa_harigh"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/system_alarm_gaz"
+                android:textOff="@string/system_alarm_gaz"
+                android:textOn="@string/system_alarm_gaz"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/havasaz"
+                android:textOff="@string/havasaz"
+                android:textOn="@string/havasaz"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/chiller"
+                android:textOff="@string/chiller"
+                android:textOn="@string/chiller"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/estakhr"
+                android:textOff="@string/estakhr"
+                android:textOn="@string/estakhr"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/labi"
+                android:textOff="@string/labi"
+                android:textOn="@string/labi"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/seraydari"
+                android:textOff="@string/seraydari"
+                android:textOn="@string/seraydari"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/faza_sabz"
+                android:textOff="@string/faza_sabz"
+                android:textOn="@string/faza_sabz"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/manba_ab"
+                android:textOff="@string/manba_ab"
+                android:textOn="@string/manba_ab"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/pomp_ab"
+                android:textOff="@string/pomp_ab"
+                android:textOn="@string/pomp_ab"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/bargh_ezterari"
+                android:textOff="@string/bargh_ezterari"
+                android:textOn="@string/bargh_ezterari"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/hood"
+                android:textOff="@string/hood"
+                android:textOn="@string/hood"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/norpardazi_dakheli"
+                android:textOff="@string/norpardazi_dakheli"
+                android:textOn="@string/norpardazi_dakheli"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/norpardazi_nama"
+                android:textOff="@string/norpardazi_nama"
+                android:textOn="@string/norpardazi_nama"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/van"
+                android:textOff="@string/van"
+                android:textOn="@string/van"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="@drawable/my_toggle_background" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ToggleButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/coler_gazi"
+        android:textOff="@string/coler_gazi"
+        android:textOn="@string/coler_gazi"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:background="@drawable/my_toggle_background" />
+
+    <ToggleButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/hamam_master"
+        android:textOff="@string/hamam_master"
+        android:textOn="@string/hamam_master"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:background="@drawable/my_toggle_background" />
+
+    <ToggleButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/sona"
+        android:textOff="@string/sona"
+        android:textOn="@string/sona"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:background="@drawable/my_toggle_background" />
+
+    <ToggleButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/alachigh"
+        android:textOff="@string/alachigh"
+        android:textOn="@string/alachigh"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:background="@drawable/my_toggle_background" />
+
+    <ToggleButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/darb_zed_serghat"
+        android:textOff="@string/darb_zed_serghat"
+        android:textOn="@string/darb_zed_serghat"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:background="@drawable/my_toggle_background" />
+
+    <ToggleButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/kaghazdivari"
+        android:textOff="@string/kaghazdivari"
+        android:textOn="@string/kaghazdivari"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:background="@drawable/my_toggle_background" />
+
+    <ToggleButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/pele_ezterari"
+        android:textOff="@string/pele_ezterari"
+        android:textOn="@string/pele_ezterari"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:background="@drawable/my_toggle_background" />
+
+    <ToggleButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/system_alarm_atashsozi"
+        android:textOff="@string/system_alarm_atashsozi"
+        android:textOn="@string/system_alarm_atashsozi"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:background="@drawable/my_toggle_background" />
+
+    <ToggleButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/jaro_markazi"
+        android:textOff="@string/jaro_markazi"
+        android:textOn="@string/jaro_markazi"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:background="@drawable/my_toggle_background" />
+
+    <ToggleButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/balkon"
+        android:textOff="@string/balkon"
+        android:textOn="@string/balkon"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:background="@drawable/my_toggle_background" />
+
+    <ToggleButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/kaf_seramik"
+        android:textOff="@string/seramik"
+        android:textOn="@string/seramik"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:background="@drawable/my_toggle_background" />
+
+    <ToggleButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/mdf"
+        android:textOff="@string/mdf"
+        android:textOn="@string/mdf"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:background="@drawable/my_toggle_background" />
+
+</LinearLayout>

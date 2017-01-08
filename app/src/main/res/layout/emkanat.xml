@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/my_background">
+
+    <TextView
+        android:text="@string/emkanat"
+        style="@style/my_header"/>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="1dp">
+
+
+        <HorizontalScrollView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="10">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/coler_abi"
+                    android:textOn="@string/coler_abi"
+                    android:id="@+id/coler_abi"
+                    style="@style/my_radio_button"/>
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/coler_gazi"
+                    android:textOn="@string/coler_gazi"
+                    android:id="@+id/coler_gazi"
+                    style="@style/my_radio_button"/>
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/coler_gazi_spilet"
+                    android:textOn="@string/coler_gazi_spilet"
+                    android:id="@+id/coler_gazi_spilet"
+                    android:layout_marginBottom="0dp"
+                    style="@style/my_radio_button"/>
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/chiller"
+                    android:textOn="@string/chiller"
+                    android:id="@+id/chiller"
+                    style="@style/my_radio_button"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/sarmayesh"
+            android:layout_weight="3"
+            android:gravity="center_vertical" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="1dp">
+
+        <HorizontalScrollView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="10">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/pakage"
+                    android:textOn="@string/pakage"
+                    android:id="@+id/pakage"
+                    style="@style/my_radio_button"/>
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/shomine"
+                    android:textOn="@string/shomine"
+                    android:id="@+id/shomine"
+                    style="@style/my_radio_button"/>
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/shofaj"
+                    android:textOn="@string/shofaj"
+                    android:id="@+id/shofaj"
+                    style="@style/my_radio_button"/>
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/garmayesh_az_kaf"
+                    android:textOn="@string/garmayesh_az_kaf"
+                    android:id="@+id/garmayesh_az_kaf"
+                    style="@style/my_radio_button"/>
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/ab_garmkon"
+                    android:textOn="@string/ab_garmkon"
+                    android:id="@+id/ab_garmkon"
+                    style="@style/my_radio_button"/>
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/ab_garmkon_divari"
+                    android:textOn="@string/ab_garmkon_divari"
+                    android:id="@+id/ab_garmkon_divari"
+                    style="@style/my_radio_button"/>
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/ab_garmkon_khorshidi"
+                    android:textOn="@string/ab_garmkon_khorshidi"
+                    android:id="@+id/ab_garmkon_khorshidi"
+                    style="@style/my_radio_button"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/garmayesh"
+            android:layout_weight="4"
+            android:gravity="center_vertical" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="1dp">
+
+        <HorizontalScrollView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="10" >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/moket"
+                    android:textOn="@string/moket"
+                    android:id="@+id/moket"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/parket"
+                    android:textOn="@string/parket"
+                    android:id="@+id/parket"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/seramik"
+                    android:textOn="@string/seramik"
+                    android:id="@+id/seramik"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/sang"
+                    android:textOn="@string/sang"
+                    android:id="@+id/sang"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/kaf_mozaeik"
+                    android:textOn="@string/kaf_mozaeik"
+                    android:id="@+id/mozaeik"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/siman"
+                    android:textOn="@string/siman"
+                    android:id="@+id/siman"
+                    style="@style/my_radio_button" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/kafposh"
+            android:layout_weight="4"
+            android:gravity="center_vertical" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="1dp">
+
+        <HorizontalScrollView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="10">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/rang_plastic"
+                    android:textOn="@string/rang_plastic"
+                    android:id="@+id/rang_plastik"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/rang_roghani"
+                    android:textOn="@string/rang_roghani"
+                    android:id="@+id/rang_roghan"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/kaghazdivari"
+                    android:textOn="@string/kaghazdivari"
+                    android:id="@+id/kaghazdivari"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/chob"
+                    android:textOn="@string/chob"
+                    android:id="@+id/chob"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/divarkob"
+                    android:textOn="@string/divarkob"
+                    android:id="@+id/divarkob"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/rang_hajim"
+                    android:textOn="@string/rang_hajim"
+                    android:id="@+id/rang_hajim"
+                    style="@style/my_radio_button" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/divar"
+            android:layout_weight="4"
+            android:gravity="center_vertical" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="1dp">
+
+        <HorizontalScrollView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="10" >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/sang"
+                    android:textOn="@string/sang"
+                    android:id="@+id/divar_sang"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/sofal"
+                    android:textOn="@string/sofal"
+                    android:id="@+id/divar_sofal"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/kompozit"
+                    android:textOn="@string/kompozit"
+                    android:id="@+id/divar_kompozit"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/chob"
+                    android:textOn="@string/chob"
+                    android:id="@+id/divar_chob"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/shishe"
+                    android:textOn="@string/shishe"
+                    android:id="@+id/divar_shishe"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/siman"
+                    android:textOn="@string/siman"
+                    android:id="@+id/divar_siman"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/seramik"
+                    android:textOn="@string/seramik"
+                    android:id="@+id/divar_seramik"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/geranit"
+                    android:textOn="@string/geranit"
+                    android:id="@+id/divar_geranit"
+                    style="@style/my_radio_button" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/nama"
+            android:layout_weight="4"
+            android:gravity="center_vertical" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="1dp">
+
+        <HorizontalScrollView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="10"
+            android:id="@+id/horizontalScrollView2">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/felezi"
+                    android:textOn="@string/felezi"
+                    android:id="@+id/kabinet_felezi"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/mdf"
+                    android:textOn="@string/mdf"
+                    android:id="@+id/kabinet_mdf"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/chob"
+                    android:textOn="@string/chob"
+                    android:id="@+id/kabinet_chob"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/melamine"
+                    android:textOn="@string/melamine"
+                    android:id="@+id/kabinet_melamine"
+                    style="@style/my_radio_button" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textOff="@string/higlas"
+                    android:textOn="@string/higlas"
+                    android:id="@+id/kabinet_higlas"
+                    style="@style/my_radio_button" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/kabinet"
+            android:layout_weight="4"
+            android:gravity="center_vertical" />
+    </TableRow>
+</TableLayout>

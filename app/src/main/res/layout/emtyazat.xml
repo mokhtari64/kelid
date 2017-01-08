@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/my_background">
+
+    <TextView
+        android:text="@string/emtyazat"
+        style="@style/my_header"/>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:drawable/dialog_holo_light_frame">
+
+        <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:layout_weight="4"
+            android:layout_gravity="center"
+            android:layout_margin="5dp">
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/vahedi"
+                android:id="@+id/ab_vahedi"
+                style="@style/my_radio_button"/>
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/moshtarak"
+                android:id="@+id/ab_moshtarak"
+                style="@style/my_radio_button"/>
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/mostaghel"
+                android:id="@+id/ab_mostaghel"
+                style="@style/my_radio_button"
+                android:checked="true" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="@string/ab"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/black_semi_transparent"
+            android:background="@android:drawable/dialog_holo_light_frame" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:drawable/dialog_holo_light_frame">
+
+        <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:layout_weight="4"
+            android:layout_gravity="center"
+            android:layout_margin="5dp">
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/vahedi"
+                android:id="@+id/gaz_vahedi"
+                style="@style/my_radio_button"/>
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/moshtarak"
+                android:id="@+id/gaz_moshtarak"
+                style="@style/my_radio_button"/>
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/mostaghel"
+                android:id="@+id/gaz_mostaghel"
+                style="@style/my_radio_button"
+                android:checked="true" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="@string/gaz"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/black_semi_transparent"
+            android:background="@android:drawable/dialog_holo_light_frame" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:drawable/dialog_holo_light_frame">
+
+        <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:layout_weight="4"
+            android:layout_gravity="center"
+            android:layout_margin="5dp">
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/vahedi"
+                android:id="@+id/bargh_vahedi"
+                style="@style/my_radio_button"/>
+
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/moshtarak"
+                android:id="@+id/bargh_moshtarak"
+                style="@style/my_radio_button"/>
+
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:checked="true"
+                android:layout_height="wrap_content"
+                android:text="@string/mostaghel"
+                android:id="@+id/bargh_mostaghel"
+                style="@style/my_radio_button"/>
+
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="@string/bargh"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/black_semi_transparent"
+            android:background="@android:drawable/dialog_holo_light_frame" />
+    </TableRow>
+</TableLayout>

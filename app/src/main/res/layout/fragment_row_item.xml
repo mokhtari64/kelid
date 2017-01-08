@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+
+    android:layout_height="30dp"
+    >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/row_selector_bg"
+        android:layout_marginRight="5dp"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center_vertical|right"
+            android:id="@+id/dialog_fragment_row_next_image"
+            android:background="@drawable/next_icon"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:duplicateParentState="true"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/dialog_fragment_row"
+            android:gravity="center_vertical|right"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="15dp"
+            android:layout_gravity="center_vertical|right" />
+    </LinearLayout>
+</LinearLayout>

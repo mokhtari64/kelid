@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="5dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+
+                <EditText
+                                        android:id="@+id/adver_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="true"
+                    android:enabled="true"
+                    android:hint="@string/name" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <Space
+                layout="@layout/personality"
+                android:layout_width="20px"
+                android:layout_height="20px" />
+
+            <include
+                layout="@layout/communications"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp" />
+
+
+            <Space
+                android:layout_width="20px"
+                android:layout_height="20px" />
+
+            <include
+                layout="@layout/address"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp" />
+
+            <Space
+                android:layout_width="20px"
+                android:layout_height="20px" />
+
+
+            <include
+                layout="@layout/area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp" />
+
+            <Space
+                android:layout_width="20px"
+                android:layout_height="20px" />
+
+            <include
+                layout="@layout/property_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp" />
+
+            <Space
+                android:layout_width="20px"
+                android:layout_height="20px" />
+
+            <include
+                layout="@layout/emkanat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Space
+                android:layout_width="20px"
+                android:layout_height="20px" />
+
+            <include
+                layout="@layout/emtyazat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp" />
+
+            <Space
+                android:layout_width="20px"
+                android:layout_height="20px" />
+
+            <!--<include-->
+            <!--layout="@layout/extention"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="3dp"-->
+            <!--android:layout_marginRight="3dp" />-->
+
+            <LinearLayout
+                android:id="@+id/proprty_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:orientation="vertical"></LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

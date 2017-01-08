@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:ignore="all">
+
+        <ImageView
+            android:id="@id/cl_menu"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="0"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ico" />
+
+        <TextView
+            android:id="@id/cl_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="@dimen/cl_title_size" />
+
+        <ImageView
+            android:id="@+id/cl_option_menu"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0"
+
+            android:scaleType="fitCenter"
+            android:src="@drawable/amlak" />
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/imageView8"
+        android:src="@drawable/main2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:scaleType="fitEnd" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/imageView11"
+        android:src="@drawable/main2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:scaleType="fitEnd" />
+
+    <com.sa90.materialarcmenu.ArcMenu
+        android:id="@+id/arcMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        app:menu_color="@color/colorPrimaryDark"
+        app:menu_radius="140dp"
+        app:menu_ripple_color="@android:color/holo_blue_bright"
+        app:menu_scr="@android:drawable/ic_dialog_dialer"
+        app:menu_open="arc_left"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_centerInParent="true"
+        android:layout_alignParentRight="true">
+
+        <ImageButton
+            android:id="@+id/previewMenu"
+            android:layout_width="wrap_content"
+            android:src="@drawable/preview"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content" />
+
+
+
+
+        <ImageButton
+            android:id="@+id/addTextMenu"
+            android:layout_width="wrap_content"
+            android:src="@drawable/add_text"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content" />
+
+
+        <ImageButton
+            android:id="@+id/qrMenu"
+            android:layout_width="wrap_content"
+            android:src="@drawable/qr"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/addImageMenu"
+            android:layout_width="wrap_content"
+            android:src="@drawable/add_image"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/bgMenu"
+            android:layout_width="wrap_content"
+            android:src="@drawable/bg"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content" />
+
+    </com.sa90.materialarcmenu.ArcMenu>
+
+</RelativeLayout>

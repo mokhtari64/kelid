@@ -1,0 +1,227 @@
+<resources>
+    <string name="app_name">کلید</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="galery">  </string>
+    <string name="kolangi"> کلنگی </string>
+    <string name="sal_20"> بیش از 20 </string>
+    <string name="sal_5"> بیش از 5 </string>
+    <string name="sal_10"> بیش از 10 </string>
+    <string name="no_saz"> نوساز </string>
+    <string name="emtyazat"> امتیازات </string>
+    <string name="mostaghel"> مستقل </string>
+    <string name="vahedi"> واحدی </string>
+    <string name="moshtarak"> مشترک </string>
+    <string name="ab"> آب </string>
+    <string name="bargh"> برق </string>
+    <string name="gaz"> گاز </string>
+    <string name="tabaghe_vahed"> طبقه واحد </string>
+    <string name="low"> کم </string>
+    <string name="mid"> متوسط </string>
+    <string name="hight"> زیاد </string>
+    <string name="omre_sakhteman"> عمر ساختمان </string>
+    <string name="tarakom"> تراکم </string>
+    <string name="tedad_vahed"> تعداد واحد </string>
+    <string name="tedad_tabaghat"> تعداد طبقات </string>
+    <string name="tedad_otagh"> تعداد اتاق </string>
+    <string name="property_info"> اطلاعات ملک </string>
+    <string name="arz_khyaban"> عرض خیابان </string>
+    <string name="hashye_melk"> حاشیه ملک </string>
+    <string name="arse"> عرصه زمین </string>
+    <string name="add_info"> اطلاعات آدرس </string>
+    <string name="area_info"> اطلاعات متراژ </string>
+    <string name="comminucation"> اطلاعات تماس </string>
+    <string name="min"> حداقل </string>
+    <string name="max"> حداکثر </string>
+    <string name="building_area"> زیربنا (متر مربع) </string>
+    <string name="perimeter"> محیط </string>
+    <string name="meter"> متر مربع </string>
+    <string name="area"> متراژ زمین (متر مربع) </string>
+    <string name="street"> بلوار یا خیابان اصلی </string>
+    <string name="alley"> خیابان فرعی یا کوچه </string>
+    <string name="city"> شهر </string>
+    <string name="email"> پست الکترونیک </string>
+    <string name="bookmarked">نشان شده ها</string>
+    <string name="myadvertisement">آگهی های من</string>
+    <string name="user_id">نام کاربر</string>
+    <string name="office_property">دفاتر املاک</string>
+    <string name="office_services">دفاتر خدماتی</string>
+    <string name="consulting_office">دفاتر مشاوره ای</string>
+    <string name="news">آخرین اخبار مسکن</string>
+    <string name="property">املاک</string>
+    <string name="about">درباره ما</string>
+    <string name="name">نام و نام خانوادگی</string>
+    <string name="fname">نام پدر</string>
+    <string name="bdate">تاریخ تولد</string>
+    <string name="sh_code">شماره شناسنامه</string>
+    <string name="me_code">کد ملی</string>
+    <string name="edu_grade">مدرک تحصیلی</string>
+    <string name="work_period">سابقه فعالیت</string>
+    <string name="tel">تلفن ثابت</string>
+    <string name="mobile">تلفن همراه</string>
+    <string name="lic_code">شماره مجوز</string>
+    <string name="lic_date">تاریخ مجوز</string>
+    <string name="work_position">محدوده فعالیت</string>
+    <string name="address">آدرس</string>
+    <string name="has_expert">کارشناس حقوقی</string>
+    <string name="taking_part"> مشارکت </string>
+    <string name="pre_sale"> پیش فروش </string>
+    <string name="sale"> فروش </string>
+    <string name="buy"> خرید </string>
+    <string name="naghd"> نقد </string>
+    <string name="vam"> وام دار </string>
+    <string name="sharayrt_pardakht"> شرایط پرداخت </string>
+
+    <string name="parking">پارکینگ</string>
+    <string name="asansor">آسانسور</string>
+    <string name="anbari">انباری</string>
+    <string name="balkon">بالکن</string>
+    <string name="service_farangi">سرویس فرنگی</string>
+    <string name="gachbori">گچبری</string>
+    <string name="rang_plastic">رنگکاری</string>
+    <string name="kaghazdivari">کاغذدیواری</string>
+    <string name="sona">سونا</string>
+    <string name="jakozi">جکوزی</string>
+    <string name="iphone_tasviri">آیفون تصویری</string>
+    <string name="coler_abi">کولر آبی</string>
+    <string name="coler_gazi">کولر گازی</string>
+    <string name="pakage">پکیج</string>
+    <string name="shofaj">شوفاژ</string>
+    <string name="garmayesh_az_kaf">گرمایش از کف</string>
+    <string name="ab_garmkon">آب گرمکن</string>
+    <string name="darb_zed_serghat">درب ضد سرقت</string>
+    <string name="darb_barghi">درب برقی</string>
+    <string name="panjere_do_jedare">پنجره دو جداره</string>
+    <string name="upvc">پنجره UPVC</string>
+    <string name="seramik">کف سرامیک</string>
+    <string name="parket">کف پارکت</string>
+    <string name="moket">کف موکت</string>
+    <string name="mdf">کابینت MDF</string>
+    <string name="komod_divari">کمد دیواری</string>
+    <string name="security_system">سیستم امنیتی</string>
+    <string name="system_bargh_hoshmand">سیستم هوشمند برق</string>
+    <string name="system_etfa_harigh">سیستم اتفاع حریق</string>
+    <string name="system_alarm_atashsozi">سیستم آلارم آتش سوزی</string>
+    <string name="system_alarm_gaz">سیستم آلارم نشت گاز</string>
+    <string name="havasaz">هواساز</string>
+    <string name="chiler">چیلر</string>
+    <string name="pele_ezterari">پله اضطراری</string>
+    <string name="estakhr">استخر</string>
+    <string name="labi">لابی</string>
+    <string name="seraydari">سرایداری</string>
+    <string name="faza_sabz">فضای سبز</string>
+    <string name="alachigh">آلاچیق</string>
+    <string name="manba_ab">منبع آب</string>
+    <string name="pomp_ab">پمپ آب</string>
+    <string name="bargh_ezterari">سیستم برق اضطراری</string>
+    <string name="jaro_markazi">جارو برقی مرکزی</string>
+    <string name="hood">هود آشپزخانه</string>
+    <string name="ab_garmkon_khorshidi">آبگرمکن خورشیدی</string>
+    <string name="norpardazi_dakheli">نورپردازی داخلی</string>
+    <string name="norpardazi_nama">نورپردازی نما</string>
+    <string name="hamam_master">حمام مستر</string>
+    <string name="van">وان حمام</string>
+
+
+    <string name="user_comment"> نام کاربری و رمز عبور خود را وارد نمایید </string>
+    <string name="user"> نام کاربری </string>
+    <string name="pass"> رمز عبور </string>
+    <string name="register"> ثبت نام </string>
+    <string name="forget_pass"> بازیابی رمز عبور </string>
+    <string name="exit"> خروج </string>
+    <string name="login"> ورود </string>
+
+
+    <string name="ic_1">فروش</string>
+    <string name="ic_2">نمایندگی ها</string>
+    <string name="ic_3">اوراقي و استوك</string>
+    <string name="ic_4">کرایه</string>
+    <string name="ic_5">بنگاه فروش</string>
+    <string name="new_requesr"> ثبت آگهی </string>
+
+    <string name="title_activity_province">ProvinceActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="ChooseCity">انتخاب شهر</string>
+    <string name="ChooseProvince">انتخاب استان</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+
+    <string name="title_activity_splash">SplashActivity</string>
+
+
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+</resources>
