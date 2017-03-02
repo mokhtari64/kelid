@@ -5,15 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CoolMenuActivity"
+    tools:context="ir.mehdi.kelid.MainActivity"
     tools:ignore="all"
     tools:showIn="@layout/activity_main">
 
-    <com.example.mokhtari.myapplication.coolmenu.CoolMenuFrameLayout
+    <ir.mehdi.kelid.coolmenu.CoolMenuFrameLayout
         android:id="@+id/rl_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         app:num="four">
-        </com.example.mokhtari.myapplication.coolmenu.CoolMenuFrameLayout>
+        </ir.mehdi.kelid.coolmenu.CoolMenuFrameLayout>
 </merge>

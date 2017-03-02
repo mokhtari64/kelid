@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/my_stroke"
-    tools:context=".ui.SplashActivity">
+    tools:context="ir.mehdi.kelid.ui.SplashActivity">
 
 
     <ImageView
