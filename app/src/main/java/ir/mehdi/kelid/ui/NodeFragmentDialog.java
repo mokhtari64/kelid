@@ -17,6 +17,8 @@ import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Vector;
+
 import ir.mehdi.kelid.MainActivity;
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.db.Database;
@@ -171,13 +173,13 @@ public class NodeFragmentDialog extends DialogFragment {
         }
     }
 
-    void setFragment(Node node) {
+    void setFragment(Node node,boolean first) {
         currentNode = node;
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         NodeFragmentSegment nn = new NodeFragmentSegment();
         nn.setNode(node);
         nn.setClickListener(clickListener);
-        if (node == Database.getInstance().root)
+        if (first)
             fragmentTransaction.setCustomAnimations(R.anim.root_no_slide_in, R.anim.root_no_slide_in, R.anim.pop_slide_in, R.anim.pop_slide_out);
         else
             fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
@@ -197,7 +199,7 @@ public class NodeFragmentDialog extends DialogFragment {
         public void onClick(View v) {
             Node n = (Node) v.getTag();
             if (n.childs.size() > 0)
-                setFragment(n);
+                setFragment(n,false);
             else {
                 getDialog().dismiss();
                 getChildFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -253,7 +255,17 @@ public class NodeFragmentDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_fragment_layout, container, false);
 
         setSize();
-        setFragment(Database.getInstance().root);
+        Vector<Node> childs = Database.getInstance().root.childs;
+        for (int i = 0; i < childs.size(); i++) {
+            Node node = childs.get(i);
+            if(node.id==type)
+            {
+                setFragment(node,true);
+                continue;
+            }
+        }
+
+
 
         return view;
     }

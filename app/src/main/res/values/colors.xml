@@ -6,7 +6,10 @@
     <color name="color_white">#FFFFFF</color>
     <color name="cascadeTitleColor">#FFFFFF</color>
     <color name="originTitleColor">#7dFFFFFF</color>
-
+    <color name="PROPERTY">#ff4081</color>
+    <color name="SERVICE">#3cd631</color>
+    <color name="OFFICE">#d7fa4b</color>
+    <color name="CONSULTING">#5677fc</color>
 
     <color name="black_overlay">#66000000</color>
 
