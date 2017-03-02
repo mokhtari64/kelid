@@ -37,7 +37,7 @@ public class Database extends SQLiteOpenHelper {
     public HashMap<Integer, Node> allNodes = new HashMap();
     public HashMap<Integer, PropertyDetail> allProperty = new HashMap();
     public Node root;
-    public static final String path = "data/data/" + "com.example.mokhtari.myapplication" + "/databases/";
+    public static final String path = "data/data/" + "ir.mehdi.kelid" + "/databases/";
     private Province[] indexprovince = null;
     private HashMap<Integer, Province> province = new HashMap<>();
 
@@ -49,7 +49,7 @@ public class Database extends SQLiteOpenHelper {
     private Province currentProvince;
 
     private Database() {
-        super(null, dbname + 1, null, 1);
+        super(null, dbname , null, 1);
         boolean checkdb = checkdb();
         if (checkdb) {
         } else {

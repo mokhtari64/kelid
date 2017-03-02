@@ -84,18 +84,18 @@
         android:layout_centerInParent="true"
         android:layout_alignParentRight="true">
 
-        <ImageButton
-            android:id="@+id/previewMenu"
-            android:layout_width="wrap_content"
-            android:src="@drawable/preview"
-            android:background="@android:color/transparent"
-            android:layout_height="wrap_content" />
+        <!--<ImageButton-->
+            <!--android:id="@+id/news"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:src="@drawable/preview"-->
+            <!--android:background="@android:color/transparent"-->
+            <!--android:layout_height="wrap_content" />-->
 
 
 
 
         <ImageButton
-            android:id="@+id/addTextMenu"
+            android:id="@+id/office"
             android:layout_width="wrap_content"
             android:src="@drawable/add_text"
             android:background="@android:color/transparent"
@@ -103,19 +103,19 @@
 
 
         <ImageButton
-            android:id="@+id/qrMenu"
+            android:id="@+id/consulting"
             android:layout_width="wrap_content"
             android:src="@drawable/qr"
             android:background="@android:color/transparent"
             android:layout_height="wrap_content" />
         <ImageButton
-            android:id="@+id/addImageMenu"
+            android:id="@+id/service"
             android:layout_width="wrap_content"
             android:src="@drawable/add_image"
             android:background="@android:color/transparent"
             android:layout_height="wrap_content" />
         <ImageButton
-            android:id="@+id/bgMenu"
+            android:id="@+id/property"
             android:layout_width="wrap_content"
             android:src="@drawable/bg"
             android:background="@android:color/transparent"

@@ -17,6 +17,7 @@ import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import ir.mehdi.kelid.MainActivity;
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.db.Database;
 import ir.mehdi.kelid.model.Node;
@@ -113,9 +114,14 @@ public class NodeFragmentDialog extends DialogFragment {
 //    static OtherMainActivity activity;
 
     Node currentNode;
-    private OtherMainActivity activity;
+    private MainActivity activity;
+    int type;
 
-    public void setActivity(OtherMainActivity activity) {
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setActivity(MainActivity activity) {
         this.activity = activity;
     }
 
@@ -195,12 +201,10 @@ public class NodeFragmentDialog extends DialogFragment {
             else {
                 getDialog().dismiss();
                 getChildFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                Intent i = new Intent(activity, AddAdverActivity.class);
-                startActivity(i);
+                activity.startActivity(type);
 
-//                Intent a = new Intent(getActivity(), CreateJobActivity.class);
-//                a.putExtra("node_id",n.id);
-//                startActivity(a);
+
+
 
             }
         }

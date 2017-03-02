@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import ir.mehdi.kelid.MainActivity;
 import ir.mehdi.kelid.R;
 
 
@@ -35,7 +36,7 @@ public class CityListActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
-        Intent myIntent = new Intent(getApplicationContext(), OtherMainActivity.class);
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(myIntent);
         return true;
 

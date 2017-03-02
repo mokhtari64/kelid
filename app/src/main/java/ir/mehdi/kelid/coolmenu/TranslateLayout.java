@@ -10,15 +10,21 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sa90.materialarcmenu.ArcMenu;
+
+import ir.mehdi.kelid.Constant;
+import ir.mehdi.kelid.MainActivity;
 import ir.mehdi.kelid.R;
 
 @SuppressLint("all")
 @SuppressWarnings("all")
 public class TranslateLayout extends FrameLayout implements View.OnClickListener {
-
+    com.sa90.materialarcmenu.ArcMenu arcMenu;
+    MainActivity activity;
     private OnOptionMainMenuListner mOnOtpionOptionMainMenuListner;
     private OnMainMenuListner mOnMainMenuListner;
     Fragment fragment;
@@ -28,6 +34,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
     }
 
     private ImageView mMenu;
+    ImageButton proprtyMenu, serviveMenu, consultingMenu, officeMenu;
     private ImageView mOptionMenu;
 
     private TextView mTitle;
@@ -35,7 +42,6 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
     public ImageView getMainMenu() {
         return mMenu;
     }
-
 
 
     public ImageView getOptionMenu() {
@@ -53,6 +59,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
 
     public TranslateLayout(Context context) {
         super(context);
+        activity= (MainActivity) context;
 
         init();
     }
@@ -71,23 +78,41 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
 
     private void init() {
         if (!isInEditMode()) {
-            setWillNotDraw(true);
-            inflate(getContext(), R.layout.layout_title, this);
-            view = getChildAt(0);
-            view.setOnTouchListener(new OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    return true;
-                }
-            });
+            try {
+                setWillNotDraw(true);
+                inflate(getContext(), R.layout.layout_title, this);
+                view = getChildAt(0);
+                view.setOnTouchListener(new OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        return true;
+                    }
+                });
 
-            mTitleTrans = getResources().getDimension(R.dimen.cl_title_trans);
-            mMenu = (ImageView) view.findViewById(R.id.cl_menu);
-            mOptionMenu = (ImageView) view.findViewById(R.id.cl_option_menu);
-            mTitle = (TextView) view.findViewById(R.id.cl_title);
-            mMenu.setOnClickListener(this);
-            mOptionMenu.setOnClickListener(this);
-            setMenuAlpha(0);
+                mTitleTrans = getResources().getDimension(R.dimen.cl_title_trans);
+                mMenu = (ImageView) view.findViewById(R.id.cl_menu);
+                mOptionMenu = (ImageView) view.findViewById(R.id.cl_option_menu);
+                mTitle = (TextView) view.findViewById(R.id.cl_title);
+                arcMenu = (ArcMenu) view.findViewById(R.id.arcMenu);
+
+                proprtyMenu = (ImageButton) view.findViewById(R.id.property);
+                officeMenu = (ImageButton) view.findViewById(R.id.office);
+                consultingMenu = (ImageButton) view.findViewById(R.id.consulting);
+//                newsMenu = (ImageButton) view.findViewById(R.id.news);
+                serviveMenu = (ImageButton) view.findViewById(R.id.service);
+
+                mMenu.setOnClickListener(this);
+                proprtyMenu.setOnClickListener(this);
+                officeMenu.setOnClickListener(this);
+                consultingMenu.setOnClickListener(this);
+//                newsMenu.setOnClickListener(this);
+                serviveMenu.setOnClickListener(this);
+                mOptionMenu.setOnClickListener(this);
+                setMenuAlpha(0);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
@@ -175,6 +200,22 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
             if (mOnOtpionOptionMainMenuListner != null) {
                 mOnOtpionOptionMainMenuListner.onMenuClick(this, fragment);
             }
+
+        } else if (v == proprtyMenu) {
+            arcMenu.toggleMenu();
+            activity.registerNew(Constant.PROPERTY);
+
+        } else if (v == serviveMenu) {
+            arcMenu.toggleMenu();
+            activity.registerNew(Constant.SERVICE);
+
+        } else if (v == consultingMenu) {
+            arcMenu.toggleMenu();
+            activity.registerNew(Constant.CONSULTING);
+
+        }  else if (v == officeMenu) {
+            arcMenu.toggleMenu();
+            activity.registerNew(Constant.OFFICE);
 
         }
     }

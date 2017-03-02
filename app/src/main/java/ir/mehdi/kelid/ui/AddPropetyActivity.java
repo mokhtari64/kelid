@@ -2,6 +2,7 @@ package ir.mehdi.kelid.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
@@ -14,7 +15,7 @@ import java.util.Vector;
 /**
  * Created by Mahdi on 06/22/2016.
  */
-public class AddAdverActivity extends Activity {
+public class AddPropetyActivity extends AppCompatActivity {
     LinearLayout properyLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

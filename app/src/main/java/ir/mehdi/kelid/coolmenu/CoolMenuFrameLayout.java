@@ -132,7 +132,6 @@ public final class CoolMenuFrameLayout extends FrameLayout {
                 frameLayout.setOnClickListener(mMenuChooser);
                 frameLayout.setOnMenuClickListener(menuListener);
 
-
                 frameLayout.setMenuTitleSize(mTitleSize);
                 frameLayout.setMenuTitleColor(mTitleColor);
                 if (i == num - 1) frameLayout.setMenuAlpha(1);
