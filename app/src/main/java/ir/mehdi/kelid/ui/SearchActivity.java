@@ -17,7 +17,7 @@ import android.widget.ToggleButton;
 
 import ir.mehdi.kelid.R;
 
-public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class SearchActivity extends  KelidActivity implements AdapterView.OnItemSelectedListener {
 
 
     String[] nameItem = {"املاک", "دفاتر خدماتی", "دفاتر مشاوره ای", "دفاتر املاک", "اخبار"};

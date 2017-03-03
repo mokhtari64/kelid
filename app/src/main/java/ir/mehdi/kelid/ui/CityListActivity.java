@@ -12,7 +12,7 @@ import ir.mehdi.kelid.R;
 /**
  * Created by iman on 6/8/2016.
  */
-public class CityListActivity extends AppCompatActivity {
+public class CityListActivity extends  KelidActivity {
 
 
     @Override

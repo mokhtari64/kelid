@@ -23,7 +23,7 @@ import java.io.File;
 /**
  * Created by Mahdi on 07/05/2016.
  */
-public class MyMain extends AppCompatActivity {
+public class MyMain extends  KelidActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_main);

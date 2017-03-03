@@ -29,6 +29,7 @@ import ir.mehdi.kelid.ui.AddConsulatingActivity;
 import ir.mehdi.kelid.ui.AddOfficeActivity;
 import ir.mehdi.kelid.ui.AddPropetyActivity;
 import ir.mehdi.kelid.ui.AddServiceActivity;
+import ir.mehdi.kelid.ui.KelidActivity;
 import ir.mehdi.kelid.ui.NodeFragmentDialog;
 import ir.mehdi.kelid.ui.fragment.ListItemFragment;
 import ir.mehdi.kelid.utils.Utils;
@@ -41,7 +42,7 @@ import java.util.Vector;
 /**
  * Created by Iman on 1/5/2017.
  */
-public class MainActivity extends AppCompatActivity implements Constant {
+public class MainActivity extends KelidActivity implements Constant {
 
 
     float orgPos1X;

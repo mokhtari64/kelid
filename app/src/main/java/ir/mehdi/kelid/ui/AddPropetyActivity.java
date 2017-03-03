@@ -15,7 +15,7 @@ import java.util.Vector;
 /**
  * Created by Mahdi on 06/22/2016.
  */
-public class AddPropetyActivity extends AppCompatActivity {
+public class AddPropetyActivity extends  KelidActivity {
     LinearLayout properyLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

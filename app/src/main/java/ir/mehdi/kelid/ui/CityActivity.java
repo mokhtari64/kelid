@@ -23,7 +23,7 @@ import ir.mehdi.kelid.model.*;
 import ir.mehdi.kelid.utils.ProvinceMap;
 
 
-public class CityActivity extends AppCompatActivity {
+public class CityActivity extends  KelidActivity {
     Context context;
 
 

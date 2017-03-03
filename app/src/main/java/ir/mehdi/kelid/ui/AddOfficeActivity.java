@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
 
-public class AddOfficeActivity extends AppCompatActivity {
+public class AddOfficeActivity extends  KelidActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
