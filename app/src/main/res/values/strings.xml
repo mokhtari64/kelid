@@ -161,6 +161,29 @@
     <string name="login"> ورود </string>
 
 
+    <string name="send_error">خطا در ارتباط با مرکز</string>
+    <string name="ok"> باشه</string>
+    <string name="tryagain">تلاش مجدد</string>
+    <string name="server_connection">ارتباط به سرور ....</string>
+    <string name="check_connection">بررسی اتصال</string>
+    <string name="zone">مکان</string>
+    <string name="last_use">آخرین بازدید </string>
+    <string name="user_name">نام کاربر</string>
+    <string name="user_group">گروه کاربری</string>
+    <string name="save">ذخیره</string>
+    <string name="cancel">صرف نظر کردن</string>
+    <string name="delete">حذف کردن</string>
+    <string name="edit_fav">مدیریت صفحه اصلی</string>
+    <string name="about_me">درباره ما</string>
+    <string name="rules">قوانین</string>
+    <string name="select">انتخاب</string>
+    <string name="edit">ویرایش</string>
+    <string name="edit_senario">سناریوها</string>
+    <string name="edit_user">کاربران</string>
+    <string name="edit_zone">اتاق ها</string>
+    <string name="edit_node">دستگاه ها</string>
+
+
     <string name="ic_1">فروش</string>
     <string name="ic_2">نمایندگی ها</string>
     <string name="ic_3">اوراقي و استوك</string>

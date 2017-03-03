@@ -12,11 +12,12 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_height="@dimen/defualt_addmenu"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
             android:text="@string/dialog_title"
             android:id="@+id/textView4"
-            android:textColor="@color/my_stroke" />
+            android:textColor="@color/my_stroke"
+            android:gravity="center_vertical" />
 
         <LinearLayout
             android:orientation="vertical"

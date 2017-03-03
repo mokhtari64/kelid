@@ -8,7 +8,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/nav_header_height"
+        android:layout_height="@dimen/defualt_spacing"
         android:background="@android:color/transparent"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -16,50 +16,38 @@
 
         <ImageView
             android:id="@+id/cl_menu"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
-            android:layout_weight="0"
+            android:layout_width="@dimen/defualt_spacing"
+            android:layout_height="@dimen/defualt_spacing"
             android:scaleType="fitCenter"
-            android:src="@drawable/ico" />
+            android:src="@drawable/ico"
+            android:layout_margin="5dp" />
 
         <TextView
             android:id="@id/cl_title"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="@dimen/defualt_spacing"
             android:layout_weight="1"
             android:textColor="@android:color/primary_text_light"
             android:textSize="@dimen/cl_title_size" />
 
         <ImageView
             android:id="@+id/cl_option_menu"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/defualt_spacing"
+            android:layout_height="@dimen/defualt_spacing"
             android:layout_gravity="right"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="0"
 
             android:scaleType="fitCenter"
-            android:src="@drawable/amlak" />
+            android:src="@drawable/amlak"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp" />
 
 
     </LinearLayout>
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/imageView8"
-        android:src="@drawable/main2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:scaleType="fitEnd" />
-
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/imageView11"
+        android:layout_width="@dimen/defualt_spacing3x"
+        android:layout_height="@dimen/defualt_spacing3x"
         android:src="@drawable/main2"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -122,5 +110,167 @@
             android:layout_height="wrap_content" />
 
     </com.sa90.materialarcmenu.ArcMenu>
+
+    <LinearLayout
+        android:id="@+id/setting_layer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/my_transparent"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/menu_space"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="@dimen/defualt_spacing3x"
+            android:layout_height="match_parent"
+            android:background="@color/login_black"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/defualt_spacing" >
+
+            <RelativeLayout
+                android:id="@+id/edit_device"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/defualt_spacing"
+                android:background="@color/line1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/TextMenu"
+                    android:background="@drawable/user_shape"
+                    android:text="@string/edit_node"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/edit_zone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/defualt_spacing"
+                android:background="@color/line2"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/TextMenu"
+                    android:background="@drawable/user_shape"
+                    android:text="@string/edit_zone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/edit_senario"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/defualt_spacing"
+                android:background="@color/line4"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/TextMenu"
+                    android:background="@drawable/user_shape"
+                    android:text="@string/edit_senario"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/edit_user"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/defualt_spacing"
+                android:background="@color/line5"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/TextMenu"
+                    android:background="@drawable/user_shape"
+                    android:text="@string/edit_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rules"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/defualt_spacing"
+                android:background="@color/line7"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/TextMenu"
+                    android:background="@drawable/user_shape"
+                    android:text="@string/rules"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/about_me"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/defualt_spacing"
+                android:background="@color/line10"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/TextMenu"
+                    android:background="@drawable/user_shape"
+                    android:text="@string/about_me"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/exit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/defualt_spacing"
+                android:background="@color/line11"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/TextMenu"
+                    android:background="@drawable/user_shape"
+                    android:text="@string/exit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_gravity="right"
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            app:srcCompat="@drawable/setting_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ToggleButton
+            android:id="@+id/setting"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:layout_gravity="right"
+            android:layout_marginBottom="29dp"
+            android:layout_marginLeft="29dp"
+            android:background="@drawable/setting"
+            android:src="@drawable/setting"
+            android:textOff=""
+            android:textOn=""
+            android:layout_alignParentRight="false"
+            android:layout_alignParentTop="false" />
+    </RelativeLayout>
 
 </RelativeLayout>

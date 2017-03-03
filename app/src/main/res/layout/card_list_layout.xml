@@ -8,15 +8,12 @@
     android:background="#563761"
     android:orientation="vertical">
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="@dimen/nav_header_height"
+        android:layout_marginTop="@dimen/defualt_spacing"
         android:id="@+id/recycler"
         android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
-
-
-
 
 
 </FrameLayout>

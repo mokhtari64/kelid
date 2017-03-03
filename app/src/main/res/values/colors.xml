@@ -18,8 +18,8 @@
     <color name="half_black">#808080</color>
     <color name="my_main_back">#cccccc</color>
     <color name="my_back">#64ffffff</color>
-    <color name="my_stroke">#d7fa4b</color>
-    <color name="my_header">#c63cd631</color>
+    <color name="my_stroke">#ff17a5d8</color>
+    <color name="my_header">#6417a5d8</color>
     <color name="toggle">#64ffffff</color>
     <color name="toggle_focused">#e22992</color>
     <color name="white">#fafafa</color>
@@ -28,4 +28,20 @@
     <color name="pink_pressed">#ec407a</color>
     <color name="blue_semi_transparent">#805677fc</color>
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
+    <color name="login_black">#283036</color>
+    <color name="my_transparent">#40000000</color>
+
+    <color name="iman">#3F51B5</color>
+    <color name="line1">#4900d4</color>
+    <color name="line2">#9b00e5</color>
+    <color name="line3">#e900e5</color>
+    <color name="line4">#ff0fae</color>
+    <color name="line5">#f1004c</color>
+    <color name="line6">#ff0500</color>
+    <color name="line7">#ff7b00</color>
+    <color name="line8">#eda000</color>
+    <color name="line9">#f0f400</color>
+    <color name="line10">#a1ee00</color>
+    <color name="line11">#52e400</color>
+    <color name="zone">#525c69</color>
 </resources>

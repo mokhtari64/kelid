@@ -212,14 +212,14 @@ public class NodeFragmentDialog extends DialogFragment {
         }
     }
 
-    public void setSize() {
-        Window window = getDialog().getWindow();
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int width = (int) (displaymetrics.widthPixels * 0.9);
-        int height = Utils.getDPforPixel(activity,100);
-        window.setLayout(width, height);
-    }
+//    public void setSize() {
+//        Window window = getDialog().getWindow();
+//        DisplayMetrics displaymetrics = new DisplayMetrics();
+//        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+//        int width = (int) (displaymetrics.widthPixels * 0.9);
+//        int height = Utils.getDPforPixel(activity,100);
+//        window.setLayout(width, height);
+//    }
 
 
     @Override
@@ -254,7 +254,7 @@ public class NodeFragmentDialog extends DialogFragment {
         NodeFragmentSegment.parent = this;
         View view = inflater.inflate(R.layout.dialog_fragment_layout, container, false);
 
-        setSize();
+//        setSize();
         Vector<Node> childs = Database.getInstance().root.childs;
         for (int i = 0; i < childs.size(); i++) {
             Node node = childs.get(i);

@@ -1,25 +1,70 @@
 package ir.mehdi.kelid.utils;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
-/**
- * Created by iman on 6/8/2016.
- */
+import ir.mehdi.kelid.Const;
+import ir.mehdi.kelid.KelidApplication;
+import ir.mehdi.kelid.R;
+
 public class Utils {
-    public static String pathpack = "app.fanoos.ir.fanoosapp";
 
-    public static int getDPforPixel(Context context,int dp)
+    public  static int getScreenWidth(Activity activity)
     {
-        Resources r = context.getResources();
-        return (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                dp,
-                r.getDisplayMetrics()
-        );
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+//        int height = displaymetrics.heightPixels;
+        int width = displaymetrics.widthPixels;
+        return width;
     }
 
+    public static void expand(final View v) {
+        float targetWidth = v.getWidth();
+        v.setX(-targetWidth);
+        v.setVisibility(View.VISIBLE);
+        v.animate().translationX(0).setDuration(Const.AnimDuration);
+    }
+
+//    public static void collapse(final View v, Activity activity) {
+//        float sw = app.shome.ir.shome.Utils.getScreenWidth(activity);
+//        v.animate().translationX(-sw).setDuration(Const.AnimDuration);
+//    }
+
+    public static void zoom_in(final View v) {
+        Animation aa = AnimationUtils.loadAnimation(KelidApplication.applicationContext, R.anim.zoom_in);
+        aa.setDuration(Const.AnimDuration);
+        v.startAnimation(aa);
+    }
+
+    public static void zoom_out(final View v) {
+        Animation aa = AnimationUtils.loadAnimation(KelidApplication.applicationContext, R.anim.zoom_out);
+        aa.setDuration(Const.AnimDuration);
+        v.startAnimation(aa);
+    }
+
+    public static void change_color(final View v, int colorFrom, int colorTo) {
+//        int colorFrom = getResources().getColor(R.color.transparent);
+//        int colorTo = getResources().getColor(R.color.white);
+        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        colorAnimation.setDuration(Const.AnimDuration);
+        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                v.setBackgroundColor((int) animator.getAnimatedValue());
+            }
+
+        });
+        colorAnimation.start();
+    }
 
 
     public final static String unescape_perl_string(String oldstr) {
