@@ -12,6 +12,14 @@ public interface Constant {
 
 
 
+    public static final int DRAFT_STATUS=3;
+    public static final int WAIT_STATUS=0;
+    public static final int ACCEPT_STATUS=1;
+    public static final int REJECT_STATUS=2;
+
+
+
+
 
     String FANOOS_NEW_APP_DOWNLOADED = "app.fanoos.ir.newappdowloaded";
     String FANOOS_NEW_DOWNLOADED_MSG = "app.fanoos.ir.message";

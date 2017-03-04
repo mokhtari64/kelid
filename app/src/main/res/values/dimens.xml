@@ -14,5 +14,8 @@
     <dimen name="cl_title_size">20sp</dimen>
     <dimen name="setting_size">45dp</dimen>
     <dimen name="setting_text_size">18sp</dimen>
-
+    <dimen name="node_hear_height">50dp</dimen>
+    <dimen name="advers_height_one_grid">150dp</dimen>
+    <dimen name="advers_height_two_grid">100dp</dimen>
+    <dimen name="filter_height">45dp</dimen>
 </resources>

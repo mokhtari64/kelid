@@ -10,7 +10,8 @@
     <color name="SERVICE">#3cd631</color>
     <color name="OFFICE">#d7fa4b</color>
     <color name="CONSULTING">#5677fc</color>
-
+<color name="black">#000000</color>
+<color name="progress">#3cd631</color>
     <color name="black_overlay">#66000000</color>
 
     <color name="black_semi_transparent">#B2000000</color>

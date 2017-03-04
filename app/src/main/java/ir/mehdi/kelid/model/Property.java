@@ -1,10 +1,453 @@
 package ir.mehdi.kelid.model;
 
+import android.provider.Settings;
+
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Vector;
+
+import ir.mehdi.kelid.Constant;
+import ir.mehdi.kelid.utils.FileUtils;
+import ir.mehdi.kelid.utils.Utils;
+
+import static ir.mehdi.kelid.Constant.DRAFT_STATUS;
+
 /**
  * Created by Mahdi on 15/07/2016.
  */
-public class Property {
-    public String name,email,address;
+public class Property
+        implements Constant, Comparable<Property>, Serializable {
+    public int order = 0;
+    public Date loadedDate;
+    public Vector<Payment> payments = new Vector<>();
+
+    public int getImageCount() {
+        int cnt = 0;
+        for (int i = 0; i < images.size(); i++) {
+            if (!images.get(i).deleted)
+                cnt++;
+
+        }
+        return cnt;
+    }
+
+    public Vector<Image> getShowImage() {
+        Vector<Image> images = new Vector<>();
+
+        for (int i = 0; i < this.images.size(); i++) {
+            if (!this.images.get(i).deleted)
+                images.add(this.images.get(i));
+
+        }
+        return images;
+
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Property) {
+
+            return remote_id == ((Property) obj).remote_id;
+        } else
+            return false;
+
+    }
+
+    public String qr_code;
+
+    public boolean validToSend() {
+        return ((name != null && name.length() > 0) && (mobile != null && mobile.length() > 0) && (desc != null && desc.length() > 0) && (title != null && title.length() > 0)
+                && nodeid != 0);
+    }
+
+    public boolean loaded = false;
+
+    public void setLoaded(boolean loaded) {
+        this.loaded = loaded;
+
+    }
+
+    public boolean isLoaded() {
+        return loaded;
+    }
+
+    public long local_id, remote_id;
+    public long totalVisited, day1Cnt, day2Cnt, day3Cnt, day4Cnt;
+    public String token;
+    public int status = DRAFT_STATUS;
+
+    public String title,  desc, advers;
+    public boolean noon, evening, moorning, boarding, bike, cardReader, namevisible;
+    public int region, city, nodeid;
+    public String tel, mobile, telegram;
+
+    public String send_title = "", send_name = "", send_desc = "", send_advers = "", send_email = "", send_address = "";
+    public String send_tel = "", send_mobile = "", send_telegram = "";
+    public int send_region, send_city, send_nodeid;
+    public boolean send_noon, send_evening, send_moorning, send_boarding, send_bike, send_cardReader, send_namevisible;
+
+
+    public Vector<Image> images = new Vector<>();
+
+
+    public String dateString;
+    public Date date;
+
+    public int bookmark;
+
+    public int myjob;//1 pishhnevis,2 taeed,-1 reject
+    public int reportindex;
+    public String reporttext;
+
+
+    public String createQRString() {
+        if (qr_code == null || qr_code.length() == 0) {
+            String android_id = Settings.Secure.getString(FanoosApplication.applicationContext.getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+            Date date = new Date();
+            long a = date.getTime();
+            qr_code = android_id + a;
+        }
+
+        return qr_code;
+
+    }
+
+
+    public Image addImage(int id, String localname, String url, int main, int deleted) {
+        Image a = new Image();
+        a.deleted = deleted == 1;
+        a.id = id;
+        a.localname = localname;
+        if (url != null) {
+            a.remotename = VolleyService.IMAGE_PATH + url;
+            a.thumbnail = VolleyService.IMAGE_thumbnail_PATH + url;
+
+        }
+
+        a.main = main == 1;
+        if (a.main) {
+            for (int i = 0; i < images.size(); i++) {
+                images.get(i).main = false;
+            }
+        }
+        images.add(a);
+        return a;
+    }
+
+    public void setServerData() {
+        send_title = title;
+        send_name = name;
+        send_desc = desc;
+        send_advers = advers;
+        send_email = email;
+        send_address = address;
+        send_tel = tel;
+        send_mobile = mobile;
+        send_telegram = telegram;
+        send_noon = noon;
+        send_namevisible = namevisible;
+        send_evening = evening;
+        send_moorning = moorning;
+        send_boarding = boarding;
+        send_bike = bike;
+        send_cardReader = cardReader;
+        send_region = region;
+        send_city = city;
+        send_nodeid = nodeid;
+
+    }
+
+    public boolean isChanged() {
+
+        boolean change = false;
+        if (title != null && !title.trim().equals(send_title.trim())) {
+            change = true;
+        }
+        if (name != null && !name.trim().equals(send_name.trim())) {
+            change = true;
+        }
+        if (desc != null && !desc.trim().equals(send_desc.trim())) {
+            change = true;
+        }
+        if (advers != null && !advers.trim().equals(send_advers.trim())) {
+            change = true;
+        }
+        if (email != null && !email.trim().equals(send_email.trim())) {
+            change = true;
+        }
+        if (address != null && !address.trim().equals(send_address.trim())) {
+            change = true;
+        }
+        if (tel != null && !tel.trim().equals(send_tel.trim())) {
+            change = true;
+        }
+        if (mobile != null && !mobile.trim().equals(send_mobile.trim())) {
+            change = true;
+        }
+        if (telegram != null && !telegram.trim().equals(send_telegram.trim())) {
+            change = true;
+        }
+        if (noon != send_noon) {
+            change = true;
+        }
+        if (namevisible != send_namevisible) {
+            change = true;
+        }
+        if (evening != send_evening) {
+            change = true;
+        }
+        if (moorning != send_moorning) {
+            change = true;
+        }
+        if (boarding != send_boarding) {
+            change = true;
+        }
+        if (bike != send_bike) {
+            change = true;
+        }
+        if (cardReader != send_cardReader) {
+            change = true;
+        }
+        if (region != send_region) {
+            change = true;
+        }
+        if (city != send_city) {
+            change = true;
+        }
+        if (nodeid != send_nodeid) {
+            change = true;
+        }
+        for (int i = 0; i < images.size(); i++) {
+            if ((images.get(i).deleted && images.get(i).remotename != null) || images.get(i).remotename == null) {
+                change = true;
+            }
+        }
+
+        return change;
+    }
+
+    public void setPieNum(Vector<Utils.VisitedDate> visitedDates1) {
+        Date currentDate = new Date();
+        for (int i = 0; i < visitedDates1.size(); i++) {
+            Utils.VisitedDate visitedDate = visitedDates1.get(i);
+            long diff = Utils.getZeroTimeDate(currentDate).getTime() - Utils.getZeroTimeDate(visitedDate.date).getTime();
+
+            float dayCount = (float) diff / (24 * 60 * 60 * 1000);
+            if (dayCount == 0) {
+                day1Cnt = visitedDate.visited;
+            } else if (dayCount == 1) {
+                day2Cnt = visitedDate.visited;
+            } else if (dayCount == 2) {
+                day3Cnt = visitedDate.visited;
+            } else if (dayCount == 3) {
+                day4Cnt = visitedDate.visited;
+            }
+        }
+
+    }
+
+    @Override
+    public int compareTo(Property o) {
+        if (date == null || o.date == null)
+            return 1;
+        return o.date.compareTo(date);
+    }
+
+//    @Override
+//    public int compareTo(UserJob o) {
+//        if(date==null || o==null || o.date==null)
+//            return 1;
+//        return date.compareTo(o.date);
+//    }
+
+    public static class Image implements Serializable, Comparable<Image> {
+        public long id;
+        public boolean deleted;
+        public String localname;
+        public String remotename;
+        public String thumbnail;
+        public boolean main;
+
+        @Override
+        public int compareTo(Image o) {
+            return (main) ? -1 : (o.main) ? 1 : -1;
+        }
+    }
+
+    public static class Payment implements Serializable{
+        public Date payDate;
+        public int type;
+        public Date festivalDate;
+
+
+    }
+
+    public void fillSummeryFromJsonObject(JSONObject jobObject1) {
+
+        try {
+            remote_id = jobObject1.getInt("id");
+            title = jobObject1.getString("title");
+            mobile = jobObject1.getString("mobile");
+            advers = jobObject1.getString("advertise_text");
+            try {
+                region = jobObject1.getInt("region_id");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            String image = jobObject1.getString("img");
+            if (image != null && image.length() > 0 && !image.equals("null")) {
+                addImage(0, null, image, 1, 0);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void addImageFromJsonObject(JSONObject object, boolean saveImages) {
+        try {
+            int main = 0;
+
+            String nameFile = object.getString("nameFile");
+            if (nameFile != null && nameFile.equals("null"))
+                nameFile = null;
+            if (nameFile != null) {
+                String photo = object.getString("photo_id");
+                String idFile = null;
+                try {
+                    idFile = object.getString("idFile");
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+                if (photo != null && (idFile == null || photo.equals(idFile))) {// if (photo != null && photo.equals(object.getString("idFile"))) {
+                    main = 1;
+                }
+            }
+            if (saveImages) {
+                String local_name = object.getString("local_name");
+                if (local_name != null && local_name.equals("null"))
+                    local_name = nameFile;
+                local_name = (local_name == null) ? null : FileUtils.getInstance().getImageFile(local_name).getAbsolutePath();
+                addImage(0, local_name, (nameFile == null) ? null : nameFile, main, 0);
+            } else if (nameFile != null)
+                addImage(0, null, (nameFile == null) ? null : nameFile, main, 0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void fillFromJsonObject(JSONObject object, boolean saveImage) {
+        try {
+            String da = object.getString("created");
+
+            String format = "yyyy-MM-dd hh:mm:ss";
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            date = sdf.parse(da);
+            name = object.getString("name");
+            status = object.getInt("status");
+            if (name != null && name.toLowerCase().equals("null"))
+                name = null;
+            title = object.getString("title");
+            if (title != null && title.toLowerCase().equals("null"))
+                title = null;
+            telegram = object.getString("telegram");
+            if (telegram != null && telegram.toLowerCase().equals("null"))
+                telegram = null;
+            address = object.getString("address");
+            if (address != null && address.toLowerCase().equals("null"))
+                address = null;
+            advers = object.getString("advertise_text");
+            if (advers != null && advers.toLowerCase().equals("null"))
+                advers = null;
+            email = object.getString("email");
+            if (email != null && email.toLowerCase().equals("null"))
+                email = null;
+//                    email = object.getString("worktime");
+            desc = object.getString("description");
+            if (desc != null && desc.toLowerCase().equals("null"))
+                desc = null;
+            tel = object.getString("tel");
+            if (tel != null && tel.toLowerCase().equals("null"))
+                tel = null;
+            mobile = object.getString("mobile");
+            if (mobile != null && mobile.toLowerCase().equals("null"))
+                mobile = null;
+//                    =object.getString("province");
+            String a = object.getString("city");
+            if (a != null && !a.equals("null"))
+                city = Integer.parseInt(a);
+            a = object.getString("region_id");
+            if (a != null && !a.equals("null"))
+                region = Integer.parseInt(a);
+//                    name = object.getString("created");
+            moorning = object.getString("morning").equals("1");
+            noon = object.getString("noon").equals("1");
+            try {
+                namevisible = object.getString("name_visible").equals("1");
+            } catch (Exception e) {
+
+            }
+            evening = object.getString("evening").equals("1");
+            boarding = object.getString("boarding").equals("1");
+            cardReader = object.getString("card_reader").equals("1");
+            bike = object.getString("bike_delivery").equals("1");
+            nodeid = object.getInt("level3");
+            addImageFromJsonObject(object, saveImage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void fillFromUserJob(Property object) {
+        if (object == null)
+            return;
+        try {
+            name = object.name;
+            title = object.title;
+            telegram = object.telegram;
+            address = object.address;
+            advers = object.advers;
+            email = object.email;
+            desc = object.desc;
+            tel = object.tel;
+            mobile = object.mobile;
+
+            city = object.city;
+            region = object.region;
+            moorning = object.moorning;
+            noon = object.noon;
+            namevisible = object.namevisible;
+            evening = object.evening;
+            boarding = object.boarding;
+            cardReader = object.cardReader;
+            bike = object.bike;
+            nodeid = object.nodeid;
+            dateString = object.dateString;
+            date = object.date;
+            images = object.images;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+    public String name,email,avenue,street,address;
+    int totalTabaghe,totalVahed,vahed,tabaghe,hashieh,room;
 
     @Override
     public String toString() {
