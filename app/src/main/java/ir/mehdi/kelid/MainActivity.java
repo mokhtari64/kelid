@@ -46,7 +46,7 @@ public class MainActivity extends KelidActivity implements Constant {
 
 
     float orgPos1X;
-    LinearLayout dashboard_layer;
+//    LinearLayout dashboard_layer;
     ImageButton dashboardTab;
     ToggleButton settingbtn;
     LayoutInflater inflater;
@@ -70,13 +70,7 @@ public class MainActivity extends KelidActivity implements Constant {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        float orgPos1X = setting_layer.getX();
-        settingbtn = (ToggleButton) findViewById(R.id.setting);
-        alpha = AnimationUtils.loadAnimation(this, R.anim.alpha);
-        alpha_out = AnimationUtils.loadAnimation(this, R.anim.alpha_out);
-        rotation = AnimationUtils.loadAnimation(this, R.anim.clockwise_rotation);
-        rotation_out = AnimationUtils.loadAnimation(this, R.anim.unclockwise_rotation);
-
+        setContentView(R.layout.cool_activity_main);
         setting_layer = (LinearLayout) findViewById(R.id.setting_layer);
         menu_space = (RelativeLayout) findViewById(R.id.menu_space);
         edit_device = (RelativeLayout) findViewById(R.id.edit_device);
@@ -87,8 +81,16 @@ public class MainActivity extends KelidActivity implements Constant {
         about_me = (RelativeLayout) findViewById(R.id.about_me);
         exit = (RelativeLayout) findViewById(R.id.exit);
 
+        float orgPos1X = setting_layer.getX();
+        settingbtn = (ToggleButton) findViewById(R.id.setting);
+        alpha = AnimationUtils.loadAnimation(this, R.anim.alpha);
+        alpha_out = AnimationUtils.loadAnimation(this, R.anim.alpha_out);
+        rotation = AnimationUtils.loadAnimation(this, R.anim.clockwise_rotation);
+        rotation_out = AnimationUtils.loadAnimation(this, R.anim.unclockwise_rotation);
 
-        setContentView(R.layout.cool_activity_main);
+
+
+
         titles = new String[]{
                 getString(R.string.property),
                 getString(R.string.office_services),
@@ -169,7 +171,7 @@ public class MainActivity extends KelidActivity implements Constant {
                     settingbtn.startAnimation(rotation_out);
 //                    settingbtn.setHighlightColor(0xff33b5e5);
                     setting_layer.animate().translationX(setting_layer.getX() + sw).setDuration(Const.AnimDuration);
-                    dashboard_layer.animate().alpha((float) 0.3).setDuration(Const.AnimDuration);
+//                    dashboard_layer.animate().alpha((float) 0.3).setDuration(Const.AnimDuration);
 
 //                    recyclerView.animate().translationX(screenWidth).setDuration(dtime);
 //                    setting_layer.setVisibility(View.VISIBLE);
@@ -202,7 +204,7 @@ public class MainActivity extends KelidActivity implements Constant {
             settingbtn.startAnimation(rotation);
             setting_layer.animate().translationX(orgPos1X - screenWidth).setDuration(Const.AnimDuration);
 //                    recyclerView.animate().translationX(orgPos1X).setDuration(dtime);
-            dashboard_layer.animate().alpha(1).setDuration(Const.AnimDuration);
+//            dashboard_layer.animate().alpha(1).setDuration(Const.AnimDuration);
 //                    setting_layer.setVisibility(View.GONE);
 //                    recyclerView.setVisibility(View.VISIBLE);
             final Handler handler = new Handler();
