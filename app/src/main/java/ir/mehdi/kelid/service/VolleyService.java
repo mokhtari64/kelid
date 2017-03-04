@@ -15,9 +15,23 @@ import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 
+import org.apache.http.Consts;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,8 +55,13 @@ import java.util.Vector;
 import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.MainActivity;
+import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.UserConfig;
+import ir.mehdi.kelid.db.Database;
+import ir.mehdi.kelid.db.MySqliteOpenHelper;
+import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
+import ir.mehdi.kelid.utils.FileUtils;
 import ir.mehdi.kelid.utils.Utils;
 
 
@@ -99,7 +118,7 @@ public class VolleyService extends Service implements Constant {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         if (Utils.isNetworkConnected()) {
-            CheckVersionAsync();
+//            CheckVersionAsync();
             if (UserConfig.userToken != null && !UserConfig.userToken.equals("-1")) {
                 CheckMyAdvers();
             }
@@ -136,9 +155,9 @@ public class VolleyService extends Service implements Constant {
             PendingIntent pIntent = PendingIntent.getActivity(KelidApplication.applicationContext, (int) System.currentTimeMillis(), intent, PendingIntent.FLAG_ONE_SHOT);
 
             Notification.Builder n = new Notification.Builder(this)
-                    .setContentTitle(KelidApplication.applicationContext.getString(R.string.app_name_fa))
+                    .setContentTitle(KelidApplication.applicationContext.getString(R.string.app_name))
                     .setContentText((property.status == 1) ? KelidApplication.applicationContext.getString(R.string.accepted_job) : KelidApplication.applicationContext.getString(R.string.reject_job))
-                    .setSmallIcon(R.mipmap.logo)
+                    .setSmallIcon(R.drawable.ic_launcher)
                     .setAutoCancel(true).setContentIntent(pIntent);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -160,85 +179,85 @@ public class VolleyService extends Service implements Constant {
     }
 
 
-    private void setUpNotification(int cnt, int fixnum){
-        SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
-        int local_fix_num = preferences.getInt("local_fix_num", -1);
-        int next_cnt = preferences.getInt("next_cnt", -1);
-        boolean notif = false;
-        if (local_fix_num == -1) {
-            local_fix_num = fixnum;
-            if (cnt > fixnum)
-                notif = true;
-            next_cnt = cnt / fixnum + 1;
-        } else {
-            if (next_cnt * local_fix_num < cnt) {
-                notif = true;
-            }
-            local_fix_num = fixnum;
-            next_cnt = cnt / fixnum + 1;
-        }
-        SharedPreferences.Editor edit = preferences.edit();
-        edit.putInt("local_fix_num", local_fix_num);
-        edit.putInt("next_cnt", next_cnt);
-        edit.commit();
-        if (!notif)
-            return;
-
-        String s = KelidApplication.applicationContext.getString(R.string.job_cnt_message);
-        s = String.format(s, cnt);
-
-        NotificationManager  mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-
-        Intent intentNotif = new Intent(this,CountNotificationActivity.class);
-        intentNotif.putExtra("msg", s);
-        intentNotif.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pendIntent = PendingIntent.getActivity(this, 579, intentNotif, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-        RemoteViews  mRemoteViews = new RemoteViews(getPackageName(), R.layout.limit_notification);
-
-
-        mRemoteViews.setTextViewText(R.id.title, getResources().getString(R.string.app_name_fa));
-        // notification's content
-        mRemoteViews.setTextViewText(R.id.text, s);
-
-        NotificationCompat.Builder  mBuilder = new NotificationCompat.Builder(this);
-        int l = (int) System.currentTimeMillis();
-        CharSequence ticker = getResources().getString(R.string.app_name_fa);
-        int apiVersion = Build.VERSION.SDK_INT;
-        Notification mNotification=null;
-        if (apiVersion < Build.VERSION_CODES.HONEYCOMB) {
-            mNotification = new Notification(R.mipmap.logo, ticker, System.currentTimeMillis());
-            mNotification.contentView = mRemoteViews;
-            mNotification.contentIntent = pendIntent;
-
-            mNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-
-            mNotification.defaults |= Notification.DEFAULT_LIGHTS;
-
-
-//            startForeground(l, mNotification);
-
-        }else if (apiVersion >= Build.VERSION_CODES.HONEYCOMB) {
-            mBuilder.setSmallIcon(R.mipmap.logo)
-                    .setAutoCancel(false)
-                    .setOngoing(true)
-                    .setContentIntent(pendIntent)
-                    .setContent(mRemoteViews).setAutoCancel(true);
-//                    .setTicker(ticker);
-            mNotification=mBuilder.build();
-
-//            startForeground(l, mNotification);
-
-        }
-        int api = Build.VERSION.SDK_INT;
-        if (api < Build.VERSION_CODES.HONEYCOMB) {
-            mNotificationManager.notify(0, mNotification);
-        }else if (api >= Build.VERSION_CODES.HONEYCOMB) {
-            mNotificationManager.notify(l,mNotification);
-        }
-    }
+//    private void setUpNotification(int cnt, int fixnum){
+//        SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
+//        int local_fix_num = preferences.getInt("local_fix_num", -1);
+//        int next_cnt = preferences.getInt("next_cnt", -1);
+//        boolean notif = false;
+//        if (local_fix_num == -1) {
+//            local_fix_num = fixnum;
+//            if (cnt > fixnum)
+//                notif = true;
+//            next_cnt = cnt / fixnum + 1;
+//        } else {
+//            if (next_cnt * local_fix_num < cnt) {
+//                notif = true;
+//            }
+//            local_fix_num = fixnum;
+//            next_cnt = cnt / fixnum + 1;
+//        }
+//        SharedPreferences.Editor edit = preferences.edit();
+//        edit.putInt("local_fix_num", local_fix_num);
+//        edit.putInt("next_cnt", next_cnt);
+//        edit.commit();
+//        if (!notif)
+//            return;
+//
+//        String s = KelidApplication.applicationContext.getString(R.string.job_cnt_message);
+//        s = String.format(s, cnt);
+//
+//        NotificationManager  mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//
+//        Intent intentNotif = new Intent(this,CountNotificationActivity.class);
+//        intentNotif.putExtra("msg", s);
+//        intentNotif.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//        PendingIntent pendIntent = PendingIntent.getActivity(this, 579, intentNotif, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//
+//        RemoteViews  mRemoteViews = new RemoteViews(getPackageName(), R.layout.limit_notification);
+//
+//
+//        mRemoteViews.setTextViewText(R.id.title, getResources().getString(R.string.app_name_fa));
+//        // notification's content
+//        mRemoteViews.setTextViewText(R.id.text, s);
+//
+//        NotificationCompat.Builder  mBuilder = new NotificationCompat.Builder(this);
+//        int l = (int) System.currentTimeMillis();
+//        CharSequence ticker = getResources().getString(R.string.app_name_fa);
+//        int apiVersion = Build.VERSION.SDK_INT;
+//        Notification mNotification=null;
+//        if (apiVersion < Build.VERSION_CODES.HONEYCOMB) {
+//            mNotification = new Notification(R.drawable.ic_launcher, ticker, System.currentTimeMillis());
+//            mNotification.contentView = mRemoteViews;
+//            mNotification.contentIntent = pendIntent;
+//
+//            mNotification.flags |= Notification.FLAG_AUTO_CANCEL;
+//
+//            mNotification.defaults |= Notification.DEFAULT_LIGHTS;
+//
+//
+////            startForeground(l, mNotification);
+//
+//        }else if (apiVersion >= Build.VERSION_CODES.HONEYCOMB) {
+//            mBuilder.setSmallIcon(R.drawable.ic_launcher)
+//                    .setAutoCancel(false)
+//                    .setOngoing(true)
+//                    .setContentIntent(pendIntent)
+//                    .setContent(mRemoteViews).setAutoCancel(true);
+////                    .setTicker(ticker);
+//            mNotification=mBuilder.build();
+//
+////            startForeground(l, mNotification);
+//
+//        }
+//        int api = Build.VERSION.SDK_INT;
+//        if (api < Build.VERSION_CODES.HONEYCOMB) {
+//            mNotificationManager.notify(0, mNotification);
+//        }else if (api >= Build.VERSION_CODES.HONEYCOMB) {
+//            mNotificationManager.notify(l,mNotification);
+//        }
+//    }
 
 
 //    void displayJobCountNotification(int cnt, int fixnum) {
@@ -271,66 +290,66 @@ public class VolleyService extends Service implements Constant {
 //    }
 
 
-    public void CheckVersionAsync() {
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                CHECK_VERSION, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonObject) {
-                        try {
-                            int count = jsonObject.getInt("count_job");
-                            JSONObject b = jsonObject.getJSONObject("setting_fanoos");
-                            int fixnum = 10000;
-                            try {
-                                fixnum = b.getInt("default_count");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            setUpNotification(count, fixnum);
-                            JSONArray a = jsonObject.getJSONArray("andoird");
-                            int newVersion =-1;
-                            int lastid=0;
-                            for (int i = 0; i < a.length(); i++) {
-                                int newVersion2=((JSONObject) a.get(i)).getInt("api_level");
-
-                                if(newVersion2>newVersion)
-                                {
-                                    lastid=i;
-                                    newVersion=newVersion2;
-                                }
-                            }
-                            String link = ((JSONObject) a.get(lastid)).getString("link");
-                            String change_log = ((JSONObject) a.get(lastid)).getString("change_log");
-                            SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor edit = preferences.edit();
-                            edit.putInt("version", newVersion);
-                            UserConfig.newVersion=newVersion;
-                            UserConfig.change_log=change_log;
-
-                            edit.putString("link", link);
-                            edit.putString("change_log", change_log);
-
-                            edit.commit();
-
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error != null)
-                    error.getNetworkTimeMs();
-
-            }
-        });
-
-        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(60 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        KelidApplication.addToRequestQueue(jsonObjReq, "1");
-
-    }
+//    public void CheckVersionAsync() {
+//        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
+//                CHECK_VERSION, null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject jsonObject) {
+//                        try {
+//                            int count = jsonObject.getInt("count_job");
+//                            JSONObject b = jsonObject.getJSONObject("setting_fanoos");
+//                            int fixnum = 10000;
+//                            try {
+//                                fixnum = b.getInt("default_count");
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                            setUpNotification(count, fixnum);
+//                            JSONArray a = jsonObject.getJSONArray("andoird");
+//                            int newVersion =-1;
+//                            int lastid=0;
+//                            for (int i = 0; i < a.length(); i++) {
+//                                int newVersion2=((JSONObject) a.get(i)).getInt("api_level");
+//
+//                                if(newVersion2>newVersion)
+//                                {
+//                                    lastid=i;
+//                                    newVersion=newVersion2;
+//                                }
+//                            }
+//                            String link = ((JSONObject) a.get(lastid)).getString("link");
+//                            String change_log = ((JSONObject) a.get(lastid)).getString("change_log");
+//                            SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
+//                            SharedPreferences.Editor edit = preferences.edit();
+//                            edit.putInt("version", newVersion);
+//                            UserConfig.newVersion=newVersion;
+//                            UserConfig.change_log=change_log;
+//
+//                            edit.putString("link", link);
+//                            edit.putString("change_log", change_log);
+//
+//                            edit.commit();
+//
+//
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                if (error != null)
+//                    error.getNetworkTimeMs();
+//
+//            }
+//        });
+//
+//        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(60 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//        KelidApplication.getInstance().addToRequestQueue(jsonObjReq, "1");
+//
+//    }
 
     public void CheckMyAdvers() {
 
@@ -343,15 +362,15 @@ public class VolleyService extends Service implements Constant {
                         @Override
                         public void onResponse(String aaaa) {
                             boolean showNotif = false;
-                            Vector<UserJob> jobs = new Vector<>();
+                            Vector<Property> jobs = new Vector<>();
                             try {
                                 JSONArray jsonArray = new JSONArray(aaaa);
-                                Collection<UserJob> values = MySqliteOpenHelper.getInstance().myJobs.values();
+                                Collection<Property> values = MySqliteOpenHelper.getInstance().myJobs.values();
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                                     int id = jsonObject.getInt("id");
                                     int status1 = jsonObject.getInt("status");
-                                    for (UserJob userJob : values) {
+                                    for (Property userJob : values) {
                                         if (userJob.myjob == 1 && userJob.remote_id == id) {
                                             if (userJob.status != status1) {
                                                 userJob.status = status1;
@@ -359,7 +378,7 @@ public class VolleyService extends Service implements Constant {
                                                     showNotif = true;
                                                     jobs.add(userJob);
                                                 }
-                                                MySqliteOpenHelper.getInstance().insertORUpdateUserJob(userJob);
+                                                MySqliteOpenHelper.getInstance().insertORUpdateProperty(userJob);
                                             }
 
 
@@ -390,9 +409,9 @@ public class VolleyService extends Service implements Constant {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-                    Collection<UserJob> values = MySqliteOpenHelper.getInstance().myJobs.values();
+                    Collection<Property> values = MySqliteOpenHelper.getInstance().myJobs.values();
                     JSONArray jsonArray = new JSONArray();
-                    for (UserJob userJob : values) {
+                    for (Property userJob : values) {
                         if (userJob.myjob == 1 && userJob.remote_id != 0) {
                             jsonArray.put("" + userJob.remote_id);
                         }
@@ -407,7 +426,7 @@ public class VolleyService extends Service implements Constant {
 
             };
             jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(3 * 60 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            KelidApplication.addToRequestQueue(jsonObjReq, "2");
+            KelidApplication.getInstance().addToRequestQueue(jsonObjReq, "2");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -418,7 +437,7 @@ public class VolleyService extends Service implements Constant {
 
     }
 
-    public String SendActivationCode(final ServiceDelegate delegate, final int request, final UserJob userJob, final String mobile) {
+    public String SendActivationCode(final ServiceDelegate delegate, final int request, final Property userJob, final String mobile) {
 
 
         StringRequest jsonObjReq = new StringRequest(Request.Method.POST,
@@ -457,12 +476,12 @@ public class VolleyService extends Service implements Constant {
         };
         jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(15 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         String code = "" + System.currentTimeMillis();
-        KelidApplication.addToRequestQueue(jsonObjReq, code);
+        KelidApplication.getInstance().addToRequestQueue(jsonObjReq, code);
         return code;
 
     }
 
-    public String Login(final ServiceDelegate delegate, final int request, final UserJob userJob, final String mobile) {
+    public String Login(final ServiceDelegate delegate, final int request, final Property userJob, final String mobile) {
 
 
         StringRequest jsonObjReq = new StringRequest(Request.Method.POST,
@@ -502,12 +521,12 @@ public class VolleyService extends Service implements Constant {
         };
         jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(15 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         String code = "" + System.currentTimeMillis();
-        KelidApplication.addToRequestQueue(jsonObjReq, code);
+        KelidApplication.getInstance().addToRequestQueue(jsonObjReq, code);
         return code;
 
     }
 
-    public String LoginCheckCode(final ServiceDelegate delegate, final int request, final UserJob userJob, final String mobile, final String activate_code) {
+    public String LoginCheckCode(final ServiceDelegate delegate, final int request, final Property userJob, final String mobile, final String activate_code) {
 
 
         StringRequest jsonObjReq = new StringRequest(Request.Method.POST,
@@ -547,12 +566,12 @@ public class VolleyService extends Service implements Constant {
         };
         jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(15 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         String code = "" + System.currentTimeMillis();
-        KelidApplication.addToRequestQueue(jsonObjReq, code);
+        KelidApplication.getInstance().addToRequestQueue(jsonObjReq, code);
         return code;
 
     }
 
-    public void SendjobReport(final ServiceDelegate delegate, final int request, final UserJob userJob) {
+    public void SendjobReport(final ServiceDelegate delegate, final int request, final Property userJob) {
 
 
         StringRequest jsonObjReq = new StringRequest(Request.Method.POST,
@@ -581,11 +600,11 @@ public class VolleyService extends Service implements Constant {
 
         };
         jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(15 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        KelidApplication.addToRequestQueue(jsonObjReq, "2");
+        KelidApplication.getInstance().addToRequestQueue(jsonObjReq, "2");
 
     }
 
-    public String UserJobDetail(final ServiceDelegate delegate, final int req_code, final UserJob userJob) {
+    public String PropertyDetail(final ServiceDelegate delegate, final int req_code, final Property userJob) {
 
 
         JsonArrayRequest jsonObjReq = new JsonArrayRequest(Request.Method.GET,
@@ -605,7 +624,7 @@ public class VolleyService extends Service implements Constant {
         });
         jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         String code = "" + System.currentTimeMillis();
-        KelidApplication.addToRequestQueue(jsonObjReq, code);
+        KelidApplication.getInstance().addToRequestQueue(jsonObjReq, code);
         return code;
     }
 
@@ -633,7 +652,7 @@ public class VolleyService extends Service implements Constant {
             });
             jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             String code = "" + System.currentTimeMillis();
-            KelidApplication.addToRequestQueue(jsonObjReq, code);
+            KelidApplication.getInstance().addToRequestQueue(jsonObjReq, code);
             return code;
 //            KelidApplication.addToRequestQueue(jsonObjReq, "2");
         } catch (Exception e) {
@@ -679,11 +698,11 @@ public class VolleyService extends Service implements Constant {
 
         };
         jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(15 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        KelidApplication.addToRequestQueue(jsonObjReq, "2");
+        KelidApplication.getInstance().addToRequestQueue(jsonObjReq, "2");
 
     }
 
-    public String ChechActivationCode(final ServiceDelegate delegate, final int request, final UserJob userJob, final String activateCode) {
+    public String ChechActivationCode(final ServiceDelegate delegate, final int request, final Property userJob, final String activateCode) {
 
 
         StringRequest jsonObjReq = new StringRequest(Request.Method.POST,
@@ -720,18 +739,18 @@ public class VolleyService extends Service implements Constant {
         };
         jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(15 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         String code = "" + System.currentTimeMillis();
-        KelidApplication.addToRequestQueue(jsonObjReq, code);
+        KelidApplication.getInstance().addToRequestQueue(jsonObjReq, code);
         return code;
 
     }
 
 
-    public String UserJobList(final ServiceDelegate delegate, final Node currentNode, final int page, int city, int region, String word) {
+    public String PropertyList(final ServiceDelegate delegate, final Node currentNode, final int page, int city, int region, String word) {
         try {
             String data = "?city-id=" + ((city == 0) ? UserConfig.city : city) + "&page=" + page;
             if (region != 0)
                 data = data + "&region-id=" + region;
-            if (currentNode != DBAdapter.getInstance().root)
+            if (currentNode != Database.getInstance().root)
                 data = data + "&level-name=level" + currentNode.level + "&level-code=" + currentNode.id;
             if (word != null && word.length() > 1) {
                 data += "&word=" + URLEncoder.encode(word);
@@ -753,7 +772,7 @@ public class VolleyService extends Service implements Constant {
             });
             String code = "" + System.currentTimeMillis();
             jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(10 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            KelidApplication.addToRequestQueue(jsonObjReq, code);
+            KelidApplication.getInstance().addToRequestQueue(jsonObjReq, code);
             return code;
         } catch (Exception e) {
             e.printStackTrace();
@@ -762,7 +781,7 @@ public class VolleyService extends Service implements Constant {
 
     }
 
-    public void UserJobFestival(final ServiceDelegate delegate) {
+    public void PropertyFestival(final ServiceDelegate delegate) {
 
 
         try {
@@ -816,14 +835,14 @@ public class VolleyService extends Service implements Constant {
 //                }
 //            });
             jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(10 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            KelidApplication.addToRequestQueue(jsonObjReq, "2");
+            KelidApplication.getInstance().addToRequestQueue(jsonObjReq, "2");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public String UserJobDelete(final ServiceDelegate delegate, final int requestCOde, final UserJob userJob) {
+    public String PropertyDelete(final ServiceDelegate delegate, final int requestCOde, final Property userJob) {
         try {
             String data = URLEncoder.encode("api_token", "UTF8") + "=" + UserConfig.userToken;
             data += "&" + URLEncoder.encode("id", "UTF8") + "=" + userJob.remote_id;
@@ -851,7 +870,7 @@ public class VolleyService extends Service implements Constant {
             });
             strReq.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             String code = "" + System.currentTimeMillis();
-            KelidApplication.addToRequestQueue(strReq, code);
+            KelidApplication.getInstance().addToRequestQueue(strReq, code);
             return code;
 //            KelidApplication.addToRequestQueue(strReq, "3");
         } catch (Exception e) {
@@ -881,7 +900,7 @@ public class VolleyService extends Service implements Constant {
             });
             jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(40 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             String code = "" + System.currentTimeMillis();
-            KelidApplication.addToRequestQueue(jsonObjReq, code);
+            KelidApplication.getInstance().addToRequestQueue(jsonObjReq, code);
             return code;
         } catch (Exception e) {
             e.printStackTrace();
@@ -891,7 +910,7 @@ public class VolleyService extends Service implements Constant {
     }
 
 
-    public String SendNewAdvers(final ServiceDelegate delegate, final int reqCode, final int curentcode, final UserJob userJob) {
+    public String SendNewAdvers(final ServiceDelegate delegate, final int reqCode, final int curentcode, final Property userJob) {
         MultipartRequest multipartRequest = new MultipartRequest(SEND_ADVERS, userJob, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -906,12 +925,12 @@ public class VolleyService extends Service implements Constant {
             }
         });
         String code = "" + System.currentTimeMillis();
-        KelidApplication.addToRequestQueue(multipartRequest, code);
+        KelidApplication.getInstance().addToRequestQueue(multipartRequest, code);
         return code;
 //        KelidApplication.addToRequestQueue(multipartRequest, "1111111");
     }
 
-    public String SendNewAdversWithToekn(final ServiceDelegate delegate, final int reqCode, final int curentcode, final UserJob userJob) {
+    public String SendNewAdversWithToekn(final ServiceDelegate delegate, final int reqCode, final int curentcode, final Property userJob) {
         try {
 
 
@@ -930,16 +949,16 @@ public class VolleyService extends Service implements Constant {
                 }
             });
             String code = "" + System.currentTimeMillis();
-            KelidApplication.addToRequestQueue(multipartRequest, code);
+            KelidApplication.getInstance().addToRequestQueue(multipartRequest, code);
             return code;
-//            KelidApplication.addToRequestQueue(multipartRequest, "33333");
+//            KelidApplication.getInstance().addToRequestQueue(multipartRequest, "33333");
         } catch (Exception e) {
 //            delegate.onObjectReslut(reqCode, ServiceDelegate.ERROR_CODE, userJob, null);
         }
         return null;
     }
 
-    public String SendEditAdversWithToekn(final ServiceDelegate delegate, final int reqCode, final int curentcode, final UserJob userJob) {
+    public String SendEditAdversWithToekn(final ServiceDelegate delegate, final int reqCode, final int curentcode, final Property userJob) {
         String code = "" + System.currentTimeMillis();
         try {
 
@@ -959,7 +978,7 @@ public class VolleyService extends Service implements Constant {
                 }
             });
 
-            KelidApplication.addToRequestQueue(multipartRequest, code);
+            KelidApplication.getInstance().addToRequestQueue(multipartRequest, code);
             return code;
 
         } catch (Exception e) {
@@ -1030,10 +1049,10 @@ public class VolleyService extends Service implements Constant {
         }
 
         private final Response.Listener<String> mListener;
-        UserJob userJob;
+        Property userJob;
 
 
-        public MultipartRequest(String url, UserJob userJob, Response.ErrorListener errorListener, Response.Listener<String> listener) {
+        public MultipartRequest(String url, Property userJob, Response.ErrorListener errorListener, Response.Listener<String> listener) {
             super(Method.POST, url, errorListener);
 
             setRetryPolicy(new DefaultRetryPolicy(5 * 60 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -1078,12 +1097,12 @@ public class VolleyService extends Service implements Constant {
                 if (userJob.advers != null)
                     entity.addPart("advertise_text", new StringBody(userJob.advers, Consts.UTF_8));
                 if (userJob.nodeid != 0) {
-                    Node node = DBAdapter.getInstance().allNodes.get(userJob.nodeid);
+                    Node node = Database.getInstance().allNodes.get(userJob.nodeid);
                     entity.addPart("level3", new StringBody("" + userJob.nodeid));
                     entity.addPart("level2", new StringBody("" + node.parent.id));
                     entity.addPart("level1", new StringBody("" + node.parent.parent.id));
                 }
-                entity.addPart("province", new StringBody("" + DBAdapter.getInstance().cities.get(userJob.city).provincecode));
+                entity.addPart("province", new StringBody("" + Database.getInstance().indexCities.get(userJob.city).provincecode));
                 entity.addPart("morning", new StringBody("" + (userJob.moorning ? 1 : 0)));
                 entity.addPart("noon", new StringBody("" + (userJob.noon ? 1 : 0)));
                 entity.addPart("name_visible", new StringBody("" + (userJob.namevisible ? 1 : 0)));
@@ -1094,7 +1113,7 @@ public class VolleyService extends Service implements Constant {
                 String defaultPic = null;
                 JSONArray delete = new JSONArray();
                 int i = 0;
-                for (UserJob.Image filePath : userJob.images) {
+                for (Property.Image filePath : userJob.images) {
                     if (filePath.deleted) {
                         delete.put(Utils.getName(filePath.localname));
                         continue;
@@ -1131,7 +1150,7 @@ public class VolleyService extends Service implements Constant {
             try {
                 entity.writeTo(dos);
             } catch (IOException e) {
-                VolleyLog.e("IOException writing to ByteArrayOutputStream");
+//                VolleyLog.e("IOException writing to ByteArrayOutputStream");
             }
             return bos.toByteArray();
         }

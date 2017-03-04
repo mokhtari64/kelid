@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.Vector;
 
 import ir.mehdi.kelid.Constant;
+import ir.mehdi.kelid.KelidApplication;
+import ir.mehdi.kelid.service.VolleyService;
 import ir.mehdi.kelid.utils.FileUtils;
 import ir.mehdi.kelid.utils.Utils;
 
@@ -106,7 +108,7 @@ public class Property
 
     public String createQRString() {
         if (qr_code == null || qr_code.length() == 0) {
-            String android_id = Settings.Secure.getString(FanoosApplication.applicationContext.getContentResolver(),
+            String android_id = Settings.Secure.getString(KelidApplication.applicationContext.getContentResolver(),
                     Settings.Secure.ANDROID_ID);
             Date date = new Date();
             long a = date.getTime();

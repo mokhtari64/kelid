@@ -3,7 +3,8 @@ package ir.mehdi.kelid;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import app.fanoos.ir.fanoosapp.model.UserJob;
+import ir.mehdi.kelid.model.Property;
+
 
 /**
  * Created by iman on 6/8/2016.
@@ -26,7 +27,7 @@ public class UserConfig {
 
     public static String phone;
     public static String temp_phone;
-    private static UserJob userJob = null;
+    private static Property property = null;
     public static String userToken;
 
 
@@ -35,7 +36,7 @@ public class UserConfig {
 //    }
 
     public static void loadConfig() {
-        SharedPreferences preferences = FanoosApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
+        SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
         province = preferences.getInt("province", -1);
         city = preferences.getInt("city", -1);
         phone = preferences.getString("phone", "-1");
@@ -52,7 +53,7 @@ public class UserConfig {
     }
 
     public static void saveUserConfig() {
-        SharedPreferences preferences = FanoosApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
+        SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
         UserConfig.phone = UserConfig.temp_phone;
         edit.putString("phone", UserConfig.phone);
@@ -61,7 +62,7 @@ public class UserConfig {
     }
 
     public static void saveCity() {
-        SharedPreferences preferences = FanoosApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
+        SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
         edit.putInt("province", province);
         edit.putInt("city", city);
@@ -71,61 +72,61 @@ public class UserConfig {
     }
 
 
-    public static UserJob loadLast() {
-        if (userJob != null)
-            return userJob;
-        SharedPreferences preferences = FanoosApplication.applicationContext.getSharedPreferences("userjob", Context.MODE_PRIVATE);
+    public static Property loadLast() {
+        if (property != null)
+            return property;
+        SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userjob", Context.MODE_PRIVATE);
         int nodeid = preferences.getInt("nodeid", -1);
 
-        userJob = new UserJob();
+        property = new Property();
 
-        userJob.nodeid = nodeid;
+        property.nodeid = nodeid;
         if (nodeid == -1)
-            return userJob;
-        userJob.city = preferences.getInt("city", -1);
-        userJob.title = preferences.getString("title", null);
-        userJob.qr_code = preferences.getString("qr_code", null);
-        userJob.name = preferences.getString("name", null);
+            return property;
+        property.city = preferences.getInt("city", -1);
+        property.title = preferences.getString("title", null);
+        property.qr_code = preferences.getString("qr_code", null);
+        property.name = preferences.getString("name", null);
 //        String ggg = preferences.getString("logopath", null);
 //        if (ggg != null)
-//            userJob.logopath = Uri.parse(ggg);
-        userJob.desc = preferences.getString("desc", null);
-        userJob.advers = preferences.getString("advers", null);
-        userJob.email = preferences.getString("email", null);
+//            property.logopath = Uri.parse(ggg);
+        property.desc = preferences.getString("desc", null);
+        property.advers = preferences.getString("advers", null);
+        property.email = preferences.getString("email", null);
         String imagespathtext = preferences.getString("imagespathtext", null);
         if (imagespathtext != null) {
             String[] split = imagespathtext.split(";");
             if(split!=null) {
                 for (int i = 0; i < split.length; i++) {
                     if (split[i].trim().length() > 0)
-                        userJob.addImage(0,split[i],null,0,0);
+                        property.addImage(0,split[i],null,0,0);
                 }
             }
         }
-        userJob.tel = preferences.getString("tel", null);
-        userJob.telegram = preferences.getString("telegram", null);
+        property.tel = preferences.getString("tel", null);
+        property.telegram = preferences.getString("telegram", null);
         String businesscardpathlocal = preferences.getString("businesscardpathlocal", null);
         if(businesscardpathlocal!=null && businesscardpathlocal.length()>0)
         {
-            userJob.addImage(0,businesscardpathlocal,null,1,0);
+            property.addImage(0,businesscardpathlocal,null,1,0);
         }
-        userJob.mobile = preferences.getString("mobile", null);
-        userJob.region = preferences.getInt("region", 0);
-        userJob.noon = preferences.getBoolean("noon", false);//noon, evening, moorning, boarding, bike, cardReader;
-        userJob.namevisible = preferences.getBoolean("namevisible", false);//noon, evening, moorning, boarding, bike, cardReader;
-        userJob.evening = preferences.getBoolean("evening", false);//noon, evening, moorning, boarding, bike, cardReader;
-        userJob.moorning = preferences.getBoolean("moorning", false);//noon, evening, moorning, boarding, bike, cardReader;
-        userJob.boarding = preferences.getBoolean("boarding", false);//noon, evening, moorning, boarding, bike, cardReader;
-        userJob.bike = preferences.getBoolean("bike", false);//noon, evening, moorning, boarding, bike, cardReader;
-        userJob.cardReader = preferences.getBoolean("cardReader", false);//noon, evening, moorning, boarding, bike, cardReader;
-        return userJob;
+        property.mobile = preferences.getString("mobile", null);
+        property.region = preferences.getInt("region", 0);
+        property.noon = preferences.getBoolean("noon", false);//noon, evening, moorning, boarding, bike, cardReader;
+        property.namevisible = preferences.getBoolean("namevisible", false);//noon, evening, moorning, boarding, bike, cardReader;
+        property.evening = preferences.getBoolean("evening", false);//noon, evening, moorning, boarding, bike, cardReader;
+        property.moorning = preferences.getBoolean("moorning", false);//noon, evening, moorning, boarding, bike, cardReader;
+        property.boarding = preferences.getBoolean("boarding", false);//noon, evening, moorning, boarding, bike, cardReader;
+        property.bike = preferences.getBoolean("bike", false);//noon, evening, moorning, boarding, bike, cardReader;
+        property.cardReader = preferences.getBoolean("cardReader", false);//noon, evening, moorning, boarding, bike, cardReader;
+        return property;
     }
 
     public static void clear() {
-        userJob = new UserJob();
-        userJob.nodeid = -1;
+        property = new Property();
+        property.nodeid = -1;
 
-        SharedPreferences preferences = FanoosApplication.applicationContext.getSharedPreferences("userjob", Context.MODE_PRIVATE);
+        SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userjob", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.putInt("nodeid", -1);
@@ -151,11 +152,11 @@ public class UserConfig {
         editor.commit();
     }
 
-    public static void cacheUserJob(UserJob a) {
+    public static void cacheProperty(ir.mehdi.kelid.model.Property a) {
 
 //        if (a==null || a.nodeid == -1)
 //            return;
-        SharedPreferences preferences = FanoosApplication.applicationContext.getSharedPreferences("userjob", Context.MODE_PRIVATE);
+        SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userjob", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("city", a.city);
         editor.putInt("nodeid", a.nodeid);
@@ -184,7 +185,7 @@ public class UserConfig {
 
         StringBuilder imagespathtext = new StringBuilder();
         for (int i = 0; i < a.images.size(); i++) {
-            UserJob.Image image = a.images.get(i);
+            Property.Image image = a.images.get(i);
             if (image != null && image.localname != null && image.localname.length() > 0) {
                 if(image.deleted)
                     continue;
@@ -199,7 +200,7 @@ public class UserConfig {
 //        a.imagespathtext = imagespathtext.toString();
 
         editor.putString("imagespathtext", imagespathtext.toString());
-        userJob = a;
+        property = a;
         editor.commit();
 
     }

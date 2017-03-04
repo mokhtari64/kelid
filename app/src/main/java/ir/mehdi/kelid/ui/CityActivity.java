@@ -119,7 +119,7 @@ public class CityActivity extends  KelidActivity {
                 if (Database.getInstance().getCurrentCity() != null) {
                     UserConfig.city = Database.getInstance().getCurrentCity().code;
                     UserConfig.province = Database.getInstance().getCurrentProvince().code;
-                    UserConfig.save();
+//                    UserConfig.save();
                     myIntent = new Intent(getApplicationContext(), MainActivity.class);
 //                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     finish();

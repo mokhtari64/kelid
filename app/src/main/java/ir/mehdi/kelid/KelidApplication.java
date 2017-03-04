@@ -34,6 +34,9 @@ public class KelidApplication
 
 
 
+    public static synchronized KelidApplication getInstance() {
+        return mInstance;
+    }
 
 
     @Override
