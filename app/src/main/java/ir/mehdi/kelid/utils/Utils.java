@@ -69,8 +69,20 @@ public class Utils {
     public static final int UPGRADE_TYPE = 2;
     public static final int IMMEDIATE_TYPE = 3;
 
-    public  static int getScreenWidth(Activity activity)
-    {
+    public static int dpToPx(Context context, int dp) {
+        Resources r = context.getResources();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+//    public static int getDPforPixel(int dp) {
+//        Resources r = KelidApplication.applicationContext.getResources();
+//        return (int) TypedValue.applyDimension(
+//                TypedValue.COMPLEX_UNIT_DIP,
+//                dp,
+//                r.getDisplayMetrics()
+//        );
+//    }
+
+    public static int getScreenWidth(Activity activity) {
         DisplayMetrics displaymetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 //        int height = displaymetrics.heightPixels;
@@ -677,9 +689,8 @@ public class Utils {
                 if (visitedDates1 != null) {
                     userJob1.setPieNum(visitedDates1);
                 }
-                if(payments2!=null)
-                {
-                    userJob1.payments=payments2;
+                if (payments2 != null) {
+                    userJob1.payments = payments2;
                 }
                 Property userJob2 = MySqliteOpenHelper.getInstance().myJobsremote.get(userJob1.remote_id);
                 if (userJob2 != null && !forceadd) {
@@ -776,14 +787,6 @@ public class Utils {
     }
 
 
-    public static int getDPforPixel(int dp) {
-        Resources r = KelidApplication.applicationContext.getResources();
-        return (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                dp,
-                r.getDisplayMetrics()
-        );
-    }
 
 
     public final static String unescape_perl_string(String oldstr) {

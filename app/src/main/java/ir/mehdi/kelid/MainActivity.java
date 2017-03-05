@@ -1,5 +1,6 @@
 package ir.mehdi.kelid;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import android.widget.ToggleButton;
 
 import ir.mehdi.kelid.coolmenu.CoolMenuFrameLayout;
 import ir.mehdi.kelid.coolmenu.TranslateLayout;
+import ir.mehdi.kelid.db.Database;
+import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.ui.AddConsulatingActivity;
 import ir.mehdi.kelid.ui.AddOfficeActivity;
 import ir.mehdi.kelid.ui.AddPropetyActivity;
@@ -32,6 +35,7 @@ import ir.mehdi.kelid.ui.AddServiceActivity;
 import ir.mehdi.kelid.ui.KelidActivity;
 import ir.mehdi.kelid.ui.NodeFragmentDialog;
 import ir.mehdi.kelid.ui.fragment.ListItemFragment;
+import ir.mehdi.kelid.ui.fragment.RootFragment;
 import ir.mehdi.kelid.utils.Utils;
 
 import java.util.Arrays;
@@ -59,7 +63,7 @@ public class MainActivity extends KelidActivity implements Constant {
     CoolMenuFrameLayout coolMenuFrameLayout;
 
     String[] titles;
-    ListItemFragment[] fragments;
+    RootFragment[] fragments;
 
     List<String> titleList = null;
     List<Drawable> mainMenuDrawable = null;
@@ -96,13 +100,30 @@ public class MainActivity extends KelidActivity implements Constant {
                 getString(R.string.office_services),
                 getString(R.string.consulting_office),
                 getString(R.string.office_property)};
-        fragments = new ListItemFragment[]{
-                new ListItemFragment(), new ListItemFragment(), new ListItemFragment(), new ListItemFragment()
+        fragments = new RootFragment[]{
+                new RootFragment(), new RootFragment(), new RootFragment(), new RootFragment()
         };
-        fragments[0].setType(Constant.PROPERTY);
-        fragments[1].setType(Constant.SERVICE);
-        fragments[2].setType(Constant.OFFICE);
-        fragments[3].setType(Constant.CONSULTING);
+
+//        fragments[0].setType(Constant.PROPERTY);
+//        fragments[1].setType(Constant.SERVICE);
+//        fragments[2].setType(Constant.OFFICE);
+//        fragments[3].setType(Constant.CONSULTING);
+
+        fragments[3].setBackGroundColor(ContextCompat.getColor(this, R.color.PROPERTY));
+        fragments[2].setBackGroundColor(ContextCompat.getColor(this, R.color.SERVICE));
+        fragments[1].setBackGroundColor(ContextCompat.getColor(this, R.color.OFFICE));
+        fragments[0].setBackGroundColor(ContextCompat.getColor(this, R.color.CONSULTING));
+
+        fragments[3].setActivity(this);
+        fragments[2].setActivity(this);
+        fragments[1].setActivity(this);
+        fragments[0].setActivity(this);
+        fragments[3].setNode(Database.getInstance().allNodes.get(PROPERTY));
+        fragments[2].setNode(Database.getInstance().allNodes.get(SERVICE));
+        fragments[1].setNode(Database.getInstance().allNodes.get(OFFICE));
+        fragments[0].setNode(Database.getInstance().allNodes.get(CONSULTING));
+
+
 
 
         coolMenuFrameLayout = (CoolMenuFrameLayout) findViewById(R.id.rl_main);
@@ -283,4 +304,7 @@ public class MainActivity extends KelidActivity implements Constant {
 //
         }
     }
+
+
+
 }
