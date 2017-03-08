@@ -4,18 +4,26 @@ import android.annotation.SuppressLint;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.sa90.materialarcmenu.ArcMenu;
 
+import ir.mehdi.kelid.Const;
 import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.MainActivity;
 import ir.mehdi.kelid.R;
@@ -23,6 +31,18 @@ import ir.mehdi.kelid.R;
 @SuppressLint("all")
 @SuppressWarnings("all")
 public class TranslateLayout extends FrameLayout implements View.OnClickListener {
+
+    float orgPos1X;
+
+
+    ToggleButton settingbtn;
+    LayoutInflater inflater;
+    RelativeLayout edit_device, edit_zone, edit_senario, menu_space, edit_user, rules, about_me, exit;
+    LinearLayout setting_layer;
+    Animation alpha, alpha_out, rotation, rotation_out;
+    int screenWidth, sw;
+
+
     com.sa90.materialarcmenu.ArcMenu arcMenu;
     MainActivity activity;
     private OnOptionMainMenuListner mOnOtpionOptionMainMenuListner;
@@ -82,13 +102,8 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
                 setWillNotDraw(true);
                 inflate(getContext(), R.layout.layout_title, this);
                 view = getChildAt(0);
-                view.setOnTouchListener(new OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        return true;
-                    }
-                });
 
+initDrawer();
                 mTitleTrans = getResources().getDimension(R.dimen.cl_title_trans);
                 mMenu = (ImageView) view.findViewById(R.id.cl_menu);
                 mOptionMenu = (ImageView) view.findViewById(R.id.cl_option_menu);
@@ -116,6 +131,89 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
         }
     }
 
+    private void initDrawer() {
+        setting_layer = (LinearLayout) findViewById(R.id.setting_layer);
+        menu_space = (RelativeLayout) findViewById(R.id.menu_space);
+        edit_device = (RelativeLayout) findViewById(R.id.edit_device);
+        edit_zone = (RelativeLayout) findViewById(R.id.edit_zone);
+        edit_senario = (RelativeLayout) findViewById(R.id.edit_senario);
+        edit_user = (RelativeLayout) findViewById(R.id.edit_user);
+        rules = (RelativeLayout) findViewById(R.id.rules);
+        about_me = (RelativeLayout) findViewById(R.id.about_me);
+        exit = (RelativeLayout) findViewById(R.id.exit);
+
+
+
+        float orgPos1X = setting_layer.getX();
+        settingbtn = (ToggleButton) findViewById(R.id.setting);
+        alpha = AnimationUtils.loadAnimation(getContext(), R.anim.alpha);
+        alpha_out = AnimationUtils.loadAnimation(getContext(), R.anim.alpha_out);
+        rotation = AnimationUtils.loadAnimation(getContext(), R.anim.clockwise_rotation);
+        rotation_out = AnimationUtils.loadAnimation(getContext(), R.anim.unclockwise_rotation);
+
+
+        screenWidth = ir.mehdi.kelid.utils.Utils.getScreenWidth(activity);
+        sw = screenWidth;
+        setting_layer.setX(orgPos1X - screenWidth);
+        assert settingbtn != null;
+        settingbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (settingbtn.isChecked()) {
+                    settingbtn.setClickable(false);
+//                    setting_layer.setX(orgPos1X - screenWidth );
+
+                    rotation.setRepeatCount(Animation.INFINITE);
+                    rotation.setRepeatCount(0);
+                    settingbtn.startAnimation(rotation_out);
+//                    settingbtn.setHighlightColor(0xff33b5e5);
+                    setting_layer.animate().translationX(setting_layer.getX() + sw).setDuration(Const.AnimDuration);
+//                    dashboard_layer.animate().alpha((float) 0.3).setDuration(Const.AnimDuration);
+
+//                    recyclerView.animate().translationX(screenWidth).setDuration(dtime);
+//                    setting_layer.setVisibility(View.VISIBLE);
+//                    recyclerView.setVisibility(View.GONE);
+                    final Handler handler = new Handler();
+                    setting_layer.setEnabled(false);
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            settingbtn.setClickable(true);
+                        }
+                    }, Const.AnimDuration);
+
+
+                } else {
+                    closeMenu();
+
+                }
+
+
+            }
+        });
+
+
+    }
+
+    void closeMenu() {
+        if (settingbtn.isChecked()) {
+            settingbtn.setChecked(false);
+            settingbtn.setClickable(false);
+            settingbtn.startAnimation(rotation);
+            setting_layer.animate().translationX(orgPos1X - screenWidth).setDuration(Const.AnimDuration);
+//                    recyclerView.animate().translationX(orgPos1X).setDuration(dtime);
+//            dashboard_layer.animate().alpha(1).setDuration(Const.AnimDuration);
+//                    setting_layer.setVisibility(View.GONE);
+//                    recyclerView.setVisibility(View.VISIBLE);
+            final Handler handler = new Handler();
+            setting_layer.setEnabled(false);
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    settingbtn.setClickable(true);
+                }
+            }, Const.AnimDuration);
+        }
+
+    }
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         return ((CoolMenuFrameLayout) getParent()).isOpening();

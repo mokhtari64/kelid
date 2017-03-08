@@ -12,6 +12,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import ir.mehdi.kelid.Const;
 import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.MainActivity;
 import ir.mehdi.kelid.R;
@@ -33,8 +35,16 @@ import ir.mehdi.kelid.utils.Utils;
  */
 public class ListItemFragment extends Fragment implements Constant {
 
-    Animation hide, show;
-    boolean childeVisible=true;
+
+    View.OnClickListener nodeClickListener,itemClickListener;
+
+
+    public void setClickListener(View.OnClickListener nodeClickListener,View.OnClickListener itemClickListener) {
+        this.nodeClickListener = nodeClickListener;
+        this.itemClickListener=itemClickListener;
+    }
+
+    boolean childeVisible = true;
     View childe;
 
     MainActivity activity;
@@ -67,45 +77,73 @@ public class ListItemFragment extends Fragment implements Constant {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mainContent = inflater.inflate(R.layout.card_list_layout, container, false);
-        nodePath = (TextView) mainContent.findViewById(R.id.node_path);
-        childe =  mainContent.findViewById(R.id.node_child_scroll);
-        nodeChildeController = (ImageView) mainContent.findViewById(R.id.childe_controll);
-        nodeChildeController.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(childeVisible)
-                {
-                    childe.startAnimation(hide);
-                    childeVisible=false;
+        if (mainContent == null) {
+            mainContent = inflater.inflate(R.layout.card_list_layout, container, false);
+            nodePath = (TextView) mainContent.findViewById(R.id.node_path);
+            childe = mainContent.findViewById(R.id.node_child_scroll);
+            nodeChildeController = (ImageView) mainContent.findViewById(R.id.childe_controll);
 
-                }else
-                {
-                    childe.startAnimation(show);
-                    childeVisible=true;
+            nodeChilde = (LinearLayout) mainContent.findViewById(R.id.node_child);
+            if (node != null && node.childs!=null && node.childs.size()>0) {
+                childe.setVisibility(View.VISIBLE);
+                nodeChildeController.setVisibility(View.VISIBLE);
+                nodeChildeController.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (childeVisible) {
+                            int height = childe.getHeight();
+                            childe.animate().translationY(-height).setDuration(Const.AnimDuration);
+                            nodeChildeController.animate().translationY(-height).setDuration(Const.AnimDuration);
+//                    childe.startAnimation(hide);
+                            childeVisible = false;
+
+                        } else {
+                            int height = childe.getHeight();
+                            childe.animate().translationY(0).setDuration(Const.AnimDuration);
+                            nodeChildeController.animate().translationY(0).setDuration(Const.AnimDuration);
+
+                            childeVisible = true;
+                        }
+                    }
+                });
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                params.bottomMargin = 10;
+                params.topMargin = 10;
+                params.rightMargin = 10;
+                params.leftMargin = 10;
+
+                for (int i = 0; i < node.childs.size(); i++) {
+                    Node node = this.node.childs.get(i);
+                    TextView t = new TextView(getContext());
+                    t.setPadding(50,50,50,50);
+                    t.setTag(node);
+                    t.setOnClickListener(nodeClickListener);
+                    t.setText(node.name);
+                    t.setLayoutParams(params);
+                    t.setBackgroundColor(Color.WHITE);
+                    t.setGravity(Gravity.CENTER);
+                    nodeChilde.addView(t);
                 }
-            }
-        });
-        nodeChilde = (LinearLayout) mainContent.findViewById(R.id.node_child);
-        hide = AnimationUtils.loadAnimation(activity, R.anim.node_hide_anim);
-        show = AnimationUtils.loadAnimation(activity, R.anim.node_show_anim);
-        nodePath.setText(node.path);
-        recyclerView = (RecyclerView) mainContent.findViewById(R.id.recycler);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, Utils.dpToPx(getContext(), 10), true));
-        mainContent.setBackgroundColor(bg);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter = new CardItemListAdapter();
-        recyclerView.setAdapter(adapter);
 
+            } else {
+                childe.setVisibility(View.GONE);
+                nodeChildeController.setVisibility(View.GONE);
+
+            }
+
+            nodePath.setText(node.path);
+            recyclerView = (RecyclerView) mainContent.findViewById(R.id.recycler);
+            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
+            recyclerView.setLayoutManager(mLayoutManager);
+            recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, Utils.dpToPx(getContext(), 10), true));
+            mainContent.setBackgroundColor(bg);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            adapter = new CardItemListAdapter(itemClickListener);
+            recyclerView.setAdapter(adapter);
+        }
         return mainContent;
     }
 
-
-//    public void setType(int type) {
-//        this.type = type;
-//    }
 
     public void setActivity(MainActivity activity) {
         this.activity = activity;

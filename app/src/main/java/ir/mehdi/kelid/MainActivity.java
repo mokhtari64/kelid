@@ -49,15 +49,8 @@ import java.util.Vector;
 public class MainActivity extends KelidActivity implements Constant {
 
 
-    float orgPos1X;
-//    LinearLayout dashboard_layer;
-    ImageButton dashboardTab;
-    ToggleButton settingbtn;
-    LayoutInflater inflater;
-    RelativeLayout edit_device,edit_zone,edit_senario,menu_space,edit_user,rules,about_me,exit;
-    LinearLayout setting_layer;
-    Animation alpha,alpha_out,rotation,rotation_out;
-    int screenWidth,sw;
+
+
 
 
     CoolMenuFrameLayout coolMenuFrameLayout;
@@ -75,31 +68,19 @@ public class MainActivity extends KelidActivity implements Constant {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.cool_activity_main);
-        setting_layer = (LinearLayout) findViewById(R.id.setting_layer);
-        menu_space = (RelativeLayout) findViewById(R.id.menu_space);
-        edit_device = (RelativeLayout) findViewById(R.id.edit_device);
-        edit_zone = (RelativeLayout) findViewById(R.id.edit_zone);
-        edit_senario = (RelativeLayout) findViewById(R.id.edit_senario);
-        edit_user = (RelativeLayout) findViewById(R.id.edit_user);
-        rules = (RelativeLayout) findViewById(R.id.rules);
-        about_me = (RelativeLayout) findViewById(R.id.about_me);
-        exit = (RelativeLayout) findViewById(R.id.exit);
-
-        float orgPos1X = setting_layer.getX();
-        settingbtn = (ToggleButton) findViewById(R.id.setting);
-        alpha = AnimationUtils.loadAnimation(this, R.anim.alpha);
-        alpha_out = AnimationUtils.loadAnimation(this, R.anim.alpha_out);
-        rotation = AnimationUtils.loadAnimation(this, R.anim.clockwise_rotation);
-        rotation_out = AnimationUtils.loadAnimation(this, R.anim.unclockwise_rotation);
 
 
 
 
         titles = new String[]{
-                getString(R.string.property),
-                getString(R.string.office_services),
+                getString(R.string.office_property),
                 getString(R.string.consulting_office),
-                getString(R.string.office_property)};
+                getString(R.string.office_services),
+                getString(R.string.property)
+
+
+
+        };
         fragments = new RootFragment[]{
                 new RootFragment(), new RootFragment(), new RootFragment(), new RootFragment()
         };
@@ -122,8 +103,6 @@ public class MainActivity extends KelidActivity implements Constant {
         fragments[2].setNode(Database.getInstance().allNodes.get(SERVICE));
         fragments[1].setNode(Database.getInstance().allNodes.get(OFFICE));
         fragments[0].setNode(Database.getInstance().allNodes.get(CONSULTING));
-
-
 
 
         coolMenuFrameLayout = (CoolMenuFrameLayout) findViewById(R.id.rl_main);
@@ -176,68 +155,13 @@ public class MainActivity extends KelidActivity implements Constant {
         coolMenuFrameLayout.setAdapter(adapter);
 
 
-        screenWidth = Utils.getScreenWidth(MainActivity.this);
-        sw = screenWidth;
-        setting_layer.setX(orgPos1X - screenWidth);
-        assert settingbtn != null;
-        settingbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (settingbtn.isChecked()) {
-                    settingbtn.setClickable(false);
-//                    setting_layer.setX(orgPos1X - screenWidth );
-
-                    rotation.setRepeatCount(Animation.INFINITE);
-                    rotation.setRepeatCount(0);
-                    settingbtn.startAnimation(rotation_out);
-//                    settingbtn.setHighlightColor(0xff33b5e5);
-                    setting_layer.animate().translationX(setting_layer.getX() + sw).setDuration(Const.AnimDuration);
-//                    dashboard_layer.animate().alpha((float) 0.3).setDuration(Const.AnimDuration);
-
-//                    recyclerView.animate().translationX(screenWidth).setDuration(dtime);
-//                    setting_layer.setVisibility(View.VISIBLE);
-//                    recyclerView.setVisibility(View.GONE);
-                    final Handler handler = new Handler();
-                    setting_layer.setEnabled(false);
-                    handler.postDelayed(new Runnable() {
-                        public void run() {
-                            settingbtn.setClickable(true);
-                        }
-                    }, Const.AnimDuration);
 
 
-                } else {
-                    closeMenu();
-
-                }
-
-
-            }
-        });
 
 
     }
 
-    void closeMenu() {
-        if (settingbtn.isChecked()) {
-            settingbtn.setChecked(false);
-            settingbtn.setClickable(false);
-            settingbtn.startAnimation(rotation);
-            setting_layer.animate().translationX(orgPos1X - screenWidth).setDuration(Const.AnimDuration);
-//                    recyclerView.animate().translationX(orgPos1X).setDuration(dtime);
-//            dashboard_layer.animate().alpha(1).setDuration(Const.AnimDuration);
-//                    setting_layer.setVisibility(View.GONE);
-//                    recyclerView.setVisibility(View.VISIBLE);
-            final Handler handler = new Handler();
-            setting_layer.setEnabled(false);
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    settingbtn.setClickable(true);
-                }
-            }, Const.AnimDuration);
-        }
 
-    }
 
     NodeFragmentDialog nodeFragmentDialog;
 
@@ -275,36 +199,32 @@ public class MainActivity extends KelidActivity implements Constant {
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
         } else {
-            if (getFragmentManager().getBackStackEntryCount() > 0) {
-                getFragmentManager().popBackStack();
-            } else {
-                if (doubleBackToExitPressedOnce) {
-                    super.onBackPressed();
-                    return;
-                }
-
-                this.doubleBackToExitPressedOnce = true;
-                Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
-                new Handler().postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        doubleBackToExitPressedOnce = false;
-                    }
-                }, 2000);
-
-//                super.onBackPressed();
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
             }
 
-//
-        }
-    }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
 
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+
+//                super.onBackPressed();
+        }
+
+//
+
+    }
 
 
 }

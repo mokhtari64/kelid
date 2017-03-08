@@ -1,8 +1,6 @@
 package ir.mehdi.kelid.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
@@ -21,7 +19,7 @@ public class AddPropetyActivity extends  KelidActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Database.getInstance().loadProperty();
-        setContentView(R.layout.adver);
+        setContentView(R.layout.activity_add_property);
         properyLayout= (LinearLayout) findViewById(R.id.proprty_layout);
         Vector<PropertyDetail> pDetail = Database.getInstance().allNodes.get(1113100).pDetail;
         LinearLayout.LayoutParams  params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

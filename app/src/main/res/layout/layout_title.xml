@@ -2,7 +2,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-
+    android:duplicateParentState="true"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -13,9 +13,11 @@
         android:background="@android:color/transparent"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:duplicateParentState="true"
         tools:ignore="all">
 
         <ImageView
+            android:duplicateParentState="true"
             android:id="@+id/cl_menu"
             android:layout_width="@dimen/defualt_spacing"
             android:layout_height="@dimen/defualt_spacing"
@@ -24,6 +26,7 @@
             android:layout_margin="5dp" />
 
         <TextView
+            android:duplicateParentState="true"
             android:id="@id/cl_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,6 +36,7 @@
             android:textSize="@dimen/cl_title_size" />
 
         <ImageView
+            android:duplicateParentState="true"
             android:id="@+id/cl_option_menu"
             android:layout_width="@dimen/defualt_spacing"
             android:layout_height="@dimen/defualt_spacing"
@@ -47,6 +51,7 @@
     </LinearLayout>
 
     <ImageView
+        android:duplicateParentState="true"
         android:layout_width="@dimen/defualt_spacing3x"
         android:layout_height="@dimen/defualt_spacing3x"
         android:src="@drawable/main2"
@@ -60,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-
+        android:duplicateParentState="true"
         app:menu_color="@color/colorPrimaryDark"
         app:menu_radius="140dp"
         app:menu_ripple_color="@android:color/holo_blue_bright"
@@ -84,6 +89,7 @@
 
 
         <ImageButton
+
             android:id="@+id/office"
             android:layout_width="wrap_content"
             android:src="@drawable/add_text"
@@ -113,14 +119,15 @@
     </com.sa90.materialarcmenu.ArcMenu>
 
     <LinearLayout
+        android:duplicateParentState="true"
         android:id="@+id/setting_layer"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@color/my_transparent"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:orientation="horizontal">
 
         <RelativeLayout
+            android:duplicateParentState="true"
             android:id="@+id/menu_space"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -128,6 +135,7 @@
             android:orientation="vertical" />
 
         <LinearLayout
+
             android:layout_width="@dimen/defualt_spacing3x"
             android:layout_height="match_parent"
             android:background="@color/login_black"

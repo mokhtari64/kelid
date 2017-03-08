@@ -10,7 +10,7 @@ import android.widget.TextView;
 import ir.mehdi.kelid.R;
 
 public class CardItemListAdapter extends RecyclerView.Adapter<CardItemListAdapter.MyViewHolder> {
-
+    View.OnClickListener showInfoCLick;
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -27,8 +27,8 @@ public class CardItemListAdapter extends RecyclerView.Adapter<CardItemListAdapte
         }
     }
 
-    public CardItemListAdapter() {
-
+    public CardItemListAdapter(View.OnClickListener showInfoCLick) {
+        this.showInfoCLick = showInfoCLick;
     }
 
     @Override
@@ -49,6 +49,7 @@ public class CardItemListAdapter extends RecyclerView.Adapter<CardItemListAdapte
         TextView textViewName = holder.textViewName;
         TextView textViewVersion = holder.textViewVersion;
         ImageView imageView = holder.imageViewIcon;
+        imageView.setOnClickListener(showInfoCLick);
 
         textViewName.setText("11111111");
         textViewVersion.setText("111111111");
