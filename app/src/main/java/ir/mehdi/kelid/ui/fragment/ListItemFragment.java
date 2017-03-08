@@ -20,6 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import ir.mehdi.kelid.Const;
@@ -51,6 +52,7 @@ public class ListItemFragment extends Fragment implements Constant {
     View mainContent;
     TextView nodePath;
     LinearLayout nodeChilde;
+    RelativeLayout child_layer;
 
     ImageView nodeChildeController;
 
@@ -82,12 +84,13 @@ public class ListItemFragment extends Fragment implements Constant {
             nodePath = (TextView) mainContent.findViewById(R.id.node_path);
             childe = mainContent.findViewById(R.id.node_child_scroll);
             nodeChildeController = (ImageView) mainContent.findViewById(R.id.childe_controll);
+            child_layer = (RelativeLayout) mainContent.findViewById(R.id.chlid_btn);
 
             nodeChilde = (LinearLayout) mainContent.findViewById(R.id.node_child);
             if (node != null && node.childs!=null && node.childs.size()>0) {
                 childe.setVisibility(View.VISIBLE);
-                nodeChildeController.setVisibility(View.VISIBLE);
-                nodeChildeController.setOnClickListener(new View.OnClickListener() {
+ /*                nodeChildeController.setVisibility(View.VISIBLE);
+               nodeChildeController.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (childeVisible) {
@@ -102,6 +105,25 @@ public class ListItemFragment extends Fragment implements Constant {
                             childe.animate().translationY(0).setDuration(Const.AnimDuration);
                             nodeChildeController.animate().translationY(0).setDuration(Const.AnimDuration);
 
+                            childeVisible = true;
+                        }
+                    }
+                });*/
+                child_layer.setVisibility(View.VISIBLE);
+                child_layer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (childeVisible) {
+                            int height = childe.getHeight();
+                            childe.animate().translationY(-height).setDuration(Const.AnimDuration);
+                            child_layer.animate().translationY(-height).setDuration(Const.AnimDuration);
+//                    childe.startAnimation(hide);
+                            childeVisible = false;
+
+                        } else {
+                            int height = childe.getHeight();
+                            childe.animate().translationY(0).setDuration(Const.AnimDuration);
+                            child_layer.animate().translationY(0).setDuration(Const.AnimDuration);
                             childeVisible = true;
                         }
                     }
@@ -127,7 +149,9 @@ public class ListItemFragment extends Fragment implements Constant {
 
             } else {
                 childe.setVisibility(View.GONE);
-                nodeChildeController.setVisibility(View.GONE);
+//                nodeChildeController.setVisibility(View.GONE);
+                child_layer.setVisibility(View.GONE);
+
 
             }
 

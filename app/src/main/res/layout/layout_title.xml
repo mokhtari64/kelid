@@ -19,11 +19,11 @@
         <ImageView
             android:duplicateParentState="true"
             android:id="@+id/cl_menu"
-            android:layout_width="@dimen/defualt_spacing"
-            android:layout_height="@dimen/defualt_spacing"
+            android:layout_width="@dimen/filter_height"
+            android:layout_height="@dimen/filter_height"
             android:scaleType="fitCenter"
             android:src="@drawable/ico"
-            android:layout_margin="5dp" />
+            android:layout_marginLeft="5dp"/>
 
         <TextView
             android:duplicateParentState="true"
@@ -44,7 +44,7 @@
 
             android:scaleType="fitCenter"
             android:src="@drawable/amlak"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="50dp"
             android:layout_marginTop="15dp" />
 
 
