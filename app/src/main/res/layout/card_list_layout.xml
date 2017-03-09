@@ -61,8 +61,8 @@
                 android:layout_height="match_parent"
                 android:id="@+id/childe_controll"
                 android:src="@drawable/done"
-                android:paddingLeft="20dp"
-                android:paddingBottom="20dp"/>
+                android:paddingLeft="5dp"
+                android:paddingBottom="15dp"/>
 
         </RelativeLayout>
 
