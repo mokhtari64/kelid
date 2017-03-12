@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -53,7 +54,7 @@ public class ListItemFragment extends Fragment implements Constant {
     TextView nodePath;
     LinearLayout nodeChilde;
     RelativeLayout child_layer;
-
+    RotateAnimation r;
     ImageView nodeChildeController;
 
     RecyclerView recyclerView;
@@ -117,6 +118,12 @@ public class ListItemFragment extends Fragment implements Constant {
                             int height = childe.getHeight();
                             childe.animate().translationY(-height).setDuration(Const.AnimDuration);
                             child_layer.animate().translationY(-height).setDuration(Const.AnimDuration);
+                            nodeChildeController.animate().rotation(180).setDuration(Const.AnimDuration);
+//                            child_layer.animate().rotation(180).setDuration(Const.AnimDuration);
+/*                            r = new RotateAnimation(0.0f, 180f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                            r.setDuration(5000);
+                            r.setRepeatCount(0);
+                            child_layer.startAnimation(r);*/
 //                    childe.startAnimation(hide);
                             childeVisible = false;
 
@@ -124,6 +131,7 @@ public class ListItemFragment extends Fragment implements Constant {
                             int height = childe.getHeight();
                             childe.animate().translationY(0).setDuration(Const.AnimDuration);
                             child_layer.animate().translationY(0).setDuration(Const.AnimDuration);
+                            nodeChildeController.animate().rotation(0).setDuration(Const.AnimDuration);
                             childeVisible = true;
                         }
                     }

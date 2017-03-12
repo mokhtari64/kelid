@@ -57,12 +57,10 @@
             android:layout_alignParentEnd="true">
 
             <ImageView
-                android:layout_width="43dp"
-                android:layout_height="43dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/childe_controll"
-                android:src="@drawable/down"
-                android:paddingLeft="15dp"
-                android:paddingBottom="1dp"/>
+                android:src="@drawable/down"/>
 
         </RelativeLayout>
 
