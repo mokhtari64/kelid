@@ -140,8 +140,10 @@ public class Database extends SQLiteOpenHelper {
                 if (parent != -1 && !(parent == 0 && code == 0)) {
                     if (parentNode.path.length() == 0)
                         a.path = a.name;
-                    else
+                    else {
+                        a.level=parentNode.level+1;
                         a.path = parentNode.path + "/" + a.name;
+                    }
                 }
                 parentNode.childs.add(a);
                 allNodes.put(code, a);

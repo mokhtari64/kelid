@@ -79,7 +79,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
 
     public TranslateLayout(Context context) {
         super(context);
-        activity= (MainActivity) context;
+        activity = (MainActivity) context;
 
         init();
     }
@@ -103,7 +103,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
                 inflate(getContext(), R.layout.layout_title, this);
                 view = getChildAt(0);
 
-initDrawer();
+                initDrawer();
                 mTitleTrans = getResources().getDimension(R.dimen.cl_title_trans);
                 mMenu = (ImageView) view.findViewById(R.id.cl_menu);
                 mOptionMenu = (ImageView) view.findViewById(R.id.cl_option_menu);
@@ -143,7 +143,6 @@ initDrawer();
         exit = (RelativeLayout) findViewById(R.id.exit);
 
 
-
         float orgPos1X = setting_layer.getX();
         settingbtn = (ToggleButton) findViewById(R.id.setting);
         alpha = AnimationUtils.loadAnimation(getContext(), R.anim.alpha);
@@ -161,18 +160,10 @@ initDrawer();
             public void onClick(View v) {
                 if (settingbtn.isChecked()) {
                     settingbtn.setClickable(false);
-//                    setting_layer.setX(orgPos1X - screenWidth );
-
                     rotation.setRepeatCount(Animation.INFINITE);
                     rotation.setRepeatCount(0);
                     settingbtn.startAnimation(rotation_out);
-//                    settingbtn.setHighlightColor(0xff33b5e5);
                     setting_layer.animate().translationX(setting_layer.getX() + sw).setDuration(Const.AnimDuration);
-//                    dashboard_layer.animate().alpha((float) 0.3).setDuration(Const.AnimDuration);
-
-//                    recyclerView.animate().translationX(screenWidth).setDuration(dtime);
-//                    setting_layer.setVisibility(View.VISIBLE);
-//                    recyclerView.setVisibility(View.GONE);
                     final Handler handler = new Handler();
                     setting_layer.setEnabled(false);
                     handler.postDelayed(new Runnable() {
@@ -214,6 +205,7 @@ initDrawer();
         }
 
     }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         return ((CoolMenuFrameLayout) getParent()).isOpening();
@@ -311,7 +303,7 @@ initDrawer();
             arcMenu.toggleMenu();
             activity.registerNew(Constant.CONSULTING);
 
-        }  else if (v == officeMenu) {
+        } else if (v == officeMenu) {
             arcMenu.toggleMenu();
             activity.registerNew(Constant.OFFICE);
 

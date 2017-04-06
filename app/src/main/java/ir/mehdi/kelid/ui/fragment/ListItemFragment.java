@@ -38,12 +38,12 @@ import ir.mehdi.kelid.utils.Utils;
 public class ListItemFragment extends Fragment implements Constant {
 
 
-    View.OnClickListener nodeClickListener,itemClickListener;
+    View.OnClickListener nodeClickListener, itemClickListener;
 
 
-    public void setClickListener(View.OnClickListener nodeClickListener,View.OnClickListener itemClickListener) {
+    public void setClickListener(View.OnClickListener nodeClickListener, View.OnClickListener itemClickListener) {
         this.nodeClickListener = nodeClickListener;
-        this.itemClickListener=itemClickListener;
+        this.itemClickListener = itemClickListener;
     }
 
     boolean childeVisible = true;
@@ -88,28 +88,9 @@ public class ListItemFragment extends Fragment implements Constant {
             child_layer = (RelativeLayout) mainContent.findViewById(R.id.chlid_btn);
 
             nodeChilde = (LinearLayout) mainContent.findViewById(R.id.node_child);
-            if (node != null && node.childs!=null && node.childs.size()>0) {
+            if (node != null && node.childs != null && node.childs.size() > 0) {
                 childe.setVisibility(View.VISIBLE);
- /*                nodeChildeController.setVisibility(View.VISIBLE);
-               nodeChildeController.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (childeVisible) {
-                            int height = childe.getHeight();
-                            childe.animate().translationY(-height).setDuration(Const.AnimDuration);
-                            nodeChildeController.animate().translationY(-height).setDuration(Const.AnimDuration);
-//                    childe.startAnimation(hide);
-                            childeVisible = false;
 
-                        } else {
-                            int height = childe.getHeight();
-                            childe.animate().translationY(0).setDuration(Const.AnimDuration);
-                            nodeChildeController.animate().translationY(0).setDuration(Const.AnimDuration);
-
-                            childeVisible = true;
-                        }
-                    }
-                });*/
                 child_layer.setVisibility(View.VISIBLE);
                 child_layer.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -119,12 +100,7 @@ public class ListItemFragment extends Fragment implements Constant {
                             childe.animate().translationY(-height).setDuration(Const.AnimDuration);
                             child_layer.animate().translationY(-height).setDuration(Const.AnimDuration);
                             nodeChildeController.animate().rotation(180).setDuration(Const.AnimDuration);
-//                            child_layer.animate().rotation(180).setDuration(Const.AnimDuration);
-/*                            r = new RotateAnimation(0.0f, 180f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                            r.setDuration(5000);
-                            r.setRepeatCount(0);
-                            child_layer.startAnimation(r);*/
-//                    childe.startAnimation(hide);
+
                             childeVisible = false;
 
                         } else {
@@ -145,7 +121,7 @@ public class ListItemFragment extends Fragment implements Constant {
                 for (int i = 0; i < node.childs.size(); i++) {
                     Node node = this.node.childs.get(i);
                     TextView t = new TextView(getContext());
-                    t.setPadding(50,50,50,50);
+                    t.setPadding(50, 50, 50, 50);
                     t.setTag(node);
                     t.setOnClickListener(nodeClickListener);
                     t.setText(node.name);
@@ -157,13 +133,16 @@ public class ListItemFragment extends Fragment implements Constant {
 
             } else {
                 childe.setVisibility(View.GONE);
-//                nodeChildeController.setVisibility(View.GONE);
                 child_layer.setVisibility(View.GONE);
 
 
             }
-
-            nodePath.setText(node.path);
+            if (node.level == 0) {
+                nodePath.setVisibility(View.GONE);
+            } else {
+                nodePath.setVisibility(View.VISIBLE);
+                nodePath.setText(node.path);
+            }
             recyclerView = (RecyclerView) mainContent.findViewById(R.id.recycler);
             RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
             recyclerView.setLayoutManager(mLayoutManager);
@@ -221,8 +200,6 @@ public class ListItemFragment extends Fragment implements Constant {
         }
     }
 
-    /**
-     * Converting dp to pixel
-     */
+
 
 }

@@ -60,7 +60,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/childe_controll"
-                android:src="@drawable/down"/>
+                android:src="@drawable/check_blue"/>
 
         </RelativeLayout>
 
