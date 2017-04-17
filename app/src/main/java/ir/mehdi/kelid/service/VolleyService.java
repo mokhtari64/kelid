@@ -365,13 +365,13 @@ public class VolleyService extends Service implements Constant {
                             Vector<Property> jobs = new Vector<>();
                             try {
                                 JSONArray jsonArray = new JSONArray(aaaa);
-                                Collection<Property> values = MySqliteOpenHelper.getInstance().myJobs.values();
+                                Collection<Property> values = MySqliteOpenHelper.getInstance().myPropertys.values();
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                                     int id = jsonObject.getInt("id");
                                     int status1 = jsonObject.getInt("status");
                                     for (Property userJob : values) {
-                                        if (userJob.myjob == 1 && userJob.remote_id == id) {
+                                        if (userJob.myproperty == 1 && userJob.remote_id == id) {
                                             if (userJob.status != status1) {
                                                 userJob.status = status1;
                                                 if (status1 == 1 || status1 == 2) {
@@ -409,10 +409,10 @@ public class VolleyService extends Service implements Constant {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-                    Collection<Property> values = MySqliteOpenHelper.getInstance().myJobs.values();
+                    Collection<Property> values = MySqliteOpenHelper.getInstance().myPropertys.values();
                     JSONArray jsonArray = new JSONArray();
                     for (Property userJob : values) {
-                        if (userJob.myjob == 1 && userJob.remote_id != 0) {
+                        if (userJob.myproperty == 1 && userJob.remote_id != 0) {
                             jsonArray.put("" + userJob.remote_id);
                         }
                     }
@@ -1094,8 +1094,6 @@ public class VolleyService extends Service implements Constant {
                 if (userJob.city != 0) entity.addPart("city", new StringBody("" + userJob.city));
                 if (userJob.desc != null)
                     entity.addPart("description", new StringBody(userJob.desc, Consts.UTF_8));
-                if (userJob.advers != null)
-                    entity.addPart("advertise_text", new StringBody(userJob.advers, Consts.UTF_8));
                 if (userJob.nodeid != 0) {
                     Node node = Database.getInstance().allNodes.get(userJob.nodeid);
                     entity.addPart("level3", new StringBody("" + userJob.nodeid));
@@ -1103,13 +1101,6 @@ public class VolleyService extends Service implements Constant {
                     entity.addPart("level1", new StringBody("" + node.parent.parent.id));
                 }
                 entity.addPart("province", new StringBody("" + Database.getInstance().indexCities.get(userJob.city).provincecode));
-                entity.addPart("morning", new StringBody("" + (userJob.moorning ? 1 : 0)));
-                entity.addPart("noon", new StringBody("" + (userJob.noon ? 1 : 0)));
-                entity.addPart("name_visible", new StringBody("" + (userJob.namevisible ? 1 : 0)));
-                entity.addPart("evening", new StringBody("" + (userJob.evening ? 1 : 0)));
-                entity.addPart("boarding", new StringBody("" + (userJob.boarding ? 1 : 0)));
-                entity.addPart("bike_delivery", new StringBody("" + (userJob.bike ? 1 : 0)));
-                entity.addPart("card_reader", new StringBody("" + (userJob.cardReader ? 1 : 0)));
                 String defaultPic = null;
                 JSONArray delete = new JSONArray();
                 int i = 0;

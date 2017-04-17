@@ -21,17 +21,17 @@ import ir.mehdi.kelid.utils.Utils;
 public class MySqliteOpenHelper extends SQLiteOpenHelper {
     final public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     final public static SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
-    public static final String table_name = "userjob";
+    public static final String table_name = "PROPERTY";
     public static final String search_history_table_name = "search_history";
-    public static final String table_image_name = "userjobimage";
-    public static final String table_payment_name = "userjobpayment";
+    public static final String table_image_name = "property_image";
+    public static final String table_payment_name = "property_payment";
     private static MySqliteOpenHelper instance;
-    public HashMap<Long, Property> historyJobs = new HashMap<>();
+    public HashMap<Long, Property> historyPropertys = new HashMap<>();
     public HashMap<Long, Property> loadedPropertys = new HashMap<>();
-    public HashMap<Long, Property> myJobs = new HashMap<>();
-    public HashMap<Long, Property> myJobsremote = new HashMap<>();
-    public HashMap<Long, Property> allJobs = new HashMap<>();
-    public HashMap<Long, Property> bookmarkJobs = new HashMap<>();
+    public HashMap<Long, Property> myPropertys = new HashMap<>();
+    public HashMap<Long, Property> myPropertysremote = new HashMap<>();
+    public HashMap<Long, Property> allPropertys = new HashMap<>();
+    public HashMap<Long, Property> bookmarkPropertys = new HashMap<>();
 
 
     public static MySqliteOpenHelper getInstance() {
@@ -43,61 +43,45 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
     }
 
 
-    public static final String JOB_TABLE = "CREATE TABLE userjob (\n" +
+    public static final String Property_TABLE = "CREATE TABLE Property (\n" +
             "  local_id integer primary key AUTOINCREMENT,\n" +
             "  remote_id integer,\n" +
             "created DATETIME DEFAULT CURRENT_TIMESTAMP," +
             "  bookmark integer,\n" +
-            "  myjob integer,\n" +
-            //field for compare
-            "  name text,\n" +
-            "  title text,\n" +
-            "  worktime text,\n" +
-            "  adversText text,\n" +
-            "  web text,\n" +
-            "  email text,\n" +
-            "  telegram text,\n" +
-            "  address text,\n" +
-            "  descritpion text,\n" +
-            "  tel text,\n" +
-            "  mobile text,\n" +
-            "  province integer,\n" +
-            "  city integer,\n" +
-            "  region_id integer,\n" +
-            "  bike integer,\n" +
-            "  noon integer,\n" +
-            "  namevisible integer,\n" +
-            "  moorning integer,\n" +
-            "  evening integer,\n" +
-            "  boarding integer,\n" +
-            "  cardReader integer,\n" +
-            "  node_id integer,\n" +
-
-
-            //field for compare
-            "  send_name text,\n" +
-            "  send_title text,\n" +
-            "  send_worktime text,\n" +
-            "  send_adversText text,\n" +
-            "  send_web text,\n" +
-            "  send_email text,\n" +
-            "  send_telegram text,\n" +
-            "  send_address text,\n" +
-            "  send_descritpion text,\n" +
-            "  send_tel text,\n" +
-            "  send_mobile text,\n" +
-            "  send_province integer,\n" +
-            "  send_city integer,\n" +
-            "  send_region_id integer,\n" +
-            "  send_bike integer,\n" +
-            "  send_noon integer,\n" +
-            "  send_namevisible integer,\n" +
-            "  send_moorning integer,\n" +
-            "  send_evening integer,\n" +
-            "  send_boarding integer,\n" +
-            "  send_cardReader integer,\n" +
-            "  send_node_id integer,\n" +
-            "  qr_code text," +
+            "  myproperty integer,\n" +
+            "name integer,send_name integer,\n" +
+            " title integer,send_title integer,\n" +
+            " desc integer,send_desc integer,\n" +
+            " email integer,send_email integer,\n" +
+            " avenue integer,send_avenue integer,\n" +
+            " street integer,send_street integer,\n" +
+            " address integer,send_address integer,\n" +
+            " tel integer,send_tel integer,\n" +
+            " mobile integer,send_mobile integer,\n" +
+            " telegram integer,send_telegram integer,\n" +
+            "totalTabaghe integer,send_totalTabaghe integer,\n" +
+            " totalVahed integer,send_totalVahed integer,\n" +
+            " vahed integer,send_vahed integer,\n" +
+            " tabaghe integer,send_tabaghe integer,\n" +
+            " hashieh integer,send_hashieh integer,\n" +
+            " rooms integer,send_rooms integer,\n" +
+            " tarakom integer,send_tarakom integer,\n" +
+            " metraj integer,send_metraj integer,\n" +
+            " zirBana integer,send_zirBana integer,\n" +
+            " arseZamin integer,send_arseZamin integer,\n" +
+            " omrSakhteman integer,send_omrSakhteman integer,\n" +
+            " samayeshi integer,send_samayeshi integer,\n" +
+            " garmayeshi integer,send_garmayeshi integer,\n" +
+            " kaf integer,send_kaf integer,\n" +
+            " divar integer,send_divar integer,\n" +
+            " nama integer,send_nama integer,\n" +
+            " cabinet integer,send_cabinet integer,\n" +
+            " ab integer,send_ab integer,\n" +
+            " gaz integer,send_gaz integer,\n" +
+            " bargh integer,send_bargh integer,\n" +
+            " region integer,send_region integer,\n" +
+            " city integer,send_city integer,\n" +
+            " nodeid; integer,send_ nodei; integer,\n" +
             "  status integer,\n" +
             "  totalvisited integer,\n" +
             "  day1cnt integer,\n" +
@@ -110,7 +94,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
             "  id integer primary key AUTOINCREMENT,\n" +
             "  name text\n" +
             "  )";
-    public static final String JOB_Image_TABLE = "CREATE TABLE "+table_image_name+
+    public static final String Property_Image_TABLE = "CREATE TABLE " + table_image_name +
             " ( local_id integer,\n" +
             "id integer primary key AUTOINCREMENT," +
             "local_name text," +
@@ -118,8 +102,8 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
             "main number DEFAULT 0," +
             "deleted number DEFAULT 0" +
             "  )";
-    public static final String JOB_Payment_TABLE = "CREATE TABLE "+table_payment_name+
-            " ( job_id integer,\n" +
+    public static final String Property_Payment_TABLE = "CREATE TABLE " + table_payment_name +
+            " ( Property_id integer,\n" +
             "payDate text," +
             "festivalDate text," +
             "type number DEFAULT 0 )";
@@ -131,9 +115,9 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(JOB_TABLE);
-        db.execSQL(JOB_Image_TABLE);
-        db.execSQL(JOB_Payment_TABLE);
+        db.execSQL(Property_TABLE);
+        db.execSQL(Property_Image_TABLE);
+        db.execSQL(Property_Payment_TABLE);
         db.execSQL(search_history_table_create);
 
     }
@@ -166,135 +150,163 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
 //    }
 
     public void loadProperty() {
-        historyJobs = new HashMap<>();
-        myJobs = new HashMap<>();
-        myJobsremote = new HashMap<>();
-        allJobs = new HashMap<>();
-        bookmarkJobs = new HashMap<>();
+        historyPropertys = new HashMap<>();
+        myPropertys = new HashMap<>();
+        myPropertysremote = new HashMap<>();
+        allPropertys = new HashMap<>();
+        bookmarkPropertys = new HashMap<>();
         String query = "select * from " + table_name;
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        Property[] userJobs = new Property[cursor.getCount()];
+        Property[] property = new Property[cursor.getCount()];
         for (int i = 0; i < cursor.getCount(); i++) {
-            userJobs[i] = new Property();
+            property[i] = new Property();
 
 
-            userJobs[i].desc = cursor.getString(cursor.getColumnIndex("descritpion"));
+            property[i].desc = cursor.getString(cursor.getColumnIndex("descritpion"));
 
             try {
-                userJobs[i].date = dateFormat.parse(cursor.getString(cursor.getColumnIndex("created")));
+                property[i].date = dateFormat.parse(cursor.getString(cursor.getColumnIndex("created")));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            userJobs[i].local_id = cursor.getLong(cursor.getColumnIndex("local_id"));
-            userJobs[i].remote_id = cursor.getLong(cursor.getColumnIndex("remote_id"));
-            userJobs[i].advers = cursor.getString(cursor.getColumnIndex("adversText"));
-            userJobs[i].title = cursor.getString(cursor.getColumnIndex("title"));
-            userJobs[i].qr_code = cursor.getString(cursor.getColumnIndex("qr_code"));
-            userJobs[i].desc = cursor.getString(cursor.getColumnIndex("descritpion"));
-            userJobs[i].address = cursor.getString(cursor.getColumnIndex("address"));
-            userJobs[i].city = cursor.getInt(cursor.getColumnIndex("city"));
-            userJobs[i].region = cursor.getInt(cursor.getColumnIndex("region_id"));
-            userJobs[i].email = cursor.getString(cursor.getColumnIndex("email"));
-            userJobs[i].mobile = cursor.getString(cursor.getColumnIndex("mobile"));
-            userJobs[i].tel = cursor.getString(cursor.getColumnIndex("tel"));
-            userJobs[i].telegram = cursor.getString(cursor.getColumnIndex("telegram"));
-            userJobs[i].name = cursor.getString(cursor.getColumnIndex("name"));
-            userJobs[i].dateString = cursor.getString(cursor.getColumnIndex("created"));
-            userJobs[i].bookmark = cursor.getInt(cursor.getColumnIndex("bookmark"));
-            userJobs[i].nodeid = cursor.getInt(cursor.getColumnIndex("node_id"));
+            property[i].local_id = cursor.getLong(cursor.getColumnIndex("local_id"));
+            property[i].remote_id = cursor.getLong(cursor.getColumnIndex("remote_id"));
+            property[i].title = cursor.getString(cursor.getColumnIndex("title"));
+            property[i].qr_code = cursor.getString(cursor.getColumnIndex("qr_code"));
+            property[i].desc = cursor.getString(cursor.getColumnIndex("descritpion"));
+            property[i].address = cursor.getString(cursor.getColumnIndex("address"));
+            property[i].email = cursor.getString(cursor.getColumnIndex("email"));
+            property[i].mobile = cursor.getString(cursor.getColumnIndex("mobile"));
+            property[i].tel = cursor.getString(cursor.getColumnIndex("tel"));
+            property[i].telegram = cursor.getString(cursor.getColumnIndex("telegram"));
+            property[i].name = cursor.getString(cursor.getColumnIndex("name"));
+            property[i].dateString = cursor.getString(cursor.getColumnIndex("created"));
+            property[i].bookmark = cursor.getInt(cursor.getColumnIndex("bookmark"));
+            property[i].status = cursor.getInt(cursor.getColumnIndex("status"));
+            property[i].address = cursor.getString(cursor.getColumnIndex("address"));
+            property[i].send_desc = cursor.getString(cursor.getColumnIndex("send_descritpion"));
+            property[i].avenue = cursor.getString(cursor.getColumnIndex("avenue"));
+            if (property[i].avenue == null)
+                property[i].avenue = "";
 
-            userJobs[i].status = cursor.getInt(cursor.getColumnIndex("status"));
-            userJobs[i].moorning = cursor.getInt(cursor.getColumnIndex("moorning")) == 1;
-            userJobs[i].bike = cursor.getInt(cursor.getColumnIndex("bike")) == 1;
-            userJobs[i].noon = cursor.getInt(cursor.getColumnIndex("noon")) == 1;
-            userJobs[i].namevisible = cursor.getInt(cursor.getColumnIndex("namevisible")) == 1;
-            userJobs[i].cardReader = cursor.getInt(cursor.getColumnIndex("cardReader")) == 1;
-            userJobs[i].boarding = cursor.getInt(cursor.getColumnIndex("boarding")) == 1;
-            userJobs[i].evening = cursor.getInt(cursor.getColumnIndex("evening")) == 1;
-            userJobs[i].address = cursor.getString(cursor.getColumnIndex("address"));
+            property[i].street = cursor.getString(cursor.getColumnIndex("street"));
+            if (property[i].street == null)
+                property[i].street = "";
 
+            property[i].totalTabaghe = cursor.getInt(cursor.getColumnIndex("totalTabaghe"));
+            property[i].totalVahed = cursor.getInt(cursor.getColumnIndex("totalVahed"));
+            property[i].vahed = cursor.getInt(cursor.getColumnIndex("vahed"));
+            property[i].tabaghe = cursor.getInt(cursor.getColumnIndex("tabaghe"));
+            property[i].hashieh = cursor.getInt(cursor.getColumnIndex("hashieh"));
+            property[i].rooms = cursor.getInt(cursor.getColumnIndex("rooms"));
+            property[i].tarakom = cursor.getInt(cursor.getColumnIndex("tarakom"));
+            property[i].metraj = cursor.getInt(cursor.getColumnIndex("metraj"));
+            property[i].zirBana = cursor.getInt(cursor.getColumnIndex("zirBana"));
+            property[i].arseZamin = cursor.getInt(cursor.getColumnIndex("arseZamin"));
+            property[i].omrSakhteman = cursor.getInt(cursor.getColumnIndex("omrSakhteman"));
+            property[i].samayeshi = cursor.getInt(cursor.getColumnIndex("samayeshi"));
+            property[i].garmayeshi = cursor.getInt(cursor.getColumnIndex("garmayeshi"));
+            property[i].kaf = cursor.getInt(cursor.getColumnIndex("kaf"));
+            property[i].divar = cursor.getInt(cursor.getColumnIndex("divar"));
+            property[i].nama = cursor.getInt(cursor.getColumnIndex("nama"));
+            property[i].cabinet = cursor.getInt(cursor.getColumnIndex("cabinet"));
+            property[i].ab = cursor.getInt(cursor.getColumnIndex("ab"));
+            property[i].gaz = cursor.getInt(cursor.getColumnIndex("gaz"));
+            property[i].bargh = cursor.getInt(cursor.getColumnIndex("bargh"));
+            property[i].region = cursor.getInt(cursor.getColumnIndex("region"));
+            property[i].city = cursor.getInt(cursor.getColumnIndex("city"));
+            property[i].nodeid = cursor.getInt(cursor.getColumnIndex("nodeid"));
 
-            userJobs[i].send_desc = cursor.getString(cursor.getColumnIndex("send_descritpion"));
-            if (userJobs[i].send_desc == null)
-                userJobs[i].send_desc = "";
-            userJobs[i].send_advers = cursor.getString(cursor.getColumnIndex("send_adversText"));
-            if (userJobs[i].send_advers == null)
-                userJobs[i].send_advers = "";
-            userJobs[i].send_title = cursor.getString(cursor.getColumnIndex("send_title"));
-            if (userJobs[i].send_title == null)
-                userJobs[i].send_title = "";
-            userJobs[i].send_desc = cursor.getString(cursor.getColumnIndex("send_descritpion"));
-            if (userJobs[i].send_desc == null)
-                userJobs[i].send_desc = "";
-            userJobs[i].send_address = cursor.getString(cursor.getColumnIndex("send_address"));
-            if (userJobs[i].send_address == null)
-                userJobs[i].send_address = "";
-            userJobs[i].send_city = cursor.getInt(cursor.getColumnIndex("send_city"));
-
-            userJobs[i].send_region = cursor.getInt(cursor.getColumnIndex("send_region_id"));
-
-            userJobs[i].send_email = cursor.getString(cursor.getColumnIndex("send_email"));
-            if (userJobs[i].send_email == null)
-                userJobs[i].send_email = "";
-            userJobs[i].send_mobile = cursor.getString(cursor.getColumnIndex("send_mobile"));
-            if (userJobs[i].send_mobile == null)
-                userJobs[i].send_mobile = "";
-            userJobs[i].send_tel = cursor.getString(cursor.getColumnIndex("send_tel"));
-            if (userJobs[i].send_tel == null)
-                userJobs[i].send_tel = "";
-            userJobs[i].send_telegram = cursor.getString(cursor.getColumnIndex("send_telegram"));
-            if (userJobs[i].send_telegram == null)
-                userJobs[i].send_telegram = "";
-            userJobs[i].send_name = cursor.getString(cursor.getColumnIndex("send_name"));
-            if (userJobs[i].send_name == null)
-                userJobs[i].send_name = "";
-            userJobs[i].send_nodeid = cursor.getInt(cursor.getColumnIndex("send_node_id"));
-
-            userJobs[i].send_moorning = cursor.getInt(cursor.getColumnIndex("send_moorning")) == 1;
-
-            userJobs[i].send_bike = cursor.getInt(cursor.getColumnIndex("send_bike")) == 1;
-
-            userJobs[i].send_noon = cursor.getInt(cursor.getColumnIndex("send_noon")) == 1;
-            userJobs[i].send_namevisible = cursor.getInt(cursor.getColumnIndex("send_namevisible")) == 1;
-
-            userJobs[i].send_cardReader = cursor.getInt(cursor.getColumnIndex("send_cardReader")) == 1;
-
-            userJobs[i].send_boarding = cursor.getInt(cursor.getColumnIndex("send_boarding")) == 1;
-
-            userJobs[i].send_evening = cursor.getInt(cursor.getColumnIndex("send_evening")) == 1;
-
-            userJobs[i].send_address = cursor.getString(cursor.getColumnIndex("send_address"));
-            if (userJobs[i].send_address == null)
-                userJobs[i].send_address = "";
+            property[i].send_totalTabaghe = cursor.getInt(cursor.getColumnIndex("send_totalTabaghe"));
+            property[i].send_totalVahed = cursor.getInt(cursor.getColumnIndex("send_totalVahed"));
+            property[i].send_vahed = cursor.getInt(cursor.getColumnIndex("send_vahed"));
+            property[i].send_tabaghe = cursor.getInt(cursor.getColumnIndex("send_tabaghe"));
+            property[i].send_hashieh = cursor.getInt(cursor.getColumnIndex("send_hashieh"));
+            property[i].send_rooms = cursor.getInt(cursor.getColumnIndex("send_rooms"));
+            property[i].send_tarakom = cursor.getInt(cursor.getColumnIndex("send_tarakom"));
+            property[i].send_metraj = cursor.getInt(cursor.getColumnIndex("send_metraj"));
+            property[i].send_zirBana = cursor.getInt(cursor.getColumnIndex("send_zirBana"));
+            property[i].send_arseZamin = cursor.getInt(cursor.getColumnIndex("send_arseZamin"));
+            property[i].send_omrSakhteman = cursor.getInt(cursor.getColumnIndex("send_omrSakhteman"));
+            property[i].send_samayeshi = cursor.getInt(cursor.getColumnIndex("send_samayeshi"));
+            property[i].send_garmayeshi = cursor.getInt(cursor.getColumnIndex("send_garmayeshi"));
+            property[i].send_kaf = cursor.getInt(cursor.getColumnIndex("send_kaf"));
+            property[i].send_divar = cursor.getInt(cursor.getColumnIndex("send_divar"));
+            property[i].send_nama = cursor.getInt(cursor.getColumnIndex("send_nama"));
+            property[i].send_cabinet = cursor.getInt(cursor.getColumnIndex("send_cabinet"));
+            property[i].send_ab = cursor.getInt(cursor.getColumnIndex("send_ab"));
+            property[i].send_gaz = cursor.getInt(cursor.getColumnIndex("send_gaz"));
+            property[i].send_bargh = cursor.getInt(cursor.getColumnIndex("send_bargh"));
+            property[i].send_region = cursor.getInt(cursor.getColumnIndex("send_region"));
+            property[i].send_city = cursor.getInt(cursor.getColumnIndex("send_city"));
+            property[i].send_nodeid = cursor.getInt(cursor.getColumnIndex("send_nodeid"));
 
 
-            userJobs[i].totalVisited = cursor.getLong(cursor.getColumnIndex("totalvisited"));
-            userJobs[i].day1Cnt = cursor.getLong(cursor.getColumnIndex("day1cnt"));
-            userJobs[i].day2Cnt = cursor.getLong(cursor.getColumnIndex("day2cnt"));
-            userJobs[i].day3Cnt = cursor.getLong(cursor.getColumnIndex("day3cnt"));
-            userJobs[i].day4Cnt = cursor.getLong(cursor.getColumnIndex("day4cnt"));
-//
-//            userJob.noon = preferences.getBoolean("noon", false);//noon, evening, moorning, boarding, bike, cardReader;
-//            userJob.evening = preferences.getBoolean("evening", false);//noon, evening, moorning, boarding, bike, cardReader;
-//            userJob.moorning = preferences.getBoolean("moorning", false);//noon, evening, moorning, boarding, bike, cardReader;
-//            userJob.boarding = preferences.getBoolean("boarding", false);//noon, evening, moorning, boarding, bike, cardReader;
-//            userJob.bike = preferences.getBoolean("bike", false);//noon, evening, moorning, boarding, bike, cardReader;
-//            userJob.cardReader = preferences.getBoolean("cardReader", false);//noon, evening, moorning, boarding, bike, cardReader;
-//
+            if (property[i].send_desc == null)
+                property[i].send_desc = "";
 
-            userJobs[i].myjob = cursor.getInt(cursor.getColumnIndex("myjob"));
-            allJobs.put(userJobs[i].local_id, userJobs[i]);
-            if (userJobs[i].myjob == 1) {
-                userJobs[i].setLoaded(true);
-                myJobs.put(userJobs[i].local_id, userJobs[i]);
-                if (userJobs[i].remote_id != 0)
-                    myJobsremote.put(userJobs[i].remote_id, userJobs[i]);
-            } else if (userJobs[i].bookmark == 1)
-                bookmarkJobs.put(userJobs[i].remote_id, userJobs[i]);
+            property[i].send_title = cursor.getString(cursor.getColumnIndex("send_title"));
+            if (property[i].send_title == null)
+                property[i].send_title = "";
+            property[i].send_desc = cursor.getString(cursor.getColumnIndex("send_descritpion"));
+            if (property[i].send_desc == null)
+                property[i].send_desc = "";
+            property[i].send_address = cursor.getString(cursor.getColumnIndex("send_address"));
+            if (property[i].send_address == null)
+                property[i].send_address = "";
+            property[i].send_city = cursor.getInt(cursor.getColumnIndex("send_city"));
+            property[i].send_region = cursor.getInt(cursor.getColumnIndex("send_region_id"));
+
+            property[i].send_email = cursor.getString(cursor.getColumnIndex("send_email"));
+            if (property[i].send_email == null)
+                property[i].send_email = "";
+
+            property[i].send_avenue = cursor.getString(cursor.getColumnIndex("send_avenue"));
+            if (property[i].send_avenue == null)
+                property[i].send_avenue = "";
+
+            property[i].send_street = cursor.getString(cursor.getColumnIndex("send_street"));
+            if (property[i].send_street == null)
+                property[i].send_street = "";
+
+            property[i].send_mobile = cursor.getString(cursor.getColumnIndex("send_mobile"));
+            if (property[i].send_mobile == null)
+                property[i].send_mobile = "";
+            property[i].send_tel = cursor.getString(cursor.getColumnIndex("send_tel"));
+            if (property[i].send_tel == null)
+                property[i].send_tel = "";
+            property[i].send_telegram = cursor.getString(cursor.getColumnIndex("send_telegram"));
+            if (property[i].send_telegram == null)
+                property[i].send_telegram = "";
+            property[i].send_name = cursor.getString(cursor.getColumnIndex("send_name"));
+            if (property[i].send_name == null)
+                property[i].send_name = "";
+            property[i].send_nodeid = cursor.getInt(cursor.getColumnIndex("send_node_id"));
+
+            property[i].send_address = cursor.getString(cursor.getColumnIndex("send_address"));
+            if (property[i].send_address == null)
+                property[i].send_address = "";
+
+
+            property[i].totalVisited = cursor.getLong(cursor.getColumnIndex("totalvisited"));
+            property[i].day1Cnt = cursor.getLong(cursor.getColumnIndex("day1cnt"));
+            property[i].day2Cnt = cursor.getLong(cursor.getColumnIndex("day2cnt"));
+            property[i].day3Cnt = cursor.getLong(cursor.getColumnIndex("day3cnt"));
+            property[i].day4Cnt = cursor.getLong(cursor.getColumnIndex("day4cnt"));
+
+            property[i].myproperty = cursor.getInt(cursor.getColumnIndex("myProperty"));
+            allPropertys.put(property[i].local_id, property[i]);
+            if (property[i].myproperty == 1) {
+                property[i].setLoaded(true);
+                myPropertys.put(property[i].local_id, property[i]);
+                if (property[i].remote_id != 0)
+                    myPropertysremote.put(property[i].remote_id, property[i]);
+            } else if (property[i].bookmark == 1)
+                bookmarkPropertys.put(property[i].remote_id, property[i]);
             else
-                historyJobs.put(userJobs[i].remote_id, userJobs[i]);
+                historyPropertys.put(property[i].remote_id, property[i]);
 
 
             cursor.moveToNext();
@@ -309,8 +321,8 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
         for (int i = 0; i < cursor.getCount(); i++) {
 
             long local_id = cursor.getLong(cursor.getColumnIndex("local_id"));
-            Property userJob = allJobs.get(local_id);
-            if (userJob == null) {
+            Property userProperty = allPropertys.get(local_id);
+            if (userProperty == null) {
                 cursor.moveToNext();
                 continue;
             }
@@ -319,7 +331,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
             int main = cursor.getInt(cursor.getColumnIndex("main"));
             int deleted = cursor.getInt(cursor.getColumnIndex("deleted"));
             int id = cursor.getInt(cursor.getColumnIndex("id"));
-            userJob.addImage(id, (localname == null) ? localname : FileUtils.getInstance().getImageFile(localname).getAbsolutePath(), (remotename == null || remotename.equals("-1")) ? null : remotename, main, deleted);
+            userProperty.addImage(id, (localname == null) ? localname : FileUtils.getInstance().getImageFile(localname).getAbsolutePath(), (remotename == null || remotename.equals("-1")) ? null : remotename, main, deleted);
 
 
             cursor.moveToNext();
@@ -332,10 +344,10 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         for (int i = 0; i < cursor.getCount(); i++) {
 
-            long local_id = cursor.getLong(cursor.getColumnIndex("job_id"));
-            Property userJob = allJobs.get(local_id);
+            long local_id = cursor.getLong(cursor.getColumnIndex("Property_id"));
+            Property userProperty = allPropertys.get(local_id);
             Property.Payment payment = new Property.Payment();
-            if (userJob == null) {
+            if (userProperty == null) {
                 cursor.moveToNext();
                 continue;
             }
@@ -347,7 +359,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
                 e.printStackTrace();
             }
             payment.type = cursor.getInt(cursor.getColumnIndex("type"));
-            userJob.payments.add(payment);
+            userProperty.payments.add(payment);
             cursor.moveToNext();
         }
         cursor.close();
@@ -357,109 +369,130 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public long insertORUpdateProperty(Property userJob) {
+    public long insertORUpdateProperty(Property property) {
         ContentValues contentValues = new ContentValues();
-        if (userJob.mobile != null) contentValues.put("mobile", userJob.mobile);
-        if (userJob.remote_id != 0) contentValues.put("remote_id", userJob.remote_id);
+        if (property.mobile != null) contentValues.put("mobile", property.mobile);
+        if (property.remote_id != 0) contentValues.put("remote_id", property.remote_id);
+        if (property.tel != null) contentValues.put("tel", property.tel);
+        if (property.address != null) contentValues.put("address", property.tel);
+        if (property.street != null) contentValues.put("street", property.street);
+        if (property.avenue != null) contentValues.put("avenue", property.avenue);
+        if (property.email != null) contentValues.put("email", property.email);
+        if (property.name != null) contentValues.put("name", property.name);
+        if (property.address != null) contentValues.put("address", property.address);
+        if (property.dateString != null) contentValues.put("created", property.dateString);
+        if (property.title != null) contentValues.put("title", property.title);
+        if (property.desc != null) contentValues.put("descritpion", property.desc);
+        if (property.telegram != null) contentValues.put("telegram", property.telegram);
+        if (property.date != null) contentValues.put("created", dateFormat.format(property.date));
+        contentValues.put("totalTabaghe", property.totalTabaghe);
+        contentValues.put("totalVahed", property.totalVahed);
+        contentValues.put("vahed", property.vahed);
+        contentValues.put("tabaghe", property.tabaghe);
+        contentValues.put("hashieh", property.hashieh);
+        contentValues.put("rooms", property.rooms);
+        contentValues.put("tarakom", property.tarakom);
+        contentValues.put("metraj", property.metraj);
+        contentValues.put("zirBana", property.zirBana);
+        contentValues.put("arseZamin", property.arseZamin);
+        contentValues.put("omrSakhteman", property.omrSakhteman);
+        contentValues.put("samayeshi", property.samayeshi);
+        contentValues.put("garmayeshi", property.garmayeshi);
+        contentValues.put("kaf", property.kaf);
+        contentValues.put("divar", property.divar);
+        contentValues.put("nama", property.nama);
+        contentValues.put("cabinet", property.cabinet);
+        contentValues.put("ab", property.ab);
+        contentValues.put("gaz", property.gaz);
+        contentValues.put("bargh", property.bargh);
+        contentValues.put("region", property.region);
+        contentValues.put("city", property.city);
+        contentValues.put("nodeid", property.nodeid);
+        if (property.send_mobile != null) contentValues.put("send_mobile", property.send_mobile);
 
-        if (userJob.tel != null) contentValues.put("tel", userJob.tel);
-        if (userJob.address != null) contentValues.put("address", userJob.tel);
-        if (userJob.email != null) contentValues.put("email", userJob.email);
-        if (userJob.name != null) contentValues.put("name", userJob.name);
-        if (userJob.region != 0) contentValues.put("region_id", userJob.region);
-        if (userJob.address != null) contentValues.put("address", userJob.address);
-        if (userJob.dateString != null) contentValues.put("created", userJob.dateString);
-        if (userJob.title != null) contentValues.put("title", userJob.title);
-        if (userJob.qr_code != null) contentValues.put("qr_code", userJob.qr_code);
-        if (userJob.city != 0) contentValues.put("city", userJob.city);
-        if (userJob.desc != null) contentValues.put("descritpion", userJob.desc);
-        if (userJob.advers != null) contentValues.put("adversText", userJob.advers);
-        if (userJob.nodeid != 0) contentValues.put("node_id", userJob.nodeid);
-        if (userJob.telegram != null) contentValues.put("telegram", userJob.telegram);
-        if (userJob.date != null) contentValues.put("created", dateFormat.format(userJob.date));
+        if (property.send_tel != null) contentValues.put("send_tel", property.send_tel);
+        if (property.send_address != null) contentValues.put("send_address", property.send_tel);
+        if (property.send_street != null) contentValues.put("send_street", property.send_street);
+        if (property.send_avenue != null) contentValues.put("send_avenue", property.send_avenue);
+        if (property.send_email != null) contentValues.put("send_email", property.send_email);
+        if (property.send_name != null) contentValues.put("send_name", property.send_name);
+        if (property.send_address != null) contentValues.put("send_address", property.send_address);
+        if (property.send_title != null) contentValues.put("send_title", property.send_title);
+        if (property.send_desc != null) contentValues.put("send_descritpion", property.send_desc);
+        if (property.send_telegram != null)
+            contentValues.put("send_telegram", property.send_telegram);
+        contentValues.put("send_totalTabaghe", property.send_totalTabaghe);
+        contentValues.put("send_totalVahed", property.send_totalVahed);
+        contentValues.put("send_vahed", property.send_vahed);
+        contentValues.put("send_tabaghe", property.send_tabaghe);
+        contentValues.put("send_hashieh", property.send_hashieh);
+        contentValues.put("send_rooms", property.send_rooms);
+        contentValues.put("send_tarakom", property.send_tarakom);
+        contentValues.put("send_metraj", property.send_metraj);
+        contentValues.put("send_zirBana", property.send_zirBana);
+        contentValues.put("send_arseZamin", property.send_arseZamin);
+        contentValues.put("send_omrSakhteman", property.send_omrSakhteman);
+        contentValues.put("send_samayeshi", property.send_samayeshi);
+        contentValues.put("send_garmayeshi", property.send_garmayeshi);
+        contentValues.put("send_kaf", property.send_kaf);
+        contentValues.put("send_divar", property.send_divar);
+        contentValues.put("send_nama", property.send_nama);
+        contentValues.put("send_cabinet", property.send_cabinet);
+        contentValues.put("send_ab", property.send_ab);
+        contentValues.put("send_gaz", property.send_gaz);
+        contentValues.put("send_bargh", property.send_bargh);
+        contentValues.put("send_region", property.send_region);
+        contentValues.put("send_city", property.send_city);
+        contentValues.put("send_nodeid", property.send_nodeid);
 
 
-        if (userJob.send_mobile != null) contentValues.put("send_mobile", userJob.send_mobile);
+        if (property.totalVisited != 0) contentValues.put("totalvisited", property.totalVisited);
+        if (property.day1Cnt != 0) contentValues.put("day1Cnt", property.day1Cnt);
+        if (property.day2Cnt != 0) contentValues.put("day2Cnt", property.day2Cnt);
+        if (property.day3Cnt != 0) contentValues.put("day3Cnt", property.day3Cnt);
+        if (property.day4Cnt != 0) contentValues.put("day4Cnt", property.day4Cnt);
+        contentValues.put("bookmark", property.bookmark);
+        contentValues.put("status", property.status);
 
-        if (userJob.send_tel != null) contentValues.put("send_tel", userJob.send_tel);
-        if (userJob.send_address != null) contentValues.put("send_address", userJob.send_tel);
-        if (userJob.send_email != null) contentValues.put("send_email", userJob.send_email);
-        if (userJob.send_name != null) contentValues.put("send_name", userJob.send_name);
-        if (userJob.send_region != 0) contentValues.put("send_region_id", userJob.send_region);
-        if (userJob.send_address != null) contentValues.put("send_address", userJob.send_address);
-        if (userJob.send_title != null) contentValues.put("send_title", userJob.send_title);
-        if (userJob.send_city != 0) contentValues.put("send_city", userJob.send_city);
-        if (userJob.send_desc != null) contentValues.put("send_descritpion", userJob.send_desc);
-        if (userJob.send_advers != null) contentValues.put("send_adversText", userJob.send_advers);
-        if (userJob.send_nodeid != 0) contentValues.put("send_node_id", userJob.send_nodeid);
-        if (userJob.send_telegram != null)
-            contentValues.put("send_telegram", userJob.send_telegram);
-
-        if (userJob.totalVisited != 0) contentValues.put("totalvisited", userJob.totalVisited);
-        if (userJob.day1Cnt != 0) contentValues.put("day1Cnt", userJob.day1Cnt);
-        if (userJob.day2Cnt != 0) contentValues.put("day2Cnt", userJob.day2Cnt);
-        if (userJob.day3Cnt != 0) contentValues.put("day3Cnt", userJob.day3Cnt);
-        if (userJob.day4Cnt != 0) contentValues.put("day4Cnt", userJob.day4Cnt);
-        contentValues.put("bookmark", userJob.bookmark);
-        contentValues.put("status", userJob.status);
-        contentValues.put("moorning", (userJob.moorning) ? 1 : 0);
-        contentValues.put("bike", (userJob.bike) ? 1 : 0);
-        contentValues.put("noon", (userJob.noon) ? 1 : 0);
-        contentValues.put("namevisible", (userJob.namevisible) ? 1 : 0);
-        contentValues.put("cardReader", (userJob.cardReader) ? 1 : 0);
-        contentValues.put("boarding", (userJob.boarding) ? 1 : 0);
-        contentValues.put("evening", (userJob.evening) ? 1 : 0);
-
-        contentValues.put("send_moorning", (userJob.send_moorning) ? 1 : 0);
-        contentValues.put("send_bike", (userJob.send_bike) ? 1 : 0);
-        contentValues.put("send_noon", (userJob.send_noon) ? 1 : 0);
-        contentValues.put("send_namevisible", (userJob.send_namevisible) ? 1 : 0);
-        contentValues.put("send_cardReader", (userJob.send_cardReader) ? 1 : 0);
-        contentValues.put("send_boarding", (userJob.send_boarding) ? 1 : 0);
-        contentValues.put("send_evening", (userJob.send_evening) ? 1 : 0);
+        contentValues.put("myProperty", property.myproperty);
 
 
-        contentValues.put("myjob", userJob.myjob);
-
-//        if (userJob.businesscardpathlocal != null)
-//            contentValues.put("businesscardpathlocal", userJob.businesscardpathlocal);
-//        if (userJob.logopath != null) contentValues.put("logopath", userJob.logopath.toString());
         SQLiteDatabase writableDatabase = getWritableDatabase();
-        if (userJob.local_id == 0) {
+        if (property.local_id == 0) {
             long insert = writableDatabase.insert(table_name, null, contentValues);
-            userJob.local_id = insert;
+            property.local_id = insert;
 
         } else {
-            writableDatabase.update(table_name, contentValues, "local_id=" + userJob.local_id, null);
+            writableDatabase.update(table_name, contentValues, "local_id=" + property.local_id, null);
 
         }
-//        if (userJob.myjob == 1) {
-        insertOrUpdateUserImages(userJob);
-        insertOrUpdateUserPayment(userJob);
+//        if (property.myProperty == 1) {
+        insertOrUpdateUserImages(property);
+        insertOrUpdateUserPayment(property);
 //        }
 
 
         writableDatabase.close();
         loadProperty();
-        return userJob.local_id;
-//        userJob.sync();
+        return property.local_id;
+//        property.sync();
     }
 
 
-    private void insertOrUpdateUserPayment(Property userJob) {
-        if (userJob.images.size() == 0)
+    private void insertOrUpdateUserPayment(Property userProperty) {
+        if (userProperty.images.size() == 0)
             return;
         SQLiteDatabase writableDatabase = getWritableDatabase();
-        writableDatabase.delete(table_payment_name, "job_id=" + userJob.local_id, null);
+        writableDatabase.delete(table_payment_name, "Property_id=" + userProperty.local_id, null);
         ContentValues contentValues = new ContentValues();
-        for (int i = 0; i < userJob.payments.size(); i++) {
-            Property.Payment image = userJob.payments.get(i);
+        for (int i = 0; i < userProperty.payments.size(); i++) {
+            Property.Payment image = userProperty.payments.get(i);
             if (image.payDate != null)
                 contentValues.put("payDate", dateFormat.format(image.payDate));
             if (image.festivalDate != null)
                 contentValues.put("festivalDate", dateFormat2.format(image.festivalDate));
             contentValues.put("type", image.type);
-            contentValues.put("job_id", userJob.local_id);
+            contentValues.put("Property_id", userProperty.local_id);
             writableDatabase.insert(table_payment_name, null, contentValues);
 
         }
@@ -468,24 +501,24 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    private void insertOrUpdateUserImages(Property userJob) {
-        if (userJob.payments.size() == 0)
+    private void insertOrUpdateUserImages(Property userProperty) {
+        if (userProperty.payments.size() == 0)
             return;
         SQLiteDatabase writableDatabase = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         boolean hasmain = false;
-        for (int i = 0; i < userJob.images.size(); i++) {
-            hasmain = userJob.images.get(i).main && !userJob.images.get(i).deleted;
+        for (int i = 0; i < userProperty.images.size(); i++) {
+            hasmain = userProperty.images.get(i).main && !userProperty.images.get(i).deleted;
         }
         if (!hasmain)
-            userJob.images.get(0).main = true;
+            userProperty.images.get(0).main = true;
 
 
         boolean a;
-        for (int i = 0; i < userJob.images.size(); i++) {
+        for (int i = 0; i < userProperty.images.size(); i++) {
             a = false;
-            Property.Image image = userJob.images.get(i);
+            Property.Image image = userProperty.images.get(i);
             if (image.main) {
                 contentValues.put("main", 1);
             } else {
@@ -496,14 +529,14 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
                 a = true;
             }
             if (image.localname != null && !image.localname.equals("null")) {
-                if (userJob.myjob == 1 && !FileUtils.getInstance().existInDefaultFoder(image.localname) && !image.deleted) {
+                if (userProperty.myproperty == 1 && !FileUtils.getInstance().existInDefaultFoder(image.localname) && !image.deleted) {
                     image.localname = FileUtils.getInstance().copyToDefaultFoder(image.localname);
                 }
                 contentValues.put("local_name", Utils.getName(image.localname));
                 a = true;
             }
             if (a) {
-                contentValues.put("local_id", userJob.local_id);
+                contentValues.put("local_id", userProperty.local_id);
                 contentValues.put("deleted", (image.deleted) ? 1 : 0);
                 if (image.id == 0) {
                     long insert = writableDatabase.insert(table_image_name, null, contentValues);
@@ -521,49 +554,16 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
 
     }
 
-//    public void updateUserJob(UserJob userJob) {
-//        ContentValues contentValues = new ContentValues();
-//        if (userJob.mobile != null) contentValues.put("mobile", userJob.mobile);
-//        if (userJob.remote_id != 0) contentValues.put("remote_id", userJob.remote_id);
-//        if (userJob.tel != null) contentValues.put("tel", userJob.tel);
-//        if (userJob.email != null) contentValues.put("email", userJob.mobile);
-//        if (userJob.name != null) contentValues.put("name", userJob.mobile);
-//        if (userJob.region != 0) contentValues.put("region_id", userJob.mobile);
-//        if (userJob.address != null) contentValues.put("address", userJob.mobile);
-//        if (userJob.dateString != null) contentValues.put("created", userJob.dateString);
-//        if (userJob.title != null) contentValues.put("title", userJob.mobile);
-//        if (userJob.qr_code != null) contentValues.put("qr_code", userJob.qr_code);
-//        if (userJob.city != 0) contentValues.put("city", userJob.mobile);
-//        if (userJob.desc != null) contentValues.put("descritpion", userJob.mobile);
-//        if (userJob.advers != null) contentValues.put("adversText", userJob.mobile);
-////        if(userJob.dateString==null )
-////        {
-////            contentValues.put("created", new Date());
-////        }else
-////        {
-////            contentValues.put("created", userJob.bookmark);
-////        }
-//        contentValues.put("bookmark", userJob.bookmark);
-//        contentValues.put("status", userJob.status);
-//        SQLiteDatabase writableDatabase = getWritableDatabase();
-//
-//        writableDatabase.update(table_name, contentValues, "local_id=" + userJob.local_id, null);
-//
-//        writableDatabase.close();
-//
-//
-////        if (userJob.remote_id != 0)
-////            remoteUserJob.put(userJob.remote_id, userJob);
-//    }
 
-    public void delete(Property userJob) {
-        delete(userJob.local_id);
-        historyJobs.remove(userJob.remote_id);
-        allJobs.remove(userJob.local_id);
-        myJobs.remove(userJob.local_id);
 
-//        if (userJob.remote_id != 0)
-//            remoteUserJob.remove(userJob.remote_id);
+    public void delete(Property userProperty) {
+        delete(userProperty.local_id);
+        historyPropertys.remove(userProperty.remote_id);
+        allPropertys.remove(userProperty.local_id);
+        myPropertys.remove(userProperty.local_id);
+
+//        if (userProperty.remote_id != 0)
+//            remoteUserProperty.remove(userProperty.remote_id);
 
 
     }
@@ -577,7 +577,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
 
     public void deleteHistory() {
         SQLiteDatabase writableDatabase = getWritableDatabase();
-        writableDatabase.delete(table_name, "(myjob is null or myjob<>1) and (bookmark is null or bookmark<>1)", null);
+        writableDatabase.delete(table_name, "(myProperty is null or myProperty<>1) and (bookmark is null or bookmark<>1)", null);
         writableDatabase.close();
         loadProperty();
     }

@@ -22,6 +22,21 @@ import static ir.mehdi.kelid.Constant.DRAFT_STATUS;
  */
 public class Property
         implements Constant, Comparable<Property>, Serializable {
+    public String name, title, desc, email, avenue, street, address, tel, mobile, telegram;
+    public int totalTabaghe, totalVahed, vahed, tabaghe, hashieh, rooms, tarakom, metraj, zirBana, arseZamin, omrSakhteman, samayeshi, garmayeshi, kaf, divar, nama, cabinet, ab, gaz, bargh, region, city, nodeid;
+
+
+    public String send_avenue, send_street;
+    public int send_totalTabaghe, send_totalVahed, send_vahed, send_tabaghe, send_hashieh,
+            send_rooms, send_tarakom, send_metraj, send_zirBana, send_arseZamin, send_omrSakhteman, send_samayeshi,
+            send_garmayeshi, send_kaf, send_divar, send_nama, send_cabinet, send_ab, send_gaz, send_bargh;
+
+
+    public String send_title = "", send_name = "", send_desc = "", send_email = "", send_address = "";
+    public String send_tel = "", send_mobile = "", send_telegram = "";
+    public int send_region, send_city, send_nodeid;
+
+
     public int order = 0;
     public Date loadedDate;
     public Vector<Payment> payments = new Vector<>();
@@ -82,16 +97,6 @@ public class Property
     public String token;
     public int status = DRAFT_STATUS;
 
-    public String title,  desc, advers;
-    public boolean noon, evening, moorning, boarding, bike, cardReader, namevisible;
-    public int region, city, nodeid;
-    public String tel, mobile, telegram;
-
-    public String send_title = "", send_name = "", send_desc = "", send_advers = "", send_email = "", send_address = "";
-    public String send_tel = "", send_mobile = "", send_telegram = "";
-    public int send_region, send_city, send_nodeid;
-    public boolean send_noon, send_evening, send_moorning, send_boarding, send_bike, send_cardReader, send_namevisible;
-
 
     public Vector<Image> images = new Vector<>();
 
@@ -101,7 +106,7 @@ public class Property
 
     public int bookmark;
 
-    public int myjob;//1 pishhnevis,2 taeed,-1 reject
+    public int myproperty;//1 pishhnevis,2 taeed,-1 reject
     public int reportindex;
     public String reporttext;
 
@@ -142,25 +147,40 @@ public class Property
     }
 
     public void setServerData() {
-        send_title = title;
-        send_name = name;
-        send_desc = desc;
-        send_advers = advers;
-        send_email = email;
-        send_address = address;
-        send_tel = tel;
-        send_mobile = mobile;
-        send_telegram = telegram;
-        send_noon = noon;
-        send_namevisible = namevisible;
-        send_evening = evening;
-        send_moorning = moorning;
-        send_boarding = boarding;
-        send_bike = bike;
-        send_cardReader = cardReader;
         send_region = region;
         send_city = city;
         send_nodeid = nodeid;
+        send_tel = tel;
+        send_mobile = mobile;
+        send_telegram = telegram;
+        send_name = name;
+        send_title = title;
+        send_desc = desc;
+        send_email = email;
+        send_avenue = avenue;
+        send_street = street;
+        send_address = address;
+        send_totalTabaghe = totalTabaghe;
+        send_totalVahed = totalVahed;
+        send_vahed = vahed;
+        send_tabaghe = tabaghe;
+        send_hashieh = hashieh;
+        send_rooms = rooms;
+        send_tarakom = tarakom;
+        send_metraj = metraj;
+        send_zirBana = zirBana;
+        send_arseZamin = arseZamin;
+        send_omrSakhteman = omrSakhteman;
+        send_samayeshi = samayeshi;
+        send_garmayeshi = garmayeshi;
+        send_kaf = kaf;
+        send_divar = divar;
+        send_nama = nama;
+        send_cabinet = cabinet;
+        send_ab = ab;
+        send_gaz = gaz;
+        send_bargh = bargh;
+
 
     }
 
@@ -170,15 +190,19 @@ public class Property
         if (title != null && !title.trim().equals(send_title.trim())) {
             change = true;
         }
+        if (avenue != null && !avenue.trim().equals(send_avenue.trim())) {
+            change = true;
+        }
+        if (street != null && !street.trim().equals(send_street.trim())) {
+            change = true;
+        }
         if (name != null && !name.trim().equals(send_name.trim())) {
             change = true;
         }
         if (desc != null && !desc.trim().equals(send_desc.trim())) {
             change = true;
         }
-        if (advers != null && !advers.trim().equals(send_advers.trim())) {
-            change = true;
-        }
+
         if (email != null && !email.trim().equals(send_email.trim())) {
             change = true;
         }
@@ -194,36 +218,77 @@ public class Property
         if (telegram != null && !telegram.trim().equals(send_telegram.trim())) {
             change = true;
         }
-        if (noon != send_noon) {
+
+        if (send_totalTabaghe != totalTabaghe) {
             change = true;
         }
-        if (namevisible != send_namevisible) {
+        if (send_totalVahed != totalVahed) {
             change = true;
         }
-        if (evening != send_evening) {
+        if (send_vahed != vahed) {
             change = true;
         }
-        if (moorning != send_moorning) {
+        if (send_tabaghe != tabaghe) {
             change = true;
         }
-        if (boarding != send_boarding) {
+        if (send_hashieh != hashieh) {
             change = true;
         }
-        if (bike != send_bike) {
+        if (send_rooms != rooms) {
             change = true;
         }
-        if (cardReader != send_cardReader) {
+        if (send_tarakom != tarakom) {
             change = true;
         }
-        if (region != send_region) {
+        if (send_metraj != metraj) {
             change = true;
         }
-        if (city != send_city) {
+        if (send_zirBana != zirBana) {
             change = true;
         }
-        if (nodeid != send_nodeid) {
+        if (send_arseZamin != arseZamin) {
             change = true;
         }
+        if (send_omrSakhteman != omrSakhteman) {
+            change = true;
+        }
+        if (send_samayeshi != samayeshi) {
+            change = true;
+        }
+        if (send_garmayeshi != garmayeshi) {
+            change = true;
+        }
+        if (send_kaf != kaf) {
+            change = true;
+        }
+        if (send_divar != divar) {
+            change = true;
+        }
+        if (send_nama != nama) {
+            change = true;
+        }
+        if (send_cabinet != cabinet) {
+            change = true;
+        }
+        if (send_ab != ab) {
+            change = true;
+        }
+        if (send_gaz != gaz) {
+            change = true;
+        }
+        if (send_bargh != bargh) {
+            change = true;
+        }
+        if (send_region != region) {
+            change = true;
+        }
+        if (send_city != city) {
+            change = true;
+        }
+        if (send_nodeid != nodeid) {
+            change = true;
+        }
+
         for (int i = 0; i < images.size(); i++) {
             if ((images.get(i).deleted && images.get(i).remotename != null) || images.get(i).remotename == null) {
                 change = true;
@@ -261,7 +326,7 @@ public class Property
     }
 
 //    @Override
-//    public int compareTo(UserJob o) {
+//    public int compareTo(Userproperty o) {
 //        if(date==null || o==null || o.date==null)
 //            return 1;
 //        return date.compareTo(o.date);
@@ -281,7 +346,7 @@ public class Property
         }
     }
 
-    public static class Payment implements Serializable{
+    public static class Payment implements Serializable {
         public Date payDate;
         public int type;
         public Date festivalDate;
@@ -289,20 +354,20 @@ public class Property
 
     }
 
-    public void fillSummeryFromJsonObject(JSONObject jobObject1) {
+    public void fillSummeryFromJsonObject(JSONObject propertyObject1) {
 
         try {
-            remote_id = jobObject1.getInt("id");
-            title = jobObject1.getString("title");
-            mobile = jobObject1.getString("mobile");
-            advers = jobObject1.getString("advertise_text");
+            remote_id = propertyObject1.getInt("id");
+            title = propertyObject1.getString("title");
+            mobile = propertyObject1.getString("mobile");
+
             try {
-                region = jobObject1.getInt("region_id");
+                region = propertyObject1.getInt("region_id");
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            String image = jobObject1.getString("img");
+            String image = propertyObject1.getString("img");
             if (image != null && image.length() > 0 && !image.equals("null")) {
                 addImage(0, null, image, 1, 0);
 
@@ -367,9 +432,6 @@ public class Property
             address = object.getString("address");
             if (address != null && address.toLowerCase().equals("null"))
                 address = null;
-            advers = object.getString("advertise_text");
-            if (advers != null && advers.toLowerCase().equals("null"))
-                advers = null;
             email = object.getString("email");
             if (email != null && email.toLowerCase().equals("null"))
                 email = null;
@@ -391,17 +453,6 @@ public class Property
             if (a != null && !a.equals("null"))
                 region = Integer.parseInt(a);
 //                    name = object.getString("created");
-            moorning = object.getString("morning").equals("1");
-            noon = object.getString("noon").equals("1");
-            try {
-                namevisible = object.getString("name_visible").equals("1");
-            } catch (Exception e) {
-
-            }
-            evening = object.getString("evening").equals("1");
-            boarding = object.getString("boarding").equals("1");
-            cardReader = object.getString("card_reader").equals("1");
-            bike = object.getString("bike_delivery").equals("1");
             nodeid = object.getInt("level3");
             addImageFromJsonObject(object, saveImage);
 
@@ -410,7 +461,7 @@ public class Property
         }
     }
 
-    public void fillFromUserJob(Property object) {
+    public void fillFromProperty(Property object) {
         if (object == null)
             return;
         try {
@@ -418,21 +469,12 @@ public class Property
             title = object.title;
             telegram = object.telegram;
             address = object.address;
-            advers = object.advers;
             email = object.email;
             desc = object.desc;
             tel = object.tel;
             mobile = object.mobile;
-
             city = object.city;
             region = object.region;
-            moorning = object.moorning;
-            noon = object.noon;
-            namevisible = object.namevisible;
-            evening = object.evening;
-            boarding = object.boarding;
-            cardReader = object.cardReader;
-            bike = object.bike;
             nodeid = object.nodeid;
             dateString = object.dateString;
             date = object.date;
@@ -444,15 +486,8 @@ public class Property
     }
 
 
-
-
-
-
-    public String name,email,avenue,street,address;
-    int totalTabaghe,totalVahed,vahed,tabaghe,hashieh,room;
-
     @Override
     public String toString() {
-        return name+" : "+email;
+        return name + " : " + email;
     }
 }

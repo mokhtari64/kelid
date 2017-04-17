@@ -91,7 +91,7 @@ public class UserConfig {
 //        if (ggg != null)
 //            property.logopath = Uri.parse(ggg);
         property.desc = preferences.getString("desc", null);
-        property.advers = preferences.getString("advers", null);
+
         property.email = preferences.getString("email", null);
         String imagespathtext = preferences.getString("imagespathtext", null);
         if (imagespathtext != null) {
@@ -112,13 +112,6 @@ public class UserConfig {
         }
         property.mobile = preferences.getString("mobile", null);
         property.region = preferences.getInt("region", 0);
-        property.noon = preferences.getBoolean("noon", false);//noon, evening, moorning, boarding, bike, cardReader;
-        property.namevisible = preferences.getBoolean("namevisible", false);//noon, evening, moorning, boarding, bike, cardReader;
-        property.evening = preferences.getBoolean("evening", false);//noon, evening, moorning, boarding, bike, cardReader;
-        property.moorning = preferences.getBoolean("moorning", false);//noon, evening, moorning, boarding, bike, cardReader;
-        property.boarding = preferences.getBoolean("boarding", false);//noon, evening, moorning, boarding, bike, cardReader;
-        property.bike = preferences.getBoolean("bike", false);//noon, evening, moorning, boarding, bike, cardReader;
-        property.cardReader = preferences.getBoolean("cardReader", false);//noon, evening, moorning, boarding, bike, cardReader;
         return property;
     }
 
@@ -166,21 +159,14 @@ public class UserConfig {
 
         editor.putString("name", a.name);
         editor.putString("desc", a.desc);
-        editor.putString("advers", a.advers);
+
         editor.putString("email", a.email);
         editor.putString("telegram", a.telegram);
         editor.putString("qr_code", a.qr_code);
         editor.putString("tel", a.tel);
         editor.putString("mobile", a.mobile);
-        editor.putBoolean("noon", a.noon);//noon, evening, moorning, boarding, bike, cardReader;
-        editor.putBoolean("namevisible", a.namevisible);//noon, evening, moorning, boarding, bike, cardReader;
-        editor.putBoolean("evening", a.evening);//noon, evening, moorning, boarding, bike, cardReader;
-        editor.putBoolean("moorning", a.moorning);//noon, evening, moorning, boarding, bike, cardReader;
-        editor.putBoolean("boarding", a.boarding);//noon, evening, moorning, boarding, bike, cardReader;
-        editor.putBoolean("bike", a.bike);//noon, evening, moorning, boarding, bike, cardReader;
-        editor.putBoolean("cardReader", a.cardReader);//noon, evening, moorning, boarding, bike, cardReader;
 
-//        editor.putString("logopath", (a.logopath == null) ? null : a.logopath.toString());
+
 
 
         StringBuilder imagespathtext = new StringBuilder();

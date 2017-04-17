@@ -489,7 +489,7 @@ public class Utils {
             if (property.qr_code != null) addFormField(writer, "qr_code", property.qr_code);
             if (property.city != 0) addFormField(writer, "city", "" + property.city);
             if (property.desc != null) addFormField(writer, "description", property.desc);
-            if (property.advers != null) addFormField(writer, "advertise_text", property.advers);
+
             if (property.nodeid != 0) {
                 Node node = Database.getInstance().allNodes.get(property.nodeid);
                 addFormField(writer, "level3", "" + property.nodeid);
@@ -501,14 +501,6 @@ public class Utils {
 
             if (property.city != 0 && property.city != -1)
                 addFormField(writer, "province", "" + Database.getInstance().indexCities.get(property.city).provincecode);
-            addFormField(writer, "morning", "" + (property.moorning ? 1 : 0));
-            addFormField(writer, "noon", "" + (property.noon ? 1 : 0));
-            addFormField(writer, "namevisible", "" + (property.namevisible ? 1 : 0));
-            addFormField(writer, "evening", "" + (property.evening ? 1 : 0));
-            addFormField(writer, "boarding", "" + (property.boarding ? 1 : 0));
-            addFormField(writer, "bike_delivery", "" + (property.bike ? 1 : 0));
-            addFormField(writer, "card_reader", "" + (property.cardReader ? 1 : 0));
-
 
 //                dos.writeBytes(twoHyphens + boundary);
 //                dos.writeBytes(crlf);
@@ -575,7 +567,7 @@ public class Utils {
                 Property userJob1 = new Property();
                 JSONObject object = array.getJSONObject(i);
                 userJob1.remote_id = object.getInt("id");
-                Property userJob2 = MySqliteOpenHelper.getInstance().myJobsremote.get(userJob1.remote_id);
+                Property userJob2 = MySqliteOpenHelper.getInstance().myPropertysremote.get(userJob1.remote_id);
                 if (userJob2 != null && !forceadd) {
                     int status = object.getInt("status");
                     if (userJob2.status != status) {
@@ -692,7 +684,7 @@ public class Utils {
                 if (payments2 != null) {
                     userJob1.payments = payments2;
                 }
-                Property userJob2 = MySqliteOpenHelper.getInstance().myJobsremote.get(userJob1.remote_id);
+                Property userJob2 = MySqliteOpenHelper.getInstance().myPropertysremote.get(userJob1.remote_id);
                 if (userJob2 != null && !forceadd) {
                     int status = object.getInt("status");
                     if (userJob2.status != status) {
