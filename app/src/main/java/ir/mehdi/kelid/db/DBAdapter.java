@@ -1,10 +1,10 @@
 package ir.mehdi.kelid.db;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.RectF;
-import android.graphics.Region;
 
 
 import ir.mehdi.kelid.KelidApplication;
@@ -13,6 +13,7 @@ import ir.mehdi.kelid.model.City;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.PropertyDetail;
 import ir.mehdi.kelid.model.Province;
+import ir.mehdi.kelid.model.Region;
 import ir.mehdi.kelid.utils.ProvinceMap;
 import ir.mehdi.kelid.utils.Utils;
 
@@ -26,84 +27,63 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 
 import ir.mehdi.kelid.svgandroid.SVGParser;
 
-public class Database extends SQLiteOpenHelper {
-    public static final String dbname = "Kelid";
+public class DBAdapter {
+    public static final String DATABASE_NAME = "Kelid";
     public static final String tblname = "node";
-    public SQLiteDatabase mydb;
-    //private Vector<Node> allNodes =new Vector<>();
-    public HashMap<Integer, Node> allNodes = new HashMap();
     public HashMap<Integer, PropertyDetail> allProperty = new HashMap();
-    public Node root;
+
     public static final String path = "data/data/" + "ir.mehdi.kelid" + "/databases/";
-    private Province[] indexprovince = null;
-    private HashMap<Integer, Province> province = new HashMap<>();
+
 
     private City currentCity;
     public HashMap<Integer, City> indexCities = new HashMap<>();
-    private HashMap<Integer, City> cities = new HashMap<>();
-    private HashMap<Integer, ArrayList<PropertyDetail>> tagProperty = new HashMap<>();
-    public HashMap<Integer, ArrayList<City>> provinceCities = new HashMap<>();
+
+    public HashMap<Integer, ArrayList<PropertyDetail>> tagProperty = new HashMap<>();
+
     private Province currentProvince;
 
-    private Database() {
-        super(null, dbname , null, 1);
-        boolean checkdb = checkdb();
-        if (checkdb) {
-        } else {
-            try {
-                copy_database();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        loadNode();
-    }
+    private Province[] indexprovince = null;
+    public HashMap<Integer, Province> province = new HashMap<>();
+    public HashMap<Integer, Region> regions = new HashMap<>();
 
-    public static Database getInstance() {
-        if (instance == null) {
-            instance = new Database();
-        }
-        return instance;
-    }
 
-    private static Database instance;
+//    private City currentCity;
 
-    public void onCreate(SQLiteDatabase db) {
+    public HashMap<Integer, City> cities = new HashMap<>();
+    public HashMap<Integer, ArrayList<City>> provinceCities = new HashMap<>();
 
-    }
+    public Node root;
+    public HashMap<Integer, Node> allNodes = new HashMap<>();
 
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-    }
+    private static DBAdapter instance;
+
 
     public boolean checkdb() {
 
-        File ff = new File(path + dbname);
+        File ff = new File(path + DATABASE_NAME);
         return ff.exists();
     }
 
 
     public void open() {
-        mydb = SQLiteDatabase.openDatabase(path + dbname, null, SQLiteDatabase.OPEN_READWRITE);
-    }
-
-    public void close() {
-        mydb.close();
+        mydb = SQLiteDatabase.openDatabase(path + DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
 
     public void copy_database() throws IOException {
-        File f = new File(path + dbname);
+        File f = new File(path + DATABASE_NAME);
         if (!f.getParentFile().exists())
             f.getParentFile().mkdirs();
 
         OutputStream myOutput = new FileOutputStream(f);
         byte[] buffer = new byte[1024];
         int length;
-        InputStream myInput =KelidApplication.applicationContext.getAssets().open(dbname);
+        InputStream myInput = KelidApplication.applicationContext.getAssets().open(DATABASE_NAME);
         while ((length = myInput.read(buffer)) > 0) {
             myOutput.write(buffer, 0, length);
         }
@@ -112,60 +92,6 @@ public class Database extends SQLiteOpenHelper {
         myOutput.close();
     }
 
-
-    public void loadNode() {
-        if (allNodes.size() > 0)
-            return;
-        try {
-            open();
-            Cursor cu = mydb.rawQuery("select * from node order by id", null);
-            cu.moveToFirst();
-            while (!cu.isAfterLast()) {
-                String name = cu.getString(cu.getColumnIndex("name"));
-                int code = cu.getInt(cu.getColumnIndex("id"));
-                int parent = cu.getInt(cu.getColumnIndex("parent_id"));
-                Node parentNode = allNodes.get(parent);
-                String feature = cu.getString(cu.getColumnIndex("feature"));
-                if (parentNode == null) {
-                    parentNode = new Node();
-                    parentNode.id = parent;
-                    if (parent != -1 && (parent != 0 && code != 0))
-                        allNodes.put(parent, parentNode);
-                }
-                Node a = new Node();
-                a.id = code;
-                a.name = name;
-                a.parent = parentNode;
-                a.feature = feature;
-                if (parent != -1 && !(parent == 0 && code == 0)) {
-                    if (parentNode.path.length() == 0)
-                        a.path = a.name;
-                    else {
-                        a.level=parentNode.level+1;
-                        a.path = parentNode.path + "/" + a.name;
-                    }
-                }
-                parentNode.childs.add(a);
-                allNodes.put(code, a);
-                cu.moveToNext();
-            }
-            root = allNodes.get(0);
-            close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-    public Province[] getAllProvince() {
-        if (indexprovince == null) {
-            indexprovince = new Province[31];
-            loadProvince();
-        }
-        return indexprovince;
-    }
 
     public void setCurrentProvince(Province p) {
         ProvinceMap.getInstance().setCurrentProvince(getCurrentProvince(), p);
@@ -176,117 +102,15 @@ public class Database extends SQLiteOpenHelper {
         return currentProvince;
     }
 
-    public Province getProvinceForPosition(int position) {
-        if (position >= 0 && position < getAllProvince().length)
-            return getAllProvince()[position];
-        else
-            return null;
-    }
-
-    public int getProvinceCount() {
-        return getAllProvince().length;
-    }
-
-    private void loadProvince() {
-
-        try {
-            InputStream stream = KelidApplication.applicationContext.getResources().getAssets().open("provinces");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-            String line;
-            int i = 0;
-            while ((line = reader.readLine()) != null) {
-                String[] args = line.split(";");
-                Province c = new Province();
-                c.name = Utils.unescape_perl_string(args[1]);
-                c.code = Integer.parseInt(args[0]);
-                if (i < province_map.length) {
-                    c.path = SVGParser.parsePath(province_map[i]);
-                    RectF rectF = new RectF();
-                    c.path.computeBounds(rectF, true);
-                    c.regionPath = new Region();
-                    c.regionPath.setPath(c.path, new Region((int) rectF.left, (int) rectF.top, (int) rectF.right, (int) rectF.bottom));
-                }
-                int n = c.code;
-                province.put(n, c);
-
-                indexprovince[i++] = c;
-            }
-//
-            reader.close();
-            stream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-        setCurrentProvince(province.get(UserConfig.province));
-
-    }
-
 
     public City getCurrentCity() {
         return currentCity;
     }
 
     public void setCurrentCity(City currentCity) {
-
-//        if (currentCity != null) {
-//            UserConfig.city = currentCity.code;
-//
-//
-////            UserConfig.constituence=-1;
-//        } else {
-//            UserConfig.city = -1;
-//
-////            UserConfig.constituence=-1;
-//        }
-
-
         this.currentCity = currentCity;
     }
 
-    public void loadcity() {
-        if (!indexCities.isEmpty())
-            return;
-
-
-        try {
-
-            Cursor cu = mydb.rawQuery("select * from city ", null);
-//            cu.moveToPosition(row);
-            cu.moveToFirst();
-
-            for (int i = 0; !cu.isAfterLast(); i++) {
-//                cu.moveToPosition(i);
-
-                City c = new City();
-                c.code = cu.getInt(cu.getColumnIndex("id"));
-                c.provincecode = cu.getInt(cu.getColumnIndex("p_id"));
-                c.name = cu.getString(cu.getColumnIndex("name"));
-
-                ArrayList<City> cc = provinceCities.get(c.provincecode);
-                if (cc == null) {
-                    cc = new ArrayList<>();
-                    provinceCities.put(c.provincecode, cc);
-                }
-                cc.add(c);
-                indexCities.put(i, c);
-                cities.put(c.code, c);
-                cu.moveToNext();
-
-            }
-//            Arrays.sort(kondordialog);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-        setCurrentCity(cities.get(UserConfig.city));
-        setCurrentCity(cities.get(UserConfig.city));
-
-
-        //Cursor cu=mydb.rawQuery("select * from advers where hoze=66 and ver =0 and day = " + UserConfig.dayadversok, null);
-
-    }
 
     public void loadProperty() {
         if (!allProperty.isEmpty())
@@ -332,7 +156,7 @@ public class Database extends SQLiteOpenHelper {
 
     public void mapPropertyNode() {
         for (Node a : allNodes.values()) {
-            if(a.feature==null || a.feature.length()==0)
+            if (a.feature == null || a.feature.length() == 0)
                 continue;
             String[] split = a.feature.split(",");
             for (String s : split)
@@ -345,6 +169,338 @@ public class Database extends SQLiteOpenHelper {
         Cursor cu = mydb.rawQuery("select * from node where parent_id=" + parent_id, null);
         int s = cu.getCount();
         return s;
+    }
+
+    private SQLiteDatabase mydb;
+
+    public static DBAdapter getInstance() {
+        if (instance == null) {
+            instance = new DBAdapter();
+        }
+        return instance;
+    }
+
+    private DBAdapter() {
+        File f = new File(path + DATABASE_NAME);
+        SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
+        if (preferences.getInt("db_version", -1) < UserConfig.version && f.exists()) {
+            f.delete();
+        }
+        if (!f.exists())
+            try {
+                copydatabase();
+                SharedPreferences.Editor edit = preferences.edit();
+                edit.putInt("db_version", UserConfig.version);
+                edit.commit();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        open();
+    }
+
+
+//    private Province currentProvince;
+
+
+    public Province[] getAllProvince() {
+        if (indexprovince == null) {
+            indexprovince = new Province[31];
+            loadProvince();
+        }
+        return indexprovince;
+    }
+
+
+    public Province getProvinceForPosition(int position) {
+        if (position >= 0 && position < getAllProvince().length)
+            return getAllProvince()[position];
+        else
+            return null;
+    }
+
+    public int getProvinceCount() {
+        return getAllProvince().length;
+    }
+
+    private void loadProvince() {
+
+        try {
+            InputStream stream = KelidApplication.applicationContext.getResources().getAssets().open("provinces");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            String line;
+            int i = 0;
+            while ((line = reader.readLine()) != null) {
+                String[] args = line.split(";");
+                Province c = new Province();
+//                string = string.replace("\u00A0","");
+//                tempStr := replace(tempStr, UNISTR('\064a'), UNISTR('\06cc'));
+//                -- tempStr := UNISTR(replace(asciistr(tempStr), '\064A', '\06CC'));
+//
+//                -- Kaf Validation: "\06a9" , "\0643"
+//                tempStr := replace(tempStr, UNISTR('\0643'), UNISTR('\06a9'));
+
+                c.name = Utils.unescape_perl_string(args[1]).replace("\u064a", "\u06cc").replace("\u0643", "\u06a9");
+                c.code = Integer.parseInt(args[0]);
+                c.chanenelPath = args[2];
+                if (i < province_map.length) {
+                    c.path = SVGParser.parsePath(province_map[i]);
+
+                    RectF rectF = new RectF();
+                    c.path.computeBounds(rectF, true);
+                    c.regionPath = new android.graphics.Region();
+                    c.regionPath.setPath(c.path, new android.graphics.Region((int) rectF.left, (int) rectF.top, (int) rectF.right, (int) rectF.bottom));
+                }
+                int n = c.code;
+                province.put(n, c);
+
+                indexprovince[i++] = c;
+            }
+//
+            reader.close();
+            stream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+//        setCurrentProvince(province.get(UserConfig.province));
+
+    }
+
+
+//    public City getCurrentCity() {
+//        return currentCity;
+//    }
+
+//    public void setCurrentCity(City currentCity) {
+
+//        if (currentCity != null) {
+//            UserConfig.city = currentCity.code;
+//
+//
+////            UserConfig.constituence=-1;
+//        } else {
+//            UserConfig.city = -1;
+//
+////            UserConfig.constituence=-1;
+//        }
+
+
+//        this.currentCity = currentCity;
+//    }
+
+    public void loadcity() {
+        if (!cities.isEmpty())
+            return;
+
+
+        try {
+
+            Cursor cu = mydb.rawQuery("select * from city order by orderr ", null);
+//            cu.moveToPosition(row);
+            cu.moveToFirst();
+
+            for (int i = 0; !cu.isAfterLast(); i++) {
+//                cu.moveToPosition(i);
+
+                City c = new City();
+                c.code = cu.getInt(cu.getColumnIndex("id"));
+                c.provincecode = cu.getInt(cu.getColumnIndex("p_id"));
+                c.name = cu.getString(cu.getColumnIndex("name")).replace("\u064a", "\u06cc").replace("\u0643", "\u06a9");
+                ;
+
+                ArrayList<City> cc = provinceCities.get(c.provincecode);
+                if (cc == null) {
+                    cc = new ArrayList<>();
+                    provinceCities.put(c.provincecode, cc);
+                }
+                cc.add(c);
+                cities.put(c.code, c);
+                cu.moveToNext();
+
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+//        setCurrentCity(cities.get(UserConfig.city));
+//        setCurrentCity(cities.get(UserConfig.city));
+
+
+        //Cursor cu=mydb.rawQuery("select * from advers where hoze=66 and ver =0 and day = " + UserConfig.dayadversok, null);
+
+    }
+
+    public Region[] getRegion(int city, String name) {
+        try {
+            String query = "";
+            if (name == null || name.trim().length() == 0)
+                query = "select * from region  where city_id=" + city + " order by orderr";
+            else
+
+                query = "select * from region  where city_id=" + city + " and name like '" + name + "%'";
+            Cursor cu = mydb.rawQuery(query, null);
+//            cu.moveToPosition(row);
+            cu.moveToFirst();
+            Region[] regions = new Region[cu.getCount()];
+
+            for (int i = 0; !cu.isAfterLast(); i++) {
+                regions[i] = new Region();
+                regions[i].id = cu.getInt(cu.getColumnIndex("id"));
+                regions[i].name = cu.getString(cu.getColumnIndex("name"));
+
+                cu.moveToNext();
+
+            }
+
+//            Arrays.sort(regions);
+            return regions;
+//            Arrays.sort(kondordialog);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return new Region[]{};
+
+
+        //Cursor cu=mydb.rawQuery("select * from advers where hoze=66 and ver =0 and day = " + UserConfig.dayadversok, null);
+
+    }
+
+    public Node[] getSearchNode(String text) {
+        Vector<Node> nn = new Vector<>();
+        Node n = root;
+        if (n.childs != null && n.childs.size() > 0) {
+            for (int i = 0; i < n.childs.size(); i++) {
+                Node node = n.childs.get(i);
+//                if(node.name.contains(text))
+//                    nn.add(node);
+                if (node.childs != null && node.childs.size() > 0) {
+                    for (int j = 0; j < node.childs.size(); j++) {
+                        Node node1 = node.childs.get(j);
+//                        if(node1.name.contains(text))
+//                            nn.add(node1);
+                        if (node1.childs != null && node1.childs.size() > 0) {
+                            for (int k = 0; k < node1.childs.size(); k++) {
+                                Node node2 = node1.childs.get(k);
+                                if (node2.name.contains(text))
+                                    nn.add(node2);
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (nn.size() > 0) {
+            Node[] nnn = new Node[nn.size()];
+            nn.toArray(nnn);
+            return nnn;
+        }
+        return null;
+
+
+    }
+
+    public Region getRegion(int id) {
+        Region region1 = regions.get(id);
+        if (region1 != null)
+            return region1;
+        try {
+            String query = "select * from region  where id=" + id;
+
+            Cursor cu = mydb.rawQuery(query, null);
+//            cu.moveToPosition(row);
+            if (cu.getCount() == 0)
+                return null;
+            cu.moveToFirst();
+            Region region = new Region();
+            region = new Region();
+            region.id = cu.getInt(cu.getColumnIndex("id"));
+            region.name = cu.getString(cu.getColumnIndex("name"));
+            regions.put(id, region);
+            return region;
+//            Arrays.sort(kondordialog);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return null;
+
+    }
+
+
+    public void loadNode() {
+        if (allNodes.size() > 0)
+            return;
+        try {
+
+            Cursor cu = mydb.rawQuery("select code,parent,name from node order by parent,ordered,name", null);
+            cu.moveToFirst();
+            while (!cu.isAfterLast()) {
+                String name = cu.getString(cu.getColumnIndex("name"));
+                int code = cu.getInt(cu.getColumnIndex("code"));
+                int parent = cu.getInt(cu.getColumnIndex("parent"));
+                Node parentNode = allNodes.get(parent);
+                if (parentNode == null) {
+                    parentNode = new Node();
+                    parentNode.id = parent;
+                    if (parent != -1 && (parent != 0 && code != 0))
+                        allNodes.put(parent, parentNode);
+                }
+                Node a = new Node();
+                a.id = code;
+                a.name = name;
+                a.parent = parentNode;
+                if (parent != -1 && !(parent == 0 && code == 0)) {
+                    if (parentNode.path.length() == 0) {
+                        a.path = a.name;
+                        a.level = 1;
+                    } else {
+                        a.path = parentNode.path + ">" + a.name;
+                        a.level = parentNode.level + 1;
+                    }
+                }
+                parentNode.childs.add(a);
+                allNodes.put(code, a);
+                cu.moveToNext();
+            }
+            root = allNodes.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        close();
+    }
+
+    public void close() {
+        try {
+            mydb.close();
+
+        } catch (Exception e) {
+
+        }
+
+    }
+
+
+    private void copydatabase() throws IOException {
+        File f = new File(path + DATABASE_NAME);
+        f.getParentFile().mkdirs();
+        OutputStream myOutput = new FileOutputStream(path + DATABASE_NAME);
+        byte[] buffer = new byte[1024];
+        int length;
+        InputStream myInput = KelidApplication.applicationContext.getAssets().open(DATABASE_NAME);
+        while ((length = myInput.read(buffer)) > 0) {
+            myOutput.write(buffer, 0, length);
+        }
+        myInput.close();
+        myOutput.flush();
+        myOutput.close();
     }
 
 

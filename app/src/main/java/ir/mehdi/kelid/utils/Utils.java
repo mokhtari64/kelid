@@ -3,11 +3,7 @@ package ir.mehdi.kelid.utils;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -16,18 +12,14 @@ import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
-import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
@@ -47,14 +39,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 import java.util.Vector;
 
 import ir.mehdi.kelid.Const;
 import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.R;
-import ir.mehdi.kelid.db.Database;
+import ir.mehdi.kelid.db.DBAdapter;
 import ir.mehdi.kelid.db.MySqliteOpenHelper;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
@@ -491,7 +482,7 @@ public class Utils {
             if (property.desc != null) addFormField(writer, "description", property.desc);
 
             if (property.nodeid != 0) {
-                Node node = Database.getInstance().allNodes.get(property.nodeid);
+                Node node = DBAdapter.getInstance().allNodes.get(property.nodeid);
                 addFormField(writer, "level3", "" + property.nodeid);
                 addFormField(writer, "level2", "" + node.parent.id);
                 addFormField(writer, "level1", "" + node.parent.parent.id);
@@ -500,7 +491,7 @@ public class Utils {
 //                if (property.businesscardpathlocal != null) contentValues.put("businesscardpathlocal", property.businesscardpathlocal);
 
             if (property.city != 0 && property.city != -1)
-                addFormField(writer, "province", "" + Database.getInstance().indexCities.get(property.city).provincecode);
+                addFormField(writer, "province", "" + DBAdapter.getInstance().indexCities.get(property.city).provincecode);
 
 //                dos.writeBytes(twoHyphens + boundary);
 //                dos.writeBytes(crlf);

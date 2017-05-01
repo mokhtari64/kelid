@@ -2,7 +2,6 @@ package ir.mehdi.kelid;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 
@@ -10,7 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-import ir.mehdi.kelid.db.Database;
+import ir.mehdi.kelid.db.DBAdapter;
 import ir.mehdi.kelid.service.LruBitmapCache;
 
 
@@ -44,9 +43,9 @@ public class KelidApplication
         super.onCreate();
         applicationContext = getApplicationContext();
         UserConfig.loadConfig();
-        Database.getInstance().getAllProvince();
-        Database.getInstance().loadcity();
-        Database.getInstance().loadNode();
+        DBAdapter.getInstance().getAllProvince();
+        DBAdapter.getInstance().loadcity();
+        DBAdapter.getInstance().loadNode();
         mInstance=this;
 
         applicationContext = getApplicationContext();

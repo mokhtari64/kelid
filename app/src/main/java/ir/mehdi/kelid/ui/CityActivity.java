@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,7 +17,7 @@ import android.widget.Toast;
 import ir.mehdi.kelid.MainActivity;
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.UserConfig;
-import ir.mehdi.kelid.db.Database;
+import ir.mehdi.kelid.db.DBAdapter;
 import ir.mehdi.kelid.model.*;
 import ir.mehdi.kelid.utils.ProvinceMap;
 
@@ -36,8 +35,8 @@ public class CityActivity extends  KelidActivity {
 
     public void selectCity(City city, boolean check) {
 
-        if (!(Database.getInstance().getCurrentCity() == city && check))
-            Database.getInstance().setCurrentCity(city);
+        if (!(DBAdapter.getInstance().getCurrentCity() == city && check))
+            DBAdapter.getInstance().setCurrentCity(city);
         if (city == null) {
             cityButton.setText(R.string.ChooseCity);
 
@@ -48,39 +47,39 @@ public class CityActivity extends  KelidActivity {
     }
 
     public void selectProvince(Province province, boolean check) {
-        if (Database.getInstance().getCurrentProvince() == province && check) {
-            if (Database.getInstance().getCurrentProvince() == null) {
+        if (DBAdapter.getInstance().getCurrentProvince() == province && check) {
+            if (DBAdapter.getInstance().getCurrentProvince() == null) {
                 provinceButton.setText(R.string.ChooseProvince);
             } else
-                provinceButton.setText(Database.getInstance().getCurrentProvince().name);
+                provinceButton.setText(DBAdapter.getInstance().getCurrentProvince().name);
 
 
             return;
         }
 
-        if (Database.getInstance().getCurrentProvince() != province) {
+        if (DBAdapter.getInstance().getCurrentProvince() != province) {
             selectCity(null, false);
-            Database.getInstance().setCurrentProvince(province);
+            DBAdapter.getInstance().setCurrentProvince(province);
         } else {
-            Database.getInstance().setCurrentProvince(null);
+            DBAdapter.getInstance().setCurrentProvince(null);
 
         }
 
         mapImageView.setImageBitmap(ProvinceMap.getInstance().orginalBitmap);
 
-        if (Database.getInstance().getCurrentProvince() == null) {
+        if (DBAdapter.getInstance().getCurrentProvince() == null) {
             provinceButton.setText(R.string.ChooseProvince);
         } else
-            provinceButton.setText(Database.getInstance().getCurrentProvince().name);
+            provinceButton.setText(DBAdapter.getInstance().getCurrentProvince().name);
 
     }
 
     public void selectProvince(int i, boolean check) {
-        if (i >= 0 && i < Database.getInstance().getProvinceCount()) {
-            selectProvince(Database.getInstance().getAllProvince()[i], check);
+        if (i >= 0 && i < DBAdapter.getInstance().getProvinceCount()) {
+            selectProvince(DBAdapter.getInstance().getAllProvince()[i], check);
 //            Intent myIntent = new Intent(getApplicationContext(), ListActivity.class);
 //            myIntent.putExtra("type", "city");
-//            myIntent.putExtra("province_id", Database.getInstance().getCurrentProvince().code);
+//            myIntent.putExtra("province_id", DBAdapter.getInstance().getCurrentProvince().code);
 //
 //            startActivity(myIntent);
 
@@ -116,9 +115,9 @@ public class CityActivity extends  KelidActivity {
                 }
             }
             case R.id.done_menu:
-                if (Database.getInstance().getCurrentCity() != null) {
-                    UserConfig.city = Database.getInstance().getCurrentCity().code;
-                    UserConfig.province = Database.getInstance().getCurrentProvince().code;
+                if (DBAdapter.getInstance().getCurrentCity() != null) {
+                    UserConfig.city = DBAdapter.getInstance().getCurrentCity().code;
+                    UserConfig.province = DBAdapter.getInstance().getCurrentProvince().code;
 //                    UserConfig.save();
                     myIntent = new Intent(getApplicationContext(), MainActivity.class);
 //                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -157,10 +156,10 @@ public class CityActivity extends  KelidActivity {
         }
         context = this;
         provinceButton = (TextView) findViewById(R.id.province_text_button);
-        if (Database.getInstance().getCurrentProvince() == null) {
+        if (DBAdapter.getInstance().getCurrentProvince() == null) {
             provinceButton.setText(R.string.ChooseProvince);
         } else
-            provinceButton.setText(Database.getInstance().getCurrentProvince().name);
+            provinceButton.setText(DBAdapter.getInstance().getCurrentProvince().name);
 
         provinceButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,20 +172,20 @@ public class CityActivity extends  KelidActivity {
 
 
         cityButton = (TextView) findViewById(R.id.city_text_button);
-        if (Database.getInstance().getCurrentCity() == null) {
+        if (DBAdapter.getInstance().getCurrentCity() == null) {
             cityButton.setText(R.string.ChooseCity);
         } else
-            cityButton.setText(Database.getInstance().getCurrentCity().name);
+            cityButton.setText(DBAdapter.getInstance().getCurrentCity().name);
         cityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Database.getInstance().getCurrentProvince() == null) {
+                if (DBAdapter.getInstance().getCurrentProvince() == null) {
                     Toast.makeText(CityActivity.this,getResources().getString(R.string.FirstSelectProvince), Toast.LENGTH_LONG).show();
                     return;
                 }
                 Intent myIntent = new Intent(getApplicationContext(), ListActivity.class);
                 myIntent.putExtra("type", "city");
-                myIntent.putExtra("province_id", Database.getInstance().getCurrentProvince().code);
+                myIntent.putExtra("province_id", DBAdapter.getInstance().getCurrentProvince().code);
 
                 startActivity(myIntent);
             }
@@ -218,8 +217,8 @@ public class CityActivity extends  KelidActivity {
                 point.x = Integer.valueOf((int) touchPoint[0]);
                 point.y = Integer.valueOf((int) touchPoint[1]);
 
-                for (int i = 0; i < Database.getInstance().getProvinceCount(); i++) {
-                    if (Database.getInstance().getProvinceForPosition(i).regionPath.contains(point.x, point.y)) {
+                for (int i = 0; i < DBAdapter.getInstance().getProvinceCount(); i++) {
+                    if (DBAdapter.getInstance().getProvinceForPosition(i).regionPath.contains(point.x, point.y)) {
                         // System.out.println("---------------------------in (" + i + ")" + ":" + ProvinceMap.getInstance().getProvinceForPosition(i).name);
 
                         selectProvince(i, false);

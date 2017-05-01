@@ -1,6 +1,5 @@
 package ir.mehdi.kelid;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -8,25 +7,15 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 
 import ir.mehdi.kelid.coolmenu.CoolMenuFrameLayout;
 import ir.mehdi.kelid.coolmenu.TranslateLayout;
-import ir.mehdi.kelid.db.Database;
+import ir.mehdi.kelid.db.DBAdapter;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.ui.AddConsulatingActivity;
 import ir.mehdi.kelid.ui.AddOfficeActivity;
@@ -35,14 +24,10 @@ import ir.mehdi.kelid.ui.AddServiceActivity;
 import ir.mehdi.kelid.ui.KelidActivity;
 import ir.mehdi.kelid.ui.NodeFragmentDialog;
 import ir.mehdi.kelid.ui.ShowInfoActivity;
-import ir.mehdi.kelid.ui.fragment.ListItemFragment;
 import ir.mehdi.kelid.ui.fragment.RootFragment;
-import ir.mehdi.kelid.utils.Utils;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * Created by Iman on 1/5/2017.
@@ -73,10 +58,10 @@ public class MainActivity extends KelidActivity implements Constant {
             R.color.PROPERTY,
     };
     Node[] nodes = new Node[]{
-            Database.getInstance().allNodes.get(OFFICE),
-            Database.getInstance().allNodes.get(CONSULTING),
-            Database.getInstance().allNodes.get(SERVICE),
-            Database.getInstance().allNodes.get(PROPERTY)
+            DBAdapter.getInstance().allNodes.get(OFFICE),
+            DBAdapter.getInstance().allNodes.get(CONSULTING),
+            DBAdapter.getInstance().allNodes.get(SERVICE),
+            DBAdapter.getInstance().allNodes.get(PROPERTY)
     };
 
     View.OnClickListener[] itemListner = new View.OnClickListener[]{

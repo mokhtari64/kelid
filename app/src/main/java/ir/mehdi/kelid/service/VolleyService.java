@@ -4,15 +4,11 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
-import android.widget.RemoteViews;
 
 
 import com.android.volley.AuthFailureError;
@@ -57,7 +53,7 @@ import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.MainActivity;
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.UserConfig;
-import ir.mehdi.kelid.db.Database;
+import ir.mehdi.kelid.db.DBAdapter;
 import ir.mehdi.kelid.db.MySqliteOpenHelper;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
@@ -750,7 +746,7 @@ public class VolleyService extends Service implements Constant {
             String data = "?city-id=" + ((city == 0) ? UserConfig.city : city) + "&page=" + page;
             if (region != 0)
                 data = data + "&region-id=" + region;
-            if (currentNode != Database.getInstance().root)
+            if (currentNode != DBAdapter.getInstance().root)
                 data = data + "&level-name=level" + currentNode.level + "&level-code=" + currentNode.id;
             if (word != null && word.length() > 1) {
                 data += "&word=" + URLEncoder.encode(word);
@@ -1095,12 +1091,12 @@ public class VolleyService extends Service implements Constant {
                 if (userJob.desc != null)
                     entity.addPart("description", new StringBody(userJob.desc, Consts.UTF_8));
                 if (userJob.nodeid != 0) {
-                    Node node = Database.getInstance().allNodes.get(userJob.nodeid);
+                    Node node = DBAdapter.getInstance().allNodes.get(userJob.nodeid);
                     entity.addPart("level3", new StringBody("" + userJob.nodeid));
                     entity.addPart("level2", new StringBody("" + node.parent.id));
                     entity.addPart("level1", new StringBody("" + node.parent.parent.id));
                 }
-                entity.addPart("province", new StringBody("" + Database.getInstance().indexCities.get(userJob.city).provincecode));
+                entity.addPart("province", new StringBody("" + DBAdapter.getInstance().indexCities.get(userJob.city).provincecode));
                 String defaultPic = null;
                 JSONArray delete = new JSONArray();
                 int i = 0;

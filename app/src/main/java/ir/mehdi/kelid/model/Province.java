@@ -11,4 +11,5 @@ public class Province {
     public int code;
     public Path path;
     public Region regionPath;
+    public String chanenelPath;
 }

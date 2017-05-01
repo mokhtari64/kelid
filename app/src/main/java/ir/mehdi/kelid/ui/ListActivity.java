@@ -3,7 +3,6 @@ package ir.mehdi.kelid.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,7 +10,7 @@ import android.widget.ListView;
 
 import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.R;
-import ir.mehdi.kelid.db.Database;
+import ir.mehdi.kelid.db.DBAdapter;
 import ir.mehdi.kelid.model.City;
 import ir.mehdi.kelid.model.Province;
 
@@ -46,14 +45,14 @@ public class ListActivity extends  KelidActivity implements Constant {
 
         listView = (ListView) findViewById(R.id.listView);
         if((type == null || type.equals("province")) ) {
-            Province[] provinces = Database.getInstance().getAllProvince();
+            Province[] provinces = DBAdapter.getInstance().getAllProvince();
             ProvinceAdapter adapter = new ProvinceAdapter(this, R.layout.province_activity_listitem, provinces);
 
             listView.setAdapter(adapter);
         }else
         {
             if(province_id!=0) {
-                ArrayList<City> citiy = Database.getInstance().provinceCities.get(province_id);
+                ArrayList<City> citiy = DBAdapter.getInstance().provinceCities.get(province_id);
                 City[] cities=new City[citiy.size()];
                 citiy.toArray(cities);
                 CityAdapter adapter=new CityAdapter(this, R.layout.province_activity_listitem, cities);
@@ -69,14 +68,14 @@ public class ListActivity extends  KelidActivity implements Constant {
                                     int position, long id) {
                 if((type == null || type.equals("province")) ) {
                     final Province item = (Province) parent.getItemAtPosition(position);
-                    Database.getInstance().setCurrentProvince(item);
+                    DBAdapter.getInstance().setCurrentProvince(item);
                     Intent i = new Intent(ListActivity.this, CityActivity.class);
                     startActivity(i);
                     finish();
                 }else
                 {
                     final City item = (City) parent.getItemAtPosition(position);
-                    Database.getInstance().setCurrentCity(item);
+                    DBAdapter.getInstance().setCurrentCity(item);
                     Intent i = new Intent(ListActivity.this, CityActivity.class);
                     startActivity(i);
                     finish();

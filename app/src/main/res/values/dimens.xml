@@ -21,4 +21,5 @@
     <dimen name="advers_height_one_grid">150dp</dimen>
     <dimen name="advers_height_two_grid">100dp</dimen>
     <dimen name="filter_height">45dp</dimen>
+    <dimen name="circle_indicator_radius">5dp</dimen>
 </resources>

@@ -8,7 +8,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 
 import ir.mehdi.kelid.UserConfig;
-import ir.mehdi.kelid.db.Database;
+import ir.mehdi.kelid.db.DBAdapter;
 import ir.mehdi.kelid.model.Province;
 
 
@@ -70,7 +70,7 @@ public class ProvinceMap {
         selectPaint.setStrokeWidth(2);
         orginalBitmap = Bitmap.createBitmap(orginalWidth, orginalheight, Bitmap.Config.ARGB_8888);
         orginalCanvas = new Canvas(orginalBitmap);
-        for (Province c : Database.getInstance().getAllProvince())
+        for (Province c : DBAdapter.getInstance().getAllProvince())
             orginalCanvas.drawPath(c.path, mPaint);
 
 
