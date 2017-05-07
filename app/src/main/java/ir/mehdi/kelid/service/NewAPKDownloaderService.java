@@ -14,10 +14,11 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import java.io.File;
 
-import app.fanoos.ir.fanoosapp.Constant;
-import app.fanoos.ir.fanoosapp.FanoosApplication;
-import app.fanoos.ir.fanoosapp.R;
-import app.fanoos.ir.fanoosapp.collage.FileUtils;
+import ir.mehdi.kelid.Constant;
+import ir.mehdi.kelid.KelidApplication;
+import ir.mehdi.kelid.R;
+import ir.mehdi.kelid.utils.FileUtils;
+
 
 /**
  * Created by Iman on 8/21/2016.
@@ -32,7 +33,7 @@ public class NewAPKDownloaderService extends Service {
 
 
         try {
-            SharedPreferences preferences = FanoosApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
+            SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
             String url = preferences.getString("link", "-1");
             if (url == null || url.equals("-1")) {
                 stopSelf();
@@ -71,7 +72,7 @@ public class NewAPKDownloaderService extends Service {
 
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
 
-            request.setTitle(FanoosApplication.applicationContext.getString(R.string.app_name_fa));
+            request.setTitle(KelidApplication.applicationContext.getString(R.string.app_name_fa));
 
 
             request.setDestinationUri(uri);

@@ -43,7 +43,38 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
     }
 
 
-    public static final String Property_TABLE = "CREATE TABLE Property (\n  local_id integer primary key AUTOINCREMENT,\n  remote_id integer,\ncreated DATETIME DEFAULT CURRENT_TIMESTAMP,  bookmark integer,\n  myproperty integer,\nname integer,send_name integer,\n title integer,send_title integer,\n desc integer,send_desc integer,\n email integer,send_email integer,\n avenue integer,send_avenue integer,\n street integer,send_street integer,\n address integer,send_address integer,\n tel integer,send_tel integer,\n mobile integer,send_mobile integer,\n telegram integer,send_telegram integer,\ntotalTabaghe integer,send_totalTabaghe integer,\n totalVahed integer,send_totalVahed integer,\n vahed integer,send_vahed integer,\n tabaghe integer,send_tabaghe integer,\n hashieh integer,send_hashieh integer,\n rooms integer,send_rooms integer,\n tarakom integer,send_tarakom integer,\n metraj integer,send_metraj integer,\n zirBana integer,send_zirBana integer,\n arseZamin integer,send_arseZamin integer,\n omrSakhteman integer,send_omrSakhteman integer,\n samayeshi integer,send_samayeshi integer,\n garmayeshi integer,send_garmayeshi integer,\n kaf integer,send_kaf integer,\n divar integer,send_divar integer,\n nama integer,send_nama integer,\n cabinet integer,send_cabinet integer,\n ab integer,send_ab integer,\n gaz integer,send_gaz integer,\n bargh integer,send_bargh integer,\n region integer,send_region integer,\n city integer,send_city integer,\n nodeid; integer,send_ nodei; integer,\n  status integer,\n  totalvisited integer,\n  day1cnt integer,\n  day2cnt integer,\n  day3cnt integer,\n  day4cnt integer\n  )";
+    public static final String Property_TABLE = "CREATE TABLE Property (  local_id integer primary key AUTOINCREMENT," +
+            "  remote_id integer,\ncreated DATETIME DEFAULT CURRENT_TIMESTAMP,  bookmark integer," +
+            " myproperty integer,name text,send_name text," +
+            " title text,send_title text," +
+            " desc text,send_desc text, email text,send_email text," +
+            " avenue text,send_avenue text, street text,send_street text," +
+            " address text,send_address text," +
+            " tel text,send_tel text, mobile text,send_mobile text," +
+            " telegram text,send_telegram text," +
+            "totalTabaghe integer,send_totalTabaghe integer," +
+            " totalVahed integer,send_totalVahed integer," +
+            " vahed integer,send_vahed integer," +
+            " tabaghe integer,send_tabaghe integer," +
+            " hashieh integer,send_hashieh integer," +
+            " rooms integer,send_rooms integer," +
+            " tarakom integer,send_tarakom integer," +
+            " metraj integer,send_metraj integer," +
+            " zirBana integer,send_zirBana integer," +
+            " arseZamin integer,send_arseZamin integer," +
+            " omrSakhteman integer,send_omrSakhteman integer," +
+            " samayeshi integer,send_samayeshi integer," +
+            " garmayeshi integer,send_garmayeshi integer," +
+            " kaf integer,send_kaf integer, divar integer,send_divar integer," +
+            " nama integer,send_nama integer," +
+            " cabinet integer,send_cabinet integer," +
+            " ab integer,send_ab integer," +
+            " gaz integer,send_gaz integer," +
+            " bargh integer,send_bargh integer," +
+            " region integer,send_region integer," +
+            " city integer,send_city integer, nodeid; integer,send_ nodeid; integer," +
+            "  status integer," +
+            "  totalvisited integer,\n  day1cnt integer,\n  day2cnt integer,\n  day3cnt integer,\n  day4cnt integer\n  )";
     public static final String search_history_table_create = "CREATE TABLE search_history (\n" +
             "  id integer primary key AUTOINCREMENT,\n" +
             "  name text\n" +

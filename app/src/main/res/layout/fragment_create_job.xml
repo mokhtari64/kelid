@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical"
+    tools:context="app.fanoos.ir.fanoosapp.ui.CreateJobActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main_bg"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/main_bg"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/node_type_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+
+                    android:gravity="right"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:background="#ffffff">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/node_title"
+                            android:textColor="@color/colorAccent" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <Button
+
+                            android:id="@+id/node_type_text"
+                            style="@style/button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/expandale"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <!--<com.github.aakira.expandablelayout.ExpandableLinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:id="@+id/exapanded_layout"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--app:ael_expanded="false"-->
+                    <!--app:ael_duration="1000"-->
+                    <!--app:ael_interpolator="bounce"-->
+                    <!--android:orientation="vertical">-->
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#ffffff"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:orientation="horizontal">-->
+
+                        <!--<ImageView-->
+                        <!--android:id="@+id/imageView8"-->
+                        <!--android:layout_width="20dp"-->
+                        <!--android:layout_height="20dp"-->
+                        <!--android:src="@android:drawable/btn_star_big_on" />-->
+
+                        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/textView4"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="@string/title"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_weight="1" />&ndash;&gt;-->
+
+                        <!--</LinearLayout>-->
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right">
+
+                            <EditText
+
+                                android:id="@+id/titleEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/star_24"
+                                android:drawableStart="@drawable/star_24"
+                                android:gravity="right"
+                                android:hint="@string/title"
+                                android:maxLength="50"
+                                android:nextFocusDown="@+id/adversEditText"
+                                android:nextFocusLeft="@+id/addressEditText"
+                                android:nextFocusRight="@+id/adversEditText"
+                                android:nextFocusUp="@+id/addressEditText" />
+                        </android.support.design.widget.TextInputLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#ffffff"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <!--<TextView-->
+                        <!--android:id="@+id/textView5"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/advers_text" />-->
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_advers"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right">
+
+                            <EditText
+
+                                android:id="@+id/adversEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:hint="@string/advers_text"
+                                android:maxLength="50"
+                                android:nextFocusDown="@+id/nameEditText"
+                                android:nextFocusLeft="@+id/nameEditText"
+                                android:nextFocusRight="@+id/titleEditText"
+                                android:nextFocusUp="@+id/titleEditText"
+                                android:textColorHint="#c4c4c4" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#ffffff"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal">-->
+
+                        <!--<ImageView-->
+                        <!--android:id="@+id/imageView10"-->
+                        <!--android:layout_width="20dp"-->
+                        <!--android:layout_height="20dp"-->
+                        <!--android:src="@android:drawable/btn_star_big_on" />-->
+
+                        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/textView3"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="@string/name"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:gravity="center_vertical" />&ndash;&gt;-->
+
+                        <!--</LinearLayout>-->
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right">
+
+                            <EditText
+                                android:id="@+id/nameEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/star_24"
+                                android:drawableStart="@drawable/star_24"
+                                android:gravity="right"
+                                android:hint="@string/name"
+                                android:maxLength="50"
+                                android:nextFocusDown="@+id/descriptionEditText"
+                                android:nextFocusLeft="@+id/descriptionEditText"
+                                android:nextFocusRight="@+id/adversEditText"
+                                android:nextFocusUp="@+id/adversEditText" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right">
+
+                            <TextView
+                                android:id="@+id/textView12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:text="@string/name_rule"
+                                android:textColor="#bab9b9" />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/namevisible"
+                                android:checked="true" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#ffffff"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="امکانات"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/colorAccent" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:orientation="horizontal">
+
+                            <CheckBox
+                                android:id="@+id/bike"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="false"
+                                android:text="@string/bike" />
+
+                            <CheckBox
+                                android:id="@+id/card_reader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="false"
+                                android:text="@string/card_reader" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ساعات کاری"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/colorAccent" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:orientation="horizontal">
+
+                            <CheckBox
+                                android:id="@+id/moorning"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/morning" />
+
+                            <CheckBox
+                                android:id="@+id/noon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/noon" />
+
+                            <CheckBox
+                                android:id="@+id/evening"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/evening" />
+
+                            <CheckBox
+                                android:id="@+id/boarding"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/boarding"
+                                android:maxLines="1" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#ffffff"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal">-->
+
+                        <!--<ImageView-->
+                        <!--android:id="@+id/imageView12"-->
+                        <!--android:layout_width="20dp"-->
+                        <!--android:layout_height="20dp"-->
+                        <!--android:src="@android:drawable/btn_star_big_on" />-->
+
+                        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/textView9"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="@string/description"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:gravity="center_vertical" />&ndash;&gt;-->
+
+                        <!--</LinearLayout>-->
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right">
+
+                            <EditText
+
+
+                                android:id="@+id/descriptionEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:layout_weight="1"
+                                android:drawableLeft="@drawable/star_24"
+                                android:drawableStart="@drawable/star_24"
+                                android:ems="10"
+
+                                android:gravity="top"
+                                android:hint="@string/description"
+                                android:inputType="textMultiLine"
+                                android:lines="8"
+                                android:maxLength="200"
+                                android:maxLines="10"
+                                android:minLines="6"
+                                android:nextFocusDown="@+id/mobileEditText"
+                                android:nextFocusLeft="@+id/mobileEditText"
+                                android:nextFocusRight="@+id/nameEditText"
+                                android:nextFocusUp="@+id/nameEditText"
+                                android:scrollbars="vertical" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#ffffff"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:orientation="horizontal">
+                            <TextView
+
+                                android:id="@+id/max_photo"
+                                android:layout_marginRight="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:text="@string/maxi_photo"
+                                android:textColor="#9e9d9d" />
+
+                            <TextView
+                                android:id="@+id/textView111"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/photo"
+                                android:textColor="@color/colorAccent" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/imagebutlayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/photoButton"
+                                style="@style/button"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+
+                                android:text="@string/select_photo" />
+
+                        </LinearLayout>
+
+
+
+
+
+                        <LinearLayout
+                            android:id="@+id/horizontalScrollView"
+                            android:layout_width="match_parent"
+
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <HorizontalScrollView
+
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="right"
+                                android:fadeScrollbars="false">
+
+
+                                <LinearLayout
+                                    android:id="@+id/imagesLayout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="100dp"
+                                    android:layout_marginTop="10dp"
+                                    android:gravity="end"
+                                    android:orientation="horizontal"></LinearLayout>
+
+
+                            </HorizontalScrollView>
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/telegram_lable"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/card_select_text"
+                            android:textColor="#9e9d9d" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#ffffff"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal">-->
+
+                        <!--<ImageView-->
+                        <!--android:id="@+id/imageView11"-->
+                        <!--android:layout_width="20dp"-->
+                        <!--android:layout_height="20dp"-->
+                        <!--android:src="@android:drawable/btn_star_big_on" />-->
+
+                        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/textView6"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="@string/mobile"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:gravity="center_vertical" />&ndash;&gt;-->
+
+                        <!--</LinearLayout>-->
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_mobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+
+                                android:id="@+id/mobileEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/star_24"
+                                android:drawableStart="@drawable/star_24"
+                                android:ems="10"
+                                android:hint="@string/mobile"
+                                android:inputType="phone"
+                                android:maxLength="12"
+                                android:nextFocusDown="@+id/telephoneEditText"
+                                android:nextFocusLeft="@+id/telephoneEditText"
+                                android:nextFocusRight="@+id/descriptionEditText"
+                                android:nextFocusUp="@+id/descriptionEditText"
+                                android:textColorHint="#c4c4c4" />
+                        </android.support.design.widget.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#ffffff"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <!--<TextView-->
+                        <!--android:id="@+id/textView7"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/telephone" />-->
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_telephone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right">
+
+                            <EditText
+                                android:id="@+id/telephoneEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+
+                                android:hint="@string/telephone"
+                                android:inputType="phone"
+                                android:maxLength="25"
+                                android:nextFocusDown="@+id/emailEditText"
+                                android:nextFocusLeft="@+id/emailEditText"
+                                android:nextFocusRight="@+id/mobileEditText"
+                                android:nextFocusUp="@+id/mobileEditText"
+                                android:textColorHint="#c4c4c4" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#ffffff"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <!--<TextView-->
+                        <!--android:id="@+id/textView55"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/email" />-->
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right">
+
+                            <EditText
+                                android:id="@+id/emailEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:hint="@string/email"
+                                android:inputType="textEmailAddress"
+                                android:maxLength="25"
+                                android:nextFocusDown="@+id/telegramEditText"
+                                android:nextFocusLeft="@+id/telegramEditText"
+                                android:nextFocusRight="@+id/telephoneEditText"
+                                android:nextFocusUp="@+id/telephoneEditText"
+                                android:textColorHint="#c4c4c4" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#ffffff"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <!--<TextView-->
+
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/telegram" />-->
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_telegram"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right">
+
+                            <EditText
+
+                                android:id="@+id/telegramEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/telegram"
+                                android:inputType="textNoSuggestions"
+                                android:maxLength="25"
+                                android:nextFocusDown="@+id/addressEditText"
+                                android:nextFocusLeft="@+id/addressEditText"
+                                android:nextFocusRight="@+id/emailEditText"
+                                android:nextFocusUp="@+id/emailEditText"
+                                android:textColorHint="#c4c4c4" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#ffffff"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:orientation="horizontal">
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/region"
+                                android:textColor="@color/colorAccent" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/region"
+                                style="@style/button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/region_select"
+                                android:layout_margin="2dp" />
+                            <Button
+                                android:id="@+id/city"
+                                style="@style/button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/change_city"
+                                android:layout_margin="2dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#ffffff"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <!--<TextView-->
+                        <!--android:id="@+id/textView8"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/address" />-->
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right">
+
+                            <EditText
+                                android:id="@+id/addressEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:gravity="right"
+                                android:hint="@string/address"
+                                android:maxLength="100"
+                                android:nextFocusDown="@+id/titleEditText"
+                                android:nextFocusLeft="@+id/titleEditText"
+                                android:nextFocusRight="@+id/telegramEditText"
+                                android:nextFocusUp="@+id/telegramEditText" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/rule_accept"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/rule_accept"
+                            android:textColor="@color/colorPrimary" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/rulecheck" />
+                    </LinearLayout>
+
+
+
+                    <Button
+                        android:id="@+id/send"
+                        style="@style/button"
+                        android:textSize="18sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+
+                        android:text="@string/send_new" />
+                </LinearLayout>
+                <!--</com.github.aakira.expandablelayout.ExpandableLinearLayout>-->
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

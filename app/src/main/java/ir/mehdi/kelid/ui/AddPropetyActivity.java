@@ -42,18 +42,27 @@ import java.util.regex.Pattern;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import ir.mehdi.kelid.Constant;
+import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.R;
+import ir.mehdi.kelid.UserConfig;
+import ir.mehdi.kelid.collage.ImageFilePath;
+import ir.mehdi.kelid.crop.sample.MainActivity;
+import ir.mehdi.kelid.db.MySqliteOpenHelper;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
 import ir.mehdi.kelid.service.SMSDelegate;
 import ir.mehdi.kelid.service.SMSReceiver;
 import ir.mehdi.kelid.service.ServiceDelegate;
+import ir.mehdi.kelid.service.VolleyService;
 import ir.mehdi.kelid.ui.fragment.ActivationCodeFragment;
 import ir.mehdi.kelid.ui.fragment.PropertyCreateFragment;
 import ir.mehdi.kelid.ui.fragment.UserPhoneFragment;
+import ir.mehdi.kelid.utils.FileUtils;
+import ir.mehdi.kelid.utils.Utils;
+
 public class AddPropetyActivity extends KelidActivity implements Constant, ServiceDelegate, SMSDelegate, View.OnClickListener, NodeFragmentDialog.NodeDialogListener, StepFragmentDelegate {
     String curretnRequestCode;
-
+    SMSReceiver receiver;
     boolean saveDB = false, deleteForce = false, forceNotSave = false;
     int remote_id = -1;
 
@@ -86,7 +95,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
 
-        setContentView(R.layout.activity_create_job);
+        setContentView(R.layout.activity_add_property);
 
         saveMenuItem = (ImageView) findViewById(R.id.save);
         backMenuItem = (ImageView) findViewById(R.id.back);
@@ -167,13 +176,13 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     protected void onPause() {
         super.onPause();
         if (!deleteForce && !forceNotSave) {
-            saveJob(propertyCreateFragment.getUserJob(), saveDB, false, false, false, false);
+            saveJob(propertyCreateFragment.getProperty(), saveDB, false, false, false, false);
         }
         saveDB = false;
         forceNotSave = false;
         deleteForce = false;
         if (curretnRequestCode != null) {
-            FanoosApplication.getInstance().cancelPendingRequests(curretnRequestCode);
+            KelidApplication.getInstance().cancelPendingRequests(curretnRequestCode);
             curretnRequestCode = null;
         }
     }
@@ -221,7 +230,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     public void onBackPressed() {
         resend = false;
         if (curretnRequestCode != null) {
-            FanoosApplication.getInstance().cancelPendingRequests(curretnRequestCode);
+            KelidApplication.getInstance().cancelPendingRequests(curretnRequestCode);
             curretnRequestCode = null;
         }
         cancel = true;
@@ -252,7 +261,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
     void previousStep() {
         if (curretnRequestCode != null) {
-            FanoosApplication.getInstance().cancelPendingRequests(curretnRequestCode);
+            KelidApplication.getInstance().cancelPendingRequests(curretnRequestCode);
             curretnRequestCode = null;
         }
         cancel = true;
@@ -268,7 +277,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     }
 
     private void showDuplicateDialog(final long userjob) {
-        final UserJob a = MySqliteOpenHelper.getInstance().myJobsremote.get(userjob);
+        final Property a = MySqliteOpenHelper.getInstance().myPropertysremote.get(userjob);
 
         if (a != null) {
             if (progressDialog == null || !progressDialog.isShowing()) {
@@ -285,8 +294,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                         @Override
                         public void onClick(SweetAlertDialog sweetAlertDialog) {
-                            Intent b = new Intent(CreateJobActivity.this, UserJobDetailActivity.class);
-                            UserJob userJob = MySqliteOpenHelper.getInstance().loadedUserJobs.get(a.remote_id);
+                            Intent b = new Intent(AddPropetyActivity.this, ShowInfoActivity.class);
+                            Property userJob = MySqliteOpenHelper.getInstance().loadedPropertys.get(a.remote_id);
                             if (userJob != null) {
                                 b.putExtra("job", userJob);
                             } else {
@@ -360,24 +369,24 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         progressDialog.dismiss();
         if (req == myAdversService) {
             progressDialog.dismiss();
-            Collection<UserJob> userJobFromJson = null;
+            Collection<Property> userJobFromJson = null;
             try {
-                HashMap<Long, UserJob> userJobFromJson1 = Utils.getMyJobFromJson((JSONObject) data, false, true);
+                HashMap<Long, Property> userJobFromJson1 = Utils.getMyJobFromJson((JSONObject) data, false, true);
                 if (userJobFromJson1 == null)
                     return;
                 userJobFromJson = userJobFromJson1.values();
                 if (userJobFromJson != null && userJobFromJson.size() > 0) {
-                    Iterator<UserJob> iterator = userJobFromJson.iterator();
+                    Iterator<Property> iterator = userJobFromJson.iterator();
                     while (iterator.hasNext()) {
-                        UserJob next = iterator.next();
-                        Vector<UserJob.Image> images = next.images;
+                        Property next = iterator.next();
+                        Vector<Property.Image> images = next.images;
                         if (images != null && images.size() > 0) {
                             for (int i = 0; i < images.size(); i++) {
                                 new VolleyService.MyAdversImageDownload().execute(images.get(i).remotename, images.get(i).localname);
                             }
                         }
-                        next.myjob = 1;
-                        MySqliteOpenHelper.getInstance().insertORUpdateUserJob(next);
+                        next.myproperty = 1;
+                        MySqliteOpenHelper.getInstance().insertORUpdateProperty(next);
                     }
                 }
             } catch (Exception e) {
@@ -396,13 +405,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 //                    String status = object.getString("status");
                     if (status.equals("ok")) {
                         progressDialog.dismiss();
-                        userJob.status = UserJob.WAIT_STATUS;
-                        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-                        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-                        ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
-                        immediateFragment.setRemote_id(userJob.remote_id, false);
-                        ft.replace(R.id.fragment_container, immediateFragment);
-                        ft.commit();
+                        userJob.status = Property.WAIT_STATUS;
+
                         saveJob(userJob, true, false, false, true, true);
                         nextStep();
                         nextStep();
@@ -446,7 +450,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 }
                 progressDialog.dismiss();
                 if (UserConfig.userToken == null || UserConfig.userToken.equals("-1")) {
-                    UserJob a = userJob;
+                    Property a = userJob;
                     try {
                         JSONObject object = new JSONObject((String) data);
                         a.token = object.getString("token");
@@ -469,14 +473,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                         String status = object.getString("msg");
                         if (status.equals("ok")) {
                             userJob.remote_id = object.getInt("id");
-                            userJob.status = UserJob.WAIT_STATUS;
-                            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-                            android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-                            ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
-                            ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
-                            immediateFragment.setRemote_id(userJob.remote_id, true);
-                            ft.replace(R.id.fragment_container, immediateFragment);
-                            ft.commit();
+                            userJob.status = Property.WAIT_STATUS;
+
                             saveJob(userJob, true, false, true, true, true);
                             nextStep();
                             nextStep();
@@ -515,7 +513,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                         } else if (api_token.equals("duplicate")) {
                             showDuplicateDialog(object.getLong("id"));
                         } else if (api_token.equals("expireToken")) {
-                            SharedPreferences preferences = FanoosApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
+                            SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
                             SharedPreferences.Editor edit = preferences.edit();
                             edit.putLong("last_send", 0);
                             edit.putString("last_phone", null);
@@ -552,15 +550,10 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                     String msg = json.getString("msg");
                     if (msg.equals("registerBusiness")) {
                         UserConfig.userToken = api_token;
-                        userJob.status = UserJob.WAIT_STATUS;
+                        userJob.status = Property.WAIT_STATUS;
                         userJob.remote_id = remote_id;
                         remote_id = -1;
-                        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-                        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-                        ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
-                        immediateFragment.setRemote_id(userJob.remote_id, true);
-                        ft.replace(R.id.fragment_container, immediateFragment);
-                        ft.commit();
+
                         saveJob(userJob, true, true, true, true, true);
 
                         nextStep();
@@ -587,31 +580,31 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
     }
 
-    public void saveJob(UserJob userJob, boolean db, boolean saveConfing, boolean sendMyAdvers, boolean saveServerDate, boolean saveremote) {
+    public void saveJob(Property property, boolean db, boolean saveConfing, boolean sendMyAdvers, boolean saveServerDate, boolean saveremote) {
         if (saveConfing)
             UserConfig.saveUserConfig();
-        userJob.myjob = 1;
-        userJob.date = new Date();
+        property.myproperty = 1;
+        property.date = new Date();
         if (saveServerDate) {
-            userJob.setServerData();
+            property.setServerData();
         }
         if (saveremote) {
-            for (int i = 0; i < userJob.images.size(); i++) {
-                UserJob.Image image = userJob.images.get(i);
+            for (int i = 0; i < property.images.size(); i++) {
+                Property.Image image = property.images.get(i);
                 image.remotename = "-";
             }
         }
         if (db || userJobbId != -2) {
-            if (userJob.city == 0) {
-                userJob.city = UserConfig.city;
+            if (property.city == 0) {
+                property.city = UserConfig.city;
             }
-            userJob.local_id = MySqliteOpenHelper.getInstance().insertORUpdateUserJob(userJob);
+            property.local_id = MySqliteOpenHelper.getInstance().insertORUpdateProperty(property);
         }
         if (db && userJobbId == -2) {
             UserConfig.clear();
-            userJobbId = userJob.local_id;
+            userJobbId = property.local_id;
         } else if (userJobbId == -2)
-            UserConfig.cacheUserJob(userJob);
+            UserConfig.cacheProperty(property);
 
         if (sendMyAdvers)
             VolleyService.getInstance().MyJobList(this, myAdversService);
@@ -630,12 +623,12 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         if (currentStep == 0) {
             if (propertyCreateFragment.validationEmpty()) {
                 if (propertyCreateFragment.validateEmail()) {
-                    UserJob a = propertyCreateFragment.getUserJob();
-                    if (a.status == UserJob.WAIT_STATUS) {
-                        String s = FanoosApplication.applicationContext.getString(R.string.isAcceptWait);
+                    Property a = propertyCreateFragment.getProperty();
+                    if (a.status == Property.WAIT_STATUS) {
+                        String s = KelidApplication.applicationContext.getString(R.string.isAcceptWait);
                         s = String.format(s, (int) (a.remote_id + Constant.DEFAULT_FANOOS_CODE));
                         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-                    } else if (a.status == UserJob.DRAFT_STATUS || a.isChanged()) {
+                    } else if (a.status == Property.DRAFT_STATUS || a.isChanged()) {
                         saveJob(a, false, false, false, false, false);
                         if (progressDialog == null || !progressDialog.isShowing()) {
                             progressDialog = new SweetAlertDialog(this);
@@ -654,21 +647,21 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                             a.city = UserConfig.city;
                         }
                         if (UserConfig.userToken == null || UserConfig.userToken.equals("-1")) {
-                            curretnRequestCode = VolleyService.getInstance().SendNewAdvers(CreateJobActivity.this, newAdver, currentStep, a);
+                            curretnRequestCode = VolleyService.getInstance().SendNewAdvers(AddPropetyActivity.this, newAdver, currentStep, a);
                         } else {
                             if (a.remote_id == 0) {
-                                curretnRequestCode = VolleyService.getInstance().SendNewAdversWithToekn(CreateJobActivity.this, newAdver, currentStep, a);
+                                curretnRequestCode = VolleyService.getInstance().SendNewAdversWithToekn(AddPropetyActivity.this, newAdver, currentStep, a);
                                 if (curretnRequestCode == null) {
                                     progressDialog.dismiss();
-                                    Toast toast = Toast.makeText(CreateJobActivity.this, getString(R.string.send_error), Toast.LENGTH_SHORT);
+                                    Toast toast = Toast.makeText(AddPropetyActivity.this, getString(R.string.send_error), Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.CENTER, 0, 0);
                                     toast.show();
                                 }
                             } else {
-                                curretnRequestCode = VolleyService.getInstance().SendEditAdversWithToekn(CreateJobActivity.this, editAdver, currentStep, a);
+                                curretnRequestCode = VolleyService.getInstance().SendEditAdversWithToekn(AddPropetyActivity.this, editAdver, currentStep, a);
                                 if (curretnRequestCode == null) {
                                     progressDialog.dismiss();
-                                    Toast toast = Toast.makeText(CreateJobActivity.this, getString(R.string.send_error), Toast.LENGTH_SHORT);
+                                    Toast toast = Toast.makeText(AddPropetyActivity.this, getString(R.string.send_error), Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.CENTER, 0, 0);
                                     toast.show();
                                 }
@@ -707,7 +700,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 progressDialog.changeAlertType(SweetAlertDialog.PROGRESS_TYPE);
                 if (!progressDialog.isShowing())
                     progressDialog.show();
-                curretnRequestCode = VolleyService.getInstance().ChechActivationCode(CreateJobActivity.this, newAdver, propertyCreateFragment.getUserJob(), activationCodeFragment.getActivationCode());
+                curretnRequestCode = VolleyService.getInstance().ChechActivationCode(AddPropetyActivity.this, newAdver, propertyCreateFragment.getProperty(), activationCodeFragment.getActivationCode());
             } else {
                 Toast.makeText(this, R.string.invalid_code, Toast.LENGTH_SHORT).show();
             }
@@ -733,7 +726,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 progressDialog.show();
 
 
-            SharedPreferences preferences = FanoosApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
+            SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
             long last_send = preferences.getLong("last_send", 0);
             String last_phone = preferences.getString("last_phone", null);
             Date d = new Date();
@@ -742,9 +735,9 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             edit.putString("last_phone", UserConfig.temp_phone);
             edit.commit();
             if (d.getTime() - last_send > (10 * 60 * 1000) || last_phone == null || !last_phone.equals(UserConfig.temp_phone)) {
-                curretnRequestCode = VolleyService.getInstance().SendActivationCode(CreateJobActivity.this, newAdver, propertyCreateFragment.getUserJob(), UserConfig.temp_phone);
+                curretnRequestCode = VolleyService.getInstance().SendActivationCode(AddPropetyActivity.this, newAdver, propertyCreateFragment.getProperty(), UserConfig.temp_phone);
             } else {
-                curretnRequestCode = VolleyService.getInstance().ReSendActivationCode(CreateJobActivity.this, newAdver, propertyCreateFragment.getUserJob(), UserConfig.temp_phone);
+//                curretnRequestCode = VolleyService.getInstance().ReSendActivationCode(AddPropetyActivity.this, newAdver, propertyCreateFragment.getProperty(), UserConfig.temp_phone);
             }
 
 
@@ -834,7 +827,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             try {
                 Uri selectedImage = data.getData();
                 orginalPath = ImageFilePath.getPath(getApplicationContext(), selectedImage);
-                Intent cameraIntent = new Intent(this, app.fanoos.ir.fanoosapp.crop.sample.MainActivity.class);
+                Intent cameraIntent = new Intent(this, MainActivity.class);
                 cameraIntent.putExtra("fix_Rate", true);
                 Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(orginalPath), orginalPath));
                 if (!FileUtils.getInstance().existInDefaultFoder(orginalPath)) {
@@ -851,9 +844,9 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 //                    e.printStackTrace();
 //                }
 
-                app.fanoos.ir.fanoosapp.crop.sample.MainActivity.bitmap = bitmap;
+                MainActivity.bitmap = bitmap;
 
-                if (app.fanoos.ir.fanoosapp.crop.sample.MainActivity.bitmap != null) {
+                if (MainActivity.bitmap != null) {
                     forceNotSave = true;
                     startActivityForResult(cameraIntent, CROP_IMAGE);
                 } else {
@@ -904,10 +897,10 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 //                    e.printStackTrace();
 //                }
                 String aaa = mImagePath.getAbsolutePath();
-                app.fanoos.ir.fanoosapp.crop.sample.MainActivity.bitmap = Utils.modifyOrientation(BitmapFactory.decodeFile(aaa), aaa);//BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
+           MainActivity.bitmap = Utils.modifyOrientation(BitmapFactory.decodeFile(aaa), aaa);//BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
 
                 forceNotSave = true;
-                Intent cameraIntent = new Intent(this, app.fanoos.ir.fanoosapp.crop.sample.MainActivity.class);
+                Intent cameraIntent = new Intent(this, MainActivity.class);
                 cameraIntent.putExtra("fix_Rate", true);
                 startActivityForResult(cameraIntent, CROP_IMAGE);
             } catch (Exception e) {
@@ -1037,22 +1030,22 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         dialog.findViewById(R.id.camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(CreateJobActivity.this,
+                if (ContextCompat.checkSelfPermission(AddPropetyActivity.this,
                         Manifest.permission.READ_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
 
 
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(CreateJobActivity.this,
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(AddPropetyActivity.this,
                             Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
 
-                        ActivityCompat.requestPermissions(CreateJobActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        ActivityCompat.requestPermissions(AddPropetyActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                                 Constant.CAMERAM_GRANT_REQUERST);
 
                     } else {
 
 
-                        ActivityCompat.requestPermissions(CreateJobActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        ActivityCompat.requestPermissions(AddPropetyActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                                 Constant.CAMERAM_GRANT_REQUERST);
 
                     }
@@ -1069,20 +1062,20 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             @Override
             public void onClick(View v) {
 
-                if (ContextCompat.checkSelfPermission(CreateJobActivity.this,
+                if (ContextCompat.checkSelfPermission(AddPropetyActivity.this,
                         Manifest.permission.READ_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
 
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(CreateJobActivity.this,
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(AddPropetyActivity.this,
                             Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
-                        ActivityCompat.requestPermissions(CreateJobActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        ActivityCompat.requestPermissions(AddPropetyActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                                 Constant.READ_EXTERNAL_STORAGE_GRANT_REQUERST);
 
                     } else {
 
 
-                        ActivityCompat.requestPermissions(CreateJobActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        ActivityCompat.requestPermissions(AddPropetyActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                                 Constant.READ_EXTERNAL_STORAGE_GRANT_REQUERST);
 
                     }

@@ -181,8 +181,8 @@ public class MainActivity extends KelidActivity implements Constant {
     public void registerNew(int i) {
         if (nodeFragmentDialog == null)
             nodeFragmentDialog = new NodeFragmentDialog();
-        nodeFragmentDialog.setType(i);
-        nodeFragmentDialog.setActivity(this);
+//        nodeFragmentDialog.setType(i);
+//        nodeFragmentDialog.setActivity(this);
         nodeFragmentDialog.show(getSupportFragmentManager(), "wizard");
     }
 

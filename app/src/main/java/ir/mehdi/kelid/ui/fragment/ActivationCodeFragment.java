@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.ui.DotsProgressBar;
 import ir.mehdi.kelid.ui.StepFragmentDelegate;
@@ -67,8 +68,8 @@ public class ActivationCodeFragment extends Fragment {
         });
         dotsProgressBar = (DotsProgressBar) view.findViewById(R.id.dotprogress);
         dotsProgressBar.setVisibility(View.VISIBLE);
-        textView.setTypeface(FanoosApplication.BYEKAN_NORMAL);
-        s = FanoosApplication.applicationContext.getString(R.string.activation_code);
+        textView.setTypeface(KelidApplication.BYEKAN_NORMAL);
+        s = KelidApplication.applicationContext.getString(R.string.activation_code);
         s = String.format(s, phone);
 
         refresh() ;

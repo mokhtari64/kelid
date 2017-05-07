@@ -10,4 +10,7 @@
     <item name="cl_option_menu" type="id" />
     <item name="cl_title" type="id" />
 
+
+    <item name="crop_image_menu_crop" type="drawable" />
+
 </resources>

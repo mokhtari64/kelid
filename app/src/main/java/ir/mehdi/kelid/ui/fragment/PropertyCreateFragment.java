@@ -53,6 +53,7 @@ import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
 import ir.mehdi.kelid.model.Region;
 import ir.mehdi.kelid.ui.AddPropetyActivity;
+import ir.mehdi.kelid.ui.CityActivity;
 import ir.mehdi.kelid.utils.Utils;
 
 /**
@@ -126,7 +127,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             rule.setText(content);
 
 
-            ((TextView) mainView.findViewById(R.id.max_photo)).setTypeface(FanoosApplication.BYEKAN_NORMAL);
+            ((TextView) mainView.findViewById(R.id.max_photo)).setTypeface(KelidApplication.BYEKAN_NORMAL);
             expandableLinearLayout = (LinearLayout) mainView.findViewById(R.id.expandale);
             noon = (CheckBox) mainView.findViewById(R.id.noon);
             namevisible = (CheckBox) mainView.findViewById(R.id.namevisible);
@@ -139,8 +140,8 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             rule.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent a = new Intent(activity, FanoosRuleActivity.class);
-                    activity.startActivity(a);
+//                    Intent a = new Intent(activity, FanoosRuleActivity.class);
+//                    activity.startActivity(a);
                 }
             });
             evening = (CheckBox) mainView.findViewById(R.id.evening);
@@ -287,7 +288,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             imagesLayout = (LinearLayout) mainView.findViewById(R.id.imagesLayout);
             horizentalImage = mainView.findViewById(R.id.horizontalScrollView);
 //            imagesLayout.setVisibility(View.GONE);
-            setUserJob(property);
+            setUserJob(property.local_id);
 
         }
 
@@ -423,7 +424,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                UserJob.Image a = (UserJob.Image) buttonView.getTag();
+                Property.Image a = (Property.Image) buttonView.getTag();
 //                property.imagepath.remove(a);
                 a.main = true;
                 for (RadioButton bu : imageRadioButtons) {
@@ -432,7 +433,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
                     }
                 }
             } else {
-                UserJob.Image a = (UserJob.Image) buttonView.getTag();
+                Property.Image a = (Property.Image) buttonView.getTag();
 //                property.imagepath.remove(a);
                 a.main = false;
 
@@ -447,11 +448,11 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     public void addImage(final String image_url) {
 
         if (image_url != null) {
-            Vector<UserJob.Image> showImage = property.getShowImage();
+            Vector<Property.Image> showImage = property.getShowImage();
             if (showImage.size() < 5) {
                 boolean exist = false;
                 for (int i = 0; i < showImage.size(); i++) {
-                    UserJob.Image image = showImage.get(i);
+                    Property.Image image = showImage.get(i);
                     if (image.localname != null && image.localname.equals(image_url)) {
                         exist = true;
                         break;
@@ -460,7 +461,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
                 if (exist) {
                     Toast.makeText(getContext(), getActivity().getString(R.string.exist_image), Toast.LENGTH_SHORT).show();
                 } else {
-                    UserJob.Image image = property.addImage(0, image_url, null, 1, 0);
+                    Property.Image image = property.addImage(0, image_url, null, 1, 0);
                     addImage(image);
                     if (property.getImageCount() == 5) {
 //                        photoButton.setVisibility(View.GONE);
@@ -480,7 +481,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
 
     }
 
-    public void addImage(final UserJob.Image image) {
+    public void addImage(final Property.Image image) {
         if (image != null && image.localname != null) {
             Bitmap bitmapOriginal = BitmapFactory.decodeFile(image.localname);
             if (bitmapOriginal == null) {
@@ -514,7 +515,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
 
 //                    image.remove(image_url);
 //                    if (images.size() == 0)
-                    Vector<UserJob.Image> showImage = property.getShowImage();
+                    Vector<Property.Image> showImage = property.getShowImage();
                     if (showImage.size() > 0) {
                         horizentalImage.setVisibility(View.VISIBLE);
                         telegram_lable.setVisibility(View.VISIBLE);
@@ -527,7 +528,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
 
                 }
             });
-            imagesLayout.addView(view, Utils.getDPforPixel(100), Utils.getDPforPixel(100));
+            imagesLayout.addView(view, Utils.dpToPx(activity,100), Utils.dpToPx(activity,100));
 
         }
 
@@ -653,18 +654,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             address.setText(a.address);
 
 
-        noon.setChecked(a.noon);
-        namevisible.setChecked(a.namevisible);
 
-        evening.setChecked(a.evening);
-
-        moorning.setChecked(a.moorning);
-
-        boarding.setChecked(a.boarding);
-
-        bike.setChecked(a.bike);
-
-        cardReader.setChecked(a.cardReader);
 
 
         Node node = DBAdapter.getInstance().allNodes.get(a.nodeid);
@@ -675,9 +665,9 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             noteid.setText(R.string.selection);
             expandableLinearLayout.setVisibility(View.INVISIBLE);
         }
-        Vector<UserJob.Image> showImage = property.getShowImage();
+        Vector<Property.Image> showImage = property.getShowImage();
         for (int i = 0; i < showImage.size(); i++) {
-            UserJob.Image image = showImage.get(i);
+            Property.Image image = showImage.get(i);
 
             addImage(image);
 
