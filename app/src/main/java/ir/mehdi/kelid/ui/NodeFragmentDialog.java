@@ -54,9 +54,9 @@ public class NodeFragmentDialog extends DialogFragment {
     boolean onlydismis = false;
     boolean searchable = false;
 
-    EditText searchText;
-    ImageView search;
-    boolean searchMode = false;
+//    EditText searchText;
+//    ImageView search;
+//    boolean searchMode = false;
     NodeDialogListener nodeDialogListener;
     public void setNodeDialogListener(NodeDialogListener nodeDialogListener) {
         this.nodeDialogListener = nodeDialogListener;
@@ -67,8 +67,6 @@ public class NodeFragmentDialog extends DialogFragment {
     }
 
 
-//    boolean showAdver = false;
-//    AdversFragmentSegment adversFragmentSegment;
 
     public void setOnlydismis(boolean onlydismis) {
         this.onlydismis = onlydismis;
@@ -76,12 +74,12 @@ public class NodeFragmentDialog extends DialogFragment {
 
     public void setSearchable(boolean onlydismis) {
         this.searchable = onlydismis;
-        if (searchText != null)
-            searchText.setText("");
+//        if (searchText != null)
+//            searchText.setText("");
     }
 
 
-    //    static MainActivity activity;
+
 
     Node currentNode;
 
@@ -90,7 +88,7 @@ public class NodeFragmentDialog extends DialogFragment {
         DisplayMetrics displaymetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int width = (int) (displaymetrics.widthPixels * 0.9);
-//        int height = (int) (displaymetrics.heightPixels * 0.7);
+
         int height = getResources().getDimensionPixelSize(R.dimen.popup_width);
         window.setLayout(width, height);
     }
@@ -128,7 +126,7 @@ public class NodeFragmentDialog extends DialogFragment {
             } else {
                 nodeheader.setText(R.string.search);
             }
-//            (node == DBAdapter.getInstance().root)?getResources().getString(R.string.dialog_title):
+
             if (node == DBAdapter.getInstance().root && !parent.searchable) {
                 nodeheader.setVisibility(View.GONE);
                 ok.setVisibility(View.GONE);
@@ -239,7 +237,7 @@ public class NodeFragmentDialog extends DialogFragment {
                     setFragment(n);
                 }
             } else {
-                searchText.setText("");
+//                searchText.setText("");
                 getDialog().dismiss();
                 getChildFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 if (!onlydismis) {
@@ -269,14 +267,15 @@ public class NodeFragmentDialog extends DialogFragment {
                     return false;
                 }
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    if (searchMode) {
-                        getChildFragmentManager().popBackStack(null, android.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                        setFragment(DBAdapter.getInstance().root);
-                        currentNode = DBAdapter.getInstance().root;
-                        searchMode = false;
-                        searchText.setText("");
-                        return true;
-                    } else if (getChildFragmentManager().getBackStackEntryCount() > 1) {
+//                    if (searchMode) {
+//                        getChildFragmentManager().popBackStack(null, android.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//                        setFragment(DBAdapter.getInstance().root);
+//                        currentNode = DBAdapter.getInstance().root;
+//                        searchMode = false;
+//                        searchText.setText("");
+//                        return true;
+//                    } else
+                    if (getChildFragmentManager().getBackStackEntryCount() > 1) {
                         back();
                         return true;
                     }
@@ -299,20 +298,20 @@ public class NodeFragmentDialog extends DialogFragment {
                 } else dismiss();
             }
         });
-        searchText = (EditText) view.findViewById(R.id.editText4);
-        search = (ImageView) view.findViewById(R.id.imageView7);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (searchText.getText().toString().trim().length() > 0) {
-                    searchMode = true;
-                    Node[] searchNode = DBAdapter.getInstance().getSearchNode(searchText.getText().toString().trim());
-                    setFragment(searchNode);
-
-
-                }
-            }
-        });
+//        searchText = (EditText) view.findViewById(R.id.editText4);
+//        search = (ImageView) view.findViewById(R.id.imageView7);
+//        search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (searchText.getText().toString().trim().length() > 0) {
+//                    searchMode = true;
+//                    Node[] searchNode = DBAdapter.getInstance().getSearchNode(searchText.getText().toString().trim());
+//                    setFragment(searchNode);
+//
+//
+//                }
+//            }
+//        });
         setFragment(DBAdapter.getInstance().root);
 //        if (showAdver) {
 //            if(adversFragmentSegment==null) {
