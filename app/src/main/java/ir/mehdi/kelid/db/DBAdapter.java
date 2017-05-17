@@ -439,13 +439,14 @@ public class DBAdapter {
             return;
         try {
 
-            Cursor cu = mydb.rawQuery("select code,parent,name from node order by parent,ordered,name", null);
+            Cursor cu = mydb.rawQuery("select id,parent_id,name,feature from node order by parent_id,name", null);
             cu.moveToFirst();
             while (!cu.isAfterLast()) {
                 String name = cu.getString(cu.getColumnIndex("name"));
-                int code = cu.getInt(cu.getColumnIndex("code"));
-                int parent = cu.getInt(cu.getColumnIndex("parent"));
+                int code = cu.getInt(cu.getColumnIndex("id"));
+                int parent = cu.getInt(cu.getColumnIndex("parent_id"));
                 Node parentNode = allNodes.get(parent);
+                String feature = cu.getString(cu.getColumnIndex("feature"));
                 if (parentNode == null) {
                     parentNode = new Node();
                     parentNode.id = parent;
@@ -456,6 +457,7 @@ public class DBAdapter {
                 a.id = code;
                 a.name = name;
                 a.parent = parentNode;
+                a.feature = feature;
                 if (parent != -1 && !(parent == 0 && code == 0)) {
                     if (parentNode.path.length() == 0) {
                         a.path = a.name;
