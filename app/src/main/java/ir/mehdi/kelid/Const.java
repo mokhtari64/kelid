@@ -7,7 +7,7 @@ public interface Const {
 
 
 
-    int AnimDuration = 200;
+    int AnimDuration = 300;
 
 
 }
