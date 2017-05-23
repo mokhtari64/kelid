@@ -21,6 +21,7 @@ import ir.mehdi.kelid.ui.AddConsulatingActivity;
 import ir.mehdi.kelid.ui.AddOfficeActivity;
 import ir.mehdi.kelid.ui.AddPropetyActivity;
 import ir.mehdi.kelid.ui.AddServiceActivity;
+import ir.mehdi.kelid.ui.AddTest;
 import ir.mehdi.kelid.ui.KelidActivity;
 import ir.mehdi.kelid.ui.NodeFragmentDialog;
 import ir.mehdi.kelid.ui.ShowInfoActivity;
@@ -190,7 +191,8 @@ public class MainActivity extends KelidActivity implements Constant {
         Intent i;
         switch (type) {
             case PROPERTY:
-                i = new Intent(this, AddPropetyActivity.class);
+//                i = new Intent(this, AddPropetyActivity.class);
+                i = new Intent(this, AddTest.class);
                 startActivity(i);
                 break;
             case CONSULTING:

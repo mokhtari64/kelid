@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -56,6 +57,7 @@ import ir.mehdi.kelid.service.ServiceDelegate;
 import ir.mehdi.kelid.service.VolleyService;
 import ir.mehdi.kelid.ui.fragment.ActivationCodeFragment;
 import ir.mehdi.kelid.ui.fragment.PropertyCreateFragment;
+import ir.mehdi.kelid.ui.fragment.TestFragment;
 import ir.mehdi.kelid.ui.fragment.UserPhoneFragment;
 import ir.mehdi.kelid.utils.FileUtils;
 import ir.mehdi.kelid.utils.Utils;
@@ -77,7 +79,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     NodeFragmentDialog nodeFragmentDialog;
 
 
-    PropertyCreateFragment propertyCreateFragment;
+//    PropertyCreateFragment propertyCreateFragment;
+    TestFragment propertyCreateFragment;
 
     UserPhoneFragment userPhoneFragment;
     //    ImmediateFragment immediateFragment;
@@ -112,7 +115,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
         }
 
-        propertyCreateFragment = new PropertyCreateFragment();
+//        propertyCreateFragment = new PropertyCreateFragment();
+        propertyCreateFragment = new TestFragment();
 
         propertyCreateFragment.setActivity(this);
         userPhoneFragment = new UserPhoneFragment();
@@ -611,147 +615,152 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
     }
 
-    public void doneClicked() {
-        if (!Utils.isNetworkConnected()) {
-            Toast toast = Toast.makeText(this, getString(R.string.intetnet_not_connected), Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-            return;
-        }
+//    public void doneClicked() {
+//        if (!Utils.isNetworkConnected()) {
+//            Toast toast = Toast.makeText(this, getString(R.string.intetnet_not_connected), Toast.LENGTH_SHORT);
+//            toast.setGravity(Gravity.CENTER, 0, 0);
+//            toast.show();
+//            return;
+//        }
+//
+//
+//        if (currentStep == 0) {
+//            if (propertyCreateFragment.validationEmpty()) {
+//                if (propertyCreateFragment.validateEmail()) {
+//                    Property a = propertyCreateFragment.getProperty();
+//                    if (a.status == Property.WAIT_STATUS) {
+//                        String s = KelidApplication.applicationContext.getString(R.string.isAcceptWait);
+//                        s = String.format(s, (int) (a.remote_id + Constant.DEFAULT_FANOOS_CODE));
+//                        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+//                    } else if (a.status == Property.DRAFT_STATUS || a.isChanged()) {
+//                        saveJob(a, false, false, false, false, false);
+//                        if (progressDialog == null || !progressDialog.isShowing()) {
+//                            progressDialog = new SweetAlertDialog(this);
+//                        }
+//                        progressDialog.changeAlertType(SweetAlertDialog.PROGRESS_TYPE);
+//                        progressDialog.setTitleText("")
+//                                .showCancelButton(false)
+//                                .setContentText(getString(R.string.sending) + "\n" + getString(R.string.wait))
+//                                .setCancelClickListener(null);
+//
+//                        if (!progressDialog.isShowing())
+//                            progressDialog.show();
+//
+//
+//                        if (a.city == -1 || a.city == 0) {
+//                            a.city = UserConfig.city;
+//                        }
+//                        if (UserConfig.userToken == null || UserConfig.userToken.equals("-1")) {
+//                            curretnRequestCode = VolleyService.getInstance().SendNewAdvers(AddPropetyActivity.this, newAdver, currentStep, a);
+//                        } else {
+//                            if (a.remote_id == 0) {
+//                                curretnRequestCode = VolleyService.getInstance().SendNewAdversWithToekn(AddPropetyActivity.this, newAdver, currentStep, a);
+//                                if (curretnRequestCode == null) {
+//                                    progressDialog.dismiss();
+//                                    Toast toast = Toast.makeText(AddPropetyActivity.this, getString(R.string.send_error), Toast.LENGTH_SHORT);
+//                                    toast.setGravity(Gravity.CENTER, 0, 0);
+//                                    toast.show();
+//                                }
+//                            } else {
+//                                curretnRequestCode = VolleyService.getInstance().SendEditAdversWithToekn(AddPropetyActivity.this, editAdver, currentStep, a);
+//                                if (curretnRequestCode == null) {
+//                                    progressDialog.dismiss();
+//                                    Toast toast = Toast.makeText(AddPropetyActivity.this, getString(R.string.send_error), Toast.LENGTH_SHORT);
+//                                    toast.setGravity(Gravity.CENTER, 0, 0);
+//                                    toast.show();
+//                                }
+//
+//                            }
+//                        }
+//                    } else {
+//                        Toast.makeText(this, R.string.no_job_change, Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(this, R.string.err_msg_email, Toast.LENGTH_SHORT).show();
+//
+//                }
+//
+//
+//            } else {
+//                Toast.makeText(this, R.string.mandatory, Toast.LENGTH_SHORT).show();
+//            }
+//
+//        } else if (currentStep == 1) {
+//            sendActiationCode();
+//
+//        } else if (currentStep == 2) {
+//            if (activationCodeFragment.validation()) {
+////                progressDialog.setMessage(getResources().getString(R.string.cheecking_code));
+//                if (progressDialog == null || !progressDialog.isShowing()) {
+//                    progressDialog = new SweetAlertDialog(this);
+//                }
+//
+//                progressDialog.setTitleText("");
+//                progressDialog.showCancelButton(false);
+//                progressDialog.setContentText(getString(R.string.cheecking_code) + "\n" + getString(R.string.wait));
+//                progressDialog.showContentText(true);
+//                progressDialog.setCancelClickListener(null);
+//                progressDialog.setConfirmClickListener(null);
+//                progressDialog.changeAlertType(SweetAlertDialog.PROGRESS_TYPE);
+//                if (!progressDialog.isShowing())
+//                    progressDialog.show();
+//                curretnRequestCode = VolleyService.getInstance().ChechActivationCode(AddPropetyActivity.this, newAdver, propertyCreateFragment.getProperty(), activationCodeFragment.getActivationCode());
+//            } else {
+//                Toast.makeText(this, R.string.invalid_code, Toast.LENGTH_SHORT).show();
+//            }
+//        } else {
+//            finish();
+//        }
+//    }
 
-
-        if (currentStep == 0) {
-            if (propertyCreateFragment.validationEmpty()) {
-                if (propertyCreateFragment.validateEmail()) {
-                    Property a = propertyCreateFragment.getProperty();
-                    if (a.status == Property.WAIT_STATUS) {
-                        String s = KelidApplication.applicationContext.getString(R.string.isAcceptWait);
-                        s = String.format(s, (int) (a.remote_id + Constant.DEFAULT_FANOOS_CODE));
-                        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-                    } else if (a.status == Property.DRAFT_STATUS || a.isChanged()) {
-                        saveJob(a, false, false, false, false, false);
-                        if (progressDialog == null || !progressDialog.isShowing()) {
-                            progressDialog = new SweetAlertDialog(this);
-                        }
-                        progressDialog.changeAlertType(SweetAlertDialog.PROGRESS_TYPE);
-                        progressDialog.setTitleText("")
-                                .showCancelButton(false)
-                                .setContentText(getString(R.string.sending) + "\n" + getString(R.string.wait))
-                                .setCancelClickListener(null);
-
-                        if (!progressDialog.isShowing())
-                            progressDialog.show();
-
-
-                        if (a.city == -1 || a.city == 0) {
-                            a.city = UserConfig.city;
-                        }
-                        if (UserConfig.userToken == null || UserConfig.userToken.equals("-1")) {
-                            curretnRequestCode = VolleyService.getInstance().SendNewAdvers(AddPropetyActivity.this, newAdver, currentStep, a);
-                        } else {
-                            if (a.remote_id == 0) {
-                                curretnRequestCode = VolleyService.getInstance().SendNewAdversWithToekn(AddPropetyActivity.this, newAdver, currentStep, a);
-                                if (curretnRequestCode == null) {
-                                    progressDialog.dismiss();
-                                    Toast toast = Toast.makeText(AddPropetyActivity.this, getString(R.string.send_error), Toast.LENGTH_SHORT);
-                                    toast.setGravity(Gravity.CENTER, 0, 0);
-                                    toast.show();
-                                }
-                            } else {
-                                curretnRequestCode = VolleyService.getInstance().SendEditAdversWithToekn(AddPropetyActivity.this, editAdver, currentStep, a);
-                                if (curretnRequestCode == null) {
-                                    progressDialog.dismiss();
-                                    Toast toast = Toast.makeText(AddPropetyActivity.this, getString(R.string.send_error), Toast.LENGTH_SHORT);
-                                    toast.setGravity(Gravity.CENTER, 0, 0);
-                                    toast.show();
-                                }
-
-                            }
-                        }
-                    } else {
-                        Toast.makeText(this, R.string.no_job_change, Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(this, R.string.err_msg_email, Toast.LENGTH_SHORT).show();
-
-                }
-
-
-            } else {
-                Toast.makeText(this, R.string.mandatory, Toast.LENGTH_SHORT).show();
-            }
-
-        } else if (currentStep == 1) {
-            sendActiationCode();
-
-        } else if (currentStep == 2) {
-            if (activationCodeFragment.validation()) {
-//                progressDialog.setMessage(getResources().getString(R.string.cheecking_code));
-                if (progressDialog == null || !progressDialog.isShowing()) {
-                    progressDialog = new SweetAlertDialog(this);
-                }
-
-                progressDialog.setTitleText("");
-                progressDialog.showCancelButton(false);
-                progressDialog.setContentText(getString(R.string.cheecking_code) + "\n" + getString(R.string.wait));
-                progressDialog.showContentText(true);
-                progressDialog.setCancelClickListener(null);
-                progressDialog.setConfirmClickListener(null);
-                progressDialog.changeAlertType(SweetAlertDialog.PROGRESS_TYPE);
-                if (!progressDialog.isShowing())
-                    progressDialog.show();
-                curretnRequestCode = VolleyService.getInstance().ChechActivationCode(AddPropetyActivity.this, newAdver, propertyCreateFragment.getProperty(), activationCodeFragment.getActivationCode());
-            } else {
-                Toast.makeText(this, R.string.invalid_code, Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            finish();
-        }
-    }
-
-    private void sendActiationCode() {
-        if (userPhoneFragment.validation()) {
-            UserConfig.temp_phone = Utils.asciiNumners(userPhoneFragment.getPhone());
-            if (progressDialog == null || !progressDialog.isShowing()) {
-                progressDialog = new SweetAlertDialog(this);
-            }
-            progressDialog.setTitleText("");
-            progressDialog.showCancelButton(false);
-            progressDialog.setContentText(getString(R.string.generaion_code) + "\n" + getString(R.string.wait));
-            progressDialog.showContentText(true);
-            progressDialog.setCancelClickListener(null);
-            progressDialog.setConfirmClickListener(null);
-            progressDialog.changeAlertType(SweetAlertDialog.PROGRESS_TYPE);
-            if (!progressDialog.isShowing())
-                progressDialog.show();
-
-
-            SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
-            long last_send = preferences.getLong("last_send", 0);
-            String last_phone = preferences.getString("last_phone", null);
-            Date d = new Date();
-            SharedPreferences.Editor edit = preferences.edit();
-            edit.putLong("last_send", d.getTime());
-            edit.putString("last_phone", UserConfig.temp_phone);
-            edit.commit();
-            if (d.getTime() - last_send > (10 * 60 * 1000) || last_phone == null || !last_phone.equals(UserConfig.temp_phone)) {
-                curretnRequestCode = VolleyService.getInstance().SendActivationCode(AddPropetyActivity.this, newAdver, propertyCreateFragment.getProperty(), UserConfig.temp_phone);
-            } else {
-//                curretnRequestCode = VolleyService.getInstance().ReSendActivationCode(AddPropetyActivity.this, newAdver, propertyCreateFragment.getProperty(), UserConfig.temp_phone);
-            }
-
-
-        } else {
-            Toast.makeText(this, R.string.phone_empty, Toast.LENGTH_SHORT).show();
-        }
-    }
+//    private void sendActiationCode() {
+//        if (userPhoneFragment.validation()) {
+//            UserConfig.temp_phone = Utils.asciiNumners(userPhoneFragment.getPhone());
+//            if (progressDialog == null || !progressDialog.isShowing()) {
+//                progressDialog = new SweetAlertDialog(this);
+//            }
+//            progressDialog.setTitleText("");
+//            progressDialog.showCancelButton(false);
+//            progressDialog.setContentText(getString(R.string.generaion_code) + "\n" + getString(R.string.wait));
+//            progressDialog.showContentText(true);
+//            progressDialog.setCancelClickListener(null);
+//            progressDialog.setConfirmClickListener(null);
+//            progressDialog.changeAlertType(SweetAlertDialog.PROGRESS_TYPE);
+//            if (!progressDialog.isShowing())
+//                progressDialog.show();
+//
+//
+//            SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
+//            long last_send = preferences.getLong("last_send", 0);
+//            String last_phone = preferences.getString("last_phone", null);
+//            Date d = new Date();
+//            SharedPreferences.Editor edit = preferences.edit();
+//            edit.putLong("last_send", d.getTime());
+//            edit.putString("last_phone", UserConfig.temp_phone);
+//            edit.commit();
+//            if (d.getTime() - last_send > (10 * 60 * 1000) || last_phone == null || !last_phone.equals(UserConfig.temp_phone)) {
+//                curretnRequestCode = VolleyService.getInstance().SendActivationCode(AddPropetyActivity.this, newAdver, propertyCreateFragment.getProperty(), UserConfig.temp_phone);
+//            } else {
+////                curretnRequestCode = VolleyService.getInstance().ReSendActivationCode(AddPropetyActivity.this, newAdver, propertyCreateFragment.getProperty(), UserConfig.temp_phone);
+//            }
+//
+//
+//        } else {
+//            Toast.makeText(this, R.string.phone_empty, Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     boolean resend;
 
     @Override
+    public void doneClicked() {
+
+    }
+
+    @Override
     public void tryAgain() {
         resend = true;
-        sendActiationCode();
+//        sendActiationCode();
     }
 
     @Override
@@ -822,127 +831,127 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
     String orginalPath = null;
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Image_REQUEST && resultCode == RESULT_OK) {
-            try {
-                Uri selectedImage = data.getData();
-                orginalPath = ImageFilePath.getPath(getApplicationContext(), selectedImage);
-                Intent cameraIntent = new Intent(this, MainActivity.class);
-                cameraIntent.putExtra("fix_Rate", true);
-                Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(orginalPath), orginalPath));
-                if (!FileUtils.getInstance().existInDefaultFoder(orginalPath)) {
-                    orginalPath = FileUtils.getInstance().createTempFile(FileUtils.Camera_DIR, "IMG_", ".png").getAbsolutePath();
-                }
-//                String path = ImageFilePath.getPath(getApplicationContext(), selectedImage);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
-                bitmap.recycle();
-                bitmap = BitmapFactory.decodeFile(orginalPath);
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == Image_REQUEST && resultCode == RESULT_OK) {
+//            try {
+//                Uri selectedImage = data.getData();
+//                orginalPath = ImageFilePath.getPath(getApplicationContext(), selectedImage);
+//                Intent cameraIntent = new Intent(this, MainActivity.class);
+//                cameraIntent.putExtra("fix_Rate", true);
+//                Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(orginalPath), orginalPath));
+//                if (!FileUtils.getInstance().existInDefaultFoder(orginalPath)) {
+//                    orginalPath = FileUtils.getInstance().createTempFile(FileUtils.Camera_DIR, "IMG_", ".png").getAbsolutePath();
+//                }
+////                String path = ImageFilePath.getPath(getApplicationContext(), selectedImage);
+//                bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
+//                bitmap.recycle();
+//                bitmap = BitmapFactory.decodeFile(orginalPath);
+////                try {
+////                    new File(filepath).delete();
+////                }catch (Exception e)
+////                {
+////                    e.printStackTrace();
+////                }
+//
+//                MainActivity.bitmap = bitmap;
+//
+//                if (MainActivity.bitmap != null) {
+//                    forceNotSave = true;
+//                    startActivityForResult(cameraIntent, CROP_IMAGE);
+//                } else {
+//                    Toast.makeText(this, getString(R.string.load_failed), Toast.LENGTH_SHORT).show();
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//
+//            }
+//
+//
+////            if (filepath != null)
+////                propertyCreateFragment.addImage(filepath);
+//
+//
+//        } else if (requestCode == DESIGN_CARD_REQUEST && resultCode == RESULT_OK) {
+//            propertyCreateFragment.reFill();
+//
+//
+//        } else if (requestCode == CITY_SELECT && resultCode == RESULT_OK) {
+//            int city = data.getExtras().getInt("city");
+//            propertyCreateFragment.changeCity(city);
+//
+//
+//        } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+//
+//
+//            try {
+//                this.getContentResolver().notifyChange(mImageUri, null);
+//                orginalPath = mImagePath.getAbsolutePath();
+//                ContentResolver cr = this.getContentResolver();
+//                Bitmap bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, mImageUri);
+//
+//
+//                bitmap = Utils.resize(Utils.modifyOrientation(bitmap, orginalPath));
+//
+//                if (!FileUtils.getInstance().existInDefaultFoder(orginalPath)) {
+//                    orginalPath = FileUtils.getInstance().createTempFile(FileUtils.Camera_DIR, "IMG_", ".png").getAbsolutePath();
+//                }
+//
+//                bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
+//                bitmap.recycle();
+//                MainActivity.bitmap = BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
+////                try{
+////                    new File(absolutePath).delete();
+////                }catch (Exception e)
+////                {
+////                    e.printStackTrace();
+////                }
+//                String aaa = mImagePath.getAbsolutePath();
+//           MainActivity.bitmap = Utils.modifyOrientation(BitmapFactory.decodeFile(aaa), aaa);//BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
+//
+//                forceNotSave = true;
+//                Intent cameraIntent = new Intent(this, MainActivity.class);
+//                cameraIntent.putExtra("fix_Rate", true);
+//                startActivityForResult(cameraIntent, CROP_IMAGE);
+//            } catch (Exception e) {
+//                Toast.makeText(this, getString(R.string.load_failed), Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//
+////            propertyCreateFragment.addImage(file);
+//
+//        } else if (requestCode == CROP_IMAGE) {
+//
+//            if (resultCode == RESULT_OK) {
 //                try {
-//                    new File(filepath).delete();
-//                }catch (Exception e)
-//                {
+//                    String data1 = (String) data.getExtras().get("data");
+//                    propertyCreateFragment.addImage(data1);
+//                } catch (Exception e) {
 //                    e.printStackTrace();
 //                }
-
-                MainActivity.bitmap = bitmap;
-
-                if (MainActivity.bitmap != null) {
-                    forceNotSave = true;
-                    startActivityForResult(cameraIntent, CROP_IMAGE);
-                } else {
-                    Toast.makeText(this, getString(R.string.load_failed), Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-
-            }
-
-
-//            if (filepath != null)
-//                propertyCreateFragment.addImage(filepath);
-
-
-        } else if (requestCode == DESIGN_CARD_REQUEST && resultCode == RESULT_OK) {
-            propertyCreateFragment.reFill();
-
-
-        } else if (requestCode == CITY_SELECT && resultCode == RESULT_OK) {
-            int city = data.getExtras().getInt("city");
-            propertyCreateFragment.changeCity(city);
-
-
-        } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-
-
-            try {
-                this.getContentResolver().notifyChange(mImageUri, null);
-                orginalPath = mImagePath.getAbsolutePath();
-                ContentResolver cr = this.getContentResolver();
-                Bitmap bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, mImageUri);
-
-
-                bitmap = Utils.resize(Utils.modifyOrientation(bitmap, orginalPath));
-
-                if (!FileUtils.getInstance().existInDefaultFoder(orginalPath)) {
-                    orginalPath = FileUtils.getInstance().createTempFile(FileUtils.Camera_DIR, "IMG_", ".png").getAbsolutePath();
-                }
-
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
-                bitmap.recycle();
-                MainActivity.bitmap = BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
-//                try{
-//                    new File(absolutePath).delete();
-//                }catch (Exception e)
-//                {
+//            }
+//
+//            if (mImagePath != null && mImagePath.exists()) {
+//                mImagePath.delete();
+//            }
+//            if (orginalPath != null) {
+//                File f = new File(orginalPath);
+//                try {
+//                    if (f.exists()) {
+//                        f.delete();
+//                    }
+//                } catch (Exception e) {
 //                    e.printStackTrace();
 //                }
-                String aaa = mImagePath.getAbsolutePath();
-           MainActivity.bitmap = Utils.modifyOrientation(BitmapFactory.decodeFile(aaa), aaa);//BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
-
-                forceNotSave = true;
-                Intent cameraIntent = new Intent(this, MainActivity.class);
-                cameraIntent.putExtra("fix_Rate", true);
-                startActivityForResult(cameraIntent, CROP_IMAGE);
-            } catch (Exception e) {
-                Toast.makeText(this, getString(R.string.load_failed), Toast.LENGTH_SHORT).show();
-
-            }
-
-
-//            propertyCreateFragment.addImage(file);
-
-        } else if (requestCode == CROP_IMAGE) {
-
-            if (resultCode == RESULT_OK) {
-                try {
-                    String data1 = (String) data.getExtras().get("data");
-                    propertyCreateFragment.addImage(data1);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (mImagePath != null && mImagePath.exists()) {
-                mImagePath.delete();
-            }
-            if (orginalPath != null) {
-                File f = new File(orginalPath);
-                try {
-                    if (f.exists()) {
-                        f.delete();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            mImagePath = null;
-
-
-        }
-
-
-    }
+//            }
+//
+//            mImagePath = null;
+//
+//
+//        }
+//
+//
+//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -1094,7 +1103,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
     @Override
     public void setNode(Node n) {
-        propertyCreateFragment.setNodeType(n);
+//        propertyCreateFragment.setNodeType(n);
     }
 
 }

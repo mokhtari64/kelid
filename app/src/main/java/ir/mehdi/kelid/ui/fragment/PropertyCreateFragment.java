@@ -70,7 +70,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     Property property;
     LayoutInflater layoutInflater;
     AddPropetyActivity activity;
-    //    Vector<String> images = new Vector<>();
+
     Vector<RadioButton> imageRadioButtons = new Vector<>();
     LinearLayout imagesLayout;
     View horizentalImage;
