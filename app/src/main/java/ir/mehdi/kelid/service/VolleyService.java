@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.widget.ProgressBar;
 
 
 import com.android.volley.AuthFailureError;
@@ -57,6 +58,7 @@ import ir.mehdi.kelid.db.DBAdapter;
 import ir.mehdi.kelid.db.MySqliteOpenHelper;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
+import ir.mehdi.kelid.ui.fragment.TestFragment;
 import ir.mehdi.kelid.utils.FileUtils;
 import ir.mehdi.kelid.utils.Utils;
 
@@ -984,6 +986,25 @@ public class VolleyService extends Service implements Constant {
         return null;
     }
 
+    public void sendPhoto(ProgressBar progressBar,String image) {
+        MultipartRequest multipartRequest = new MultipartRequest(SEND_ADVERS, userJob, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+//                String a = new String(error.networkResponse.data);
+                delegate.onObjectReslut(reqCode, ServiceDelegate.ERROR_CODE, null, null);
+
+            }
+        }, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                delegate.onObjectReslut(reqCode, ServiceDelegate.OK_CODE, userJob, response);
+            }
+        });
+        String code = "" + System.currentTimeMillis();
+        KelidApplication.getInstance().addToRequestQueue(multipartRequest, code);
+        return code;
+    }
+
 
     public static class MyAdversImageDownload extends AsyncTask<String, String, String> {
 
@@ -1049,6 +1070,129 @@ public class VolleyService extends Service implements Constant {
 
 
         public MultipartRequest(String url, Property userJob, Response.ErrorListener errorListener, Response.Listener<String> listener) {
+            super(Method.POST, url, errorListener);
+
+            setRetryPolicy(new DefaultRetryPolicy(5 * 60 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            boundary = "" + System.currentTimeMillis();
+            entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE, boundary, Charset.forName(HTTP.UTF_8));
+
+
+            mListener = listener;
+            this.userJob = userJob;
+
+
+            buildMultipartEntity();
+        }
+
+
+        private void buildMultipartEntity() {
+            try {
+                if (userJob.remote_id != 0) {
+                    entity.addPart("id", new StringBody(Utils.asciiNumners("" + userJob.remote_id), Consts.UTF_8));
+                }
+                if (userJob.mobile != null)
+                    entity.addPart("mobile", new StringBody(Utils.asciiNumners(userJob.mobile), Consts.UTF_8));
+                if (userJob.tel != null)
+                    entity.addPart("tel", new StringBody(Utils.asciiNumners(userJob.tel), Consts.UTF_8));
+                if (userJob.email != null)
+                    entity.addPart("email", new StringBody(userJob.email, Consts.UTF_8));
+                if (userJob.name != null)
+                    entity.addPart("name", new StringBody(userJob.name, Consts.UTF_8));
+                if (userJob.region != 0)
+                    entity.addPart("region_id", new StringBody("" + userJob.region));
+                if (userJob.address != null)
+                    entity.addPart("address", new StringBody(userJob.address, Consts.UTF_8));
+                if (userJob.title != null)
+                    entity.addPart("title", new StringBody(userJob.title, Consts.UTF_8));
+                if (userJob.qr_code != null)
+                    entity.addPart("qr_code", new StringBody(userJob.qr_code));
+                if (userJob.telegram != null)
+                    entity.addPart("telegram", new StringBody(userJob.telegram));
+                if (userJob.city != 0) entity.addPart("city", new StringBody("" + userJob.city));
+                if (userJob.desc != null)
+                    entity.addPart("description", new StringBody(userJob.desc, Consts.UTF_8));
+                if (userJob.nodeid != 0) {
+                    Node node = DBAdapter.getInstance().allNodes.get(userJob.nodeid);
+                    entity.addPart("level3", new StringBody("" + userJob.nodeid));
+                    entity.addPart("level2", new StringBody("" + node.parent.id));
+                    entity.addPart("level1", new StringBody("" + node.parent.parent.id));
+                }
+                entity.addPart("province", new StringBody("" + DBAdapter.getInstance().indexCities.get(userJob.city).provincecode));
+                String defaultPic = null;
+                JSONArray delete = new JSONArray();
+                int i = 0;
+                for (Property.Image filePath : userJob.images) {
+                    if (filePath.deleted) {
+                        delete.put(Utils.getName(filePath.localname));
+                        continue;
+                    }
+                    if (filePath.main)
+                        defaultPic = Utils.getName(filePath.localname);
+                    File uploadFile = new File(filePath.localname);
+
+//                    String fileName = uploadFile.getName();
+                    entity.addPart("file[" + i + "]", new FileBody(uploadFile));
+//                    entity.addPart("file["+i+"]", new StringBody(fileName, Consts.UTF_8));
+                    i++;
+                }
+                if (defaultPic != null) entity.addPart("defaultPic", new StringBody(defaultPic));
+                if (delete.length() > 0)
+                    entity.addPart("deleted", new StringBody(delete.toString()));
+
+            } catch (Exception e) {
+                VolleyLog.e("UnsupportedEncodingException");
+            }
+        }
+
+        @Override
+        public String getBodyContentType() {
+            return "multipart/form-data; boundary=" + boundary + "; charset=utf-8";
+
+//            return "multipart/form-data; charset=utf-8"+";"+entity.getContentType().getValue().split(";")[1];
+        }
+
+        @Override
+        public byte[] getBody() throws AuthFailureError {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            DataOutputStream dos = new DataOutputStream(bos);
+            try {
+                entity.writeTo(dos);
+            } catch (IOException e) {
+//                VolleyLog.e("IOException writing to ByteArrayOutputStream");
+            }
+            return bos.toByteArray();
+        }
+
+        @Override
+        protected Response<String> parseNetworkResponse(NetworkResponse response) {
+            return Response.success(new String(response.data), null);
+        }
+
+        @Override
+        protected void deliverResponse(String response) {
+            mListener.onResponse(response);
+        }
+    }
+    class PhotopartRequest extends Request<String> {
+
+        private MultipartEntity entity;
+
+        String boundary;
+
+
+        @Override
+        public Map<String, String> getHeaders() throws AuthFailureError {
+            Map<String, String> params = new HashMap<String, String>();
+            setRetryPolicy(new DefaultRetryPolicy(3 * 60 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            params.put("Content-Type", "multipart/form-data; boundary=" + boundary + "; charset=utf-8");
+            return params;
+        }
+
+        private final Response.Listener<String> mListener;
+        Property userJob;
+
+
+        public PhotopartRequest(String url, Property userJob, Response.ErrorListener errorListener, Response.Listener<String> listener) {
             super(Method.POST, url, errorListener);
 
             setRetryPolicy(new DefaultRetryPolicy(5 * 60 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));

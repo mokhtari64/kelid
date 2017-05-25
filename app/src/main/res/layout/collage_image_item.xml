@@ -14,25 +14,11 @@
             android:layout_height="match_parent"
             android:id="@+id/imageView5" />
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:id="@+id/imageView6"
-            android:layout_gravity="top|right"
-            android:src="@drawable/close"
-            android:background="#ff0808" />
+       <ProgressBar
+           android:layout_width="match_parent"
+           android:id="@+id/progress"
+            android:visibility="gone"
+           android:layout_height="match_parent" />
     </FrameLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:gravity="center">
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioButton" />
-    </LinearLayout>
 </LinearLayout>

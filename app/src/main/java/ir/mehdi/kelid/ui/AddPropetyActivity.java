@@ -831,127 +831,118 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
     String orginalPath = null;
 
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == Image_REQUEST && resultCode == RESULT_OK) {
-//            try {
-//                Uri selectedImage = data.getData();
-//                orginalPath = ImageFilePath.getPath(getApplicationContext(), selectedImage);
-//                Intent cameraIntent = new Intent(this, MainActivity.class);
-//                cameraIntent.putExtra("fix_Rate", true);
-//                Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(orginalPath), orginalPath));
-//                if (!FileUtils.getInstance().existInDefaultFoder(orginalPath)) {
-//                    orginalPath = FileUtils.getInstance().createTempFile(FileUtils.Camera_DIR, "IMG_", ".png").getAbsolutePath();
-//                }
-////                String path = ImageFilePath.getPath(getApplicationContext(), selectedImage);
-//                bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
-//                bitmap.recycle();
-//                bitmap = BitmapFactory.decodeFile(orginalPath);
-////                try {
-////                    new File(filepath).delete();
-////                }catch (Exception e)
-////                {
-////                    e.printStackTrace();
-////                }
-//
-//                MainActivity.bitmap = bitmap;
-//
-//                if (MainActivity.bitmap != null) {
-//                    forceNotSave = true;
-//                    startActivityForResult(cameraIntent, CROP_IMAGE);
-//                } else {
-//                    Toast.makeText(this, getString(R.string.load_failed), Toast.LENGTH_SHORT).show();
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//
-//            }
-//
-//
-////            if (filepath != null)
-////                propertyCreateFragment.addImage(filepath);
-//
-//
-//        } else if (requestCode == DESIGN_CARD_REQUEST && resultCode == RESULT_OK) {
-//            propertyCreateFragment.reFill();
-//
-//
-//        } else if (requestCode == CITY_SELECT && resultCode == RESULT_OK) {
-//            int city = data.getExtras().getInt("city");
-//            propertyCreateFragment.changeCity(city);
-//
-//
-//        } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-//
-//
-//            try {
-//                this.getContentResolver().notifyChange(mImageUri, null);
-//                orginalPath = mImagePath.getAbsolutePath();
-//                ContentResolver cr = this.getContentResolver();
-//                Bitmap bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, mImageUri);
-//
-//
-//                bitmap = Utils.resize(Utils.modifyOrientation(bitmap, orginalPath));
-//
-//                if (!FileUtils.getInstance().existInDefaultFoder(orginalPath)) {
-//                    orginalPath = FileUtils.getInstance().createTempFile(FileUtils.Camera_DIR, "IMG_", ".png").getAbsolutePath();
-//                }
-//
-//                bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
-//                bitmap.recycle();
-//                MainActivity.bitmap = BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
-////                try{
-////                    new File(absolutePath).delete();
-////                }catch (Exception e)
-////                {
-////                    e.printStackTrace();
-////                }
-//                String aaa = mImagePath.getAbsolutePath();
-//           MainActivity.bitmap = Utils.modifyOrientation(BitmapFactory.decodeFile(aaa), aaa);//BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
-//
-//                forceNotSave = true;
-//                Intent cameraIntent = new Intent(this, MainActivity.class);
-//                cameraIntent.putExtra("fix_Rate", true);
-//                startActivityForResult(cameraIntent, CROP_IMAGE);
-//            } catch (Exception e) {
-//                Toast.makeText(this, getString(R.string.load_failed), Toast.LENGTH_SHORT).show();
-//
-//            }
-//
-//
-////            propertyCreateFragment.addImage(file);
-//
-//        } else if (requestCode == CROP_IMAGE) {
-//
-//            if (resultCode == RESULT_OK) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Image_REQUEST && resultCode == RESULT_OK) {
+            try {
+                Uri selectedImage = data.getData();
+                orginalPath = ImageFilePath.getPath(getApplicationContext(), selectedImage);
+                Intent cameraIntent = new Intent(this, MainActivity.class);
+                cameraIntent.putExtra("fix_Rate", true);
+                Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(orginalPath), orginalPath));
+                if (!FileUtils.getInstance().existInDefaultFoder(orginalPath)) {
+                    orginalPath = FileUtils.getInstance().createTempFile(FileUtils.Camera_DIR, "IMG_", ".png").getAbsolutePath();
+                }
+//                String path = ImageFilePath.getPath(getApplicationContext(), selectedImage);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
+                bitmap.recycle();
+                bitmap = BitmapFactory.decodeFile(orginalPath);
 //                try {
-//                    String data1 = (String) data.getExtras().get("data");
-//                    propertyCreateFragment.addImage(data1);
-//                } catch (Exception e) {
+//                    new File(filepath).delete();
+//                }catch (Exception e)
+//                {
 //                    e.printStackTrace();
 //                }
-//            }
-//
-//            if (mImagePath != null && mImagePath.exists()) {
-//                mImagePath.delete();
-//            }
-//            if (orginalPath != null) {
-//                File f = new File(orginalPath);
-//                try {
-//                    if (f.exists()) {
-//                        f.delete();
-//                    }
-//                } catch (Exception e) {
+
+                MainActivity.bitmap = bitmap;
+
+                if (MainActivity.bitmap != null) {
+                    forceNotSave = true;
+                    startActivityForResult(cameraIntent, CROP_IMAGE);
+                } else {
+                    Toast.makeText(this, getString(R.string.load_failed), Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+
+
+//            if (filepath != null)
+//                propertyCreateFragment.addImage(filepath);
+
+
+        } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+
+
+            try {
+                this.getContentResolver().notifyChange(mImageUri, null);
+                orginalPath = mImagePath.getAbsolutePath();
+                ContentResolver cr = this.getContentResolver();
+                Bitmap bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, mImageUri);
+
+
+                bitmap = Utils.resize(Utils.modifyOrientation(bitmap, orginalPath));
+
+                if (!FileUtils.getInstance().existInDefaultFoder(orginalPath)) {
+                    orginalPath = FileUtils.getInstance().createTempFile(FileUtils.Camera_DIR, "IMG_", ".png").getAbsolutePath();
+                }
+
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
+                bitmap.recycle();
+                MainActivity.bitmap = BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
+//                try{
+//                    new File(absolutePath).delete();
+//                }catch (Exception e)
+//                {
 //                    e.printStackTrace();
 //                }
-//            }
-//
-//            mImagePath = null;
-//
-//
-//        }
-//
-//
-//    }
+                String aaa = mImagePath.getAbsolutePath();
+           MainActivity.bitmap = Utils.modifyOrientation(BitmapFactory.decodeFile(aaa), aaa);//BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
+
+                forceNotSave = true;
+                Intent cameraIntent = new Intent(this, MainActivity.class);
+                cameraIntent.putExtra("fix_Rate", true);
+                startActivityForResult(cameraIntent, CROP_IMAGE);
+            } catch (Exception e) {
+                Toast.makeText(this, getString(R.string.load_failed), Toast.LENGTH_SHORT).show();
+
+            }
+
+
+//            propertyCreateFragment.addImage(file);
+
+        } else if (requestCode == CROP_IMAGE) {
+
+            if (resultCode == RESULT_OK) {
+                try {
+                    String data1 = (String) data.getExtras().get("data");
+                    propertyCreateFragment.addImage(data1);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (mImagePath != null && mImagePath.exists()) {
+                mImagePath.delete();
+            }
+            if (orginalPath != null) {
+                File f = new File(orginalPath);
+                try {
+                    if (f.exists()) {
+                        f.delete();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            mImagePath = null;
+
+
+        }
+
+
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
