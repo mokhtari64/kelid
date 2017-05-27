@@ -9,17 +9,6 @@
     android:background="#563761"
     >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:id="@+id/node_path" />
-    </LinearLayout>
-
     <RelativeLayout
 
         android:layout_width="match_parent"
@@ -58,15 +47,26 @@
 
             <ImageView
                 android:layout_width="50dp"
-                android:layout_height="50dp"
                 android:id="@+id/childe_controll"
-                android:src="@drawable/check_blue"/>
+                android:src="@drawable/check_blue"
+                android:layout_height="50dp" />
 
         </RelativeLayout>
 
 
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:id="@+id/node_path" />
+    </LinearLayout>
 
 
 </LinearLayout>

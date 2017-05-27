@@ -45,7 +45,7 @@ public class SearchActivity extends  KelidActivity implements AdapterView.OnItem
         final ImageView img2 = (ImageView)findViewById(R.id.img2);
         final ImageView img3 = (ImageView)findViewById(R.id.img3);
         final ImageView img4 = (ImageView)findViewById(R.id.img4);
-        final ImageView img_main = (ImageView)findViewById(R.id.img_main);
+//        final ImageView img_main = (ImageView)findViewById(R.id.img_main);
         final TextView t1=(TextView)findViewById(R.id.t1);
         final TextView t2=(TextView)findViewById(R.id.t2);
         final TextView t3=(TextView)findViewById(R.id.t3);
@@ -119,7 +119,7 @@ public class SearchActivity extends  KelidActivity implements AdapterView.OnItem
                     img3.startAnimation(alpha_out);
                     img4.startAnimation(alpha_out);
                     rotation_out.setRepeatCount(0);
-                    img_main.startAnimation(rotation_out);
+//                    img_main.startAnimation(rotation_out);
                     l1.animate().translationY(orgPos1Y).setDuration(2000);
                     l1.animate().translationX(orgPos1X).setDuration(2000);
                     l2.animate().translationY(orgPos2Y).setDuration(2000);

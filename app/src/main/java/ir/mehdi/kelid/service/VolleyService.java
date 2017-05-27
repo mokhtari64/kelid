@@ -987,22 +987,22 @@ public class VolleyService extends Service implements Constant {
     }
 
     public void sendPhoto(ProgressBar progressBar,String image) {
-        MultipartRequest multipartRequest = new MultipartRequest(SEND_ADVERS, userJob, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-//                String a = new String(error.networkResponse.data);
-                delegate.onObjectReslut(reqCode, ServiceDelegate.ERROR_CODE, null, null);
-
-            }
-        }, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                delegate.onObjectReslut(reqCode, ServiceDelegate.OK_CODE, userJob, response);
-            }
-        });
-        String code = "" + System.currentTimeMillis();
-        KelidApplication.getInstance().addToRequestQueue(multipartRequest, code);
-        return code;
+//        MultipartRequest multipartRequest = new MultipartRequest(SEND_ADVERS, userJob, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+////                String a = new String(error.networkResponse.data);
+//                delegate.onObjectReslut(reqCode, ServiceDelegate.ERROR_CODE, null, null);
+//
+//            }
+//        }, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                delegate.onObjectReslut(reqCode, ServiceDelegate.OK_CODE, userJob, response);
+//            }
+//        });
+//        String code = "" + Sysnhaem.currentTimeMillis();
+//        KelidApplication.getInstance().addToRequestQueue(multipartRequest, code);
+//        return code;
     }
 
 

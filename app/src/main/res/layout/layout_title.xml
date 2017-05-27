@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:duplicateParentState="true"
     android:layout_height="match_parent"
@@ -51,32 +52,47 @@
     </LinearLayout>
 
     <ImageView
-        android:duplicateParentState="true"
-        android:layout_width="@dimen/defualt_spacing3x"
-        android:layout_height="@dimen/defualt_spacing3x"
-        android:src="@drawable/main2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:duplicateParentState="false"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/defualt_spacing2x"
+        android:src="@drawable/my_footer"
+        android:layout_alignParentRight="false"
+        android:scaleType="fitCenter"
         android:layout_alignParentEnd="true"
-        android:scaleType="fitEnd" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="-20dp" />
+
+    <ImageView
+        android:layout_width="@dimen/defualt_spacing2x"
+        android:layout_height="@dimen/defualt_spacing2x"
+        android:src="@drawable/my_footer"
+        android:layout_alignTop="@+id/arcMenu"
+        android:layout_alignLeft="@+id/arcMenu"
+        android:layout_alignRight="@+id/arcMenu"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <com.sa90.materialarcmenu.ArcMenu
         android:id="@+id/arcMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:duplicateParentState="true"
         app:menu_color="@color/colorPrimaryDark"
         app:menu_radius="140dp"
         app:menu_ripple_color="@android:color/holo_blue_bright"
         app:menu_scr="@android:drawable/ic_dialog_dialer"
         app:menu_open="arc_left"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="false"
+        android:layout_centerInParent="true"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="false"
         android:layout_alignWithParentIfMissing="false"
-        android:layout_centerInParent="true"
-        android:layout_alignParentRight="true">
+        android:duplicateParentState="true">
 
         <!--<ImageButton-->
             <!--android:id="@+id/news"-->
@@ -260,23 +276,25 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="62dp"
-        android:layout_height="62dp"
+        android:layout_width="@dimen/defualt_spacing"
+        android:layout_height="@dimen/defualt_spacing"
         android:layout_gravity="right"
         android:layout_alignParentRight="true">
 
         <ImageView
             app:srcCompat="@drawable/setting_back"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_vertical_margin" />
 
         <ToggleButton
             android:id="@+id/setting"
-            android:layout_width="62dp"
-            android:layout_height="62dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:layout_marginBottom="29dp"
-            android:layout_marginLeft="29dp"
+            android:layout_marginBottom="@dimen/mdtp_date_picker_header_height"
+            android:layout_marginLeft="@dimen/mdtp_date_picker_header_height"
             android:background="@drawable/setting"
             android:src="@drawable/setting"
             android:textOff=""
