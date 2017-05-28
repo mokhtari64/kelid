@@ -51,20 +51,81 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:duplicateParentState="false"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/defualt_spacing2x"
-        android:src="@drawable/my_footer"
-        android:layout_alignParentRight="false"
         android:scaleType="fitCenter"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginRight="3dp"
         android:layout_marginLeft="3dp"
-        android:layout_marginBottom="-20dp" />
+        android:layout_marginBottom="-20dp"
+        android:background="@drawable/my_footer">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/imageButtonHome"
+            android:scaleType="fitCenter"
+            android:layout_alignTop="@+id/imageView8"
+            android:layout_alignRight="@+id/imageView9"
+            android:layout_alignEnd="@+id/imageView9"
+            android:layout_weight="1"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
+            android:onClick="onClick"
+            android:background="@color/transparent"
+            app:srcCompat="@drawable/kelid_home"
+            android:tint="@color/white_pressed" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/kelid_home"
+            android:background="@color/transparent"
+            android:id="@+id/imageButtonSerach"
+            android:scaleType="fitCenter"
+            android:layout_alignTop="@+id/imageView8"
+            android:layout_alignRight="@+id/imageView9"
+            android:layout_alignEnd="@+id/imageView9"
+            android:tint="@color/white_pressed"
+            android:layout_weight="1" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/kelid_home"
+            android:background="@color/transparent"
+            android:visibility="invisible"
+            android:layout_alignTop="@+id/imageView8"
+            android:layout_alignRight="@+id/imageView9"
+            android:layout_alignEnd="@+id/imageView9"
+            android:tint="@color/white_pressed"
+            android:layout_weight="1" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/kelid_home"
+            android:id="@+id/imageButtonFilter"
+            android:background="@color/transparent"
+            android:scaleType="fitCenter"
+            android:layout_alignTop="@+id/imageView8"
+            android:layout_alignRight="@+id/imageView9"
+            android:layout_alignEnd="@+id/imageView9"
+            android:tint="@color/white_pressed"
+            android:layout_weight="1" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/kelid_home"
+            android:background="@color/transparent"
+            android:id="@+id/imageButtonGroup"
+            android:scaleType="fitCenter"
+            android:layout_alignTop="@+id/imageView8"
+            android:layout_alignRight="@+id/imageView9"
+            android:layout_alignEnd="@+id/imageView9"
+            android:tint="@color/white_pressed"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
     <ImageView
         android:layout_width="@dimen/defualt_spacing2x"
@@ -74,7 +135,8 @@
         android:layout_alignLeft="@+id/arcMenu"
         android:layout_alignRight="@+id/arcMenu"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-10dp" />
 
     <com.sa90.materialarcmenu.ArcMenu
         android:id="@+id/arcMenu"
@@ -92,7 +154,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="false"
         android:layout_alignWithParentIfMissing="false"
-        android:duplicateParentState="true">
+        android:duplicateParentState="true"
+        android:layout_margin="5dp">
 
         <!--<ImageButton-->
             <!--android:id="@+id/news"-->

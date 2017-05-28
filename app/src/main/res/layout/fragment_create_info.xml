@@ -19,46 +19,24 @@
 
 
             <include
-                layout="@layout/area"
-                android:layout_width="match_parent"
+                layout="@layout/communications"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp" />
+
 
             <Space
                 android:layout_width="20px"
                 android:layout_height="20px" />
 
             <include
-                layout="@layout/property_info"
-                android:layout_width="match_parent"
+                layout="@layout/address"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp" />
 
-            <Space
-                android:layout_width="20px"
-                android:layout_height="20px" />
-
-            <include
-                layout="@layout/emkanat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Space
-                android:layout_width="20px"
-                android:layout_height="20px" />
-
-            <include
-                layout="@layout/emtyazat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp" />
-
-            <Space
-                android:layout_width="20px"
-                android:layout_height="20px" />
 
             <!--<include-->
             <!--layout="@layout/extention"-->
@@ -66,14 +44,6 @@
             <!--android:layout_height="wrap_content"-->
             <!--android:layout_marginLeft="3dp"-->
             <!--android:layout_marginRight="3dp" />-->
-
-            <LinearLayout
-                android:id="@+id/proprty_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:orientation="vertical"></LinearLayout>
 
 
         </LinearLayout>

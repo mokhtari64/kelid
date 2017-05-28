@@ -32,6 +32,7 @@
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
     <color name="login_black">#283036</color>
     <color name="my_transparent">#40000000</color>
+    <color name="my_transparent2">#a4000000</color>
 
     <color name="iman">#3F51B5</color>
     <color name="line1">#4900d4</color>
