@@ -1,15 +1,11 @@
 package ir.mehdi.kelid.ui;
 
-import android.Manifest;
 import android.app.Dialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,22 +13,20 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,7 +41,6 @@ import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.UserConfig;
 import ir.mehdi.kelid.collage.ImageFilePath;
-import ir.mehdi.kelid.crop.sample.MainActivity;
 import ir.mehdi.kelid.db.MySqliteOpenHelper;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
@@ -56,39 +49,41 @@ import ir.mehdi.kelid.service.SMSReceiver;
 import ir.mehdi.kelid.service.ServiceDelegate;
 import ir.mehdi.kelid.service.VolleyService;
 import ir.mehdi.kelid.ui.fragment.ActivationCodeFragment;
+import ir.mehdi.kelid.ui.fragment.InfoCreateFragment;
 import ir.mehdi.kelid.ui.fragment.PropertyCreateFragment;
-import ir.mehdi.kelid.ui.fragment.TestFragment;
 import ir.mehdi.kelid.ui.fragment.UserPhoneFragment;
 import ir.mehdi.kelid.utils.FileUtils;
 import ir.mehdi.kelid.utils.Utils;
 
 public class AddPropetyActivity extends KelidActivity implements Constant, ServiceDelegate, SMSDelegate, View.OnClickListener, NodeFragmentDialog.NodeDialogListener, StepFragmentDelegate {
     String curretnRequestCode;
+    public static Property property;
     SMSReceiver receiver;
-    boolean saveDB = false, deleteForce = false, forceNotSave = false;
-    int remote_id = -1;
 
-    boolean cancel = false;
+
+    TextView nextTextView,cancelTextView;
+    ImageView backImageView;
+
+
+    boolean cancel=false;
+
     public static Handler mainHandler;
 
 
-    //    public boolean regionDialog = false;
+
     public long userJobbId = -2;
 
 
     NodeFragmentDialog nodeFragmentDialog;
 
-
-//    PropertyCreateFragment propertyCreateFragment;
-    TestFragment propertyCreateFragment;
-
+    InfoCreateFragment infoCreateFragment;
+    PropertyCreateFragment propertyCreateFragment;
     UserPhoneFragment userPhoneFragment;
-    //    ImmediateFragment immediateFragment;
     ActivationCodeFragment activationCodeFragment;
 
     SweetAlertDialog progressDialog;
     int currentStep = 0;
-    ImageView saveMenuItem, deleteMenuItem, backMenuItem;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,29 +91,21 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         mainHandler = new Handler(Looper.getMainLooper());
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-
-
         setContentView(R.layout.activity_add_property);
-
-        saveMenuItem = (ImageView) findViewById(R.id.save);
-        backMenuItem = (ImageView) findViewById(R.id.back);
-        deleteMenuItem = (ImageView) findViewById(R.id.close);
-//        okMenuItem = (ImageView) findViewById(R.id.bookmark);
-        saveMenuItem.setOnClickListener(this);
-        backMenuItem.setOnClickListener(this);
-        deleteMenuItem.setOnClickListener(this);
-//        okMenuItem.setOnClickListener(this);
-
-
+        nextTextView= (TextView) findViewById(R.id.next);
+        cancelTextView= (TextView) findViewById(R.id.cancel);
+        backImageView=(ImageView) findViewById(R.id.back);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         }
 
-//        propertyCreateFragment = new PropertyCreateFragment();
-        propertyCreateFragment = new TestFragment();
+        propertyCreateFragment = new PropertyCreateFragment();
+//        propertyCreateFragment = new TestFragment();
+        infoCreateFragment = new InfoCreateFragment();
 
         propertyCreateFragment.setActivity(this);
+        infoCreateFragment.setActivity(this);
         userPhoneFragment = new UserPhoneFragment();
         userPhoneFragment.setDelegate(this);
 
@@ -131,25 +118,12 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         ft.add(R.id.fragment_container, propertyCreateFragment);
         ft.commit();
-        Intent intent = getIntent();
-        if (intent != null) {
-            Bundle extras = intent.getExtras();
-            if (extras != null) {
-                userJobbId = extras.getLong("user_job_id");
-            } else {
-                userJobbId = -2;
-            }
-        } else {
-            userJobbId = -2;
-        }
-        propertyCreateFragment.setUserJob(userJobbId);
+
+
 
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        //No call for super(). Bug on API Level > 11.
-    }
+
 
     public void showNodeDialog() {
         if (nodeFragmentDialog == null) {
@@ -180,7 +154,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     protected void onPause() {
         super.onPause();
 //        if (!deleteForce && !forceNotSave) {
-//            saveJob(propertyCreateFragment.getProperty(), saveDB, false, false, false, false);
+//            saveProperty(propertyCreateFragment.getProperty(), saveDB, false, false, false, false);
 //        }
 //        saveDB = false;
 //        forceNotSave = false;
@@ -195,25 +169,12 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     @Override
     public void onClick(View v) {
 
-//        if (v == okMenuItem) {
-//            if (Utils.isNetworkConnected()) {
-//                doneClicked();
-//            } else {
-//                Toast toast = Toast.makeText(this, getString(R.string.intetnet_not_connected), Toast.LENGTH_SHORT);
-//                toast.setGravity(Gravity.CENTER, 0, 0);
-//                toast.show();
-//            }
-//            return;
-//        } else
 
-        if (v == deleteMenuItem) {
-            deleteForce = true;
-            if (userJobbId == -2)
-                UserConfig.clear();
-            finish();
-            return;
-        } else if (v == saveMenuItem) {
-            saveDB = true;
+        if (v == nextTextView) {
+
+            doneClicked();
+        } else if (v == cancelTextView) {
+
             if (userJobbId == -2) {
                 Toast toast = Toast.makeText(this, getResources().getString(R.string.job_temp_message), Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
@@ -221,7 +182,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             }
             finish();
             return;
-        } else if (v == backMenuItem) {
+        } else if (v == backImageView) {
             onBackPressed();
             return;
         }
@@ -237,7 +198,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             KelidApplication.getInstance().cancelPendingRequests(curretnRequestCode);
             curretnRequestCode = null;
         }
-        cancel = true;
+
         if (currentStep > 2) {
             finish();
 
@@ -253,13 +214,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
 
     void nextStep() {
-        cancel = false;
+
         currentStep++;
-        saveMenuItem.setVisibility(View.GONE);
-        deleteMenuItem.setVisibility(View.GONE);
-//        if (currentStep > 2) {
-//            okMenuItem.setVisibility(View.GONE);
-//        }
 
     }
 
@@ -268,15 +224,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             KelidApplication.getInstance().cancelPendingRequests(curretnRequestCode);
             curretnRequestCode = null;
         }
-        cancel = true;
+        cancel=true;
         currentStep--;
-        if (currentStep == 0) {
-            saveMenuItem.setVisibility(View.VISIBLE);
-            deleteMenuItem.setVisibility(View.VISIBLE);
-        }
-//        if (currentStep <= 2) {
-//            okMenuItem.setVisibility(View.VISIBLE);
-//        }
 
     }
 
@@ -364,227 +313,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
     }
 
-    @Override
-    public void onObjectReslut(int req, int code, Property userJob, Object data) {
-        if (cancel) {
-            cancel = false;
-            return;
-        }
-        progressDialog.dismiss();
-        if (req == myAdversService) {
-            progressDialog.dismiss();
-            Collection<Property> userJobFromJson = null;
-            try {
-                HashMap<Long, Property> userJobFromJson1 = Utils.getMyJobFromJson((JSONObject) data, false, true);
-                if (userJobFromJson1 == null)
-                    return;
-                userJobFromJson = userJobFromJson1.values();
-                if (userJobFromJson != null && userJobFromJson.size() > 0) {
-                    Iterator<Property> iterator = userJobFromJson.iterator();
-                    while (iterator.hasNext()) {
-                        Property next = iterator.next();
-                        Vector<Property.Image> images = next.images;
-                        if (images != null && images.size() > 0) {
-                            for (int i = 0; i < images.size(); i++) {
-                                new VolleyService.MyAdversImageDownload().execute(images.get(i).remotename, images.get(i).localname);
-                            }
-                        }
-                        next.myproperty = 1;
-                        MySqliteOpenHelper.getInstance().insertORUpdateProperty(next);
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return;
-        } else if (req == editAdver) {
-            if (code == ERROR_CODE || data == null) {
-                showTryAgainDialog();
-                return;
-            } else {
 
-                try {
-                    JSONObject object = new JSONObject((String) data);
-                    String status = object.getString("msg");
-//                    String status = object.getString("status");
-                    if (status.equals("ok")) {
-                        progressDialog.dismiss();
-                        userJob.status = Property.WAIT_STATUS;
-
-                        saveJob(userJob, true, false, false, true, true);
-                        nextStep();
-                        nextStep();
-                        nextStep();
-
-                    } else if (status.equals("duplicate")) {
-                        showDuplicateDialog(object.getLong("id"));
-//                        Toast toast = Toast.makeText(this, getResources().getString(R.string.duplicate_job), Toast.LENGTH_SHORT);
-//                        toast.setGravity(Gravity.CENTER, 0, 0);
-//                        toast.show();
-                    } else {
-                        showTryAgainDialog();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    showTryAgainDialog();
-                    return;
-                }
-
-
-                return;
-            }
-
-
-        } else if (req == newAdver) {
-            if (code == ERROR_CODE || data == null) {
-                showTryAgainDialog();
-                return;
-            }
-
-            if (resend)
-                return;
-            resend = false;
-            if (currentStep == 0) {
-                try {
-                    if (receiver != null)
-                        unregisterReceiver(receiver);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                progressDialog.dismiss();
-                if (UserConfig.userToken == null || UserConfig.userToken.equals("-1")) {
-                    Property a = userJob;
-                    try {
-                        JSONObject object = new JSONObject((String) data);
-                        a.token = object.getString("token");
-                        remote_id = object.getInt("id");
-                        if (a.mobile != null)
-                            userPhoneFragment.setPhoneEditText(a.mobile);
-                        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-                        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-                        ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
-                        ft.replace(R.id.fragment_container, userPhoneFragment).addToBackStack("");
-                        ft.commit();
-                        nextStep();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        showTryAgainDialog();
-                    }
-                } else {
-                    try {
-                        JSONObject object = new JSONObject((String) data);
-                        String status = object.getString("msg");
-                        if (status.equals("ok")) {
-                            userJob.remote_id = object.getInt("id");
-                            userJob.status = Property.WAIT_STATUS;
-
-                            saveJob(userJob, true, false, true, true, true);
-                            nextStep();
-                            nextStep();
-                            nextStep();
-                        } else if (status.equals("duplicate")) {
-                            showDuplicateDialog(object.getLong("id"));
-                        } else {
-                            showTryAgainDialog();
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        showTryAgainDialog();
-                    }
-
-                }
-
-            } else if (currentStep == 1) {
-                progressDialog.dismiss();
-                try {
-                    JSONObject object = (JSONObject) data;
-                    String api_token = object.getString("msg");
-                    if (api_token != null && api_token.length() != 0) {
-                        if (api_token.equals("SmsSend")) {
-                            receiver = new SMSReceiver(this);
-                            IntentFilter filter = new IntentFilter();
-                            filter.addAction("android.provider.Telephony.SMS_RECEIVED");
-                            registerReceiver(receiver, filter);
-                            activationCodeFragment.setPhone(UserConfig.temp_phone);
-                            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-                            android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-                            ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
-                            ft.replace(R.id.fragment_container, activationCodeFragment).addToBackStack("");
-                            ft.commit();
-                            nextStep();
-                        } else if (api_token.equals("duplicate")) {
-                            showDuplicateDialog(object.getLong("id"));
-                        } else if (api_token.equals("expireToken")) {
-                            SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor edit = preferences.edit();
-                            edit.putLong("last_send", 0);
-                            edit.putString("last_phone", null);
-                            edit.commit();
-                            showTryAgainDialog();
-                        }
-                    } else {
-                        showTryAgainDialog();
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    showTryAgainDialog();
-                }
-
-
-            } else if (currentStep == 2) {
-                progressDialog.dismiss();
-                try {
-                    if (receiver != null)
-                        unregisterReceiver(receiver);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                try {
-
-                    JSONObject json = (JSONObject) data;
-                    String api_token = null;
-                    try {
-                        api_token = json.getString("api_token");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    String msg = json.getString("msg");
-                    if (msg.equals("registerBusiness")) {
-                        UserConfig.userToken = api_token;
-                        userJob.status = Property.WAIT_STATUS;
-                        userJob.remote_id = remote_id;
-                        remote_id = -1;
-
-                        saveJob(userJob, true, true, true, true, true);
-
-                        nextStep();
-                    } else if (msg.equals("activeCodeIsIncorrect")) {
-                        Toast.makeText(this, getResources().getString(R.string.activeCodeIsIncorrect), Toast.LENGTH_SHORT).show();
-
-                    } else if (msg.equals("businessActived")) {
-                        Toast.makeText(this, getResources().getString(R.string.businessActived), Toast.LENGTH_SHORT).show();
-
-                    } else if (msg.equals("tokenExpire")) {
-                        Toast.makeText(this, getResources().getString(R.string.tokenExpire), Toast.LENGTH_SHORT).show();
-                    }
-
-
-                } catch (Exception e) {
-                    Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
-
-
-            }
-        }
-
-
-    }
-
-    public void saveJob(Property property, boolean db, boolean saveConfing, boolean sendMyAdvers, boolean saveServerDate, boolean saveremote) {
+    public void saveProperty(Property property, boolean db, boolean saveConfing, boolean sendMyAdvers, boolean saveServerDate, boolean saveremote) {
         if (saveConfing)
             UserConfig.saveUserConfig();
         property.myproperty = 1;
@@ -633,7 +363,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 //                        s = String.format(s, (int) (a.remote_id + Constant.DEFAULT_FANOOS_CODE));
 //                        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
 //                    } else if (a.status == Property.DRAFT_STATUS || a.isChanged()) {
-//                        saveJob(a, false, false, false, false, false);
+//                        saveProperty(a, false, false, false, false, false);
 //                        if (progressDialog == null || !progressDialog.isShowing()) {
 //                            progressDialog = new SweetAlertDialog(this);
 //                        }
@@ -754,6 +484,29 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
     @Override
     public void doneClicked() {
+        if(currentStep==0)
+        {
+            if(propertyCreateFragment.isValid())
+            {
+                android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+                ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
+                ft.replace(R.id.fragment_container, infoCreateFragment).addToBackStack("");
+                ft.commit();
+                nextStep();
+            }
+        }else if(currentStep==0)
+        {
+            if(infoCreateFragment.isValid())
+            {
+                android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+                ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
+                ft.replace(R.id.fragment_container, userPhoneFragment).addToBackStack("");
+                ft.commit();
+                nextStep();
+            }
+        }
 
     }
 
@@ -1006,7 +759,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
         }
     }
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        if (requestCode == Image_REQUEST && resultCode == RESULT_OK) {
 //            try {
 //                Uri selectedImage = data.getData();
@@ -1217,6 +971,225 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 //        propertyCreateFragment.setNodeType(n);
     }
 
+    @Override
+    public void onObjectReslut(int req, int code, Object requestObject, Object data) {
+        if (cancel) {
+            cancel = false;
+            return;
+        }
+        Property property = (Property) requestObject;
+        progressDialog.dismiss();
+        if (req == myAdversService) {
+            progressDialog.dismiss();
+            Collection<Property> userJobFromJson = null;
+            try {
+                HashMap<Long, Property> userJobFromJson1 = Utils.getMyJobFromJson((JSONObject) data, false, true);
+                if (userJobFromJson1 == null)
+                    return;
+                userJobFromJson = userJobFromJson1.values();
+                if (userJobFromJson != null && userJobFromJson.size() > 0) {
+                    Iterator<Property> iterator = userJobFromJson.iterator();
+                    while (iterator.hasNext()) {
+                        Property next = iterator.next();
+                        Vector<Property.Image> images = next.images;
+                        if (images != null && images.size() > 0) {
+                            for (int i = 0; i < images.size(); i++) {
+                                new VolleyService.MyAdversImageDownload().execute(images.get(i).remotename, images.get(i).localname);
+                            }
+                        }
+                        next.myproperty = 1;
+                        MySqliteOpenHelper.getInstance().insertORUpdateProperty(next);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
+        } else if (req == editAdver) {
+            if (code == ERROR_CODE || data == null) {
+                showTryAgainDialog();
+                return;
+            } else {
+
+                try {
+                    JSONObject object = new JSONObject((String) data);
+                    String status = object.getString("msg");
+//                    String status = object.getString("status");
+                    if (status.equals("ok")) {
+                        progressDialog.dismiss();
+                        property.status = Property.WAIT_STATUS;
+
+                        saveProperty(property, true, false, false, true, true);
+                        nextStep();
+                        nextStep();
+                        nextStep();
+
+                    } else if (status.equals("duplicate")) {
+                        showDuplicateDialog(object.getLong("id"));
+//                        Toast toast = Toast.makeText(this, getResources().getString(R.string.duplicate_job), Toast.LENGTH_SHORT);
+//                        toast.setGravity(Gravity.CENTER, 0, 0);
+//                        toast.show();
+                    } else {
+                        showTryAgainDialog();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    showTryAgainDialog();
+                    return;
+                }
+
+
+                return;
+            }
+
+
+        } else if (req == newAdver) {
+            if (code == ERROR_CODE || data == null) {
+                showTryAgainDialog();
+                return;
+            }
+
+            if (resend)
+                return;
+            resend = false;
+            if (currentStep == 0) {
+                try {
+                    if (receiver != null)
+                        unregisterReceiver(receiver);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                progressDialog.dismiss();
+                if (UserConfig.userToken == null || UserConfig.userToken.equals("-1")) {
+                    Property a = property;
+                    try {
+                        JSONObject object = new JSONObject((String) data);
+                        a.token = object.getString("token");
+
+                        if (a.mobile != null)
+                            userPhoneFragment.setPhoneEditText(a.mobile);
+                        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+                        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+                        ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
+                        ft.replace(R.id.fragment_container, userPhoneFragment).addToBackStack("");
+                        ft.commit();
+                        nextStep();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        showTryAgainDialog();
+                    }
+                } else {
+                    try {
+                        JSONObject object = new JSONObject((String) data);
+                        String status = object.getString("msg");
+                        if (status.equals("ok")) {
+                            property.remote_id = object.getInt("id");
+                            property.status = Property.WAIT_STATUS;
+
+                            saveProperty(property, true, false, true, true, true);
+                            nextStep();
+                            nextStep();
+                            nextStep();
+                        } else if (status.equals("duplicate")) {
+                            showDuplicateDialog(object.getLong("id"));
+                        } else {
+                            showTryAgainDialog();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        showTryAgainDialog();
+                    }
+
+                }
+
+            } else if (currentStep == 1) {
+                progressDialog.dismiss();
+                try {
+                    JSONObject object = (JSONObject) data;
+                    String api_token = object.getString("msg");
+                    if (api_token != null && api_token.length() != 0) {
+                        if (api_token.equals("SmsSend")) {
+                            receiver = new SMSReceiver(this);
+                            IntentFilter filter = new IntentFilter();
+                            filter.addAction("android.provider.Telephony.SMS_RECEIVED");
+                            registerReceiver(receiver, filter);
+                            activationCodeFragment.setPhone(UserConfig.temp_phone);
+                            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+                            android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+                            ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
+                            ft.replace(R.id.fragment_container, activationCodeFragment).addToBackStack("");
+                            ft.commit();
+                            nextStep();
+                        } else if (api_token.equals("duplicate")) {
+                            showDuplicateDialog(object.getLong("id"));
+                        } else if (api_token.equals("expireToken")) {
+                            SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor edit = preferences.edit();
+                            edit.putLong("last_send", 0);
+                            edit.putString("last_phone", null);
+                            edit.commit();
+                            showTryAgainDialog();
+                        }
+                    } else {
+                        showTryAgainDialog();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    showTryAgainDialog();
+                }
+
+
+            } else if (currentStep == 2) {
+                progressDialog.dismiss();
+                try {
+                    if (receiver != null)
+                        unregisterReceiver(receiver);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+
+                    JSONObject json = (JSONObject) data;
+                    String api_token = null;
+                    try {
+                        api_token = json.getString("api_token");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    String msg = json.getString("msg");
+                    if (msg.equals("registerBusiness")) {
+                        UserConfig.userToken = api_token;
+                        property.status = Property.WAIT_STATUS;
+
+
+                        saveProperty(property, true, true, true, true, true);
+
+                        nextStep();
+                    } else if (msg.equals("activeCodeIsIncorrect")) {
+                        Toast.makeText(this, getResources().getString(R.string.activeCodeIsIncorrect), Toast.LENGTH_SHORT).show();
+
+                    } else if (msg.equals("businessActived")) {
+                        Toast.makeText(this, getResources().getString(R.string.businessActived), Toast.LENGTH_SHORT).show();
+
+                    } else if (msg.equals("tokenExpire")) {
+                        Toast.makeText(this, getResources().getString(R.string.tokenExpire), Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (Exception e) {
+                    Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+
+
+            }
+        }
+
+
+    }
 }
 //    LinearLayout properyLayout;
 //    @Override

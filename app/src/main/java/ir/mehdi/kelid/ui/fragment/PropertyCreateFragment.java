@@ -74,6 +74,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     Vector<RadioButton> imageRadioButtons = new Vector<>();
     LinearLayout imagesLayout;
     View horizentalImage;
+
 //    int node_id = -1;
 
     public void setActivity(AddPropetyActivity activity) {
@@ -288,7 +289,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             imagesLayout = (LinearLayout) mainView.findViewById(R.id.imagesLayout);
             horizentalImage = mainView.findViewById(R.id.horizontalScrollView);
 //            imagesLayout.setVisibility(View.GONE);
-            setUserJob(property.local_id);
+
 
         }
 
@@ -397,6 +398,10 @@ public class PropertyCreateFragment extends Fragment implements Constant {
 //            region.setText(R.string.region_select);
 //        }
 
+    }
+
+    public boolean isValid() {
+        return true;
     }
 
 //    public void clear() {
@@ -613,14 +618,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         fillUserjob(this.property);
     }
 
-    public void setUserJob(long userjobid) {
-        if (userjobid == -2) {
-            property = UserConfig.loadLast();
-        } else {
-            property = MySqliteOpenHelper.getInstance().myPropertys.get(userjobid);
-        }
-        property.token = null;
-    }
+
 
     public void reFill() {
         fillUserjob(this.property);

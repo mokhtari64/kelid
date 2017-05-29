@@ -10,7 +10,7 @@ public interface ServiceDelegate {
     public static int DEFAULT_REQUEST_CODE = -1;
     public static int OK_CODE = 1;
 
-    void onObjectReslut(int requestCode, int status, Property property, Object data);
+    void onObjectReslut(int requestCode, int status, Object requestObject, Object responseObject);
 
 
 

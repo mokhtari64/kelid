@@ -26,6 +26,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 
 import java.io.File;
+import java.util.Objects;
 import java.util.Vector;
 
 import ir.mehdi.kelid.Constant;
@@ -79,7 +80,7 @@ public class TestFragment extends Fragment implements Constant,ServiceDelegate {
     }
 
     @Override
-    public void onObjectReslut(int requestCode, int status, Property property, Object data) {
+    public void onObjectReslut(int requestCode, int status, Object property, Object data) {
 
     }
 

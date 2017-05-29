@@ -171,7 +171,7 @@ public class AddOfficeActivity extends  KelidActivity// implements Constant, Ser
 //    protected void onPause() {
 //        super.onPause();
 //        if (!deleteForce && !forceNotSave) {
-//            saveJob(propertyCreateFragment.getUserJob(), saveDB, false, false, false, false);
+//            saveProperty(propertyCreateFragment.getUserJob(), saveDB, false, false, false, false);
 //        }
 //        saveDB = false;
 //        forceNotSave = false;
@@ -407,7 +407,7 @@ public class AddOfficeActivity extends  KelidActivity// implements Constant, Ser
 //                        immediateFragment.setRemote_id(userJob.remote_id, false);
 //                        ft.replace(R.id.fragment_container, immediateFragment);
 //                        ft.commit();
-//                        saveJob(userJob, true, false, false, true, true);
+//                        saveProperty(userJob, true, false, false, true, true);
 //                        nextStep();
 //                        nextStep();
 //                        nextStep();
@@ -481,7 +481,7 @@ public class AddOfficeActivity extends  KelidActivity// implements Constant, Ser
 //                            immediateFragment.setRemote_id(userJob.remote_id, true);
 //                            ft.replace(R.id.fragment_container, immediateFragment);
 //                            ft.commit();
-//                            saveJob(userJob, true, false, true, true, true);
+//                            saveProperty(userJob, true, false, true, true, true);
 //                            nextStep();
 //                            nextStep();
 //                            nextStep();
@@ -565,7 +565,7 @@ public class AddOfficeActivity extends  KelidActivity// implements Constant, Ser
 //                        immediateFragment.setRemote_id(userJob.remote_id, true);
 //                        ft.replace(R.id.fragment_container, immediateFragment);
 //                        ft.commit();
-//                        saveJob(userJob, true, true, true, true, true);
+//                        saveProperty(userJob, true, true, true, true, true);
 //
 //                        nextStep();
 //                    } else if (msg.equals("activeCodeIsIncorrect")) {
@@ -591,7 +591,7 @@ public class AddOfficeActivity extends  KelidActivity// implements Constant, Ser
 //
 //    }
 //
-//    public void saveJob(Property userJob, boolean db, boolean saveConfing, boolean sendMyAdvers, boolean saveServerDate, boolean saveremote) {
+//    public void saveProperty(Property userJob, boolean db, boolean saveConfing, boolean sendMyAdvers, boolean saveServerDate, boolean saveremote) {
 //        if (saveConfing)
 //            UserConfig.saveUserConfig();
 //        userJob.myjob = 1;
@@ -640,7 +640,7 @@ public class AddOfficeActivity extends  KelidActivity// implements Constant, Ser
 //                        s = String.format(s, (int) (a.remote_id + Constant.DEFAULT_FANOOS_CODE));
 //                        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
 //                    } else if (a.status == UserJob.DRAFT_STATUS || a.isChanged()) {
-//                        saveJob(a, false, false, false, false, false);
+//                        saveProperty(a, false, false, false, false, false);
 //                        if (progressDialog == null || !progressDialog.isShowing()) {
 //                            progressDialog = new SweetAlertDialog(this);
 //                        }
