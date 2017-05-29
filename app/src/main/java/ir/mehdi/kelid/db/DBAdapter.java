@@ -242,7 +242,7 @@ public class DBAdapter {
 
                 c.name = Utils.unescape_perl_string(args[1]).replace("\u064a", "\u06cc").replace("\u0643", "\u06a9");
                 c.code = Integer.parseInt(args[0]);
-                c.chanenelPath = args[2];
+//                c.chanenelPath = args[2];
                 if (i < province_map.length) {
                     c.path = SVGParser.parsePath(province_map[i]);
 
@@ -296,7 +296,7 @@ public class DBAdapter {
 
         try {
 
-            Cursor cu = mydb.rawQuery("select * from city order by orderr ", null);
+            Cursor cu = mydb.rawQuery("select * from city order  ", null);
 //            cu.moveToPosition(row);
             cu.moveToFirst();
 

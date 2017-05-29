@@ -13,6 +13,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/imageView5" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/close"
+            android:id="@+id/failed" />
 
        <ProgressBar
            android:layout_width="match_parent"

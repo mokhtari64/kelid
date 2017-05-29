@@ -55,7 +55,7 @@ public class TestFragment extends Fragment implements Constant,ServiceDelegate {
             imageLayout= (LinearLayout) main.findViewById(R.id.imagebutlayout);
             addImage= (Button) main.findViewById(R.id.add_image);
             send= (Button) main.findViewById(R.id.send);
-            send.setOnClickListener(new View.OnClickListener() {
+            addImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     ((AddPropetyActivity)getActivity()).showImageDIalog();
@@ -91,6 +91,7 @@ public class TestFragment extends Fragment implements Constant,ServiceDelegate {
             }
             final View view = layoutInflater.inflate(R.layout.collage_image_item, null);
             ImageView imageView = (ImageView) view.findViewById(R.id.imageView5);
+            ImageView failedImage = (ImageView) view.findViewById(R.id.failed);
             final RadioButton radioButton = (RadioButton) view.findViewById(R.id.radioButton);
             radioButton.setTag(image);
             ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress);
@@ -102,7 +103,7 @@ public class TestFragment extends Fragment implements Constant,ServiceDelegate {
             imageView.setImageBitmap(bitmapsimplesize);
 
             imageLayout.addView(view, Utils.dpToPx(getActivity(),100), Utils.dpToPx(getActivity(),100));
-            VolleyService.getInstance().sendPhoto(progressBar,image);
+            VolleyService.getInstance().sendPhoto(progressBar,failedImage,image);
 
 
         }

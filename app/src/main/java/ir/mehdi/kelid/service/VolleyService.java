@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 
@@ -83,13 +85,15 @@ public class VolleyService extends Service implements Constant {
     }
 
 
-    public static final String ServerIP = "http://fanoosiran.ir/";
+    public static final String ServerIP = "http://192.168.1.2:3000/api/";
+//    public static final String ServerIP = "http://fanoosiran.ir/";
     //        public static final String ServerIP = "http://192.168.1.33/fanoos/";
     public static final String JOB_DETAIL_URL = ServerIP + "info/";
     public static final String Fanoos_CHANNEL = "http://t.me/fanoos_iran";
     public static String CHECK_VERSION = ServerIP + "api/v1/android-version";
     public static String MY_ADVERS = ServerIP + "api/v1/get-business-on-mobile";
     public static String SEND_ADVERS = ServerIP + "api/v1/business-register/store";
+    public static String SEND_NEW_FILE = ServerIP + "pictures/";
     public static String SEND_ADVERS_WITH_TOKEN = ServerIP + "api/v1/business-register/store-auth";
     public static String EDIT_ADVERS_WITH_TOKEN = ServerIP + "api/v1/edit-business";
     public static String CHECK_MY_ADVERS = ServerIP + "api/v1/business-register/check-status-job";
@@ -145,10 +149,10 @@ public class VolleyService extends Service implements Constant {
             return;
         int i = 0;
         for (Property property : jobs) {
-            int id=(int)System.currentTimeMillis();
+            int id = (int) System.currentTimeMillis();
             Intent intent = new Intent(KelidApplication.applicationContext, MainActivity.class);
             intent.putExtra("local_id", property.local_id);
-            intent.putExtra("notification_id",id);
+            intent.putExtra("notification_id", id);
             intent.setAction(Long.toString(id));
             PendingIntent pIntent = PendingIntent.getActivity(KelidApplication.applicationContext, (int) System.currentTimeMillis(), intent, PendingIntent.FLAG_ONE_SHOT);
 
@@ -986,23 +990,33 @@ public class VolleyService extends Service implements Constant {
         return null;
     }
 
-    public void sendPhoto(ProgressBar progressBar,String image) {
-//        MultipartRequest multipartRequest = new MultipartRequest(SEND_ADVERS, userJob, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-////                String a = new String(error.networkResponse.data);
-//                delegate.onObjectReslut(reqCode, ServiceDelegate.ERROR_CODE, null, null);
-//
-//            }
-//        }, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
+    public void sendPhoto(final ProgressBar progressBar,final  ImageView failed, String image) {
+        failed.setVisibility(View.INVISIBLE);
+        PhotoPartRequest multipartRequest = new PhotoPartRequest(SEND_NEW_FILE, null,image, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                failed.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        failed.setVisibility(View.INVISIBLE);
+                    }
+                });
+            }
+        }, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progressBar.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
+                });
 //                delegate.onObjectReslut(reqCode, ServiceDelegate.OK_CODE, userJob, response);
-//            }
-//        });
-//        String code = "" + Sysnhaem.currentTimeMillis();
-//        KelidApplication.getInstance().addToRequestQueue(multipartRequest, code);
-//        return code;
+            }
+        });
+        String code = "" + System.currentTimeMillis();
+        KelidApplication.getInstance().addToRequestQueue(multipartRequest, code);
+
     }
 
 
@@ -1173,9 +1187,11 @@ public class VolleyService extends Service implements Constant {
             mListener.onResponse(response);
         }
     }
-    class PhotopartRequest extends Request<String> {
+
+    class PhotoPartRequest extends Request<String> {
 
         private MultipartEntity entity;
+        String filePath;
 
         String boundary;
 
@@ -1192,9 +1208,9 @@ public class VolleyService extends Service implements Constant {
         Property userJob;
 
 
-        public PhotopartRequest(String url, Property userJob, Response.ErrorListener errorListener, Response.Listener<String> listener) {
+        public PhotoPartRequest(String url, Property userJob, String filepath, Response.ErrorListener errorListener, Response.Listener<String> listener) {
             super(Method.POST, url, errorListener);
-
+            this.filePath = filepath;
             setRetryPolicy(new DefaultRetryPolicy(5 * 60 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             boundary = "" + System.currentTimeMillis();
             entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE, boundary, Charset.forName(HTTP.UTF_8));
@@ -1210,57 +1226,60 @@ public class VolleyService extends Service implements Constant {
 
         private void buildMultipartEntity() {
             try {
-                if (userJob.remote_id != 0) {
-                    entity.addPart("id", new StringBody(Utils.asciiNumners("" + userJob.remote_id), Consts.UTF_8));
-                }
-                if (userJob.mobile != null)
-                    entity.addPart("mobile", new StringBody(Utils.asciiNumners(userJob.mobile), Consts.UTF_8));
-                if (userJob.tel != null)
-                    entity.addPart("tel", new StringBody(Utils.asciiNumners(userJob.tel), Consts.UTF_8));
-                if (userJob.email != null)
-                    entity.addPart("email", new StringBody(userJob.email, Consts.UTF_8));
-                if (userJob.name != null)
-                    entity.addPart("name", new StringBody(userJob.name, Consts.UTF_8));
-                if (userJob.region != 0)
-                    entity.addPart("region_id", new StringBody("" + userJob.region));
-                if (userJob.address != null)
-                    entity.addPart("address", new StringBody(userJob.address, Consts.UTF_8));
-                if (userJob.title != null)
-                    entity.addPart("title", new StringBody(userJob.title, Consts.UTF_8));
-                if (userJob.qr_code != null)
-                    entity.addPart("qr_code", new StringBody(userJob.qr_code));
-                if (userJob.telegram != null)
-                    entity.addPart("telegram", new StringBody(userJob.telegram));
-                if (userJob.city != 0) entity.addPart("city", new StringBody("" + userJob.city));
-                if (userJob.desc != null)
-                    entity.addPart("description", new StringBody(userJob.desc, Consts.UTF_8));
-                if (userJob.nodeid != 0) {
-                    Node node = DBAdapter.getInstance().allNodes.get(userJob.nodeid);
-                    entity.addPart("level3", new StringBody("" + userJob.nodeid));
-                    entity.addPart("level2", new StringBody("" + node.parent.id));
-                    entity.addPart("level1", new StringBody("" + node.parent.parent.id));
-                }
-                entity.addPart("province", new StringBody("" + DBAdapter.getInstance().indexCities.get(userJob.city).provincecode));
-                String defaultPic = null;
-                JSONArray delete = new JSONArray();
-                int i = 0;
-                for (Property.Image filePath : userJob.images) {
-                    if (filePath.deleted) {
-                        delete.put(Utils.getName(filePath.localname));
-                        continue;
-                    }
-                    if (filePath.main)
-                        defaultPic = Utils.getName(filePath.localname);
-                    File uploadFile = new File(filePath.localname);
-
-//                    String fileName = uploadFile.getName();
-                    entity.addPart("file[" + i + "]", new FileBody(uploadFile));
-//                    entity.addPart("file["+i+"]", new StringBody(fileName, Consts.UTF_8));
-                    i++;
-                }
-                if (defaultPic != null) entity.addPart("defaultPic", new StringBody(defaultPic));
-                if (delete.length() > 0)
-                    entity.addPart("deleted", new StringBody(delete.toString()));
+//                if (userJob.remote_id != 0) {
+//                    entity.addPart("id", new StringBody(Utils.asciiNumners("" + userJob.remote_id), Consts.UTF_8));
+//                }
+//                if (userJob.mobile != null)
+//                    entity.addPart("mobile", new StringBody(Utils.asciiNumners(userJob.mobile), Consts.UTF_8));
+//                if (userJob.tel != null)
+//                    entity.addPart("tel", new StringBody(Utils.asciiNumners(userJob.tel), Consts.UTF_8));
+//                if (userJob.email != null)
+//                    entity.addPart("email", new StringBody(userJob.email, Consts.UTF_8));
+//                if (userJob.name != null)
+//                    entity.addPart("name", new StringBody(userJob.name, Consts.UTF_8));
+//                if (userJob.region != 0)
+//                    entity.addPart("region_id", new StringBody("" + userJob.region));
+//                if (userJob.address != null)
+//                    entity.addPart("address", new StringBody(userJob.address, Consts.UTF_8));
+//                if (userJob.title != null)
+//                    entity.addPart("title", new StringBody(userJob.title, Consts.UTF_8));
+//                if (userJob.qr_code != null)
+//                    entity.addPart("qr_code", new StringBody(userJob.qr_code));
+//                if (userJob.telegram != null)
+//                    entity.addPart("telegram", new StringBody(userJob.telegram));
+//                if (userJob.city != 0) entity.addPart("city", new StringBody("" + userJob.city));
+//                if (userJob.desc != null)
+//                    entity.addPart("description", new StringBody(userJob.desc, Consts.UTF_8));
+//                if (userJob.nodeid != 0) {
+//                    Node node = DBAdapter.getInstance().allNodes.get(userJob.nodeid);
+//                    entity.addPart("level3", new StringBody("" + userJob.nodeid));
+//                    entity.addPart("level2", new StringBody("" + node.parent.id));
+//                    entity.addPart("level1", new StringBody("" + node.parent.parent.id));
+//                }
+//                entity.addPart("province", new StringBody("" + DBAdapter.getInstance().indexCities.get(userJob.city).provincecode));
+//                String defaultPic = null;
+//                JSONArray delete = new JSONArray();
+//                int i = 0;
+//                entity.addPart("level3", new StringBody("" + userJob.nodeid));
+                File uploadFile = new File(filePath);
+                entity.addPart("image", new FileBody(uploadFile));
+//                for (Property.Image filePath : userJob.images) {
+//                    if (filePath.deleted) {
+//                        delete.put(Utils.getName(filePath.localname));
+//                        continue;
+//                    }
+//                    if (filePath.main)
+//                        defaultPic = Utils.getName(filePath.localname);
+//                    File uploadFile = new File(filePath.localname);
+//
+//
+//                    entity.addPart("file[" + i + "]", new FileBody(uploadFile));
+//
+//                    i++;
+//                }
+//                if (defaultPic != null) entity.addPart("defaultPic", new StringBody(defaultPic));
+//                if (delete.length() > 0)
+//                    entity.addPart("deleted", new StringBody(delete.toString()));
 
             } catch (Exception e) {
                 VolleyLog.e("UnsupportedEncodingException");
