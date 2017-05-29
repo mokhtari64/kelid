@@ -61,14 +61,13 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     SMSReceiver receiver;
 
 
-    TextView nextTextView,cancelTextView;
+    TextView nextTextView, cancelTextView;
     ImageView backImageView;
 
 
-    boolean cancel=false;
+    boolean cancel = false;
 
     public static Handler mainHandler;
-
 
 
     public long userJobbId = -2;
@@ -92,9 +91,13 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         setContentView(R.layout.activity_add_property);
-        nextTextView= (TextView) findViewById(R.id.next);
-        cancelTextView= (TextView) findViewById(R.id.cancel);
-        backImageView=(ImageView) findViewById(R.id.back);
+        nextTextView = (TextView) findViewById(R.id.next);
+        cancelTextView = (TextView) findViewById(R.id.cancel);
+        backImageView = (ImageView) findViewById(R.id.back);
+
+        nextTextView.setOnClickListener(this);
+        backImageView.setOnClickListener(this);
+        cancelTextView.setOnClickListener(this);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -120,9 +123,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         ft.commit();
 
 
-
     }
-
 
 
     public void showNodeDialog() {
@@ -224,7 +225,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             KelidApplication.getInstance().cancelPendingRequests(curretnRequestCode);
             curretnRequestCode = null;
         }
-        cancel=true;
+        cancel = true;
         currentStep--;
 
     }
@@ -484,10 +485,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
     @Override
     public void doneClicked() {
-        if(currentStep==0)
-        {
-            if(propertyCreateFragment.isValid())
-            {
+        if (currentStep == 0) {
+            if (propertyCreateFragment.isValid()) {
                 android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
                 ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
@@ -495,16 +494,18 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 ft.commit();
                 nextStep();
             }
-        }else if(currentStep==0)
-        {
-            if(infoCreateFragment.isValid())
-            {
+        } else if (currentStep == 1) {
+            if (infoCreateFragment.isValid()) {
                 android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
                 ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
                 ft.replace(R.id.fragment_container, userPhoneFragment).addToBackStack("");
                 ft.commit();
                 nextStep();
+            }
+        } else if (currentStep == 2) {
+            if (userPhoneFragment.isValid()) {
+                finish();
             }
         }
 
@@ -589,7 +590,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             try {
                 Uri selectedImage = data.getData();
                 orginalPath = ImageFilePath.getPath(getApplicationContext(), selectedImage);
-                propertyCreateFragment.addImage(orginalPath);
+
 //                Intent cameraIntent = new Intent(this, MainActivity.class);
 //                cameraIntent.putExtra("fix_Rate", true);
 //                Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(orginalPath), orginalPath));
@@ -632,7 +633,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 this.getContentResolver().notifyChange(mImageUri, null);
                 orginalPath = mImagePath.getAbsolutePath();
 //                String data1 = (String) data.getExtras().get("data");
-                propertyCreateFragment.addImage(orginalPath);
+
 //                ContentResolver cr = this.getContentResolver();
 //                Bitmap bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, mImageUri);
 //
@@ -672,7 +673,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             if (resultCode == RESULT_OK) {
                 try {
                     String data1 = (String) data.getExtras().get("data");
-                    propertyCreateFragment.addImage(data1);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

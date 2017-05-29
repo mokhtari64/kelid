@@ -61,7 +61,7 @@ import ir.mehdi.kelid.utils.Utils;
  */
 public class PropertyCreateFragment extends Fragment implements Constant {
     TextInputLayout nameLayout, titleLayout, adverLayout, descLayout, telLayout, mobileLayout, emailLayout, telegramLayout, addressLayout;
-    Button send;
+
     View mainView;
     Animation slideUp2Down;
     View telegram_lable;
@@ -81,218 +81,215 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         this.activity = activity;
     }
 
-    TextView noteid;
-    EditText name, title, adver, desc, tel, mobile, email, telegram, address;
-    Button photoButton, region, city;//designCardButton
-    LinearLayout imagebutlayout;
-    CheckBox noon, evening, moorning, boarding, bike, cardReader, namevisible;
-
-    @Nullable
-    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mainView == null) {
-            slideUp2Down = AnimationUtils.loadAnimation(activity, R.anim.create_node_select_anim);
-
-            layoutInflater = inflater;
             mainView = inflater.inflate(R.layout.fragment_create_property, null);
-            send = (Button) mainView.findViewById(R.id.send);
-            final TextView rule = (TextView) mainView.findViewById(R.id.rule_accept);
-            send.setTextColor(Color.GRAY);
-            send.setClickable(false);
-            CheckBox checkBox = (CheckBox) mainView.findViewById(R.id.rulecheck);
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        send.setTextColor(Color.WHITE);
-                        send.setClickable(true);
-                        send.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                activity.doneClicked();
-                            }
-                        });
+        }
+        return mainView;
+    }
 
-                    } else {
-                        send.setTextColor(Color.GRAY);
-                        send.setClickable(false);
-                        send.setOnClickListener(null);
-
-                    }
-                }
-            });
-
-
-            SpannableString content = new SpannableString(getString(R.string.rule_accept));
-            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-            rule.setText(content);
-
-
-            ((TextView) mainView.findViewById(R.id.max_photo)).setTypeface(KelidApplication.BYEKAN_NORMAL);
-            expandableLinearLayout = (LinearLayout) mainView.findViewById(R.id.expandale);
-            noon = (CheckBox) mainView.findViewById(R.id.noon);
-            namevisible = (CheckBox) mainView.findViewById(R.id.namevisible);
-
-
-            rule.setTypeface(KelidApplication.DIGIT_NORMAL);
-//            SpannableString content = new SpannableString(activity.getString(R.string.rule_accept));
+    public View onCreateView11(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        if (mainView == null) {
+//            slideUp2Down = AnimationUtils.loadAnimation(activity, R.anim.create_node_select_anim);
+//
+//            layoutInflater = inflater;
+//            mainView = inflater.inflate(R.layout.fragment_create_property, null);
+//
+//            final TextView rule = (TextView) mainView.findViewById(R.id.rule_accept);
+//            CheckBox checkBox = (CheckBox) mainView.findViewById(R.id.rulecheck);
+//            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                    if (isChecked) {
+//                        send.setTextColor(Color.WHITE);
+//                        send.setClickable(true);
+//                        send.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                activity.doneClicked();
+//                            }
+//                        });
+//
+//                    } else {
+//                        send.setTextColor(Color.GRAY);
+//                        send.setClickable(false);
+//                        send.setOnClickListener(null);
+//
+//                    }
+//                }
+//            });
+//
+//
+//            SpannableString content = new SpannableString(getString(R.string.rule_accept));
 //            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 //            rule.setText(content);
-            rule.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    Intent a = new Intent(activity, FanoosRuleActivity.class);
-//                    activity.startActivity(a);
-                }
-            });
-            evening = (CheckBox) mainView.findViewById(R.id.evening);
-            moorning = (CheckBox) mainView.findViewById(R.id.moorning);
-            boarding = (CheckBox) mainView.findViewById(R.id.boarding);
-            bike = (CheckBox) mainView.findViewById(R.id.bike);
-            cardReader = (CheckBox) mainView.findViewById(R.id.card_reader);
-
-
-            name = (EditText) mainView.findViewById(R.id.nameEditText);
-            telegram_lable = mainView.findViewById(R.id.telegram_lable);
-            title = (EditText) mainView.findViewById(R.id.titleEditText);
-            adver = (EditText) mainView.findViewById(R.id.adversEditText);
-            desc = (EditText) mainView.findViewById(R.id.descriptionEditText);
-            tel = (EditText) mainView.findViewById(R.id.telephoneEditText);
-            mobile = (EditText) mainView.findViewById(R.id.mobileEditText);
-
-            email = (EditText) mainView.findViewById(R.id.emailEditText);
-            address = (EditText) mainView.findViewById(R.id.addressEditText);
-            telegram = (EditText) mainView.findViewById(R.id.telegramEditText);
-
-            nameLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_name);
-            titleLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_title);
-            adverLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_advers);
-            descLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_description);
-            telLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_telephone);
-            mobileLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_mobile);
-            emailLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_email);
-            addressLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_address);
-            telegramLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_telegram);
-
-
-            telegram.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    String text = telegram.getText().toString();
-                    if (text != null && text.length() > 0 && !text.startsWith("@"))
-                        s.insert(0, "@");
-                    if (text != null && text.length() > 0 && text.equals("@")) {
-                        s.delete(0, 1);
-                    }
-
-
-                }
-            });
-            region = (Button) mainView.findViewById(R.id.region);
-            city = (Button) mainView.findViewById(R.id.city);
-            city.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Intent a = new Intent(activity, CityActivity.class);
-                    a.putExtra("select_city", true);
-
-                    activity.startActivityForResult(a,CITY_SELECT);
-//                    dialog.dismiss();
-                }
-            });
-            Region[] regionss = DBAdapter.getInstance().getRegion(UserConfig.city, "");
-            if (region == null || regionss.length == 0) {
-                region.setEnabled(false);
-            }
-            region.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showRegionDIalog();
-
-                }
-            });
-            region.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showRegionDIalog();
-
-                }
-            });
-//            designCardButton = (Button) mainView.findViewById(R.id.design_card);
-//            designCardButton.setOnClickListener(new View.OnClickListener() {
 //
+//
+//            ((TextView) mainView.findViewById(R.id.max_photo)).setTypeface(KelidApplication.BYEKAN_NORMAL);
+//            expandableLinearLayout = (LinearLayout) mainView.findViewById(R.id.expandale);
+//            noon = (CheckBox) mainView.findViewById(R.id.noon);
+//            namevisible = (CheckBox) mainView.findViewById(R.id.namevisible);
+//
+//
+//            rule.setTypeface(KelidApplication.DIGIT_NORMAL);
+////            SpannableString content = new SpannableString(activity.getString(R.string.rule_accept));
+////            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+////            rule.setText(content);
+//            rule.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+////                    Intent a = new Intent(activity, FanoosRuleActivity.class);
+////                    activity.startActivity(a);
+//                }
+//            });
+//            evening = (CheckBox) mainView.findViewById(R.id.evening);
+//            moorning = (CheckBox) mainView.findViewById(R.id.moorning);
+//            boarding = (CheckBox) mainView.findViewById(R.id.boarding);
+//            bike = (CheckBox) mainView.findViewById(R.id.bike);
+//            cardReader = (CheckBox) mainView.findViewById(R.id.card_reader);
+//
+//
+//            name = (EditText) mainView.findViewById(R.id.nameEditText);
+//            telegram_lable = mainView.findViewById(R.id.telegram_lable);
+//            title = (EditText) mainView.findViewById(R.id.titleEditText);
+//            adver = (EditText) mainView.findViewById(R.id.adversEditText);
+//            desc = (EditText) mainView.findViewById(R.id.descriptionEditText);
+//            tel = (EditText) mainView.findViewById(R.id.telephoneEditText);
+//            mobile = (EditText) mainView.findViewById(R.id.mobileEditText);
+//
+//            email = (EditText) mainView.findViewById(R.id.emailEditText);
+//            address = (EditText) mainView.findViewById(R.id.addressEditText);
+//            telegram = (EditText) mainView.findViewById(R.id.telegramEditText);
+//
+//            nameLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_name);
+//            titleLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_title);
+//            adverLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_advers);
+//            descLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_description);
+//            telLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_telephone);
+//            mobileLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_mobile);
+//            emailLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_email);
+//            addressLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_address);
+//            telegramLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_telegram);
+//
+//
+//            telegram.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//                }
+//
+//                @Override
+//                public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable s) {
+//                    String text = telegram.getText().toString();
+//                    if (text != null && text.length() > 0 && !text.startsWith("@"))
+//                        s.insert(0, "@");
+//                    if (text != null && text.length() > 0 && text.equals("@")) {
+//                        s.delete(0, 1);
+//                    }
+//
+//
+//                }
+//            });
+//            region = (Button) mainView.findViewById(R.id.region);
+//            city = (Button) mainView.findViewById(R.id.city);
+//            city.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
 //
-//                    Intent intent = new Intent(activity, CollageActivity.class);
-//                    intent.putExtra("user_job_id", activity.userJobbId);
+//                    Intent a = new Intent(activity, CityActivity.class);
+//                    a.putExtra("select_city", true);
 //
-//                    activity.startActivityForResult(intent, DESIGN_CARD_REQUEST);
+//                    activity.startActivityForResult(a,CITY_SELECT);
+////                    dialog.dismiss();
 //                }
 //            });
-
-
-            noteid = ((TextView) mainView.findViewById(R.id.node_type_text));
-            noteid.setTypeface(null, Typeface.BOLD);
-            noteid.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity.showNodeDialog();
-                }
-            });
-            photoButton = (Button) mainView.findViewById(R.id.photoButton);
-            imagebutlayout = (LinearLayout) mainView.findViewById(R.id.imagebutlayout);
-            photoButton.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    if (ContextCompat.checkSelfPermission(activity,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            != PackageManager.PERMISSION_GRANTED) {
-
-
-                        if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
-                                Manifest.permission.READ_EXTERNAL_STORAGE)) {
-
-
-                            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                    Constant.SAVE_GRANT_REQUERST_FOR_JOb);
-
-                        } else {
-
-
-                            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                    Constant.SAVE_GRANT_REQUERST_FOR_JOb);
-
-                        }
-                    } else {
-                        activity.showImageDIalog();
-
-                    }
-
-                }
-            });
-
-
-            imagesLayout = (LinearLayout) mainView.findViewById(R.id.imagesLayout);
-            horizentalImage = mainView.findViewById(R.id.horizontalScrollView);
-//            imagesLayout.setVisibility(View.GONE);
-
-
-        }
-
+//            Region[] regionss = DBAdapter.getInstance().getRegion(UserConfig.city, "");
+//            if (region == null || regionss.length == 0) {
+//                region.setEnabled(false);
+//            }
+//            region.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    showRegionDIalog();
+//
+//                }
+//            });
+//            region.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    showRegionDIalog();
+//
+//                }
+//            });
+////            designCardButton = (Button) mainView.findViewById(R.id.design_card);
+////            designCardButton.setOnClickListener(new View.OnClickListener() {
+////
+////                @Override
+////                public void onClick(View v) {
+////
+////                    Intent intent = new Intent(activity, CollageActivity.class);
+////                    intent.putExtra("user_job_id", activity.userJobbId);
+////
+////                    activity.startActivityForResult(intent, DESIGN_CARD_REQUEST);
+////                }
+////            });
+//
+//
+//            noteid = ((TextView) mainView.findViewById(R.id.node_type_text));
+//            noteid.setTypeface(null, Typeface.BOLD);
+//            noteid.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    activity.showNodeDialog();
+//                }
+//            });
+//            photoButton = (Button) mainView.findViewById(R.id.photoButton);
+//            imagebutlayout = (LinearLayout) mainView.findViewById(R.id.imagebutlayout);
+//            photoButton.setOnClickListener(new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//                    if (ContextCompat.checkSelfPermission(activity,
+//                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                            != PackageManager.PERMISSION_GRANTED) {
+//
+//
+//                        if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
+//                                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+//
+//
+//                            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+//                                    Constant.SAVE_GRANT_REQUERST_FOR_JOb);
+//
+//                        } else {
+//
+//
+//                            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+//                                    Constant.SAVE_GRANT_REQUERST_FOR_JOb);
+//
+//                        }
+//                    } else {
+//                        activity.showImageDIalog();
+//
+//                    }
+//
+//                }
+//            });
+//
+//
+//            imagesLayout = (LinearLayout) mainView.findViewById(R.id.imagesLayout);
+//            horizentalImage = mainView.findViewById(R.id.horizontalScrollView);
+////            imagesLayout.setVisibility(View.GONE);
+//
+//
+//        }
+//
 
         return mainView;
     }
@@ -339,7 +336,6 @@ public class PropertyCreateFragment extends Fragment implements Constant {
                 Region item = (Region) parent.getAdapter().getItem(position);
                 dialog.dismiss();
                 property.region = item.id;
-                region.setText(item.name);
 
 
             }
@@ -381,48 +377,11 @@ public class PropertyCreateFragment extends Fragment implements Constant {
 
     }
 
-    public void changeCity(int city1) {
-        property.city=city1;
-        City c = DBAdapter.getInstance().cities.get(property.city);
-        if (c != null) {
-            city.setText(c.name);
-        } else {
-            city.setText(R.string.change_city);
-        }
-        region.setText(R.string.region_select);
-        property.region=0;
-//        Region regions = DBAdapter.getInstance().getRegion(a.region);
-//        if (regions != null) {
-//            region.setText(regions.name);
-//        } else {
-//            region.setText(R.string.region_select);
-//        }
-
-    }
 
     public boolean isValid() {
         return true;
     }
 
-//    public void clear() {
-//        imagesLayout.removeAllViews();
-////        images.clear();
-////        node_id = -1;
-//        adver.setText("");
-//        name.setText("");
-//        desc.setText("");
-//        tel.setText("");
-//        mobile.setText("");
-//        email.setText("");
-//        address.setText("");
-//        title.setText("");
-//        telegram.setText("");
-//        adver.setText("");
-//        noteid.setText("");
-//        region.setText(R.string.region_select);
-//
-//
-//    }
 
     class ChangeBusinerssCard implements CompoundButton.OnCheckedChangeListener {
 
@@ -450,144 +409,96 @@ public class PropertyCreateFragment extends Fragment implements Constant {
 
     ChangeBusinerssCard businerssCard = new ChangeBusinerssCard();
 
-    public void addImage(final String image_url) {
+//    public void addImage(final String image_url) {
+//
+//        if (image_url != null) {
+//            Vector<Property.Image> showImage = property.getShowImage();
+//            if (showImage.size() < 5) {
+//                boolean exist = false;
+//                for (int i = 0; i < showImage.size(); i++) {
+//                    Property.Image image = showImage.get(i);
+//                    if (image.localname != null && image.localname.equals(image_url)) {
+//                        exist = true;
+//                        break;
+//                    }
+//                }
+//                if (exist) {
+//                    Toast.makeText(getContext(), getActivity().getString(R.string.exist_image), Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Property.Image image = property.addImage(0, image_url, null, 1, 0);
+//                    addImage(image);
+////                    if (property.getImageCount() == 5) {
+//////                        photoButton.setVisibility(View.GONE);
+//////                        designCardButton.setVisibility(View.GONE);
+////                        imagebutlayout.setVisibility(View.GONE);
+////
+////                    } else {
+////                        imagebutlayout.setVisibility(View.VISIBLE);
+////
+////                    }
+//
+//                }
+//            } else {
+//                Toast.makeText(getContext(), getActivity().getString(R.string.max_image_cnt), Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//
+//    }
 
-        if (image_url != null) {
-            Vector<Property.Image> showImage = property.getShowImage();
-            if (showImage.size() < 5) {
-                boolean exist = false;
-                for (int i = 0; i < showImage.size(); i++) {
-                    Property.Image image = showImage.get(i);
-                    if (image.localname != null && image.localname.equals(image_url)) {
-                        exist = true;
-                        break;
-                    }
-                }
-                if (exist) {
-                    Toast.makeText(getContext(), getActivity().getString(R.string.exist_image), Toast.LENGTH_SHORT).show();
-                } else {
-                    Property.Image image = property.addImage(0, image_url, null, 1, 0);
-                    addImage(image);
-                    if (property.getImageCount() == 5) {
-//                        photoButton.setVisibility(View.GONE);
-//                        designCardButton.setVisibility(View.GONE);
-                        imagebutlayout.setVisibility(View.GONE);
+//    public void addImage(final Property.Image image) {
+//        if (image != null && image.localname != null) {
+//            Bitmap bitmapOriginal = BitmapFactory.decodeFile(image.localname);
+//            if (bitmapOriginal == null) {
+//                image.deleted = true;
+//                return;
+//            }
+//            imagesLayout.setVisibility(View.VISIBLE);
+//            horizentalImage.setVisibility(View.VISIBLE);
+//            telegram_lable.setVisibility(View.VISIBLE);
+//            final View view = layoutInflater.inflate(R.layout.collage_image_item, null);
+//            ImageView imageView = (ImageView) view.findViewById(R.id.imageView5);
+//            final RadioButton radioButton = (RadioButton) view.findViewById(R.id.radioButton);
+//            radioButton.setTag(image);
+//            radioButton.setOnCheckedChangeListener(businerssCard);
+//            radioButton.setChecked(image.main);
+//            imageRadioButtons.add(radioButton);
+//            ImageView close = (ImageView) view.findViewById(R.id.imageView6);
+//
+//            Bitmap bitmapsimplesize = Bitmap.createScaledBitmap(bitmapOriginal, (int) getResources().getDimension(R.dimen.advers_image_size), (int) getResources().getDimension(R.dimen.advers_image_size), true);
+//            bitmapOriginal.recycle();
+//            imageView.setImageBitmap(bitmapsimplesize);
+//            close.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    view.setVisibility(View.GONE);
+//                    if (radioButton.isChecked()) {
+//                        image.main = false;
+//                    }
+//                    image.deleted = true;
+//                    imagebutlayout.setVisibility(View.VISIBLE);
+//
+////                    image.remove(image_url);
+////                    if (images.size() == 0)
+//                    Vector<Property.Image> showImage = property.getShowImage();
+//                    if (showImage.size() > 0) {
+//                        horizentalImage.setVisibility(View.VISIBLE);
+//                        telegram_lable.setVisibility(View.VISIBLE);
+//                    } else {
+//
+//                        horizentalImage.setVisibility(View.GONE);
+//                        telegram_lable.setVisibility(View.GONE);
+//                    }
+//
+//
+//                }
+//            });
+//            imagesLayout.addView(view, Utils.dpToPx(activity,100), Utils.dpToPx(activity,100));
+//
+//        }
+//
+//
+//    }
 
-                    } else {
-                        imagebutlayout.setVisibility(View.VISIBLE);
-
-                    }
-
-                }
-            } else {
-                Toast.makeText(getContext(), getActivity().getString(R.string.max_image_cnt), Toast.LENGTH_SHORT).show();
-            }
-        }
-
-    }
-
-    public void addImage(final Property.Image image) {
-        if (image != null && image.localname != null) {
-            Bitmap bitmapOriginal = BitmapFactory.decodeFile(image.localname);
-            if (bitmapOriginal == null) {
-                image.deleted = true;
-                return;
-            }
-            imagesLayout.setVisibility(View.VISIBLE);
-            horizentalImage.setVisibility(View.VISIBLE);
-            telegram_lable.setVisibility(View.VISIBLE);
-            final View view = layoutInflater.inflate(R.layout.collage_image_item, null);
-            ImageView imageView = (ImageView) view.findViewById(R.id.imageView5);
-            final RadioButton radioButton = (RadioButton) view.findViewById(R.id.radioButton);
-            radioButton.setTag(image);
-            radioButton.setOnCheckedChangeListener(businerssCard);
-            radioButton.setChecked(image.main);
-            imageRadioButtons.add(radioButton);
-            ImageView close = (ImageView) view.findViewById(R.id.imageView6);
-
-            Bitmap bitmapsimplesize = Bitmap.createScaledBitmap(bitmapOriginal, (int) getResources().getDimension(R.dimen.advers_image_size), (int) getResources().getDimension(R.dimen.advers_image_size), true);
-            bitmapOriginal.recycle();
-            imageView.setImageBitmap(bitmapsimplesize);
-            close.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    view.setVisibility(View.GONE);
-                    if (radioButton.isChecked()) {
-                        image.main = false;
-                    }
-                    image.deleted = true;
-                    imagebutlayout.setVisibility(View.VISIBLE);
-
-//                    image.remove(image_url);
-//                    if (images.size() == 0)
-                    Vector<Property.Image> showImage = property.getShowImage();
-                    if (showImage.size() > 0) {
-                        horizentalImage.setVisibility(View.VISIBLE);
-                        telegram_lable.setVisibility(View.VISIBLE);
-                    } else {
-
-                        horizentalImage.setVisibility(View.GONE);
-                        telegram_lable.setVisibility(View.GONE);
-                    }
-
-
-                }
-            });
-            imagesLayout.addView(view, Utils.dpToPx(activity,100), Utils.dpToPx(activity,100));
-
-        }
-
-
-    }
-
-    public boolean validationEmpty() {
-        boolean check = true;
-        if (mobile.getText() == null || mobile.getText().toString().trim().isEmpty()) {
-            check = false;
-            mobileLayout.setError(getString(R.string.empty_error));
-            requestFocus(mobile);
-        } else {
-            mobileLayout.setErrorEnabled(false);
-        }
-        if (title.getText() == null || title.getText().toString().trim().isEmpty()) {
-            check = false;
-            titleLayout.setError(getString(R.string.empty_error));
-            requestFocus(title);
-
-        } else {
-            titleLayout.setErrorEnabled(false);
-        }
-        if (desc.getText() == null || desc.getText().toString().trim().isEmpty()) {
-            check = false;
-            descLayout.setError(getString(R.string.empty_error));
-            requestFocus(desc);
-
-        } else {
-            descLayout.setErrorEnabled(false);
-        }
-        if (name.getText() == null || name.getText().toString().trim().isEmpty()) {
-
-            nameLayout.setError(getString(R.string.empty_error));
-            requestFocus(name);
-            check = false;
-
-        } else {
-            nameLayout.setErrorEnabled(false);
-        }
-        return check;
-    }
-
-    public boolean validateEmail() {
-        ;
-        if ((email.getText() != null && !email.getText().toString().trim().isEmpty() && !android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString().trim()).matches())) {
-            emailLayout.setError(getString(R.string.err_msg_email));
-            requestFocus(email);
-            return false;
-        }
-
-        emailLayout.setErrorEnabled(false);
-        return true;
-    }
 
     private void requestFocus(View view) {
         if (view.requestFocus()) {
@@ -595,130 +506,126 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         }
     }
 
-    public Property getProperty() {
-
-        if (property != null) {
-
-            property.title = title.getText().toString();
-
-            property.desc = desc.getText().toString();
-            property.tel = Utils.asciiNumners(tel.getText().toString());
-            property.mobile = Utils.asciiNumners(mobile.getText().toString());
-            property.email = email.getText().toString();
-            property.telegram = telegram.getText().toString();
-            property.name = name.getText().toString();
-            property.address = address.getText().toString();
-
-        }
-        return property;
-    }
-
-    private void setProperty(Property property) {
-        this.property = property;
-        fillUserjob(this.property);
-    }
-
-
-
-    public void reFill() {
-        fillUserjob(this.property);
-    }
-
-    private void fillUserjob(Property a) {
-        if (a == null)
-            return;
-        if (imagesLayout == null)
-            return;
-        imagesLayout.removeAllViews();
-
-        if (a.name != null)
-            name.setText(a.name);
-        if (a.desc != null)
-            desc.setText(a.desc);
-        if (a.tel != null)
-            tel.setText(a.tel);
-        if (a.mobile != null && a.mobile.trim().length() != 0)
-            mobile.setText(a.mobile);
-        else if (a.local_id == 0 && UserConfig.phone != null && !UserConfig.phone.equals("-1")) {
-            mobile.setText(UserConfig.phone);
-        }
-        if (a.email != null)
-            email.setText(a.email);
-        if (a.title != null)
-            title.setText(a.title);
-        if (a.telegram != null)
-            telegram.setText(a.telegram);
-        if (a.address != null)
-            address.setText(a.address);
+//    public Property getProperty() {
+//
+//        if (property != null) {
+//
+//            property.title = title.getText().toString();
+//
+//            property.desc = desc.getText().toString();
+//            property.tel = Utils.asciiNumners(tel.getText().toString());
+//            property.mobile = Utils.asciiNumners(mobile.getText().toString());
+//            property.email = email.getText().toString();
+//            property.telegram = telegram.getText().toString();
+//            property.name = name.getText().toString();
+//            property.address = address.getText().toString();
+//
+//        }
+//        return property;
+//    }
 
 
 
 
-
-        Node node = DBAdapter.getInstance().allNodes.get(a.nodeid);
-        if (node != null) {
-            noteid.setText(node.path);
-            expandableLinearLayout.setVisibility(View.VISIBLE);
-        } else {
-            noteid.setText(R.string.selection);
-            expandableLinearLayout.setVisibility(View.INVISIBLE);
-        }
-        Vector<Property.Image> showImage = property.getShowImage();
-        for (int i = 0; i < showImage.size(); i++) {
-            Property.Image image = showImage.get(i);
-
-            addImage(image);
-
-        }
-        if (showImage.size() == 0) {
-            horizentalImage.setVisibility(View.GONE);
-            telegram_lable.setVisibility(View.GONE);
-        }
-        if (showImage.size() == 5) {
-            imagebutlayout.setVisibility(View.GONE);
-
-        }
-
-
-        Region regions = DBAdapter.getInstance().getRegion(a.region);
-        if (regions != null) {
-            region.setText(regions.name);
-        } else {
-            region.setText(R.string.region_select);
-        }
-        City c = DBAdapter.getInstance().cities.get(property.city);
-        if (c != null) {
-            city.setText(c.name);
-        } else {
-            city.setText(R.string.change_city);
-        }
-
-
-    }
-
-    public void setNodeType(Node text) {
-        property.nodeid = text.id;
-        if (property.city == 0) {
-            property.city = UserConfig.city;
-        }
-        City c = DBAdapter.getInstance().cities.get(property.city);
-        if (c != null) {
-            city.setText(c.name);
-        } else {
-            city.setText(R.string.change_city);
-        }
-        if (noteid != null)
-            noteid.setText(text.path);
-        if (expandableLinearLayout.getVisibility() != View.VISIBLE) {
-            expandableLinearLayout.setVisibility(View.VISIBLE);
-            expandableLinearLayout.startAnimation(slideUp2Down);
-        }
-    }
-
-    public void setRegion(Region r) {
-        property.region = r.id;
-        noteid.setText(r.name);
-    }
+//    public void reFill() {
+//        fillUserjob(this.property);
+//    }
+//
+//    private void fillUserjob(Property a) {
+//        if (a == null)
+//            return;
+//        if (imagesLayout == null)
+//            return;
+//        imagesLayout.removeAllViews();
+//
+//        if (a.name != null)
+//            name.setText(a.name);
+//        if (a.desc != null)
+//            desc.setText(a.desc);
+//        if (a.tel != null)
+//            tel.setText(a.tel);
+//        if (a.mobile != null && a.mobile.trim().length() != 0)
+//            mobile.setText(a.mobile);
+//        else if (a.local_id == 0 && UserConfig.phone != null && !UserConfig.phone.equals("-1")) {
+//            mobile.setText(UserConfig.phone);
+//        }
+//        if (a.email != null)
+//            email.setText(a.email);
+//        if (a.title != null)
+//            title.setText(a.title);
+//        if (a.telegram != null)
+//            telegram.setText(a.telegram);
+//        if (a.address != null)
+//            address.setText(a.address);
+//
+//
+//
+//
+//
+//        Node node = DBAdapter.getInstance().allNodes.get(a.nodeid);
+//        if (node != null) {
+//            noteid.setText(node.path);
+//            expandableLinearLayout.setVisibility(View.VISIBLE);
+//        } else {
+//            noteid.setText(R.string.selection);
+//            expandableLinearLayout.setVisibility(View.INVISIBLE);
+//        }
+//        Vector<Property.Image> showImage = property.getShowImage();
+//        for (int i = 0; i < showImage.size(); i++) {
+//            Property.Image image = showImage.get(i);
+//
+//            addImage(image);
+//
+//        }
+//        if (showImage.size() == 0) {
+//            horizentalImage.setVisibility(View.GONE);
+//            telegram_lable.setVisibility(View.GONE);
+//        }
+//        if (showImage.size() == 5) {
+//            imagebutlayout.setVisibility(View.GONE);
+//
+//        }
+//
+//
+//        Region regions = DBAdapter.getInstance().getRegion(a.region);
+//        if (regions != null) {
+//            region.setText(regions.name);
+//        } else {
+//            region.setText(R.string.region_select);
+//        }
+//        City c = DBAdapter.getInstance().cities.get(property.city);
+//        if (c != null) {
+//            city.setText(c.name);
+//        } else {
+//            city.setText(R.string.change_city);
+//        }
+//
+//
+//    }
+//
+//    public void setNodeType(Node text) {
+//        property.nodeid = text.id;
+//        if (property.city == 0) {
+//            property.city = UserConfig.city;
+//        }
+//        City c = DBAdapter.getInstance().cities.get(property.city);
+//        if (c != null) {
+//            city.setText(c.name);
+//        } else {
+//            city.setText(R.string.change_city);
+//        }
+//        if (noteid != null)
+//            noteid.setText(text.path);
+//        if (expandableLinearLayout.getVisibility() != View.VISIBLE) {
+//            expandableLinearLayout.setVisibility(View.VISIBLE);
+//            expandableLinearLayout.startAnimation(slideUp2Down);
+//        }
+//    }
+//
+//    public void setRegion(Region r) {
+//        property.region = r.id;
+//        noteid.setText(r.name);
+//    }
 
 //    public static boolean isEmailValid(String email) {
 //        boolean isValid = false;

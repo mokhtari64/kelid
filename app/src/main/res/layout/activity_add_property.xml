@@ -9,6 +9,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:layout_weight="0"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
@@ -36,40 +37,39 @@
 
     </RelativeLayout>
 
-    <FrameLayout
+    <LinearLayout
+        android:layout_weight="1"
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:layout_marginBottom="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/next"
-                android:layout_width="138dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:text="@string/next"
-                android:gravity="center" />
-            <TextView
-                android:id="@+id/cancel"
-                android:layout_width="138dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:text="@string/createcancel" />
-        </RelativeLayout>
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center">
 
 
-        <LinearLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
+    </LinearLayout>
 
+    <LinearLayout
+        android:background="#4444"
+        android:layout_weight="0"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        </LinearLayout>
-    </FrameLayout>
+        <TextView
+            android:id="@+id/next"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/cancel"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/createcancel" />
+    </LinearLayout>
+
 </LinearLayout>

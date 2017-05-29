@@ -88,7 +88,12 @@ public class UserPhoneFragment extends Fragment {
     }
 
 
+
     public String getPhone() {
         return phoneEditText.getText().toString();
+    }
+
+    public boolean isValid() {
+        return true;
     }
 }

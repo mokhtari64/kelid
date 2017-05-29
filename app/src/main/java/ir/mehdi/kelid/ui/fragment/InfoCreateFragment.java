@@ -33,15 +33,7 @@ public class InfoCreateFragment  extends Fragment implements Constant,ServiceDel
         if(main==null) {
             layoutInflater = inflater;
             main= (LinearLayout) inflater.inflate(R.layout.fragment_create_info, null);
-            imageLayout= (LinearLayout) main.findViewById(R.id.imagebutlayout);
-            addImage= (Button) main.findViewById(R.id.add_image);
-            send= (Button) main.findViewById(R.id.send);
-            addImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ((AddPropetyActivity)getActivity()).showImageDIalog();
-                }
-            });
+
 
 
         }
