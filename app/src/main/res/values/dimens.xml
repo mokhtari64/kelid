@@ -8,6 +8,7 @@
     <dimen name="defualt_addmenu">30dp</dimen>
     <dimen name="defualt_spacing3x">150dp</dimen>
     <dimen name="defualt_spacing2x">100dp</dimen>
+    <dimen name="defualt_msize">85dp</dimen>
 
     <dimen name="cl_title_trans">40dp</dimen>
     <dimen name="cl_title_size">20sp</dimen>

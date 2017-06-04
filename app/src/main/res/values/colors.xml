@@ -15,6 +15,13 @@
     <color name="progress">#3cd631</color>
     <color name="black_overlay">#66000000</color>
 
+    <color name="mDark">#1a292c</color>
+    <color name="mDark2">#223f43</color>
+    <color name="mLight">#2e4d50</color>
+    <color name="mOrange">#ff3d00</color>
+    <color name="mRedLight">#f93f40</color>
+    <color name="mRedDark">#cd3333</color>
+
     <color name="black_semi_transparent">#B2000000</color>
     <color name="background">#e5e5e5</color>
     <color name="half_black">#808080</color>

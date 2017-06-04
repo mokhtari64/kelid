@@ -54,13 +54,14 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/defualt_spacing2x"
+        android:layout_height="@dimen/defualt_msize"
         android:scaleType="fitCenter"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginBottom="-20dp"
+        android:layout_marginRight="-3dp"
+        android:layout_marginLeft="-3dp"
+        android:layout_marginBottom="-7dp"
         android:background="@drawable/my_footer">
+
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -128,8 +129,8 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_width="@dimen/defualt_spacing2x"
-        android:layout_height="@dimen/defualt_spacing2x"
+        android:layout_width="@dimen/defualt_spacing"
+        android:layout_height="@dimen/defualt_spacing"
         android:src="@drawable/my_footer"
         android:layout_alignTop="@+id/arcMenu"
         android:layout_alignLeft="@+id/arcMenu"
