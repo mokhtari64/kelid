@@ -53,9 +53,48 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="my_text_menu">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/mYellow</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/defualt_spacing</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:layout_margin">1dp</item>
+        <!--<item name="android:textSize">30dp</item>-->
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:shadowColor">@color/mDark</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:background">@drawable/my_text_info</item>
+        <item name="android:button">@android:color/transparent</item>
+    </style>
+
+    <style name="my_toggle_extention">
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">1</item>
+        <item name="android:background">@drawable/my_toggle_background</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:textColor">@color/mYellow</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:shadowColor">@color/mDark</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:button">@android:color/transparent</item>
+    </style>
+
     <style name="my_radio_button">
-        <item name="android:layout_width">50dp</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">@dimen/defualt_spacing</item>
+        <item name="android:layout_height">@dimen/defualt_spacing</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_weight">1</item>
@@ -70,17 +109,30 @@
         <item name="android:button">@android:color/transparent</item>
     </style>
 
+    <style name="my_home_main_menu">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:tint">@color/mBlue</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:button">@android:color/transparent</item>
+    </style>
+
     <style name="my_header">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">50dp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_height">@dimen/defualt_spacing</item>
+        <item name="android:textColor">@color/mYellow</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_margin">1dp</item>
         <!--<item name="android:textSize">30dp</item>-->
         <item name="android:textStyle">bold</item>
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
-        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowColor">@color/mDark</item>
         <item name="android:shadowDx">1</item>
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">2</item>

@@ -52,6 +52,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="@color/black_semi_transparent"
+            style="@style/my_text_menu"
             android:background="@android:drawable/dialog_holo_light_frame" />
 
     </TableRow>

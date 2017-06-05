@@ -18,7 +18,16 @@
     <color name="mDark">#1a292c</color>
     <color name="mDark2">#223f43</color>
     <color name="mLight">#2e4d50</color>
+    <color name="mGray">#191a292c</color>
+    <color name="mGray1">#606060</color>
+    <color name="mGray2">#424242</color>
+    <color name="mGray3">#212121</color>
     <color name="mOrange">#ff3d00</color>
+    <color name="mOrange2">#d34610</color>
+    <color name="mBlue">#1780d3</color>
+    <color name="mGreen">#48ac4a</color>
+    <color name="mYellow">#fe9d00</color>
+    <color name="mViolet">#41299b</color>
     <color name="mRedLight">#f93f40</color>
     <color name="mRedDark">#cd3333</color>
 

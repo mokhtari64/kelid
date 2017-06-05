@@ -59,73 +59,29 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="-3dp"
         android:layout_marginLeft="-3dp"
-        android:layout_marginBottom="-7dp"
+        android:layout_marginBottom="-3dp"
         android:background="@drawable/my_footer">
 
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/imageButtonHome"
-            android:scaleType="fitCenter"
-            android:layout_alignTop="@+id/imageView8"
-            android:layout_alignRight="@+id/imageView9"
-            android:layout_alignEnd="@+id/imageView9"
-            android:layout_weight="1"
-            android:adjustViewBounds="false"
-            android:cropToPadding="false"
-            android:onClick="onClick"
-            android:background="@color/transparent"
+            android:id="@+id/btn_profile"
             app:srcCompat="@drawable/kelid_home"
-            android:tint="@color/white_pressed" />
+            style="@style/my_home_main_menu"/>
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:id="@+id/btn_group"
             app:srcCompat="@drawable/kelid_home"
-            android:background="@color/transparent"
-            android:id="@+id/imageButtonSerach"
-            android:scaleType="fitCenter"
-            android:layout_alignTop="@+id/imageView8"
-            android:layout_alignRight="@+id/imageView9"
-            android:layout_alignEnd="@+id/imageView9"
-            android:tint="@color/white_pressed"
-            android:layout_weight="1" />
+            style="@style/my_home_main_menu"/>
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             app:srcCompat="@drawable/kelid_home"
-            android:background="@color/transparent"
-            android:visibility="invisible"
-            android:layout_alignTop="@+id/imageView8"
-            android:layout_alignRight="@+id/imageView9"
-            android:layout_alignEnd="@+id/imageView9"
-            android:tint="@color/white_pressed"
-            android:layout_weight="1" />
+            style="@style/my_home_main_menu"/>
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:id="@+id/btn_search"
             app:srcCompat="@drawable/kelid_home"
-            android:id="@+id/imageButtonFilter"
-            android:background="@color/transparent"
-            android:scaleType="fitCenter"
-            android:layout_alignTop="@+id/imageView8"
-            android:layout_alignRight="@+id/imageView9"
-            android:layout_alignEnd="@+id/imageView9"
-            android:tint="@color/white_pressed"
-            android:layout_weight="1" />
+            style="@style/my_home_main_menu"/>
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:id="@+id/btn_home"
             app:srcCompat="@drawable/kelid_home"
-            android:background="@color/transparent"
-            android:id="@+id/imageButtonGroup"
-            android:scaleType="fitCenter"
-            android:layout_alignTop="@+id/imageView8"
-            android:layout_alignRight="@+id/imageView9"
-            android:layout_alignEnd="@+id/imageView9"
-            android:tint="@color/white_pressed"
-            android:layout_weight="1" />
-
+            style="@style/my_home_main_menu"/>
     </LinearLayout>
 
     <ImageView
@@ -137,13 +93,12 @@
         android:layout_alignRight="@+id/arcMenu"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="-10dp" />
+        android:layout_marginBottom="3dp" />
 
     <com.sa90.materialarcmenu.ArcMenu
         android:id="@+id/arcMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         app:menu_color="@color/colorPrimaryDark"
         app:menu_radius="140dp"
         app:menu_ripple_color="@android:color/holo_blue_bright"
@@ -165,18 +120,12 @@
             <!--android:background="@android:color/transparent"-->
             <!--android:layout_height="wrap_content" />-->
 
-
-
-
         <ImageButton
-
             android:id="@+id/office"
             android:layout_width="wrap_content"
             android:src="@drawable/add_text"
             android:background="@android:color/transparent"
             android:layout_height="wrap_content" />
-
-
         <ImageButton
             android:id="@+id/consulting"
             android:layout_width="wrap_content"
@@ -195,7 +144,6 @@
             android:src="@drawable/bg"
             android:background="@android:color/transparent"
             android:layout_height="wrap_content" />
-
     </com.sa90.materialarcmenu.ArcMenu>
 
     <LinearLayout
