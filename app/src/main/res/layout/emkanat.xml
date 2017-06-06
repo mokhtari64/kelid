@@ -63,8 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="@string/sarmayesh"
-            android:layout_weight="3"
-            android:gravity="center_vertical" />
+            style="@style/my_text_menu" />
     </TableRow>
 
     <TableRow
@@ -144,8 +143,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="@string/garmayesh"
-            android:layout_weight="4"
-            android:gravity="center_vertical" />
+            style="@style/my_text_menu" />
 
     </TableRow>
 
@@ -218,8 +216,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="@string/kafposh"
-            android:layout_weight="4"
-            android:gravity="center_vertical" />
+            style="@style/my_text_menu" />
     </TableRow>
 
     <TableRow
@@ -292,8 +289,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="@string/divar"
-            android:layout_weight="4"
-            android:gravity="center_vertical" />
+            style="@style/my_text_menu" />
     </TableRow>
 
     <TableRow
@@ -381,8 +377,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="@string/nama"
-            android:layout_weight="4"
-            android:gravity="center_vertical" />
+            style="@style/my_text_menu" />
     </TableRow>
 
     <TableRow
@@ -448,7 +443,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="@string/kabinet"
-            android:layout_weight="4"
-            android:gravity="center_vertical" />
+            style="@style/my_text_menu" />
     </TableRow>
 </TableLayout>
