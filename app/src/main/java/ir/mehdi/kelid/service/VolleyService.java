@@ -85,7 +85,7 @@ public class VolleyService extends Service implements Constant {
     }
 
 
-    public static final String ServerIP = "http://192.168.1.2:3000/api/";
+    public static final String ServerIP = "http://5.9.134.8/api/";
 //    public static final String ServerIP = "http://fanoosiran.ir/";
     //        public static final String ServerIP = "http://192.168.1.33/fanoos/";
     public static final String JOB_DETAIL_URL = ServerIP + "info/";

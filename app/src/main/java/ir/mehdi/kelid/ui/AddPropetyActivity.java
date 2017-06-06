@@ -51,6 +51,7 @@ import ir.mehdi.kelid.service.VolleyService;
 import ir.mehdi.kelid.ui.fragment.ActivationCodeFragment;
 import ir.mehdi.kelid.ui.fragment.InfoCreateFragment;
 import ir.mehdi.kelid.ui.fragment.PropertyCreateFragment;
+import ir.mehdi.kelid.ui.fragment.TestFragment;
 import ir.mehdi.kelid.ui.fragment.UserPhoneFragment;
 import ir.mehdi.kelid.utils.FileUtils;
 import ir.mehdi.kelid.utils.Utils;
@@ -77,6 +78,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
     InfoCreateFragment infoCreateFragment;
     PropertyCreateFragment propertyCreateFragment;
+    TestFragment testFragment;
     UserPhoneFragment userPhoneFragment;
     ActivationCodeFragment activationCodeFragment;
 
@@ -104,6 +106,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         }
 
         propertyCreateFragment = new PropertyCreateFragment();
+        testFragment = new TestFragment();
 //        propertyCreateFragment = new TestFragment();
         infoCreateFragment = new InfoCreateFragment();
 
@@ -119,7 +122,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         FragmentTransaction ft = fm.beginTransaction();
         fm.popBackStack(null, android.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-        ft.add(R.id.fragment_container, propertyCreateFragment);
+        ft.add(R.id.fragment_container, testFragment);
+//        ft.add(R.id.fragment_container, propertyCreateFragment);
         ft.commit();
 
 
@@ -622,8 +626,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             }
 
 
-//            if (filepath != null)
-//                propertyCreateFragment.addImage(filepath);
+            if (orginalPath != null)
+                testFragment.addImage(orginalPath);
 
 
         } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
@@ -666,7 +670,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             }
 
 
-//            propertyCreateFragment.addImage(file);
+            testFragment.addImage(orginalPath);
 
         } else if (requestCode == CROP_IMAGE) {
 
