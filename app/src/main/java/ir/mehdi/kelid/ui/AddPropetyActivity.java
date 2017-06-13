@@ -50,6 +50,7 @@ import ir.mehdi.kelid.service.ServiceDelegate;
 import ir.mehdi.kelid.service.VolleyService;
 import ir.mehdi.kelid.ui.fragment.ActivationCodeFragment;
 import ir.mehdi.kelid.ui.fragment.InfoCreateFragment;
+import ir.mehdi.kelid.ui.fragment.MapFragment;
 import ir.mehdi.kelid.ui.fragment.PropertyCreateFragment;
 import ir.mehdi.kelid.ui.fragment.TestFragment;
 import ir.mehdi.kelid.ui.fragment.UserPhoneFragment;
@@ -75,6 +76,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
 
     NodeFragmentDialog nodeFragmentDialog;
+    MapFragment mapFragment;
 
     InfoCreateFragment infoCreateFragment;
     PropertyCreateFragment propertyCreateFragment;
@@ -122,8 +124,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         FragmentTransaction ft = fm.beginTransaction();
         fm.popBackStack(null, android.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-        ft.add(R.id.fragment_container, testFragment);
-//        ft.add(R.id.fragment_container, propertyCreateFragment);
+//        ft.add(R.id.fragment_container, testFragment);
+        ft.add(R.id.fragment_container, propertyCreateFragment);
         ft.commit();
 
 

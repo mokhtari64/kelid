@@ -37,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +62,14 @@ import ir.mehdi.kelid.utils.Utils;
  */
 public class PropertyCreateFragment extends Fragment implements Constant {
     TextInputLayout nameLayout, titleLayout, adverLayout, descLayout, telLayout, mobileLayout, emailLayout, telegramLayout, addressLayout;
+    EditText masahat, zirbana, arse, arz_khyaban, hashye_melk;
+    RadioGroup tabaghat;
+    RadioGroup vahedTabaghat;
+//    int selectedIdtedId = radioGroup.getCheckedRadioButtonId();
+//
+
+//    radioButton = (RadioButton) findViewById(selectedId);
+
 
     View mainView;
     Animation slideUp2Down;
@@ -84,6 +93,14 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mainView == null) {
             mainView = inflater.inflate(R.layout.fragment_create_property, null);
+            masahat = (EditText) mainView.findViewById(R.id.masahat);
+            zirbana = (EditText) mainView.findViewById(R.id.zirbana);
+            arse = (EditText) mainView.findViewById(R.id.arse);
+            arz_khyaban = (EditText) mainView.findViewById(R.id.arz_khyaban);
+            hashye_melk = (EditText) mainView.findViewById(R.id.hashye_melk);
+            tabaghat = (RadioGroup) mainView.findViewById(R.id.tabaghat);
+            vahedTabaghat = (RadioGroup) mainView.findViewById(R.id.tabaghevahed);
+
         }
         return mainView;
     }
@@ -294,11 +311,6 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         return mainView;
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//    }
 
     public void showRegionDIalog() {
         Region[] regionss = DBAdapter.getInstance().getRegion(property.city, "");
@@ -523,8 +535,6 @@ public class PropertyCreateFragment extends Fragment implements Constant {
 //        }
 //        return property;
 //    }
-
-
 
 
 //    public void reFill() {

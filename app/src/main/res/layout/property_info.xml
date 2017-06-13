@@ -21,6 +21,7 @@
             <RadioGroup
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
+                android:id="@+id/tabaghat"
                 android:layout_height="match_parent">
 
                 <RadioButton
@@ -76,6 +77,7 @@
             <RadioGroup
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
+                android:id="@+id/tabaghevahed"
                 android:layout_height="match_parent" >
 
                 <RadioButton
