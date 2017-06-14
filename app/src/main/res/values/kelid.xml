@@ -2,8 +2,6 @@
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
 
-
-
     <string name="wait">لطفا منتظر باشید</string>
     <string name="resend">ارسال دوباره کد</string>
     <string name="change_phone">شماره تلفن اشتباه است؟</string>
@@ -185,7 +183,6 @@
     <string name="activation_code">لطفا کد ارسال شده به شماره  %1$s را وارد کنید</string>
 
 
-
     <string name="job_report">گزارش کسب و کار</string>
     <!--<string name="all_node">جستجو در همه دسته ها</string>-->
     <string name="all">همه</string>
@@ -278,8 +275,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
 
 
-
-
     <string name="province_touch">استان خود را روی نقشه لمس کنید</string>
 
 
@@ -361,10 +356,6 @@
     <string name="job_temp_message">کسب و کار شما به صورت پیش نویش ذخیره شد</string>
 
 
-
-
-
-
     <string name="title_activity_fanoos_main">FanoosMainActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
@@ -432,8 +423,6 @@
     <!-- DO NOT TRANSLATE -->
     <string name="mdtp_day_of_week_label_typeface" translatable="false">sans-serif</string>
     <string name="title_activity_main2">Main2Activity</string>
-
-
 
 
 </resources>

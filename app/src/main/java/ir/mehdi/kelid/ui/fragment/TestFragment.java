@@ -93,8 +93,6 @@ public class TestFragment extends Fragment implements Constant,ServiceDelegate {
             final View view = layoutInflater.inflate(R.layout.collage_image_item, null);
             ImageView imageView = (ImageView) view.findViewById(R.id.imageView5);
             ImageView failedImage = (ImageView) view.findViewById(R.id.failed);
-            final RadioButton radioButton = (RadioButton) view.findViewById(R.id.radioButton);
-            radioButton.setTag(image);
             ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress);
             progressBar.setVisibility(View.VISIBLE);
 
@@ -104,7 +102,7 @@ public class TestFragment extends Fragment implements Constant,ServiceDelegate {
             imageView.setImageBitmap(bitmapsimplesize);
 
             imageLayout.addView(view, Utils.dpToPx(getActivity(),100), Utils.dpToPx(getActivity(),100));
-            VolleyService.getInstance().sendPhoto(progressBar,failedImage,image);
+//            VolleyService.getInstance().sendPhoto(progressBar,failedImage,image);
 
 
         }

@@ -2,6 +2,7 @@ package ir.mehdi.kelid.ui.fragment;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
@@ -36,6 +38,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -54,6 +57,7 @@ import ir.mehdi.kelid.model.City;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
 import ir.mehdi.kelid.model.Region;
+import ir.mehdi.kelid.service.VolleyService;
 import ir.mehdi.kelid.ui.AddPropetyActivity;
 import ir.mehdi.kelid.ui.CityActivity;
 import ir.mehdi.kelid.utils.Utils;
@@ -73,6 +77,9 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     ToggleButton system_bargh_hoshmand, system_etfa_harigh, system_alarm_gaz, havasaz, estakhr, labi, seraydari, faza_sabz, manba_ab, pomp_ab, bargh_ezterari, hood;
     ToggleButton norpardazi_dakheli, norpardazi_nama, van, hamam_master, sona, alachigh, darb_zed_serghat, pele_ezterari,
             system_alarm_atashsozi, jaro_markazi, balkon, kaf_seramik, mdf;
+    Button addPhoto;
+
+    LinearLayout photoLayout;
 
 //    int selectedIdtedId = radioGroup.getCheckedRadioButtonId();
 //
@@ -101,6 +108,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mainView == null) {
+            layoutInflater=inflater;
             mainView = inflater.inflate(R.layout.fragment_create_property, null);
             masahat = (EditText) mainView.findViewById(R.id.masahat);
             zirbana = (EditText) mainView.findViewById(R.id.zirbana);
@@ -190,13 +198,68 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             balkon=(ToggleButton) mainView.findViewById(R.id.balkon);
             kaf_seramik=(ToggleButton) mainView.findViewById(R.id.kaf_seramik);
             mdf=(ToggleButton) mainView.findViewById(R.id.mdf);
+            addPhoto=(Button) mainView.findViewById(R.id.addphoto);
+
+            photoLayout=(LinearLayout)mainView.findViewById(R.id.photo_layout);
+            addPhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((AddPropetyActivity)getActivity()).showImageDIalog();
+
+//                    View dialogView = layoutInflater.inflate(R.layout.dialog_photo_select, null);
+//
+//                    AlertDialog.Builder builder =
+//                            new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle);
+//                    builder.setTitle(R.string.select_photo);
+//                    builder.setView(dialogView);
+//                    dialogView.findViewById(R.id.from_gallery).setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//
+//                        }
+//                    });
+//                    dialogView.findViewById(R.id.camera).setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//
+//                        }
+//                    });
+//
+//
+//                    builder.show();
+                }
+            });
 
         }
         return mainView;
     }
 
 
+    public void addImage(final String image) {
+        if (image != null) {
+            Bitmap bitmapOriginal = BitmapFactory.decodeFile(image);
+            if (bitmapOriginal == null) {
+                return;
+            }
+            final View view = layoutInflater.inflate(R.layout.collage_image_item, null);
+            ImageView imageView = (ImageView) view.findViewById(R.id.imageView5);
+            ImageView failedImage = (ImageView) view.findViewById(R.id.failed);
+            ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress);
+            progressBar.setVisibility(View.VISIBLE);
 
+
+            Bitmap bitmapsimplesize = Bitmap.createScaledBitmap(bitmapOriginal, (int) getResources().getDimension(R.dimen.advers_image_size), (int) getResources().getDimension(R.dimen.advers_image_size), true);
+            bitmapOriginal.recycle();
+            imageView.setImageBitmap(bitmapsimplesize);
+
+            photoLayout.addView(view, Utils.dpToPx(getActivity(),100), Utils.dpToPx(getActivity(),100));
+            VolleyService.getInstance().sendPhoto(AddPropetyActivity.property,progressBar,failedImage,image);
+
+
+        }
+
+
+    }
 
     public void showRegionDIalog() {
         Region[] regionss = DBAdapter.getInstance().getRegion(property.city, "");

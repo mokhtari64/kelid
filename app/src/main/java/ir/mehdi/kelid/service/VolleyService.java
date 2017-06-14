@@ -990,7 +990,7 @@ public class VolleyService extends Service implements Constant {
         return null;
     }
 
-    public void sendPhoto(final ProgressBar progressBar,final  ImageView failed, String image) {
+    public void sendPhoto(final Property property,final ProgressBar progressBar,final  ImageView failed, String image) {
         failed.setVisibility(View.INVISIBLE);
         PhotoPartRequest multipartRequest = new PhotoPartRequest(SEND_NEW_FILE, null,image, new Response.ErrorListener() {
             @Override

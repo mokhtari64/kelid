@@ -108,7 +108,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         }
 
         propertyCreateFragment = new PropertyCreateFragment();
-        testFragment = new TestFragment();
+
 //        propertyCreateFragment = new TestFragment();
         infoCreateFragment = new InfoCreateFragment();
 
@@ -629,7 +629,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
 
             if (orginalPath != null)
-                testFragment.addImage(orginalPath);
+                propertyCreateFragment.addImage(orginalPath);
 
 
         } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
@@ -672,7 +672,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             }
 
 
-            testFragment.addImage(orginalPath);
+            propertyCreateFragment.addImage(orginalPath);
 
         } else if (requestCode == CROP_IMAGE) {
 
