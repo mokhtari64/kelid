@@ -1,429 +1,413 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_material_light">
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background_material_light"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/my_main_background">
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_main_background"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/asansor"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/asansor"
                 android:textOn="@string/asansor" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/parking"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/parking"
                 android:textOn="@string/parking" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/anbari"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/anbari"
-                android:textOn="@string/anbari"/>
+                android:textOn="@string/anbari" />
 
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/service_farangi"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/service_farangi"
                 android:textOn="@string/service_farangi" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/gachbori"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/gachbori"
                 android:textOn="@string/gachbori" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/rangkari"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/rang_plastic"
                 android:textOn="@string/rang_plastic" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/jakozi"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/jakozi"
                 android:textOn="@string/jakozi" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/iphone_tasviri"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/iphone_tasviri"
-                android:textOn="@string/iphone_tasviri"/>
+                android:textOn="@string/iphone_tasviri" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/coler_abi"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/coler_abi"
                 android:textOn="@string/coler_abi" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/pakage"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/pakage"
-                android:textOn="@string/pakage"/>
+                android:textOn="@string/pakage" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/shofaj"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/shofaj"
                 android:textOn="@string/shofaj" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/garmayesh_az_kaf"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/garmayesh_az_kaf"
                 android:textOn="@string/garmayesh_az_kaf" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/ab_garmkon"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/ab_garmkon"
                 android:textOn="@string/ab_garmkon" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/ab_garmkon_khorshidi"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/ab_garmkon_khorshidi"
                 android:textOn="@string/ab_garmkon_khorshidi" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/darb_barghi"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/darb_barghi"
-                android:textOn="@string/darb_barghi"/>
+                android:textOn="@string/darb_barghi" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/panjere_dojedare"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/panjere_do_jedare"
-                android:textOn="@string/panjere_do_jedare"
-                />
+                android:textOn="@string/panjere_do_jedare" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/upvc"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/upvc"
-                android:textOn="@string/upvc"
-                />
+                android:textOn="@string/upvc" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/kaf_parket"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/parket"
-                android:textOn="@string/parket"
-                />
+                android:textOn="@string/parket" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/komod_divari"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/komod_divari"
-                android:textOn="@string/komod_divari"
-                />
+                android:textOn="@string/komod_divari" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/security_system"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/security_system"
-                android:textOn="@string/security_system"
-                />
+                android:textOn="@string/security_system" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/kaf_moket"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/moket"
-                android:textOn="@string/moket"
-                />
+                android:textOn="@string/moket" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/system_bargh_hoshmand"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/system_bargh_hoshmand"
-                android:textOn="@string/system_bargh_hoshmand"
-                />
+                android:textOn="@string/system_bargh_hoshmand" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/system_etfa_harigh"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/system_etfa_harigh"
-                android:textOn="@string/system_etfa_harigh"
-                />
+                android:textOn="@string/system_etfa_harigh" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/system_alarm_gaz"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/system_alarm_gaz"
-                android:textOn="@string/system_alarm_gaz"
-                />
+                android:textOn="@string/system_alarm_gaz" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/havasaz"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/havasaz"
-                android:textOn="@string/havasaz"
-                />
+                android:textOn="@string/havasaz" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/chiller"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/chiller"
-                android:textOn="@string/chiller"
-                />
+                android:textOn="@string/chiller" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/estakhr"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/estakhr"
-                android:textOn="@string/estakhr"
-                />
+                android:textOn="@string/estakhr" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/labi"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/labi"
-                android:textOn="@string/labi"
-                />
+                android:textOn="@string/labi" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/seraydari"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/seraydari"
-                android:textOn="@string/seraydari"
-                />
+                android:textOn="@string/seraydari" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/faza_sabz"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/faza_sabz"
-                android:textOn="@string/faza_sabz"
-                />
+                android:textOn="@string/faza_sabz" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/manba_ab"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/manba_ab"
-                android:textOn="@string/manba_ab"
-                />
+                android:textOn="@string/manba_ab" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/pomp_ab"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/pomp_ab"
-                android:textOn="@string/pomp_ab"
-                />
+                android:textOn="@string/pomp_ab" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/bargh_ezterari"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/bargh_ezterari"
-                android:textOn="@string/bargh_ezterari"
-                />
+                android:textOn="@string/bargh_ezterari" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/hood"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/hood"
-                android:textOn="@string/hood"
-                />
+                android:textOn="@string/hood" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/norpardazi_dakheli"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/norpardazi_dakheli"
-                android:textOn="@string/norpardazi_dakheli"
-                />
+                android:textOn="@string/norpardazi_dakheli" />
 
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/norpardazi_nama"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/norpardazi_nama"
-                android:textOn="@string/norpardazi_nama"
-                />
+                android:textOn="@string/norpardazi_nama" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
             <ToggleButton
-                style="@style/my_toggle_extention"
                 android:id="@+id/van"
+                style="@style/my_toggle_extention"
                 android:textOff="@string/van"
-                android:textOn="@string/van"
-                />
+                android:textOn="@string/van" />
+
+            <ToggleButton
+                android:id="@+id/coler_gazi"
+                style="@style/my_toggle_extention"
+                android:textOff="@string/coler_gazi"
+                android:textOn="@string/coler_gazi" />
+
+            <ToggleButton
+                android:id="@+id/hamam_master"
+                style="@style/my_toggle_extention"
+                android:textOff="@string/hamam_master"
+                android:textOn="@string/hamam_master" />
+
         </LinearLayout>
     </LinearLayout>
 
-    <ToggleButton
-        style="@style/my_toggle_extention"
-        android:id="@+id/coler_gazi"
-        android:textOff="@string/coler_gazi"
-        android:textOn="@string/coler_gazi"
-        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/sona"
+            style="@style/my_toggle_extention"
+            android:textOff="@string/sona"
+            android:textOn="@string/sona" />
+
+        <ToggleButton
+            android:id="@+id/alachigh"
+            style="@style/my_toggle_extention"
+            android:textOff="@string/alachigh"
+            android:textOn="@string/alachigh" />
+
+        <ToggleButton
+            android:id="@+id/darb_zed_serghat"
+            style="@style/my_toggle_extention"
+            android:textOff="@string/darb_zed_serghat"
+            android:textOn="@string/darb_zed_serghat" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/kaghazdivari"
+            style="@style/my_toggle_extention"
+            android:textOff="@string/kaghazdivari"
+            android:textOn="@string/kaghazdivari" />
+
+        <ToggleButton
+            android:id="@+id/pele_ezterari"
+            style="@style/my_toggle_extention"
+            android:textOff="@string/pele_ezterari"
+            android:textOn="@string/pele_ezterari" />
+
+        <ToggleButton
+            android:id="@+id/system_alarm_atashsozi"
+            style="@style/my_toggle_extention"
+            android:textOff="@string/system_alarm_atashsozi"
+            android:textOn="@string/system_alarm_atashsozi" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/jaro_markazi"
+            style="@style/my_toggle_extention"
+            android:textOff="@string/jaro_markazi"
+            android:textOn="@string/jaro_markazi" />
+
+        <ToggleButton
+            android:id="@+id/balkon"
+            style="@style/my_toggle_extention"
+            android:textOff="@string/balkon"
+            android:textOn="@string/balkon" />
+
+        <ToggleButton
+            android:id="@+id/kaf_seramik"
+            style="@style/my_toggle_extention"
+            android:textOff="@string/seramik"
+            android:textOn="@string/seramik" />
+    </LinearLayout>
 
     <ToggleButton
-        style="@style/my_toggle_extention"
-        android:id="@+id/hamam_master"
-        android:textOff="@string/hamam_master"
-        android:textOn="@string/hamam_master"
-        />
-
-    <ToggleButton
-        style="@style/my_toggle_extention"
-        android:id="@+id/sona"
-        android:textOff="@string/sona"
-        android:textOn="@string/sona"
-        />
-
-    <ToggleButton
-        style="@style/my_toggle_extention"
-        android:id="@+id/alachigh"
-        android:textOff="@string/alachigh"
-        android:textOn="@string/alachigh"
-        />
-
-    <ToggleButton
-        style="@style/my_toggle_extention"
-        android:id="@+id/darb_zed_serghat"
-        android:textOff="@string/darb_zed_serghat"
-        android:textOn="@string/darb_zed_serghat"
-        />
-
-    <ToggleButton
-        style="@style/my_toggle_extention"
-        android:id="@+id/kaghazdivari"
-        android:textOff="@string/kaghazdivari"
-        android:textOn="@string/kaghazdivari"
-        />
-
-    <ToggleButton
-        style="@style/my_toggle_extention"
-        android:id="@+id/pele_ezterari"
-        android:textOff="@string/pele_ezterari"
-        android:textOn="@string/pele_ezterari"
-        />
-
-    <ToggleButton
-        style="@style/my_toggle_extention"
-        android:id="@+id/system_alarm_atashsozi"
-        android:textOff="@string/system_alarm_atashsozi"
-        android:textOn="@string/system_alarm_atashsozi"
-        />
-
-    <ToggleButton
-        style="@style/my_toggle_extention"
-        android:id="@+id/jaro_markazi"
-        android:textOff="@string/jaro_markazi"
-        android:textOn="@string/jaro_markazi"
-        />
-
-    <ToggleButton
-        style="@style/my_toggle_extention"
-        android:id="@+id/balkon"
-        android:textOff="@string/balkon"
-        android:textOn="@string/balkon"
-        />
-
-    <ToggleButton
-        style="@style/my_toggle_extention"
-        android:id="@+id/kaf_seramik"
-        android:textOff="@string/seramik"
-        android:textOn="@string/seramik"
-        />
-
-    <ToggleButton
-        style="@style/my_toggle_extention"
         android:id="@+id/mdf"
+        style="@style/my_toggle_extention"
         android:textOff="@string/mdf"
-        android:textOn="@string/mdf"
-        />
+        android:textOn="@string/mdf" />
 
 </LinearLayout>

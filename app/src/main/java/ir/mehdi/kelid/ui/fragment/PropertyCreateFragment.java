@@ -40,6 +40,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.Vector;
 
@@ -63,8 +64,16 @@ import ir.mehdi.kelid.utils.Utils;
 public class PropertyCreateFragment extends Fragment implements Constant {
     TextInputLayout nameLayout, titleLayout, adverLayout, descLayout, telLayout, mobileLayout, emailLayout, telegramLayout, addressLayout;
     EditText masahat, zirbana, arse, arz_khyaban, hashye_melk;
-    RadioGroup tabaghat;
-    RadioGroup vahedTabaghat;
+    RadioGroup tabaghat, vahedTabaghat, vahedNo, roomNo, tarakom, omr, ab_emtiazat, gaz_emtiazat, bargh_emtiazat;
+    ToggleButton coler_abi, coler_gazi, coler_gazi_spilet, chiller, pakage, shomine, shofaj, garmayesh_az_kaf, ab_garmkon, ab_garmkon_divari, ab_garmkon_khorshidi;
+    ToggleButton moket, parket, seramik, sang, mozaeik, siman, rang_plastik, rang_roghan, kaghazdivari;
+    ToggleButton chob, divarkob, rang_hajim, divar_sang, divar_sofal, divar_kompozit, divar_chob, divar_shishe, divar_siman, divar_seramik, divar_geranit;
+    ToggleButton kabinet_felezi, kabinet_mdf, kabinet_chob, kabinet_melamine, kabinet_higlas;
+    ToggleButton asansor, parking, anbari, service_farangi, gachbori, rangkari, jakozi, iphone_tasviri, darb_barghi, panjere_dojedare, upvc, komod_divari, security_system;
+    ToggleButton system_bargh_hoshmand, system_etfa_harigh, system_alarm_gaz, havasaz, estakhr, labi, seraydari, faza_sabz, manba_ab, pomp_ab, bargh_ezterari, hood;
+    ToggleButton norpardazi_dakheli, norpardazi_nama, van, hamam_master, sona, alachigh, darb_zed_serghat, pele_ezterari,
+            system_alarm_atashsozi, jaro_markazi, balkon, kaf_seramik, mdf;
+
 //    int selectedIdtedId = radioGroup.getCheckedRadioButtonId();
 //
 
@@ -100,216 +109,93 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             hashye_melk = (EditText) mainView.findViewById(R.id.hashye_melk);
             tabaghat = (RadioGroup) mainView.findViewById(R.id.tabaghat);
             vahedTabaghat = (RadioGroup) mainView.findViewById(R.id.tabaghevahed);
+            vahedNo = (RadioGroup) mainView.findViewById(R.id.vahedno);
+            roomNo = (RadioGroup) mainView.findViewById(R.id.roomno);
+            tarakom = (RadioGroup) mainView.findViewById(R.id.tarakom);
+            omr = (RadioGroup) mainView.findViewById(R.id.omr);
+            ab_emtiazat = (RadioGroup) mainView.findViewById(R.id.ab_emtiazat);
+            gaz_emtiazat = (RadioGroup) mainView.findViewById(R.id.gaz_emtiazat);
+            bargh_emtiazat = (RadioGroup) mainView.findViewById(R.id.bargh_emtiazat);
+            coler_abi=(ToggleButton) mainView.findViewById(R.id.coler_abi);
+            coler_gazi=(ToggleButton) mainView.findViewById(R.id.coler_gazi);
+            coler_gazi_spilet=(ToggleButton) mainView.findViewById(R.id.coler_gazi_spilet);
+            chiller=(ToggleButton) mainView.findViewById(R.id.chiller);
+            pakage=(ToggleButton) mainView.findViewById(R.id.pakage);
+            shomine=(ToggleButton) mainView.findViewById(R.id.shomine);
+            shofaj=(ToggleButton) mainView.findViewById(R.id.shofaj);
+            garmayesh_az_kaf=(ToggleButton) mainView.findViewById(R.id.garmayesh_az_kaf);
+            ab_garmkon=(ToggleButton) mainView.findViewById(R.id.ab_garmkon);
+            ab_garmkon_divari=(ToggleButton) mainView.findViewById(R.id.ab_garmkon_divari);
+            ab_garmkon_khorshidi=(ToggleButton) mainView.findViewById(R.id.ab_garmkon_khorshidi);
+            moket=(ToggleButton) mainView.findViewById(R.id.moket);
+            parket=(ToggleButton) mainView.findViewById(R.id.parket);
+            seramik=(ToggleButton) mainView.findViewById(R.id.seramik);
+            sang=(ToggleButton) mainView.findViewById(R.id.sang);
+            mozaeik=(ToggleButton) mainView.findViewById(R.id.mozaeik);
+            siman=(ToggleButton) mainView.findViewById(R.id.siman);
+            rang_plastik=(ToggleButton) mainView.findViewById(R.id.rang_plastik);
+            rang_roghan=(ToggleButton) mainView.findViewById(R.id.rang_roghan);
+            kaghazdivari=(ToggleButton) mainView.findViewById(R.id.kaghazdivari);
+            chob=(ToggleButton) mainView.findViewById(R.id.chob);
+            divarkob=(ToggleButton) mainView.findViewById(R.id.divarkob);
+            rang_hajim=(ToggleButton) mainView.findViewById(R.id.rang_hajim);
+            divar_sang=(ToggleButton) mainView.findViewById(R.id.divar_sang);
+            divar_sofal=(ToggleButton) mainView.findViewById(R.id.divar_sofal);
+            divar_kompozit=(ToggleButton) mainView.findViewById(R.id.divar_kompozit);
+            divar_chob=(ToggleButton) mainView.findViewById(R.id.divar_chob);
+            divar_shishe=(ToggleButton) mainView.findViewById(R.id.divar_shishe);
+            divar_siman=(ToggleButton) mainView.findViewById(R.id.divar_siman);
+            divar_seramik=(ToggleButton) mainView.findViewById(R.id.divar_seramik);
+            divar_geranit=(ToggleButton) mainView.findViewById(R.id.divar_geranit);
+            kabinet_felezi=(ToggleButton) mainView.findViewById(R.id.kabinet_felezi);
+            kabinet_mdf=(ToggleButton) mainView.findViewById(R.id.kabinet_mdf);
+            kabinet_chob=(ToggleButton) mainView.findViewById(R.id.kabinet_chob);
+            kabinet_melamine=(ToggleButton) mainView.findViewById(R.id.kabinet_melamine);
+            kabinet_higlas=(ToggleButton) mainView.findViewById(R.id.kabinet_higlas);
+            asansor=(ToggleButton) mainView.findViewById(R.id.asansor);
+            parking=(ToggleButton) mainView.findViewById(R.id.parking);
+            anbari=(ToggleButton) mainView.findViewById(R.id.anbari);
+            service_farangi=(ToggleButton) mainView.findViewById(R.id.service_farangi);
+            gachbori=(ToggleButton) mainView.findViewById(R.id.gachbori);
+            rangkari=(ToggleButton) mainView.findViewById(R.id.rangkari);
+            jakozi=(ToggleButton) mainView.findViewById(R.id.jakozi);
+            iphone_tasviri=(ToggleButton) mainView.findViewById(R.id.iphone_tasviri);
+            darb_barghi=(ToggleButton) mainView.findViewById(R.id.darb_barghi);
+            panjere_dojedare=(ToggleButton) mainView.findViewById(R.id.panjere_dojedare);
+            upvc=(ToggleButton) mainView.findViewById(R.id.upvc);
+            komod_divari=(ToggleButton) mainView.findViewById(R.id.komod_divari);
+            security_system=(ToggleButton) mainView.findViewById(R.id.security_system);
+            system_bargh_hoshmand=(ToggleButton) mainView.findViewById(R.id.system_bargh_hoshmand);
+            system_etfa_harigh=(ToggleButton) mainView.findViewById(R.id.system_etfa_harigh);
+            system_alarm_gaz=(ToggleButton) mainView.findViewById(R.id.system_alarm_gaz);
+            havasaz=(ToggleButton) mainView.findViewById(R.id.havasaz);
+            estakhr=(ToggleButton) mainView.findViewById(R.id.estakhr);
+            labi=(ToggleButton) mainView.findViewById(R.id.labi);
+            seraydari=(ToggleButton) mainView.findViewById(R.id.seraydari);
+            faza_sabz=(ToggleButton) mainView.findViewById(R.id.faza_sabz);
+            manba_ab=(ToggleButton) mainView.findViewById(R.id.manba_ab);
+            pomp_ab=(ToggleButton) mainView.findViewById(R.id.pomp_ab);
+            bargh_ezterari=(ToggleButton) mainView.findViewById(R.id.bargh_ezterari);
+            hood=(ToggleButton) mainView.findViewById(R.id.hood);
+            norpardazi_dakheli=(ToggleButton) mainView.findViewById(R.id.norpardazi_dakheli);
+            norpardazi_nama=(ToggleButton) mainView.findViewById(R.id.norpardazi_nama);
+            van=(ToggleButton) mainView.findViewById(R.id.van);
+            hamam_master=(ToggleButton) mainView.findViewById(R.id.hamam_master);
+            sona=(ToggleButton) mainView.findViewById(R.id.sona);
+            alachigh=(ToggleButton) mainView.findViewById(R.id.alachigh);
+            darb_zed_serghat=(ToggleButton) mainView.findViewById(R.id.darb_zed_serghat);
+            pele_ezterari=(ToggleButton) mainView.findViewById(R.id.pele_ezterari);
+            system_alarm_atashsozi=(ToggleButton) mainView.findViewById(R.id.system_alarm_atashsozi);
+            jaro_markazi=(ToggleButton) mainView.findViewById(R.id.jaro_markazi);
+            balkon=(ToggleButton) mainView.findViewById(R.id.balkon);
+            kaf_seramik=(ToggleButton) mainView.findViewById(R.id.kaf_seramik);
+            mdf=(ToggleButton) mainView.findViewById(R.id.mdf);
 
         }
         return mainView;
     }
 
-    public View onCreateView11(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        if (mainView == null) {
-//            slideUp2Down = AnimationUtils.loadAnimation(activity, R.anim.create_node_select_anim);
-//
-//            layoutInflater = inflater;
-//            mainView = inflater.inflate(R.layout.fragment_create_property, null);
-//
-//            final TextView rule = (TextView) mainView.findViewById(R.id.rule_accept);
-//            CheckBox checkBox = (CheckBox) mainView.findViewById(R.id.rulecheck);
-//            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                    if (isChecked) {
-//                        send.setTextColor(Color.WHITE);
-//                        send.setClickable(true);
-//                        send.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                activity.doneClicked();
-//                            }
-//                        });
-//
-//                    } else {
-//                        send.setTextColor(Color.GRAY);
-//                        send.setClickable(false);
-//                        send.setOnClickListener(null);
-//
-//                    }
-//                }
-//            });
-//
-//
-//            SpannableString content = new SpannableString(getString(R.string.rule_accept));
-//            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-//            rule.setText(content);
-//
-//
-//            ((TextView) mainView.findViewById(R.id.max_photo)).setTypeface(KelidApplication.BYEKAN_NORMAL);
-//            expandableLinearLayout = (LinearLayout) mainView.findViewById(R.id.expandale);
-//            noon = (CheckBox) mainView.findViewById(R.id.noon);
-//            namevisible = (CheckBox) mainView.findViewById(R.id.namevisible);
-//
-//
-//            rule.setTypeface(KelidApplication.DIGIT_NORMAL);
-////            SpannableString content = new SpannableString(activity.getString(R.string.rule_accept));
-////            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-////            rule.setText(content);
-//            rule.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-////                    Intent a = new Intent(activity, FanoosRuleActivity.class);
-////                    activity.startActivity(a);
-//                }
-//            });
-//            evening = (CheckBox) mainView.findViewById(R.id.evening);
-//            moorning = (CheckBox) mainView.findViewById(R.id.moorning);
-//            boarding = (CheckBox) mainView.findViewById(R.id.boarding);
-//            bike = (CheckBox) mainView.findViewById(R.id.bike);
-//            cardReader = (CheckBox) mainView.findViewById(R.id.card_reader);
-//
-//
-//            name = (EditText) mainView.findViewById(R.id.nameEditText);
-//            telegram_lable = mainView.findViewById(R.id.telegram_lable);
-//            title = (EditText) mainView.findViewById(R.id.titleEditText);
-//            adver = (EditText) mainView.findViewById(R.id.adversEditText);
-//            desc = (EditText) mainView.findViewById(R.id.descriptionEditText);
-//            tel = (EditText) mainView.findViewById(R.id.telephoneEditText);
-//            mobile = (EditText) mainView.findViewById(R.id.mobileEditText);
-//
-//            email = (EditText) mainView.findViewById(R.id.emailEditText);
-//            address = (EditText) mainView.findViewById(R.id.addressEditText);
-//            telegram = (EditText) mainView.findViewById(R.id.telegramEditText);
-//
-//            nameLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_name);
-//            titleLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_title);
-//            adverLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_advers);
-//            descLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_description);
-//            telLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_telephone);
-//            mobileLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_mobile);
-//            emailLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_email);
-//            addressLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_address);
-//            telegramLayout = (TextInputLayout) mainView.findViewById(R.id.input_layout_telegram);
-//
-//
-//            telegram.addTextChangedListener(new TextWatcher() {
-//                @Override
-//                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//                }
-//
-//                @Override
-//                public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//
-//                }
-//
-//                @Override
-//                public void afterTextChanged(Editable s) {
-//                    String text = telegram.getText().toString();
-//                    if (text != null && text.length() > 0 && !text.startsWith("@"))
-//                        s.insert(0, "@");
-//                    if (text != null && text.length() > 0 && text.equals("@")) {
-//                        s.delete(0, 1);
-//                    }
-//
-//
-//                }
-//            });
-//            region = (Button) mainView.findViewById(R.id.region);
-//            city = (Button) mainView.findViewById(R.id.city);
-//            city.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                    Intent a = new Intent(activity, CityActivity.class);
-//                    a.putExtra("select_city", true);
-//
-//                    activity.startActivityForResult(a,CITY_SELECT);
-////                    dialog.dismiss();
-//                }
-//            });
-//            Region[] regionss = DBAdapter.getInstance().getRegion(UserConfig.city, "");
-//            if (region == null || regionss.length == 0) {
-//                region.setEnabled(false);
-//            }
-//            region.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    showRegionDIalog();
-//
-//                }
-//            });
-//            region.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    showRegionDIalog();
-//
-//                }
-//            });
-////            designCardButton = (Button) mainView.findViewById(R.id.design_card);
-////            designCardButton.setOnClickListener(new View.OnClickListener() {
-////
-////                @Override
-////                public void onClick(View v) {
-////
-////                    Intent intent = new Intent(activity, CollageActivity.class);
-////                    intent.putExtra("user_job_id", activity.userJobbId);
-////
-////                    activity.startActivityForResult(intent, DESIGN_CARD_REQUEST);
-////                }
-////            });
-//
-//
-//            noteid = ((TextView) mainView.findViewById(R.id.node_type_text));
-//            noteid.setTypeface(null, Typeface.BOLD);
-//            noteid.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    activity.showNodeDialog();
-//                }
-//            });
-//            photoButton = (Button) mainView.findViewById(R.id.photoButton);
-//            imagebutlayout = (LinearLayout) mainView.findViewById(R.id.imagebutlayout);
-//            photoButton.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    if (ContextCompat.checkSelfPermission(activity,
-//                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                            != PackageManager.PERMISSION_GRANTED) {
-//
-//
-//                        if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
-//                                Manifest.permission.READ_EXTERNAL_STORAGE)) {
-//
-//
-//                            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-//                                    Constant.SAVE_GRANT_REQUERST_FOR_JOb);
-//
-//                        } else {
-//
-//
-//                            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-//                                    Constant.SAVE_GRANT_REQUERST_FOR_JOb);
-//
-//                        }
-//                    } else {
-//                        activity.showImageDIalog();
-//
-//                    }
-//
-//                }
-//            });
-//
-//
-//            imagesLayout = (LinearLayout) mainView.findViewById(R.id.imagesLayout);
-//            horizentalImage = mainView.findViewById(R.id.horizontalScrollView);
-////            imagesLayout.setVisibility(View.GONE);
-//
-//
-//        }
-//
 
-        return mainView;
-    }
 
 
     public void showRegionDIalog() {
