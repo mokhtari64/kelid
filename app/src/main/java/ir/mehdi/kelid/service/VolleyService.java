@@ -998,7 +998,7 @@ public class VolleyService extends Service implements Constant {
                 failed.post(new Runnable() {
                     @Override
                     public void run() {
-                        failed.setVisibility(View.INVISIBLE);
+                        failed.setVisibility(View.VISIBLE);
                     }
                 });
             }
