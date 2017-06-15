@@ -1,20 +1,28 @@
 package ir.mehdi.kelid.ui;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -27,6 +35,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -91,6 +101,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        property=new Property();
         mainHandler = new Handler(Looper.getMainLooper());
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -562,11 +573,12 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         try {
             // place where to store camera taken picture
 
-            mImagePath = FileUtils.getInstance().createTempFile(FileUtils.Camera_DIR, "IMG_", ".png");
+//            mImagePath = FileUtils.getInstance().createTempFile("IMG_" + System.currentTimeMillis(), ".jpg");
+            mImagePath = FileUtils.getInstance().createLocalFile(FileUtils.Camera_DIR, "IMG_" + System.currentTimeMillis(), ".jpg");
             mImageUri = Uri.fromFile(mImagePath);
-            mImagePath.delete();
+//            mImagePath.delete();
             intent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
-            orginalPath = mImagePath.getAbsolutePath();
+//            orginalPath = mImagePath.getAbsolutePath();
 
             startActivityForResult(intent, CAMERA_REQUEST);
         } catch (Exception e) {
@@ -582,127 +594,121 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     private Uri mImageUri;
 
     public void requestImageFromGallery() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), Image_REQUEST);
+        Intent intent = new Intent(this, GalleryMultiple.class);
+//        intent.setType("image/*");
+//        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, Image_REQUEST);
 
     }
 
-    String orginalPath = null;
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Image_REQUEST && resultCode == RESULT_OK) {
             try {
-                Uri selectedImage = data.getData();
-                orginalPath = ImageFilePath.getPath(getApplicationContext(), selectedImage);
+                ArrayList imagesPathList = new ArrayList<String>();
+                String[] imagesPath = data.getStringExtra("data").split("\\|");
+                for (int i = 0; i < imagesPath.length; i++) {
+                    imagesPathList.add(imagesPath[i]);
+                    String orginalPath=imagesPath[i];
+                    Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(imagesPath[i]), imagesPath[i]));
+//                    Bitmap yourbitmap = BitmapFactory.decodeFile(imagesPath[i]);
+                    File jpg = FileUtils.getInstance().createTempFile("IMG_" + System.currentTimeMillis(), "jpg");
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(jpg));
+                    bitmap.recycle();
+                    bitmap = BitmapFactory.decodeFile(orginalPath);
+                    if (orginalPath != null)
+                        propertyCreateFragment.addImage(bitmap, jpg,orginalPath);
 
-//                Intent cameraIntent = new Intent(this, MainActivity.class);
-//                cameraIntent.putExtra("fix_Rate", true);
-//                Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(orginalPath), orginalPath));
-//                if (!FileUtils.getInstance().existInDefaultFoder(orginalPath)) {
-//                    orginalPath = FileUtils.getInstance().createTempFile(FileUtils.Camera_DIR, "IMG_", ".png").getAbsolutePath();
-//                }
-////                String path = ImageFilePath.getPath(getApplicationContext(), selectedImage);
-//                bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
-//                bitmap.recycle();
-//                bitmap = BitmapFactory.decodeFile(orginalPath);
-////                try {
-////                    new File(filepath).delete();
-////                }catch (Exception e)
-////                {
-////                    e.printStackTrace();
-////                }
+                }
+//                String orginalPath = null;
+//                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+//                ArrayList imagesEncodedList = new ArrayList<String>();
+//                if (data.getData() != null) {
+//                    Uri selectedImage = data.getData();
+//                    orginalPath = ImageFilePath.getPath(getApplicationContext(), selectedImage);
+//                    Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(orginalPath), orginalPath));
+//                    File jpg = FileUtils.getInstance().createTempFile("IMG_" + System.currentTimeMillis(), "jpg");
+//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(jpg));
+//                    bitmap.recycle();
+//                    bitmap = BitmapFactory.decodeFile(orginalPath);
+//                    if (orginalPath != null)
+//                        propertyCreateFragment.addImage(bitmap, jpg);
+//                } else if (data.getClipData() != null) {
+//                    ClipData mClipData = data.getClipData();
+////                    ArrayList<Uri> mArrayUri = new ArrayList<Uri>();
+//                    for (int i = 0; i < mClipData.getItemCount(); i++) {
+//                        ClipData.Item item = mClipData.getItemAt(i);
+//                        Uri selectedImage = item.getUri();
+//                        orginalPath = ImageFilePath.getPath(getApplicationContext(), selectedImage);
+//                        Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(orginalPath), orginalPath));
+//                        File jpg = FileUtils.getInstance().createTempFile("IMG_" + System.currentTimeMillis(), "jpg");
+//                        bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(jpg));
+//                        bitmap.recycle();
+//                        bitmap = BitmapFactory.decodeFile(orginalPath);
+//                        if (orginalPath != null)
+//                            propertyCreateFragment.addImage(bitmap, jpg);
 //
-//                MainActivity.bitmap = bitmap;
-//
-//                if (MainActivity.bitmap != null) {
-//                    forceNotSave = true;
-//                    startActivityForResult(cameraIntent, CROP_IMAGE);
-//                } else {
-//                    Toast.makeText(this, getString(R.string.load_failed), Toast.LENGTH_SHORT).show();
+//                    }
+
 //                }
+
             } catch (Exception e) {
                 e.printStackTrace();
 
             }
 
 
-            if (orginalPath != null)
-                propertyCreateFragment.addImage(orginalPath);
-
-
         } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-
-
             try {
+                String orginalPath = null;
                 this.getContentResolver().notifyChange(mImageUri, null);
                 orginalPath = mImagePath.getAbsolutePath();
-//                String data1 = (String) data.getExtras().get("data");
-
-//                ContentResolver cr = this.getContentResolver();
-//                Bitmap bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, mImageUri);
-//
-//
-//                bitmap = Utils.resize(Utils.modifyOrientation(bitmap, orginalPath));
-//
-//                if (!FileUtils.getInstance().existInDefaultFoder(orginalPath)) {
-//                    orginalPath = FileUtils.getInstance().createTempFile(FileUtils.Camera_DIR, "IMG_", ".png").getAbsolutePath();
-//                }
-//
-//                bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
-//                bitmap.recycle();
-//                MainActivity.bitmap = BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
-////                try{
-////                    new File(absolutePath).delete();
-////                }catch (Exception e)
-////                {
-////                    e.printStackTrace();
-////                }
-//                String aaa = mImagePath.getAbsolutePath();
-//           MainActivity.bitmap = Utils.modifyOrientation(BitmapFactory.decodeFile(aaa), aaa);//BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
-//
-//                forceNotSave = true;
-//                Intent cameraIntent = new Intent(this, MainActivity.class);
-//                cameraIntent.putExtra("fix_Rate", true);
-//                startActivityForResult(cameraIntent, CROP_IMAGE);
+                ContentResolver cr = this.getContentResolver();
+                Bitmap bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, mImageUri);
+                bitmap = Utils.resize(Utils.modifyOrientation(bitmap, orginalPath));
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
+                bitmap.recycle();
+                bitmap = BitmapFactory.decodeFile(orginalPath);
+                propertyCreateFragment.addImage(bitmap, new File(orginalPath),null);
             } catch (Exception e) {
                 Toast.makeText(this, getString(R.string.load_failed), Toast.LENGTH_SHORT).show();
 
             }
 
 
-            propertyCreateFragment.addImage(orginalPath);
-
-        } else if (requestCode == CROP_IMAGE) {
-
-            if (resultCode == RESULT_OK) {
-                try {
-                    String data1 = (String) data.getExtras().get("data");
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (mImagePath != null && mImagePath.exists()) {
-                mImagePath.delete();
-            }
-            if (orginalPath != null) {
-                File f = new File(orginalPath);
-                try {
-                    if (f.exists()) {
-                        f.delete();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            mImagePath = null;
-
-
         }
+//        else if (requestCode == CROP_IMAGE)
+//
+//        {
+//
+//            if (resultCode == RESULT_OK) {
+//                try {
+//                    String data1 = (String) data.getExtras().get("data");
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            if (mImagePath != null && mImagePath.exists()) {
+//                mImagePath.delete();
+//            }
+//            if (orginalPath != null) {
+//                File f = new File(orginalPath);
+//                try {
+//                    if (f.exists()) {
+//                        f.delete();
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            mImagePath = null;
+//
+//
+//        }
 
 
     }
@@ -909,30 +915,30 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         dialog.findViewById(R.id.camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pickFromCamera();
-//                if (ContextCompat.checkSelfPermission(AddPropetyActivity.this,
-//                        Manifest.permission.READ_EXTERNAL_STORAGE)
-//                        != PackageManager.PERMISSION_GRANTED) {
-//
-//
-//                    if (ActivityCompat.shouldShowRequestPermissionRationale(AddPropetyActivity.this,
-//                            Manifest.permission.READ_EXTERNAL_STORAGE)) {
-//
-//
-//                        ActivityCompat.requestPermissions(AddPropetyActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-//                                Constant.CAMERAM_GRANT_REQUERST);
-//
-//                    } else {
-//
-//
-//                        ActivityCompat.requestPermissions(AddPropetyActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-//                                Constant.CAMERAM_GRANT_REQUERST);
-//
-//                    }
-//                } else {
-//                    pickFromCamera();
-//
-//                }
+//                pickFromCamera();
+                if (ContextCompat.checkSelfPermission(AddPropetyActivity.this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(AddPropetyActivity.this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+
+                        ActivityCompat.requestPermissions(AddPropetyActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                Constant.CAMERAM_GRANT_REQUERST);
+
+                    } else {
+
+
+                        ActivityCompat.requestPermissions(AddPropetyActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                Constant.CAMERAM_GRANT_REQUERST);
+
+                    }
+                } else {
+                    pickFromCamera();
+
+                }
 
 
                 dialog.dismiss();
@@ -941,31 +947,31 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         dialog.findViewById(R.id.gallery).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestImageFromGallery();
+//                requestImageFromGallery();
 
-//                if (ContextCompat.checkSelfPermission(AddPropetyActivity.this,
-//                        Manifest.permission.READ_EXTERNAL_STORAGE)
-//                        != PackageManager.PERMISSION_GRANTED) {
-//
-//                    if (ActivityCompat.shouldShowRequestPermissionRationale(AddPropetyActivity.this,
-//                            Manifest.permission.READ_EXTERNAL_STORAGE)) {
-//
-//                        ActivityCompat.requestPermissions(AddPropetyActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-//                                Constant.READ_EXTERNAL_STORAGE_GRANT_REQUERST);
-//
-//                    } else {
-//
-//
-//                        ActivityCompat.requestPermissions(AddPropetyActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-//                                Constant.READ_EXTERNAL_STORAGE_GRANT_REQUERST);
-//
-//                    }
-//
-//
-//                } else {
-//                    requestImageFromGallery();
-//
-//                }
+                if (ContextCompat.checkSelfPermission(AddPropetyActivity.this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(AddPropetyActivity.this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                        ActivityCompat.requestPermissions(AddPropetyActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                Constant.READ_EXTERNAL_STORAGE_GRANT_REQUERST);
+
+                    } else {
+
+
+                        ActivityCompat.requestPermissions(AddPropetyActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                Constant.READ_EXTERNAL_STORAGE_GRANT_REQUERST);
+
+                    }
+
+
+                } else {
+                    requestImageFromGallery();
+
+                }
                 dialog.dismiss();
             }
         });

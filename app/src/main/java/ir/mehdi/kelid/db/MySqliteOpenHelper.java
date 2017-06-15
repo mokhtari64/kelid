@@ -24,7 +24,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
     public static final String table_name = "PROPERTY";
     public static final String search_history_table_name = "search_history";
     public static final String table_image_name = "property_image";
-    public static final String table_payment_name = "property_payment";
+//    public static final String table_payment_name = "property_payment";
     private static MySqliteOpenHelper instance;
     public HashMap<Long, Property> historyPropertys = new HashMap<>();
     public HashMap<Long, Property> loadedPropertys = new HashMap<>();
@@ -87,11 +87,11 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
             "main number DEFAULT 0," +
             "deleted number DEFAULT 0" +
             "  )";
-    public static final String Property_Payment_TABLE = "CREATE TABLE " + table_payment_name +
-            " ( Property_id integer,\n" +
-            "payDate text," +
-            "festivalDate text," +
-            "type number DEFAULT 0 )";
+//    public static final String Property_Payment_TABLE = "CREATE TABLE " + table_payment_name +
+//            " ( Property_id integer,\n" +
+//            "payDate text," +
+//            "festivalDate text," +
+//            "type number DEFAULT 0 )";
 
     private MySqliteOpenHelper(Context context) {
         super(context, "localdb", null, 1);
@@ -102,7 +102,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(Property_TABLE);
         db.execSQL(Property_Image_TABLE);
-        db.execSQL(Property_Payment_TABLE);
+//        db.execSQL(Property_Payment_TABLE);
         db.execSQL(search_history_table_create);
 
     }
@@ -323,31 +323,31 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
         }
         cursor.close();
 
-        query = "select * from " + table_payment_name;
-        db = getWritableDatabase();
-        cursor = db.rawQuery(query, null);
-        cursor.moveToFirst();
-        for (int i = 0; i < cursor.getCount(); i++) {
-
-            long local_id = cursor.getLong(cursor.getColumnIndex("Property_id"));
-            Property userProperty = allPropertys.get(local_id);
-            Property.Payment payment = new Property.Payment();
-            if (userProperty == null) {
-                cursor.moveToNext();
-                continue;
-            }
-            try {
-                payment.payDate = dateFormat.parse(cursor.getString(cursor.getColumnIndex("payDate")));
-                payment.festivalDate = dateFormat2.parse(cursor.getString(cursor.getColumnIndex("festivalDate")));
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            payment.type = cursor.getInt(cursor.getColumnIndex("type"));
-            userProperty.payments.add(payment);
-            cursor.moveToNext();
-        }
-        cursor.close();
+//        query = "select * from " + table_payment_name;
+//        db = getWritableDatabase();
+//        cursor = db.rawQuery(query, null);
+//        cursor.moveToFirst();
+//        for (int i = 0; i < cursor.getCount(); i++) {
+//
+//            long local_id = cursor.getLong(cursor.getColumnIndex("Property_id"));
+//            Property userProperty = allPropertys.get(local_id);
+//            Property.Payment payment = new Property.Payment();
+//            if (userProperty == null) {
+//                cursor.moveToNext();
+//                continue;
+//            }
+//            try {
+//                payment.payDate = dateFormat.parse(cursor.getString(cursor.getColumnIndex("payDate")));
+//                payment.festivalDate = dateFormat2.parse(cursor.getString(cursor.getColumnIndex("festivalDate")));
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            payment.type = cursor.getInt(cursor.getColumnIndex("type"));
+////            userProperty.payments.add(payment);
+//            cursor.moveToNext();
+//        }
+//        cursor.close();
 
         db.close();
 
@@ -453,7 +453,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
         }
 //        if (property.myProperty == 1) {
         insertOrUpdateUserImages(property);
-        insertOrUpdateUserPayment(property);
+//        insertOrUpdateUserPayment(property);
 //        }
 
 
@@ -464,31 +464,31 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
     }
 
 
-    private void insertOrUpdateUserPayment(Property userProperty) {
-        if (userProperty.images.size() == 0)
-            return;
-        SQLiteDatabase writableDatabase = getWritableDatabase();
-        writableDatabase.delete(table_payment_name, "Property_id=" + userProperty.local_id, null);
-        ContentValues contentValues = new ContentValues();
-        for (int i = 0; i < userProperty.payments.size(); i++) {
-            Property.Payment image = userProperty.payments.get(i);
-            if (image.payDate != null)
-                contentValues.put("payDate", dateFormat.format(image.payDate));
-            if (image.festivalDate != null)
-                contentValues.put("festivalDate", dateFormat2.format(image.festivalDate));
-            contentValues.put("type", image.type);
-            contentValues.put("Property_id", userProperty.local_id);
-            writableDatabase.insert(table_payment_name, null, contentValues);
-
-        }
-        writableDatabase.close();
-
-
-    }
+//    private void insertOrUpdateUserPayment(Property userProperty) {
+//        if (userProperty.images.size() == 0)
+//            return;
+//        SQLiteDatabase writableDatabase = getWritableDatabase();
+//        writableDatabase.delete(table_payment_name, "Property_id=" + userProperty.local_id, null);
+//        ContentValues contentValues = new ContentValues();
+//        for (int i = 0; i < userProperty.payments.size(); i++) {
+//            Property.Payment image = userProperty.payments.get(i);
+//            if (image.payDate != null)
+//                contentValues.put("payDate", dateFormat.format(image.payDate));
+//            if (image.festivalDate != null)
+//                contentValues.put("festivalDate", dateFormat2.format(image.festivalDate));
+//            contentValues.put("type", image.type);
+//            contentValues.put("Property_id", userProperty.local_id);
+//            writableDatabase.insert(table_payment_name, null, contentValues);
+//
+//        }
+//        writableDatabase.close();
+//
+//
+//    }
 
     private void insertOrUpdateUserImages(Property userProperty) {
-        if (userProperty.payments.size() == 0)
-            return;
+//        if (userProperty.payments.size() == 0)
+//            return;
         SQLiteDatabase writableDatabase = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();

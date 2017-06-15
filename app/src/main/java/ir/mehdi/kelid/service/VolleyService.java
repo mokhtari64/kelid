@@ -60,6 +60,7 @@ import ir.mehdi.kelid.db.DBAdapter;
 import ir.mehdi.kelid.db.MySqliteOpenHelper;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
+import ir.mehdi.kelid.ui.AddPropetyActivity;
 import ir.mehdi.kelid.ui.fragment.TestFragment;
 import ir.mehdi.kelid.utils.FileUtils;
 import ir.mehdi.kelid.utils.Utils;
@@ -86,7 +87,7 @@ public class VolleyService extends Service implements Constant {
 
 
     public static final String ServerIP = "http://5.9.134.8/api/";
-//    public static final String ServerIP = "http://fanoosiran.ir/";
+    //    public static final String ServerIP = "http://fanoosiran.ir/";
     //        public static final String ServerIP = "http://192.168.1.33/fanoos/";
     public static final String JOB_DETAIL_URL = ServerIP + "info/";
     public static final String Fanoos_CHANNEL = "http://t.me/fanoos_iran";
@@ -990,27 +991,48 @@ public class VolleyService extends Service implements Constant {
         return null;
     }
 
-    public void sendPhoto(final Property property,final ProgressBar progressBar,final  ImageView failed, String image) {
-        failed.setVisibility(View.INVISIBLE);
-        PhotoPartRequest multipartRequest = new PhotoPartRequest(SEND_NEW_FILE, null,image, new Response.ErrorListener() {
+    public void sendPhoto(final Property property, final Property.Image image) {
+        if (image.uploadProgressBar != null)
+            image.uploadProgressBar.setVisibility(View.INVISIBLE);
+        PhotoPartRequest multipartRequest = new PhotoPartRequest(SEND_NEW_FILE, null, image.localImageFile, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                failed.post(new Runnable() {
+                if (image.uploadProgressBar != null)
+                image.uploadProgressBar.post(new Runnable() {
                     @Override
                     public void run() {
-                        failed.setVisibility(View.VISIBLE);
+                        image.uploadProgressBar.setVisibility(View.VISIBLE);
                     }
                 });
             }
         }, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                progressBar.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setVisibility(View.INVISIBLE);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    int id = jsonObject.getInt("id");
+                    int propertyId = jsonObject.getInt("propertyId");
+                    String path = jsonObject.getString("path");
+                    property.remote_id = propertyId;
+                    image.remotename = path;
+                    image.remote_Id = id;
+                    for (int i = 0; i < property.images.size(); i++) {
+                        Property.Image image1 = property.images.get(i);
+                        if(image1.remote_Id==0)
+                        {
+                            VolleyService.getInstance().sendPhoto(property,image1);
+                        }
                     }
-                });
+                    if (image.uploadProgressBar != null)
+                        image.uploadProgressBar.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                image.uploadProgressBar.setVisibility(View.INVISIBLE);
+                            }
+                        });
+                } catch (Exception e) {
+
+                }
 //                delegate.onObjectReslut(reqCode, ServiceDelegate.OK_CODE, userJob, response);
             }
         });
@@ -1191,7 +1213,7 @@ public class VolleyService extends Service implements Constant {
     class PhotoPartRequest extends Request<String> {
 
         private MultipartEntity entity;
-        String filePath;
+        File filePath;
 
         String boundary;
 
@@ -1208,7 +1230,7 @@ public class VolleyService extends Service implements Constant {
         Property userJob;
 
 
-        public PhotoPartRequest(String url, Property userJob, String filepath, Response.ErrorListener errorListener, Response.Listener<String> listener) {
+        public PhotoPartRequest(String url, Property userJob, File filepath, Response.ErrorListener errorListener, Response.Listener<String> listener) {
             super(Method.POST, url, errorListener);
             this.filePath = filepath;
             setRetryPolicy(new DefaultRetryPolicy(5 * 60 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -1261,7 +1283,7 @@ public class VolleyService extends Service implements Constant {
 //                JSONArray delete = new JSONArray();
 //                int i = 0;
 //                entity.addPart("level3", new StringBody("" + userJob.nodeid));
-                File uploadFile = new File(filePath);
+                File uploadFile = filePath;
                 entity.addPart("image", new FileBody(uploadFile));
 //                for (Property.Image filePath : userJob.images) {
 //                    if (filePath.deleted) {

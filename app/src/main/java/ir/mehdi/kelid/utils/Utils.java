@@ -672,9 +672,7 @@ public class Utils {
                 if (visitedDates1 != null) {
                     userJob1.setPieNum(visitedDates1);
                 }
-                if (payments2 != null) {
-                    userJob1.payments = payments2;
-                }
+
                 Property userJob2 = MySqliteOpenHelper.getInstance().myPropertysremote.get(userJob1.remote_id);
                 if (userJob2 != null && !forceadd) {
                     int status = object.getInt("status");

@@ -1,9 +1,13 @@
 package ir.mehdi.kelid.model;
 
 import android.provider.Settings;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,7 +43,7 @@ public class Property
 
     public int order = 0;
     public Date loadedDate;
-    public Vector<Payment> payments = new Vector<>();
+//    public Vector<Payment> payments = new Vector<>();
 
     public int getImageCount() {
         int cnt = 0;
@@ -110,19 +114,6 @@ public class Property
     public int reportindex;
     public String reporttext;
 
-
-    public String createQRString() {
-        if (qr_code == null || qr_code.length() == 0) {
-            String android_id = Settings.Secure.getString(KelidApplication.applicationContext.getContentResolver(),
-                    Settings.Secure.ANDROID_ID);
-            Date date = new Date();
-            long a = date.getTime();
-            qr_code = android_id + a;
-        }
-
-        return qr_code;
-
-    }
 
 
     public Image addImage(int id, String localname, String url, int main, int deleted) {
@@ -334,15 +325,28 @@ public class Property
 
     public static class Image implements Serializable, Comparable<Image> {
         public long id;
+        public String orginalPath;
+        public int remote_Id;
         public boolean deleted;
         public String localname;
         public String remotename;
         public String thumbnail;
         public boolean main;
+        public File localImageFile;
+        public ProgressBar uploadProgressBar;
+        public View mainView;
+        public ImageView failedImageView;
+
 
         @Override
         public int compareTo(Image o) {
             return (main) ? -1 : (o.main) ? 1 : -1;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            Image a= (Image) obj;
+            return (orginalPath!=null && a.orginalPath!=null && a.orginalPath.equals(orginalPath)) || (a!=null && a.localname!=null && localname!=null && localname.equals(a.localname)) || a.remote_Id==remote_Id;
         }
     }
 
