@@ -12,6 +12,8 @@ public interface Constant {
 
 
 
+
+
     public static final int DRAFT_STATUS=3;
     public static final int WAIT_STATUS=0;
     public static final int ACCEPT_STATUS=1;

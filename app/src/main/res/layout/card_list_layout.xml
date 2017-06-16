@@ -48,7 +48,7 @@
                 android:id="@+id/chlid_btn2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/bar"
+                android:src="@drawable/side_nav_bar"
                 android:tint="@color/mRedLight"
                 android:tintMode="src_over" />
 

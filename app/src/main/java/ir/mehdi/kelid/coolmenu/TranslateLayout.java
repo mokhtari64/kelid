@@ -24,7 +24,6 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
-
 import ir.mehdi.kelid.Const;
 import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.MainActivity;
@@ -33,8 +32,15 @@ import ir.mehdi.kelid.arcmenulibrary.ArcMenu;
 
 @SuppressLint("all")
 @SuppressWarnings("all")
-public class TranslateLayout extends FrameLayout implements View.OnClickListener {
-
+public class TranslateLayout extends FrameLayout implements View.OnClickListener, Constant {
+    private static final int[] ITEM_DRAWABLES = {R.drawable.add_image,
+            R.drawable.add_text, R.drawable.preview, R.drawable.qr};
+    private String[] str = {"Facebook", "Twiiter", "Flickr", "Instagram"};
+    private int type[] = new int[]{PROPERTY
+            , SERVICE
+            , OFFICE
+            , CONSULTING
+            , NEWS};
 
     boolean menuEn = false;
 
@@ -98,8 +104,9 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
 
         init();
     }
-    private void initArcMenu( final String[] str, int[] itemDrawables, final int menuNum) {
-        final int itemCount = itemDrawables.length;
+
+    private void initArcMenu() {
+        final int itemCount = ITEM_DRAWABLES.length;
         arcMenu.setToolTipTextSize(14);
 //        arcMenu.setMinRadius(104);
 //        arcMenu.setArc(175,255);
@@ -115,32 +122,31 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
 //                ArcMenu.ANIM_INTERPOLATOR_ANTICIPATE, ArcMenu.ANIM_INTERPOLATOR_ANTICIPATE);
         for (int i = 0; i < itemCount; i++) {
             ImageView item = new ImageView(activity);
-            item.setImageResource(itemDrawables[i]);
-
-            if(menuNum == 1){
-                arcMenu.setAnim(400,400, ArcMenu.ANIM_MIDDLE_TO_DOWN, ArcMenu.ANIM_MIDDLE_TO_RIGHT,
-                        ArcMenu.ANIM_INTERPOLATOR_DECLERATE, ArcMenu.ANIM_INTERPOLATOR_BOUNCE);
-            }
-
-            if(menuNum == 4){
-                arcMenu.setAnim(500,500, ArcMenu.ANIM_MIDDLE_TO_DOWN, ArcMenu.ANIM_MIDDLE_TO_RIGHT,
-                        ArcMenu.ANIM_INTERPOLATOR_ANTICIPATE, ArcMenu.ANIM_INTERPOLATOR_ANTICIPATE);
-            }
+            item.setImageResource(ITEM_DRAWABLES[i]);
+            arcMenu.setAnim(400,400, ArcMenu.ANIM_MIDDLE_TO_DOWN, ArcMenu.ANIM_MIDDLE_TO_RIGHT,
+                    ArcMenu.ANIM_INTERPOLATOR_DECLERATE, ArcMenu.ANIM_INTERPOLATOR_BOUNCE);
+//            if(menuNum == 1){
+//
+//            }
+//
+//            if(menuNum == 4){
+//                arcMenu.setAnim(500,500, ArcMenu.ANIM_MIDDLE_TO_DOWN, ArcMenu.ANIM_MIDDLE_TO_RIGHT,
+//                        ArcMenu.ANIM_INTERPOLATOR_ANTICIPATE, ArcMenu.ANIM_INTERPOLATOR_ANTICIPATE);
+//            }
 
             final int position = i;
+            final int rrr = type[i];
             arcMenu.addItem(item, str[i], new View.OnClickListener() {
+
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(activity,  str[position],
-                            Toast.LENGTH_SHORT).show();
+                    activity.registerNew(rrr);
                 }
             });
         }
     }
-    private static final int[] ITEM_DRAWABLES = { R.drawable.add_image,
-            R.drawable.add_text, R.drawable.preview, R.drawable.qr       };
-    private String[] str = {"Facebook","Twiiter","Flickr","Instagram"};
+
     private void init() {
         if (!isInEditMode()) {
             try {
@@ -154,7 +160,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
                 mOptionMenu = (ImageView) view.findViewById(R.id.cl_option_menu);
                 mTitle = (TextView) view.findViewById(R.id.cl_title);
                 arcMenu = (ArcMenu) view.findViewById(R.id.arcMenu);
-                initArcMenu(str,ITEM_DRAWABLES,1);
+                initArcMenu();
 
 //                proprtyMenu = (ImageButton) view.findViewById(R.id.property);
 //                officeMenu = (ImageButton) view.findViewById(R.id.office);
@@ -221,7 +227,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
                     setting_layer.animate().translationX(orgPos1X).setDuration(Const.AnimDuration);
                     final Handler handler = new Handler();
                     setting_layer.setEnabled(false);
-                    menuEn=true;
+                    menuEn = true;
                     handler.postDelayed(new Runnable() {
                         public void run() {
                             settingbtn.setClickable(true);
@@ -242,7 +248,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
     }
 
     void closeMenu() {
-        if (menuEn)  {
+        if (menuEn) {
             settingbtn.setChecked(false);
             settingbtn.setClickable(false);
             settingbtn.startAnimation(rotation);
@@ -253,7 +259,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
 //                    recyclerView.setVisibility(View.VISIBLE);
             final Handler handler = new Handler();
             setting_layer.setEnabled(false);
-            menuEn=false;
+            menuEn = false;
             handler.postDelayed(new Runnable() {
                 public void run() {
                     settingbtn.setClickable(true);
@@ -337,8 +343,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
         mTitle.setTranslationX((1 - fraction) * -mTitleTrans);
     }
 
-    void toggleArcMenu()
-    {
+    void toggleArcMenu() {
 
     }
 
