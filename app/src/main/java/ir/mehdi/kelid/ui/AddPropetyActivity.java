@@ -31,6 +31,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -86,7 +93,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
 
     NodeFragmentDialog nodeFragmentDialog;
-    MapFragment mapFragment;
+    SupportMapFragment mapFragment;
 
     InfoCreateFragment infoCreateFragment;
     PropertyCreateFragment propertyCreateFragment;
@@ -118,6 +125,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
         }
 
+        mapFragment=new SupportMapFragment();
         propertyCreateFragment = new PropertyCreateFragment();
 
 //        propertyCreateFragment = new TestFragment();
@@ -136,8 +144,20 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         fm.popBackStack(null, android.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
 //        ft.add(R.id.fragment_container, testFragment);
-        ft.add(R.id.fragment_container, propertyCreateFragment);
+        ft.add(R.id.fragment_container, mapFragment);
         ft.commit();
+
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                GoogleMap mMap = googleMap;
+
+                // Add a marker in Sydney and move the camera
+                LatLng sydney = new LatLng(36.302191, 59.590613);
+                mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            }
+        });
 
 
     }
@@ -503,6 +523,14 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     @Override
     public void doneClicked() {
         if (currentStep == 0) {
+            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+            android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+            ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
+            ft.replace(R.id.fragment_container, propertyCreateFragment).addToBackStack("");
+            ft.commit();
+            nextStep();
+        }
+        else if (currentStep == 1) {
             if (propertyCreateFragment.isValid()) {
                 android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
@@ -511,7 +539,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 ft.commit();
                 nextStep();
             }
-        } else if (currentStep == 1) {
+        } else if (currentStep == 2) {
             if (infoCreateFragment.isValid()) {
                 android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
@@ -520,7 +548,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 ft.commit();
                 nextStep();
             }
-        } else if (currentStep == 2) {
+        } else if (currentStep == 3) {
             if (userPhoneFragment.isValid()) {
                 finish();
             }
