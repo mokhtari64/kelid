@@ -156,37 +156,39 @@ public class GalleryMultiple extends KelidActivity {
                 holder = new ViewHolder();
                 convertView = mInflater.inflate(R.layout.activity_gallery_item, null);
                 holder.imgThumb = (ImageView) convertView.findViewById(R.id.imgThumb);
-                holder.chkImage = (CheckBox) convertView.findViewById(R.id.chkImage);
+//                holder.chkImage = (CheckBox) convertView.findViewById(R.id.chkImage);
 
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.chkImage.setId(position);
+//            holder.chkImage.setId(position);
             holder.imgThumb.setId(position);
-            holder.chkImage.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View v) {
-                    CheckBox cb = (CheckBox) v;
-                    int id = cb.getId();
-                    if (thumbnailsselection[id]) {
-                        cb.setChecked(false);
-                        thumbnailsselection[id] = false;
-                    } else {
-                        cb.setChecked(true);
-                        thumbnailsselection[id] = true;
-                    }
-                }
-            });
+//            holder.chkImage.setOnClickListener(new View.OnClickListener() {
+//
+//                public void onClick(View v) {
+//                    CheckBox cb = (CheckBox) v;
+//                    int id = cb.getId();
+//                    if (thumbnailsselection[id]) {
+//                        cb.setChecked(false);
+//                        thumbnailsselection[id] = false;
+//                    } else {
+//                        cb.setChecked(true);
+//                        thumbnailsselection[id] = true;
+//                    }
+//                }
+//            });
             holder.imgThumb.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-                    int id = holder.chkImage.getId();
+                    int id = holder.imgThumb.getId();
                     if (thumbnailsselection[id]) {
-                        holder.chkImage.setChecked(false);
+                        holder.imgThumb.setAlpha(0.4f);
+//                        holder.imgThumb.setChecked(false);
                         thumbnailsselection[id] = false;
                     } else {
-                        holder.chkImage.setChecked(true);
+                        holder.imgThumb.setAlpha(1.0f);
+//                        holder.chkImage.setChecked(true);
                         thumbnailsselection[id] = true;
                     }
                 }
@@ -195,7 +197,7 @@ public class GalleryMultiple extends KelidActivity {
                 setBitmap(holder.imgThumb, ids[position]);
             } catch (Throwable e) {
             }
-            holder.chkImage.setChecked(thumbnailsselection[position]);
+//            holder.chkImage.setChecked(thumbnailsselection[position]);
             holder.id = position;
             return convertView;
         }
@@ -208,7 +210,7 @@ public class GalleryMultiple extends KelidActivity {
      */
     class ViewHolder {
         ImageView imgThumb;
-        CheckBox chkImage;
+//        CheckBox chkImage;
         int id;
     }
 }
