@@ -3,6 +3,7 @@ package ir.mehdi.kelid.coolmenu;
 import android.annotation.SuppressLint;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -19,14 +20,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.sa90.materialarcmenu.ArcMenu;
+
 
 import ir.mehdi.kelid.Const;
 import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.MainActivity;
 import ir.mehdi.kelid.R;
+import ir.mehdi.kelid.arcmenulibrary.ArcMenu;
 
 @SuppressLint("all")
 @SuppressWarnings("all")
@@ -43,7 +46,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
     int screenWidth, sw;
 
 
-    com.sa90.materialarcmenu.ArcMenu arcMenu;
+    ArcMenu arcMenu;
     MainActivity activity;
     private OnOptionMainMenuListner mOnOtpionOptionMainMenuListner;
     private OnMainMenuListner mOnMainMenuListner;
@@ -95,7 +98,49 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
 
         init();
     }
+    private void initArcMenu( final String[] str, int[] itemDrawables, final int menuNum) {
+        final int itemCount = itemDrawables.length;
+        arcMenu.setToolTipTextSize(14);
+//        arcMenu.setMinRadius(104);
+//        arcMenu.setArc(175,255);
+        arcMenu.setToolTipSide(ArcMenu.TOOLTIP_UP);
+        arcMenu.setToolTipTextColor(Color.WHITE);
+        arcMenu.setToolTipBackColor(Color.parseColor("#88000000"));
+        arcMenu.setToolTipCorner(2);
+        arcMenu.setToolTipPadding(8);
+        arcMenu.setColorNormal(getResources().getColor(R.color.colorPrimary));
+        arcMenu.showTooltip(true);
+        arcMenu.setDuration(ArcMenu.ArcMenuDuration.LENGTH_LONG);
+//        arcMenu.setAnim(500,500, ArcMenu.ANIM_MIDDLE_TO_DOWN, ArcMenu.ANIM_MIDDLE_TO_RIGHT,
+//                ArcMenu.ANIM_INTERPOLATOR_ANTICIPATE, ArcMenu.ANIM_INTERPOLATOR_ANTICIPATE);
+        for (int i = 0; i < itemCount; i++) {
+            ImageView item = new ImageView(activity);
+            item.setImageResource(itemDrawables[i]);
 
+            if(menuNum == 1){
+                arcMenu.setAnim(400,400, ArcMenu.ANIM_MIDDLE_TO_DOWN, ArcMenu.ANIM_MIDDLE_TO_RIGHT,
+                        ArcMenu.ANIM_INTERPOLATOR_DECLERATE, ArcMenu.ANIM_INTERPOLATOR_BOUNCE);
+            }
+
+            if(menuNum == 4){
+                arcMenu.setAnim(500,500, ArcMenu.ANIM_MIDDLE_TO_DOWN, ArcMenu.ANIM_MIDDLE_TO_RIGHT,
+                        ArcMenu.ANIM_INTERPOLATOR_ANTICIPATE, ArcMenu.ANIM_INTERPOLATOR_ANTICIPATE);
+            }
+
+            final int position = i;
+            arcMenu.addItem(item, str[i], new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(activity,  str[position],
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+    private static final int[] ITEM_DRAWABLES = { R.drawable.add_image,
+            R.drawable.add_text, R.drawable.preview, R.drawable.qr       };
+    private String[] str = {"Facebook","Twiiter","Flickr","Instagram"};
     private void init() {
         if (!isInEditMode()) {
             try {
@@ -109,12 +154,13 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
                 mOptionMenu = (ImageView) view.findViewById(R.id.cl_option_menu);
                 mTitle = (TextView) view.findViewById(R.id.cl_title);
                 arcMenu = (ArcMenu) view.findViewById(R.id.arcMenu);
+                initArcMenu(str,ITEM_DRAWABLES,1);
 
-                proprtyMenu = (ImageButton) view.findViewById(R.id.property);
-                officeMenu = (ImageButton) view.findViewById(R.id.office);
-                consultingMenu = (ImageButton) view.findViewById(R.id.consulting);
-//                newsMenu = (ImageButton) view.findViewById(R.id.news);
-                serviveMenu = (ImageButton) view.findViewById(R.id.service);
+//                proprtyMenu = (ImageButton) view.findViewById(R.id.property);
+//                officeMenu = (ImageButton) view.findViewById(R.id.office);
+//                consultingMenu = (ImageButton) view.findViewById(R.id.consulting);
+////                newsMenu = (ImageButton) view.findViewById(R.id.news);
+//                serviveMenu = (ImageButton) view.findViewById(R.id.service);
 
                 mMenu.setOnClickListener(this);
                 proprtyMenu.setOnClickListener(this);
@@ -291,6 +337,11 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
         mTitle.setTranslationX((1 - fraction) * -mTitleTrans);
     }
 
+    void toggleArcMenu()
+    {
+
+    }
+
     @Override
     public void onClick(View v) {
         if (R.id.cl_menu == v.getId()) {
@@ -303,19 +354,19 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
             }
 
         } else if (v == proprtyMenu) {
-            arcMenu.toggleMenu();
+            toggleArcMenu();
             activity.registerNew(Constant.PROPERTY);
 
         } else if (v == serviveMenu) {
-            arcMenu.toggleMenu();
+            toggleArcMenu();
             activity.registerNew(Constant.SERVICE);
 
         } else if (v == consultingMenu) {
-            arcMenu.toggleMenu();
+            toggleArcMenu();
             activity.registerNew(Constant.CONSULTING);
 
         } else if (v == officeMenu) {
-            arcMenu.toggleMenu();
+            toggleArcMenu();
             activity.registerNew(Constant.OFFICE);
 
         }

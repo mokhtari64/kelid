@@ -55,7 +55,7 @@ public class ArcMenu extends RelativeLayout {
 
     private void init(Context context) {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        li.inflate(R.layout.arc_menu, this);
+        li.inflate(R.layout.arc_menu_old, this);
 
         mArcLayout = (ArcLayout) findViewById(R.id.item_layout);
 

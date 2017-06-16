@@ -1,165 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:arc="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:duplicateParentState="true"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:duplicateParentState="true">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="@dimen/defualt_spacing"
         android:background="@android:color/transparent"
+        android:duplicateParentState="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:duplicateParentState="true"
         tools:ignore="all">
 
         <ImageView
-            android:duplicateParentState="true"
             android:id="@+id/cl_menu"
             android:layout_width="@dimen/filter_height"
             android:layout_height="@dimen/filter_height"
+            android:layout_marginLeft="5dp"
+            android:duplicateParentState="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/ico"
-            android:layout_marginLeft="5dp"/>
+            android:src="@drawable/ico" />
 
         <TextView
-            android:duplicateParentState="true"
             android:id="@id/cl_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/defualt_spacing"
             android:layout_weight="1"
+            android:duplicateParentState="true"
             android:textColor="@android:color/primary_text_light"
             android:textSize="@dimen/cl_title_size" />
 
         <ImageView
-            android:duplicateParentState="true"
             android:id="@+id/cl_option_menu"
             android:layout_width="@dimen/defualt_spacing"
             android:layout_height="@dimen/defualt_spacing"
             android:layout_gravity="right"
-
-            android:scaleType="fitCenter"
-            android:src="@drawable/amlak"
             android:layout_marginRight="50dp"
-            android:layout_marginTop="15dp" />
+
+            android:layout_marginTop="15dp"
+            android:duplicateParentState="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/amlak" />
 
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/defualt_msize"
-        android:scaleType="fitCenter"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="-3dp"
-        android:layout_marginLeft="-3dp"
         android:layout_marginBottom="-3dp"
-        android:background="@drawable/my_footer">
+        android:layout_marginLeft="-3dp"
+        android:layout_marginRight="-3dp"
+        android:background="@drawable/my_footer"
+        android:orientation="horizontal"
+        android:scaleType="fitCenter">
 
 
         <ImageButton
             android:id="@+id/btn_profile"
-            app:srcCompat="@drawable/kelid_home"
-            style="@style/my_home_main_menu"/>
+            style="@style/my_home_main_menu"
+            app:srcCompat="@drawable/kelid_home" />
+
         <ImageButton
             android:id="@+id/btn_group"
-            app:srcCompat="@drawable/kelid_home"
-            style="@style/my_home_main_menu"/>
+            style="@style/my_home_main_menu"
+            app:srcCompat="@drawable/kelid_home" />
+
         <ImageButton
-            app:srcCompat="@drawable/kelid_home"
-            style="@style/my_home_main_menu"/>
+            style="@style/my_home_main_menu"
+            app:srcCompat="@drawable/kelid_home" />
+
         <ImageButton
             android:id="@+id/btn_search"
-            app:srcCompat="@drawable/kelid_home"
-            style="@style/my_home_main_menu"/>
+            style="@style/my_home_main_menu"
+            app:srcCompat="@drawable/kelid_home" />
+
         <ImageButton
             android:id="@+id/btn_home"
-            app:srcCompat="@drawable/kelid_home"
-            style="@style/my_home_main_menu"/>
+            style="@style/my_home_main_menu"
+            app:srcCompat="@drawable/kelid_home" />
     </LinearLayout>
-
-    <ImageView
-        android:layout_width="@dimen/defualt_spacing"
-        android:layout_height="@dimen/defualt_spacing"
-        android:src="@drawable/my_footer"
-        android:layout_alignTop="@+id/arcMenu"
-        android:layout_alignLeft="@+id/arcMenu"
-        android:layout_alignRight="@+id/arcMenu"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="3dp" />
-
-    <com.sa90.materialarcmenu.ArcMenu
+    <ir.mehdi.kelid.arcmenulibrary.ArcMenu
         android:id="@+id/arcMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:menu_color="@color/colorPrimaryDark"
-        app:menu_radius="140dp"
-        app:menu_ripple_color="@android:color/holo_blue_bright"
-        app:menu_scr="@android:drawable/ic_dialog_dialer"
-        app:menu_open="arc_left"
-        android:layout_alignParentLeft="false"
-        android:layout_centerInParent="true"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="false"
-        android:layout_alignWithParentIfMissing="false"
-        android:duplicateParentState="true"
-        android:layout_margin="5dp">
+        android:layout_gravity="bottom|center_vertical"
+        arc:menuChildAnim="true"
+        arc:menuChildSize="48dp"
+        arc:menuClickAnim="true"
+        arc:menuGravity="Bottom_Middle"
+        arc:menuImage="@android:drawable/ic_dialog_dialer"
+        arc:menuNormalColor="@android:color/holo_green_dark"
+        arc:menuShadowElevation="true"
+        arc:menuType="normal"></ir.mehdi.kelid.arcmenulibrary.ArcMenu>
+    <!--<ImageView-->
+        <!--android:layout_width="@dimen/defualt_spacing"-->
+        <!--android:layout_height="@dimen/defualt_spacing"-->
 
-        <!--<ImageButton-->
-            <!--android:id="@+id/news"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:src="@drawable/preview"-->
-            <!--android:background="@android:color/transparent"-->
-            <!--android:layout_height="wrap_content" />-->
+        <!--android:layout_alignParentBottom="true"-->
 
-        <ImageButton
-            android:id="@+id/office"
-            android:layout_width="wrap_content"
-            android:src="@drawable/add_text"
-            android:background="@android:color/transparent"
-            android:layout_height="wrap_content" />
-        <ImageButton
-            android:id="@+id/consulting"
-            android:layout_width="wrap_content"
-            android:src="@drawable/qr"
-            android:background="@android:color/transparent"
-            android:layout_height="wrap_content" />
-        <ImageButton
-            android:id="@+id/service"
-            android:layout_width="wrap_content"
-            android:src="@drawable/add_image"
-            android:background="@android:color/transparent"
-            android:layout_height="wrap_content" />
-        <ImageButton
-            android:id="@+id/property"
-            android:layout_width="wrap_content"
-            android:src="@drawable/bg"
-            android:background="@android:color/transparent"
-            android:layout_height="wrap_content" />
-    </com.sa90.materialarcmenu.ArcMenu>
+
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginBottom="3dp"-->
+        <!--android:src="@drawable/my_footer" />-->
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/arcMenulay"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!---->
+    <!--</FrameLayout>-->
+
+    <!--<com.sa90.materialarcmenu.ArcMenu-->
+    <!--android:id="@+id/arcMenu"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:menu_color="@color/colorPrimaryDark"-->
+    <!--app:menu_radius="140dp"-->
+    <!--app:menu_ripple_color="@android:color/holo_blue_bright"-->
+    <!--app:menu_scr="@android:drawable/ic_dialog_dialer"-->
+    <!--app:menu_open="arc_left"-->
+    <!--android:layout_alignParentLeft="false"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:layout_alignParentRight="false"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentStart="false"-->
+    <!--android:layout_alignWithParentIfMissing="false"-->
+    <!--android:duplicateParentState="true"-->
+    <!--android:layout_margin="5dp">-->
+
+    <!--&lt;!&ndash;<ImageButton&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/news"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:src="@drawable/preview"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:background="@android:color/transparent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content" />&ndash;&gt;-->
+
+    <!--<ImageButton-->
+    <!--android:id="@+id/office"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:src="@drawable/add_text"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:layout_height="wrap_content" />-->
+    <!--<ImageButton-->
+    <!--android:id="@+id/consulting"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:src="@drawable/qr"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:layout_height="wrap_content" />-->
+    <!--<ImageButton-->
+    <!--android:id="@+id/service"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:src="@drawable/add_image"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:layout_height="wrap_content" />-->
+    <!--<ImageButton-->
+    <!--android:id="@+id/property"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:src="@drawable/bg"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:layout_height="wrap_content" />-->
+    <!--</com.sa90.materialarcmenu.ArcMenu>-->
 
     <LinearLayout
-        android:duplicateParentState="true"
         android:id="@+id/setting_layer"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@color/my_transparent"
-        android:orientation="horizontal">
+        android:duplicateParentState="true"
+        android:orientation="horizontal"
+       >
 
         <RelativeLayout
-            android:duplicateParentState="true"
             android:id="@+id/menu_space"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:duplicateParentState="true"
             android:orientation="vertical" />
 
         <LinearLayout
@@ -168,24 +194,24 @@
             android:layout_height="match_parent"
             android:background="@color/login_black"
             android:orientation="vertical"
-            android:paddingTop="@dimen/defualt_spacing" >
+            android:paddingTop="@dimen/defualt_spacing">
 
             <RelativeLayout
                 android:id="@+id/edit_device"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/defualt_spacing"
                 android:background="@color/line1"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     style="@style/TextMenu"
-                    android:background="@drawable/user_shape"
-                    android:text="@string/edit_node"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/user_shape"
+                    android:text="@string/edit_node" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -193,15 +219,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/defualt_spacing"
                 android:background="@color/line2"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     style="@style/TextMenu"
-                    android:background="@drawable/user_shape"
-                    android:text="@string/edit_zone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/user_shape"
+                    android:text="@string/edit_zone" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -209,15 +235,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/defualt_spacing"
                 android:background="@color/line4"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     style="@style/TextMenu"
-                    android:background="@drawable/user_shape"
-                    android:text="@string/edit_senario"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/user_shape"
+                    android:text="@string/edit_senario" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -225,15 +251,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/defualt_spacing"
                 android:background="@color/line5"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     style="@style/TextMenu"
-                    android:background="@drawable/user_shape"
-                    android:text="@string/edit_user"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/user_shape"
+                    android:text="@string/edit_user" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -241,15 +267,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/defualt_spacing"
                 android:background="@color/line7"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     style="@style/TextMenu"
-                    android:background="@drawable/user_shape"
-                    android:text="@string/rules"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/user_shape"
+                    android:text="@string/rules" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -257,15 +283,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/defualt_spacing"
                 android:background="@color/line10"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     style="@style/TextMenu"
-                    android:background="@drawable/user_shape"
-                    android:text="@string/about_me"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/user_shape"
+                    android:text="@string/about_me" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -273,15 +299,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/defualt_spacing"
                 android:background="@color/line11"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     style="@style/TextMenu"
-                    android:background="@drawable/user_shape"
-                    android:text="@string/exit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/user_shape"
+                    android:text="@string/exit" />
             </RelativeLayout>
 
         </LinearLayout>
@@ -290,29 +316,29 @@
     <RelativeLayout
         android:layout_width="@dimen/defualt_spacing"
         android:layout_height="@dimen/defualt_spacing"
-        android:layout_gravity="right"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentRight="true"
+        android:layout_gravity="right">
 
         <ImageView
-            app:srcCompat="@drawable/setting_back"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_vertical_margin" />
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            app:srcCompat="@drawable/setting_back" />
 
         <ToggleButton
             android:id="@+id/setting"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentTop="false"
             android:layout_gravity="right"
             android:layout_marginBottom="@dimen/mdtp_date_picker_header_height"
             android:layout_marginLeft="@dimen/mdtp_date_picker_header_height"
             android:background="@drawable/setting"
             android:src="@drawable/setting"
             android:textOff=""
-            android:textOn=""
-            android:layout_alignParentRight="false"
-            android:layout_alignParentTop="false" />
+            android:textOn="" />
     </RelativeLayout>
 
 </RelativeLayout>
