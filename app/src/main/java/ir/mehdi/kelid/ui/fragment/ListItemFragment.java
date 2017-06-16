@@ -1,7 +1,10 @@
 package ir.mehdi.kelid.ui.fragment;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +31,7 @@ import ir.mehdi.kelid.Const;
 import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.MainActivity;
 import ir.mehdi.kelid.R;
+import ir.mehdi.kelid.arcmenulibrary.util.Util;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.ui.CardItemListAdapter;
 import ir.mehdi.kelid.utils.Utils;
@@ -55,7 +59,7 @@ public class ListItemFragment extends Fragment implements Constant {
     LinearLayout nodeChilde;
     RelativeLayout child_layer;
     RotateAnimation r;
-    ImageView nodeChildeController;
+    ImageView nodeChildeController,bar;
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
@@ -76,7 +80,6 @@ public class ListItemFragment extends Fragment implements Constant {
         super.onCreate(savedInstanceState);
     }
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,8 +89,11 @@ public class ListItemFragment extends Fragment implements Constant {
             childe = mainContent.findViewById(R.id.node_child_scroll);
             nodeChildeController = (ImageView) mainContent.findViewById(R.id.childe_controll);
             child_layer = (RelativeLayout) mainContent.findViewById(R.id.chlid_btn);
+            bar = (ImageView) mainContent.findViewById(R.id.chlid_btn2);
+
 
             nodeChilde = (LinearLayout) mainContent.findViewById(R.id.node_child);
+//            bar.setColorFilter(R.color.mRedDark, PorterDuff.Mode.SRC_OVER );
             if (node != null && node.childs != null && node.childs.size() > 0) {
                 childe.setVisibility(View.VISIBLE);
 
@@ -97,6 +103,7 @@ public class ListItemFragment extends Fragment implements Constant {
                     public void onClick(View v) {
                         if (childeVisible) {
                             int height = childe.getHeight();
+                            Utils.ChangeColorFilter(bar, getResources().getColor(R.color.mRedLight), getResources().getColor(R.color.mRedDark));
                             childe.animate().translationY(-height).setDuration(Const.AnimDuration);
                             child_layer.animate().translationY(-height).setDuration(Const.AnimDuration);
                             nodeChildeController.animate().rotation(180).setDuration(Const.AnimDuration);
@@ -105,6 +112,7 @@ public class ListItemFragment extends Fragment implements Constant {
 
                         } else {
                             int height = childe.getHeight();
+                            Utils.ChangeColorFilter(bar, getResources().getColor(R.color.mRedDark), getResources().getColor(R.color.mRedLight));
                             childe.animate().translationY(0).setDuration(Const.AnimDuration);
                             child_layer.animate().translationY(0).setDuration(Const.AnimDuration);
                             nodeChildeController.animate().rotation(0).setDuration(Const.AnimDuration);

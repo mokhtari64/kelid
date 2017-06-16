@@ -37,18 +37,26 @@
         </HorizontalScrollView>
 
         <RelativeLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
             android:layout_below="@+id/node_child_scroll"
             android:id="@+id/chlid_btn"
-            android:background="@drawable/h1"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true">
 
             <ImageView
+                android:id="@+id/chlid_btn2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bar"
+                android:tint="@color/mRedLight"
+                android:tintMode="src_over" />
+
+            <ImageView
                 android:layout_width="50dp"
                 android:id="@+id/childe_controll"
-                android:src="@drawable/check_blue"
+                android:src="@drawable/up_arrow"
+                android:layout_centerInParent="true"
                 android:layout_height="50dp" />
 
         </RelativeLayout>

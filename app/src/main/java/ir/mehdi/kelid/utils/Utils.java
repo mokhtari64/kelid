@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -20,6 +21,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
@@ -115,6 +117,22 @@ public class Utils {
             @Override
             public void onAnimationUpdate(ValueAnimator animator) {
                 v.setBackgroundColor((int) animator.getAnimatedValue());
+
+            }
+
+        });
+        colorAnimation.start();
+    }
+
+    public static void ChangeColorFilter(final ImageView v, int colorFrom, int colorTo){
+        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        colorAnimation.setDuration(Const.AnimDuration);
+        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                v.setColorFilter((int) animator.getAnimatedValue());
+
             }
 
         });

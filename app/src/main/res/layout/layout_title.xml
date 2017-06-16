@@ -58,7 +58,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-3dp"
         android:layout_marginLeft="-3dp"
-        android:layout_marginRight="-3dp"
+        android:layout_marginRight="-5dp"
         android:background="@drawable/my_footer"
         android:orientation="horizontal"
         android:scaleType="fitCenter">
@@ -76,6 +76,7 @@
 
         <ImageButton
             style="@style/my_home_main_menu"
+            android:visibility="invisible"
             app:srcCompat="@drawable/kelid_home" />
 
         <ImageButton
@@ -88,6 +89,8 @@
             style="@style/my_home_main_menu"
             app:srcCompat="@drawable/kelid_home" />
     </LinearLayout>
+
+
     <ir.mehdi.kelid.arcmenulibrary.ArcMenu
         android:id="@+id/arcMenu"
         android:layout_width="wrap_content"
@@ -97,27 +100,29 @@
         arc:menuChildSize="48dp"
         arc:menuClickAnim="true"
         arc:menuGravity="Bottom_Middle"
-        arc:menuImage="@android:drawable/ic_dialog_dialer"
-        arc:menuNormalColor="@android:color/holo_green_dark"
+        arc:menuImage="@drawable/plus"
+        arc:menuNormalColor="@color/mRedDark"
         arc:menuShadowElevation="true"
         arc:menuType="normal"></ir.mehdi.kelid.arcmenulibrary.ArcMenu>
+
+
     <!--<ImageView-->
-        <!--android:layout_width="@dimen/defualt_spacing"-->
-        <!--android:layout_height="@dimen/defualt_spacing"-->
+    <!--android:layout_width="@dimen/defualt_spacing"-->
+    <!--android:layout_height="@dimen/defualt_spacing"-->
 
-        <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentBottom="true"-->
 
 
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginBottom="3dp"-->
-        <!--android:src="@drawable/my_footer" />-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginBottom="3dp"-->
+    <!--android:src="@drawable/my_footer" />-->
 
     <!--<FrameLayout-->
-        <!--android:id="@+id/arcMenulay"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
+    <!--android:id="@+id/arcMenulay"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
 
-        <!---->
+    <!---->
     <!--</FrameLayout>-->
 
     <!--<com.sa90.materialarcmenu.ArcMenu-->
@@ -177,8 +182,7 @@
         android:layout_height="fill_parent"
         android:background="@color/my_transparent"
         android:duplicateParentState="true"
-        android:orientation="horizontal"
-       >
+        android:orientation="horizontal">
 
         <RelativeLayout
             android:id="@+id/menu_space"

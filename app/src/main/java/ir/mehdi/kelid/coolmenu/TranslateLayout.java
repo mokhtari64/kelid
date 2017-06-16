@@ -104,11 +104,11 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
 //        arcMenu.setMinRadius(104);
 //        arcMenu.setArc(175,255);
         arcMenu.setToolTipSide(ArcMenu.TOOLTIP_UP);
-        arcMenu.setToolTipTextColor(Color.WHITE);
-        arcMenu.setToolTipBackColor(Color.parseColor("#88000000"));
+        arcMenu.setToolTipTextColor(Color.RED);
+        arcMenu.setToolTipBackColor(getResources().getColor(R.color.white_pressed));
         arcMenu.setToolTipCorner(2);
         arcMenu.setToolTipPadding(8);
-        arcMenu.setColorNormal(getResources().getColor(R.color.colorPrimary));
+        arcMenu.setColorNormal(getResources().getColor(R.color.mRedDark));
         arcMenu.showTooltip(true);
         arcMenu.setDuration(ArcMenu.ArcMenuDuration.LENGTH_LONG);
 //        arcMenu.setAnim(500,500, ArcMenu.ANIM_MIDDLE_TO_DOWN, ArcMenu.ANIM_MIDDLE_TO_RIGHT,

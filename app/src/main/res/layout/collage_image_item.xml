@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="100dp"
     android:layout_height="100dp">
 
@@ -24,6 +26,16 @@
            android:id="@+id/progress"
             android:visibility="gone"
            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="@dimen/cl_title_size"
+            android:layout_height="@dimen/cl_title_size"
+            android:layout_gravity="top|right"
+            android:rotationX="45"
+            android:rotationY="45"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/plus" />
     </FrameLayout>
 
 
