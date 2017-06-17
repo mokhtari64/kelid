@@ -40,6 +40,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -234,6 +235,10 @@ public class ArcMenu extends RelativeLayout {
                         } else if (isDoubleIconSet && !isOneIconSet) {
                             fabMenu.setIcon(iconClose, true);
                         }
+                        RelativeLayout parent = (RelativeLayout) getParent();
+                        parent.setBackgroundColor(Color.TRANSPARENT);
+//                        parent.findViewById(R.id.)
+
                     } else {
                         isMenuClicked = true;
                         if (!isDoubleIconSet && !isOneIconSet) {
@@ -241,6 +246,9 @@ public class ArcMenu extends RelativeLayout {
                         } else if (isDoubleIconSet && !isOneIconSet) {
                             fabMenu.setIcon(iconOpen, true);
                         }
+                        RelativeLayout parent = (RelativeLayout) getParent();
+                        parent.setBackgroundColor(Color.RED);
+//                        setBackgroundColor(Color.GRAY);
                     }
                 }
                 if (mArcLayout.isAnimDone()) {

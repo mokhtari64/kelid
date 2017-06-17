@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -151,11 +152,17 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 GoogleMap mMap = googleMap;
-
-                // Add a marker in Sydney and move the camera
                 LatLng sydney = new LatLng(36.302191, 59.590613);
-                mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                CameraUpdate center=
+                        CameraUpdateFactory.newLatLng(sydney);
+                CameraUpdate zoom=CameraUpdateFactory.zoomTo(10);
+
+                mMap.moveCamera(center);
+                mMap.animateCamera(zoom);
+                // Add a marker in Sydney and move the camera
+
+//                mMap.addMarker(new MarkerOptions().position(sydney).title(""));
+//                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
             }
         });
 
