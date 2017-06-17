@@ -12,6 +12,7 @@ import ir.mehdi.kelid.model.Property;
 public class UserConfig {
     public static boolean upgrade,immediate,festival;
     public static boolean versionEnable;
+    public static float lastLatitue,lastLongtitue;
 
     public static int version=11;
     public static String version_lable="1.1.0";
@@ -49,6 +50,8 @@ public class UserConfig {
         newVersion = preferences.getInt("version", -1);
         versionEnable=preferences.getBoolean("versionEnable",true);
         change_log = preferences.getString("change_log", "");
+        lastLatitue=preferences.getFloat("lastLatitue",0);
+        lastLongtitue=preferences.getFloat("lastLongtitue",0);
 
     }
 

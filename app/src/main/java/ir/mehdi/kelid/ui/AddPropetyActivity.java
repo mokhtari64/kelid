@@ -2,14 +2,12 @@ package ir.mehdi.kelid.ui;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.content.ClipData;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -18,7 +16,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -36,7 +33,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
@@ -58,7 +57,6 @@ import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.UserConfig;
-import ir.mehdi.kelid.collage.ImageFilePath;
 import ir.mehdi.kelid.db.MySqliteOpenHelper;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
@@ -68,9 +66,7 @@ import ir.mehdi.kelid.service.ServiceDelegate;
 import ir.mehdi.kelid.service.VolleyService;
 import ir.mehdi.kelid.ui.fragment.ActivationCodeFragment;
 import ir.mehdi.kelid.ui.fragment.InfoCreateFragment;
-import ir.mehdi.kelid.ui.fragment.MapFragment;
 import ir.mehdi.kelid.ui.fragment.PropertyCreateFragment;
-import ir.mehdi.kelid.ui.fragment.TestFragment;
 import ir.mehdi.kelid.ui.fragment.UserPhoneFragment;
 import ir.mehdi.kelid.utils.FileUtils;
 import ir.mehdi.kelid.utils.Utils;
@@ -98,7 +94,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
     InfoCreateFragment infoCreateFragment;
     PropertyCreateFragment propertyCreateFragment;
-    TestFragment testFragment;
+//    TestFragment testFragment;
     UserPhoneFragment userPhoneFragment;
     ActivationCodeFragment activationCodeFragment;
 
@@ -106,10 +102,12 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     int currentStep = 0;
 
 
+    Marker lastMarker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        property=new Property();
+        property = new Property();
         mainHandler = new Handler(Looper.getMainLooper());
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -126,10 +124,10 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
         }
 
-        mapFragment=new SupportMapFragment();
+        mapFragment = new SupportMapFragment();
         propertyCreateFragment = new PropertyCreateFragment();
 
-//        propertyCreateFragment = new TestFragment();
+
         infoCreateFragment = new InfoCreateFragment();
 
         propertyCreateFragment.setActivity(this);
@@ -151,14 +149,25 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                GoogleMap mMap = googleMap;
-                LatLng sydney = new LatLng(36.302191, 59.590613);
-                CameraUpdate center=
+                final GoogleMap mMap = googleMap;
+                mMap.getUiSettings().setZoomControlsEnabled(true);
+                LatLng sydney = new LatLng( (double) 36.260846224269834,(double) 59.61784802377224);
+                CameraUpdate center =
                         CameraUpdateFactory.newLatLng(sydney);
-                CameraUpdate zoom=CameraUpdateFactory.zoomTo(10);
+                CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
 
                 mMap.moveCamera(center);
                 mMap.animateCamera(zoom);
+                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        if (lastMarker != null)
+                            lastMarker.remove();
+                        CameraPosition cameraPosition = mMap.getCameraPosition();
+                        lastMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("" + cameraPosition.zoom));
+
+                    }
+                });
                 // Add a marker in Sydney and move the camera
 
 //                mMap.addMarker(new MarkerOptions().position(sydney).title(""));
@@ -536,8 +545,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             ft.replace(R.id.fragment_container, propertyCreateFragment).addToBackStack("");
             ft.commit();
             nextStep();
-        }
-        else if (currentStep == 1) {
+        } else if (currentStep == 1) {
             if (propertyCreateFragment.isValid()) {
                 android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
@@ -645,7 +653,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 String[] imagesPath = data.getStringExtra("data").split("\\|");
                 for (int i = 0; i < imagesPath.length; i++) {
                     imagesPathList.add(imagesPath[i]);
-                    String orginalPath=imagesPath[i];
+                    String orginalPath = imagesPath[i];
                     Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(imagesPath[i]), imagesPath[i]));
 //                    Bitmap yourbitmap = BitmapFactory.decodeFile(imagesPath[i]);
                     File jpg = FileUtils.getInstance().createTempFile("IMG_" + System.currentTimeMillis(), "jpg");
@@ -653,7 +661,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                     bitmap.recycle();
                     bitmap = BitmapFactory.decodeFile(orginalPath);
                     if (orginalPath != null)
-                        propertyCreateFragment.addImage(bitmap, jpg,orginalPath);
+                        propertyCreateFragment.addImage(bitmap, jpg, orginalPath);
 
                 }
 //                String orginalPath = null;
@@ -705,7 +713,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
                 bitmap.recycle();
                 bitmap = BitmapFactory.decodeFile(orginalPath);
-                propertyCreateFragment.addImage(bitmap, new File(orginalPath),null);
+                propertyCreateFragment.addImage(bitmap, new File(orginalPath), null);
             } catch (Exception e) {
                 Toast.makeText(this, getString(R.string.load_failed), Toast.LENGTH_SHORT).show();
 
