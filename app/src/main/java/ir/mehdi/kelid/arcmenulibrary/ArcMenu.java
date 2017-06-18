@@ -68,6 +68,7 @@ import ir.mehdi.kelid.arcmenulibrary.widget.ArcLayout;
 import ir.mehdi.kelid.arcmenulibrary.widget.FloatingActionButton;
 import ir.mehdi.kelid.arcmenulibrary.widget.ObservableScrollView;
 
+import ir.mehdi.kelid.utils.Utils;
 import java.util.ArrayList;
 
 /**
@@ -134,7 +135,7 @@ public class ArcMenu extends RelativeLayout {
     private ArcLayout mArcLayout;
     private FloatingActionButton fabMenu;
     private ImageView mIcon;
-    private FrameLayout layMenu;
+    private FrameLayout layMenu,maimPageLay;
     private ArcMenuDuration mDuration = ArcMenuDuration.LENGTH_SHORT;
     private int mChildSize;
     private int mToltalChildCount;
@@ -216,8 +217,10 @@ public class ArcMenu extends RelativeLayout {
         mArcLayout = (ArcLayout) findViewById(R.id.arcmenu_item_layout);
 
         layMenu = (FrameLayout) findViewById(R.id.layArcMenu);
+        maimPageLay = (FrameLayout) findViewById(R.id.mainPageLay);
         mIcon = (ImageView) findViewById(R.id.imgPlusIcon);
         fabMenu = (FloatingActionButton) findViewById(R.id.fabArcMenu);
+
 
         fabMenu.setOnClickListener(new OnClickListener() {
             @Override
@@ -236,8 +239,9 @@ public class ArcMenu extends RelativeLayout {
                             fabMenu.setIcon(iconClose, true);
                         }
                         RelativeLayout parent = (RelativeLayout) getParent();
-                        parent.setBackgroundColor(Color.TRANSPARENT);
-//                        parent.findViewById(R.id.)
+                        Utils.change_color(parent.findViewById(R.id.mainPageLay),getResources().getColor(R.color.my_transparent2), getResources().getColor(R.color.transparent));
+//                        parent.setBackgroundColor(Color.TRANSPARENT);
+
 
                     } else {
                         isMenuClicked = true;
@@ -247,7 +251,8 @@ public class ArcMenu extends RelativeLayout {
                             fabMenu.setIcon(iconOpen, true);
                         }
                         RelativeLayout parent = (RelativeLayout) getParent();
-                        parent.setBackgroundColor(Color.RED);
+                        Utils.change_color(parent.findViewById(R.id.mainPageLay),getResources().getColor(R.color.transparent), getResources().getColor(R.color.my_transparent2));
+//                        parent.setBackgroundColor(Color.RED);
 //                        setBackgroundColor(Color.GRAY);
                     }
                 }
