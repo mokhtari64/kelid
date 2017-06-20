@@ -31,11 +31,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
@@ -79,7 +82,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     public static Property property;
     SMSReceiver receiver;
 
-
+    Marker lastMarker;
     TextView nextTextView, cancelTextView;
     ImageView backImageView;
 
@@ -108,7 +111,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        property=new Property();
+        property = new Property();
         mainHandler = new Handler(Looper.getMainLooper());
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -125,7 +128,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
         }
 
-        mapFragment=new SupportMapFragment();
+        mapFragment = new SupportMapFragment();
         propertyCreateFragment = new PropertyCreateFragment();
 
 //        propertyCreateFragment = new TestFragment();
@@ -146,16 +149,47 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 //        ft.add(R.id.fragment_container, testFragment);
         ft.add(R.id.fragment_container, mapFragment);
         ft.commit();
+        nextTextView.setVisibility(View.INVISIBLE);
 
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                GoogleMap mMap = googleMap;
+                final GoogleMap mMap = googleMap;
 
                 // Add a marker in Sydney and move the camera
-                LatLng sydney = new LatLng(36.302191, 59.590613);
-                mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+                LatLng sydney = new LatLng(36.28765407836474, 59.61174532771111);
+                CameraUpdate center =
+                        CameraUpdateFactory.newLatLng(sydney);
+                mMap.getUiSettings().setZoomControlsEnabled(true);
+                CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+
+                //lastMarker= mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(12), 5000, null);
+
+
+//                final GoogleMap mMap = googleMap;
+//                mMap.getUiSettings().setZoomControlsEnabled(true);
+//                LatLng sydney = new LatLng( (double) 36.260846224269834,(double) 59.61784802377224);
+//
+//
+//                mMap.moveCamera(center);
+//                mMap.animateCamera(zoom);
+                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        if (lastMarker != null)
+                            lastMarker.remove();
+                        CameraPosition cameraPosition = mMap.getCameraPosition();
+                        lastMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("" + cameraPosition.zoom));
+                        nextTextView.setVisibility(View.VISIBLE);
+
+                    }
+                });
+                // Add a marker in Sydney and move the camera
+
+//                mMap.addMarker(new MarkerOptions().position(sydney).title(""));
+//                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
             }
         });
 
@@ -523,14 +557,18 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     @Override
     public void doneClicked() {
         if (currentStep == 0) {
-            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-            android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-            ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
-            ft.replace(R.id.fragment_container, propertyCreateFragment).addToBackStack("");
-            ft.commit();
-            nextStep();
-        }
-        else if (currentStep == 1) {
+            if(lastMarker==null)
+            {
+             Toast.makeText(this,"Please select location",Toast.LENGTH_LONG).show();
+            }else {
+                android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+                ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
+                ft.replace(R.id.fragment_container, propertyCreateFragment).addToBackStack("");
+                ft.commit();
+                nextStep();
+            }
+        } else if (currentStep == 1) {
             if (propertyCreateFragment.isValid()) {
                 android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
@@ -638,7 +676,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 String[] imagesPath = data.getStringExtra("data").split("\\|");
                 for (int i = 0; i < imagesPath.length; i++) {
                     imagesPathList.add(imagesPath[i]);
-                    String orginalPath=imagesPath[i];
+                    String orginalPath = imagesPath[i];
                     Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(imagesPath[i]), imagesPath[i]));
 //                    Bitmap yourbitmap = BitmapFactory.decodeFile(imagesPath[i]);
                     File jpg = FileUtils.getInstance().createTempFile("IMG_" + System.currentTimeMillis(), "jpg");
@@ -646,7 +684,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                     bitmap.recycle();
                     bitmap = BitmapFactory.decodeFile(orginalPath);
                     if (orginalPath != null)
-                        propertyCreateFragment.addImage(bitmap, jpg,orginalPath);
+                        propertyCreateFragment.addImage(bitmap, jpg, orginalPath);
 
                 }
 //                String orginalPath = null;
@@ -698,7 +736,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
                 bitmap.recycle();
                 bitmap = BitmapFactory.decodeFile(orginalPath);
-                propertyCreateFragment.addImage(bitmap, new File(orginalPath),null);
+                propertyCreateFragment.addImage(bitmap, new File(orginalPath), null);
             } catch (Exception e) {
                 Toast.makeText(this, getString(R.string.load_failed), Toast.LENGTH_SHORT).show();
 
