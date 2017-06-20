@@ -10,8 +10,6 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 
 import com.android.volley.AuthFailureError;
@@ -60,8 +58,6 @@ import ir.mehdi.kelid.db.DBAdapter;
 import ir.mehdi.kelid.db.MySqliteOpenHelper;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
-import ir.mehdi.kelid.ui.AddPropetyActivity;
-import ir.mehdi.kelid.ui.fragment.TestFragment;
 import ir.mehdi.kelid.utils.FileUtils;
 import ir.mehdi.kelid.utils.Utils;
 

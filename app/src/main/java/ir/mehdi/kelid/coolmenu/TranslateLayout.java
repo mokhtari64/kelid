@@ -44,10 +44,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
 
     boolean menuEn = false;
 
-    ToggleButton settingbtn;
     LayoutInflater inflater;
-    RelativeLayout edit_device, edit_zone, edit_senario, menu_space, edit_user, rules, about_me, exit;
-    LinearLayout setting_layer;
     Animation alpha, alpha_out, rotation, rotation_out;
     int screenWidth, sw;
 
@@ -154,7 +151,6 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
                 inflate(getContext(), R.layout.layout_title, this);
                 view = getChildAt(0);
 
-                initDrawer();
                 mTitleTrans = getResources().getDimension(R.dimen.cl_title_trans);
                 mMenu = (ImageView) view.findViewById(R.id.cl_menu);
                 mOptionMenu = (ImageView) view.findViewById(R.id.cl_option_menu);
@@ -181,92 +177,6 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
             }
 
         }
-    }
-
-    float orgPos1X;
-
-    private void initDrawer() {
-        setting_layer = (LinearLayout) findViewById(R.id.setting_layer);
-        menu_space = (RelativeLayout) findViewById(R.id.menu_space);
-        edit_device = (RelativeLayout) findViewById(R.id.edit_device);
-        menu_space.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                closeMenu();
-            }
-        });
-        edit_zone = (RelativeLayout) findViewById(R.id.edit_zone);
-        edit_senario = (RelativeLayout) findViewById(R.id.edit_senario);
-        edit_user = (RelativeLayout) findViewById(R.id.edit_user);
-        rules = (RelativeLayout) findViewById(R.id.rules);
-        about_me = (RelativeLayout) findViewById(R.id.about_me);
-        exit = (RelativeLayout) findViewById(R.id.exit);
-
-
-        orgPos1X = setting_layer.getX();
-        settingbtn = (ToggleButton) findViewById(R.id.setting);
-        alpha = AnimationUtils.loadAnimation(getContext(), R.anim.alpha);
-        alpha_out = AnimationUtils.loadAnimation(getContext(), R.anim.alpha_out);
-        rotation = AnimationUtils.loadAnimation(getContext(), R.anim.clockwise_rotation);
-        rotation_out = AnimationUtils.loadAnimation(getContext(), R.anim.unclockwise_rotation);
-
-
-        screenWidth = ir.mehdi.kelid.utils.Utils.getScreenWidth(activity);
-        sw = screenWidth;
-//        setting_layer.setX(orgPos1X - screenWidth);
-        setting_layer.setX(screenWidth + orgPos1X);
-        assert settingbtn != null;
-        settingbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!menuEn) {
-                    settingbtn.setClickable(false);
-                    rotation.setRepeatCount(Animation.INFINITE);
-                    rotation.setRepeatCount(0);
-                    settingbtn.startAnimation(rotation_out);
-                    setting_layer.animate().translationX(orgPos1X).setDuration(Const.AnimDuration);
-                    final Handler handler = new Handler();
-                    setting_layer.setEnabled(false);
-                    menuEn = true;
-                    handler.postDelayed(new Runnable() {
-                        public void run() {
-                            settingbtn.setClickable(true);
-                        }
-                    }, Const.AnimDuration);
-
-
-                } else {
-                    closeMenu();
-
-                }
-
-
-            }
-        });
-
-
-    }
-
-    void closeMenu() {
-        if (menuEn) {
-            settingbtn.setChecked(false);
-            settingbtn.setClickable(false);
-            settingbtn.startAnimation(rotation);
-            setting_layer.animate().translationX(setting_layer.getWidth()).setDuration(Const.AnimDuration);
-//                    recyclerView.animate().translationX(orgPos1X).setDuration(dtime);
-//            dashboard_layer.animate().alpha(1).setDuration(Const.AnimDuration);
-//                    setting_layer.setVisibility(View.GONE);
-//                    recyclerView.setVisibility(View.VISIBLE);
-            final Handler handler = new Handler();
-            setting_layer.setEnabled(false);
-            menuEn = false;
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    settingbtn.setClickable(true);
-                }
-            }, Const.AnimDuration);
-        }
-
     }
 
     @Override

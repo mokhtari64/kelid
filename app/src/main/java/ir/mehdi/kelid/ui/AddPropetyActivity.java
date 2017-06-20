@@ -2,14 +2,12 @@ package ir.mehdi.kelid.ui;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.content.ClipData;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -18,7 +16,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -60,7 +57,6 @@ import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.UserConfig;
-import ir.mehdi.kelid.collage.ImageFilePath;
 import ir.mehdi.kelid.db.MySqliteOpenHelper;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
@@ -70,9 +66,7 @@ import ir.mehdi.kelid.service.ServiceDelegate;
 import ir.mehdi.kelid.service.VolleyService;
 import ir.mehdi.kelid.ui.fragment.ActivationCodeFragment;
 import ir.mehdi.kelid.ui.fragment.InfoCreateFragment;
-import ir.mehdi.kelid.ui.fragment.MapFragment;
 import ir.mehdi.kelid.ui.fragment.PropertyCreateFragment;
-import ir.mehdi.kelid.ui.fragment.TestFragment;
 import ir.mehdi.kelid.ui.fragment.UserPhoneFragment;
 import ir.mehdi.kelid.utils.FileUtils;
 import ir.mehdi.kelid.utils.Utils;
@@ -82,7 +76,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     public static Property property;
     SMSReceiver receiver;
 
-    Marker lastMarker;
+
     TextView nextTextView, cancelTextView;
     ImageView backImageView;
 
@@ -100,13 +94,15 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
     InfoCreateFragment infoCreateFragment;
     PropertyCreateFragment propertyCreateFragment;
-    TestFragment testFragment;
+//    TestFragment testFragment;
     UserPhoneFragment userPhoneFragment;
     ActivationCodeFragment activationCodeFragment;
 
     SweetAlertDialog progressDialog;
     int currentStep = 0;
 
+
+    Marker lastMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +127,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         mapFragment = new SupportMapFragment();
         propertyCreateFragment = new PropertyCreateFragment();
 
-//        propertyCreateFragment = new TestFragment();
+
         infoCreateFragment = new InfoCreateFragment();
 
         propertyCreateFragment.setActivity(this);
@@ -156,7 +152,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             public void onMapReady(GoogleMap googleMap) {
                 final GoogleMap mMap = googleMap;
 
-                // Add a marker in Sydney and move the camera
+
                 LatLng sydney = new LatLng(36.28765407836474, 59.61174532771111);
                 CameraUpdate center =
                         CameraUpdateFactory.newLatLng(sydney);
@@ -187,6 +183,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                     }
                 });
                 // Add a marker in Sydney and move the camera
+
 
 //                mMap.addMarker(new MarkerOptions().position(sydney).title(""));
 //                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
@@ -557,6 +554,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     @Override
     public void doneClicked() {
         if (currentStep == 0) {
+
             if(lastMarker==null)
             {
              Toast.makeText(this,"Please select location",Toast.LENGTH_LONG).show();
@@ -568,6 +566,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 ft.commit();
                 nextStep();
             }
+
         } else if (currentStep == 1) {
             if (propertyCreateFragment.isValid()) {
                 android.support.v4.app.FragmentManager fm = getSupportFragmentManager();

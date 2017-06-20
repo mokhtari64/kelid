@@ -40,6 +40,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -67,6 +68,7 @@ import ir.mehdi.kelid.arcmenulibrary.widget.ArcLayout;
 import ir.mehdi.kelid.arcmenulibrary.widget.FloatingActionButton;
 import ir.mehdi.kelid.arcmenulibrary.widget.ObservableScrollView;
 
+import ir.mehdi.kelid.utils.Utils;
 import java.util.ArrayList;
 
 /**
@@ -133,7 +135,7 @@ public class ArcMenu extends RelativeLayout {
     private ArcLayout mArcLayout;
     private FloatingActionButton fabMenu;
     private ImageView mIcon;
-    private FrameLayout layMenu;
+    private FrameLayout layMenu,maimPageLay;
     private ArcMenuDuration mDuration = ArcMenuDuration.LENGTH_SHORT;
     private int mChildSize;
     private int mToltalChildCount;
@@ -215,8 +217,10 @@ public class ArcMenu extends RelativeLayout {
         mArcLayout = (ArcLayout) findViewById(R.id.arcmenu_item_layout);
 
         layMenu = (FrameLayout) findViewById(R.id.layArcMenu);
+        maimPageLay = (FrameLayout) findViewById(R.id.mainPageLay);
         mIcon = (ImageView) findViewById(R.id.imgPlusIcon);
         fabMenu = (FloatingActionButton) findViewById(R.id.fabArcMenu);
+
 
         fabMenu.setOnClickListener(new OnClickListener() {
             @Override
@@ -234,6 +238,11 @@ public class ArcMenu extends RelativeLayout {
                         } else if (isDoubleIconSet && !isOneIconSet) {
                             fabMenu.setIcon(iconClose, true);
                         }
+                        RelativeLayout parent = (RelativeLayout) getParent();
+                        Utils.change_color(parent.findViewById(R.id.mainPageLay),getResources().getColor(R.color.my_transparent2), getResources().getColor(R.color.transparent));
+//                        parent.setBackgroundColor(Color.TRANSPARENT);
+
+
                     } else {
                         isMenuClicked = true;
                         if (!isDoubleIconSet && !isOneIconSet) {
@@ -241,6 +250,10 @@ public class ArcMenu extends RelativeLayout {
                         } else if (isDoubleIconSet && !isOneIconSet) {
                             fabMenu.setIcon(iconOpen, true);
                         }
+                        RelativeLayout parent = (RelativeLayout) getParent();
+                        Utils.change_color(parent.findViewById(R.id.mainPageLay),getResources().getColor(R.color.transparent), getResources().getColor(R.color.my_transparent2));
+//                        parent.setBackgroundColor(Color.RED);
+//                        setBackgroundColor(Color.GRAY);
                     }
                 }
                 if (mArcLayout.isAnimDone()) {
