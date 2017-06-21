@@ -86,9 +86,6 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     GridView gridView;
     PhotoAdapter phtoAdapter ;
 
-//    Button addPhoto;
-
-//    LinearLayout photoLayout;
 
 
     View mainView;
@@ -98,7 +95,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
 
     Vector<RadioButton> imageRadioButtons = new Vector<>();
 
-//    int node_id = -1;
+
 
     public void setActivity(AddPropetyActivity activity) {
         this.activity = activity;
@@ -215,6 +212,14 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         }
         return mainView;
     }
+    CompoundButton.OnCheckedChangeListener featureListner=new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            Integer tag = (Integer) buttonView.getTag();
+
+
+        }
+    };
 
     private void initFeatures() {
         Vector<PropertyDetail> pDetail = DBAdapter.getInstance().allNodes.get(1113100).pDetail;
@@ -226,6 +231,8 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             aaa.setTextOn(a.name);
             aaa.setBackgroundResource(R.drawable.my_toggle_background);
             aaa.setLayoutParams(params);
+            aaa.setTag(a.id);
+            aaa.setOnCheckedChangeListener(featureListner);
             properyLayout.addView(aaa);
         }
     }

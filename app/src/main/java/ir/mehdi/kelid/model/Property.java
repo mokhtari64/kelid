@@ -42,9 +42,6 @@ public class Property
     public int send_region, send_city, send_nodeid;
 
 
-    public int order = 0;
-    public Date loadedDate;
-//    public Vector<Payment> payments = new Vector<>();
 
     public int getImageCount() {
         int cnt = 0;
