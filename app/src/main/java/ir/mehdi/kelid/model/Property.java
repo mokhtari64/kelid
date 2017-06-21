@@ -27,8 +27,11 @@ import static ir.mehdi.kelid.Constant.DRAFT_STATUS;
  */
 public class Property
         implements Constant, Comparable<Property>, Serializable {
+    public Vector<PropertyDetail> details=new Vector<>();
     public String name, title, desc, email, avenue, street, address, tel, mobile, telegram;
-    public int totalTabaghe, totalVahed, vahed, tabaghe, hashieh, rooms, tarakom, metraj, zirBana, arseZamin, omrSakhteman, samayeshi, garmayeshi, kaf, divar, nama, cabinet, ab, gaz, bargh, region, city, nodeid;
+    public int totalTabaghe, totalVahed, vahed, tabaghe, hashieh,
+            rooms, tarakom, metraj, zirBana, arseZamin, omrSakhteman, samayeshi,
+            garmayeshi, kaf, divar, nama, cabinet, ab, gaz, bargh, region, city, nodeid;
 
 
     public String send_avenue, send_street;

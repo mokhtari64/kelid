@@ -78,14 +78,13 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     ToggleButton moket, parket, seramik, sang, mozaeik, siman, rang_plastik, rang_roghan, kaghazdivari;
     ToggleButton chob, divarkob, rang_hajim, divar_sang, divar_sofal, divar_kompozit, divar_chob, divar_shishe, divar_siman, divar_seramik, divar_geranit;
     ToggleButton kabinet_felezi, kabinet_mdf, kabinet_chob, kabinet_melamine, kabinet_higlas;
-    ToggleButton asansor, parking, anbari, service_farangi, gachbori, rangkari, jakozi, iphone_tasviri, darb_barghi, panjere_dojedare, upvc, komod_divari, security_system;
-    ToggleButton system_bargh_hoshmand, system_etfa_harigh, system_alarm_gaz, havasaz, estakhr, labi, seraydari, faza_sabz, manba_ab, pomp_ab, bargh_ezterari, hood;
-    ToggleButton norpardazi_dakheli, norpardazi_nama, van, hamam_master, sona, alachigh, darb_zed_serghat, pele_ezterari,
-            system_alarm_atashsozi, jaro_markazi, balkon, kaf_seramik, mdf;
+   // ToggleButton asansor, parking, anbari, service_farangi, gachbori, rangkari, jakozi, iphone_tasviri, darb_barghi, panjere_dojedare, upvc, komod_divari, security_system;
+   // ToggleButton system_bargh_hoshmand, system_etfa_harigh, system_alarm_gaz, havasaz, estakhr, labi, seraydari, faza_sabz, manba_ab, pomp_ab, bargh_ezterari, hood;
+    //ToggleButton norpardazi_dakheli, norpardazi_nama, van, hamam_master, sona, alachigh, darb_zed_serghat, pele_ezterari,
+      //      system_alarm_atashsozi, jaro_markazi, balkon, kaf_seramik, mdf;
     LinearLayout properyLayout;
     GridView gridView;
-    PhotoAdapter phtoAdapter ;
-
+    PhotoAdapter phtoAdapter;
 
 
     View mainView;
@@ -94,7 +93,6 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     AddPropetyActivity activity;
 
     Vector<RadioButton> imageRadioButtons = new Vector<>();
-
 
 
     public void setActivity(AddPropetyActivity activity) {
@@ -155,52 +153,51 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             kabinet_chob = (ToggleButton) mainView.findViewById(R.id.kabinet_chob);
             kabinet_melamine = (ToggleButton) mainView.findViewById(R.id.kabinet_melamine);
             kabinet_higlas = (ToggleButton) mainView.findViewById(R.id.kabinet_higlas);
-            asansor = (ToggleButton) mainView.findViewById(R.id.asansor);
-            parking = (ToggleButton) mainView.findViewById(R.id.parking);
-            anbari = (ToggleButton) mainView.findViewById(R.id.anbari);
-            service_farangi = (ToggleButton) mainView.findViewById(R.id.service_farangi);
-            gachbori = (ToggleButton) mainView.findViewById(R.id.gachbori);
-            rangkari = (ToggleButton) mainView.findViewById(R.id.rangkari);
-            jakozi = (ToggleButton) mainView.findViewById(R.id.jakozi);
-            iphone_tasviri = (ToggleButton) mainView.findViewById(R.id.iphone_tasviri);
-            darb_barghi = (ToggleButton) mainView.findViewById(R.id.darb_barghi);
-            panjere_dojedare = (ToggleButton) mainView.findViewById(R.id.panjere_dojedare);
-            upvc = (ToggleButton) mainView.findViewById(R.id.upvc);
-            komod_divari = (ToggleButton) mainView.findViewById(R.id.komod_divari);
-            security_system = (ToggleButton) mainView.findViewById(R.id.security_system);
-            system_bargh_hoshmand = (ToggleButton) mainView.findViewById(R.id.system_bargh_hoshmand);
-            system_etfa_harigh = (ToggleButton) mainView.findViewById(R.id.system_etfa_harigh);
-            system_alarm_gaz = (ToggleButton) mainView.findViewById(R.id.system_alarm_gaz);
-            havasaz = (ToggleButton) mainView.findViewById(R.id.havasaz);
-            estakhr = (ToggleButton) mainView.findViewById(R.id.estakhr);
-            labi = (ToggleButton) mainView.findViewById(R.id.labi);
-            seraydari = (ToggleButton) mainView.findViewById(R.id.seraydari);
-            faza_sabz = (ToggleButton) mainView.findViewById(R.id.faza_sabz);
-            manba_ab = (ToggleButton) mainView.findViewById(R.id.manba_ab);
-            pomp_ab = (ToggleButton) mainView.findViewById(R.id.pomp_ab);
-            bargh_ezterari = (ToggleButton) mainView.findViewById(R.id.bargh_ezterari);
-            hood = (ToggleButton) mainView.findViewById(R.id.hood);
-            norpardazi_dakheli = (ToggleButton) mainView.findViewById(R.id.norpardazi_dakheli);
-            norpardazi_nama = (ToggleButton) mainView.findViewById(R.id.norpardazi_nama);
-            van = (ToggleButton) mainView.findViewById(R.id.van);
-            hamam_master = (ToggleButton) mainView.findViewById(R.id.hamam_master);
-            sona = (ToggleButton) mainView.findViewById(R.id.sona);
-            alachigh = (ToggleButton) mainView.findViewById(R.id.alachigh);
-            darb_zed_serghat = (ToggleButton) mainView.findViewById(R.id.darb_zed_serghat);
-            pele_ezterari = (ToggleButton) mainView.findViewById(R.id.pele_ezterari);
-            system_alarm_atashsozi = (ToggleButton) mainView.findViewById(R.id.system_alarm_atashsozi);
-            jaro_markazi = (ToggleButton) mainView.findViewById(R.id.jaro_markazi);
-            balkon = (ToggleButton) mainView.findViewById(R.id.balkon);
-            kaf_seramik = (ToggleButton) mainView.findViewById(R.id.kaf_seramik);
-            mdf = (ToggleButton) mainView.findViewById(R.id.mdf);
+            //asansor = (ToggleButton) mainView.findViewById(R.id.asansor);
+            //parking = (ToggleButton) mainView.findViewById(R.id.parking);
+            //anbari = (ToggleButton) mainView.findViewById(R.id.anbari);
+            //service_farangi = (ToggleButton) mainView.findViewById(R.id.service_farangi);
+            //gachbori = (ToggleButton) mainView.findViewById(R.id.gachbori);
+            //rangkari = (ToggleButton) mainView.findViewById(R.id.rangkari);
+            //jakozi = (ToggleButton) mainView.findViewById(R.id.jakozi);
+            //iphone_tasviri = (ToggleButton) mainView.findViewById(R.id.iphone_tasviri);
+            //darb_barghi = (ToggleButton) mainView.findViewById(R.id.darb_barghi);
+            //panjere_dojedare = (ToggleButton) mainView.findViewById(R.id.panjere_dojedare);
+            //upvc = (ToggleButton) mainView.findViewById(R.id.upvc);
+            //komod_divari = (ToggleButton) mainView.findViewById(R.id.komod_divari);
+            //security_system = (ToggleButton) mainView.findViewById(R.id.security_system);
+            //system_bargh_hoshmand = (ToggleButton) mainView.findViewById(R.id.system_bargh_hoshmand);
+            //system_etfa_harigh = (ToggleButton) mainView.findViewById(R.id.system_etfa_harigh);
+            //system_alarm_gaz = (ToggleButton) mainView.findViewById(R.id.system_alarm_gaz);
+            //havasaz = (ToggleButton) mainView.findViewById(R.id.havasaz);
+            //estakhr = (ToggleButton) mainView.findViewById(R.id.estakhr);
+            //labi = (ToggleButton) mainView.findViewById(R.id.labi);
+            //seraydari = (ToggleButton) mainView.findViewById(R.id.seraydari);
+            //faza_sabz = (ToggleButton) mainView.findViewById(R.id.faza_sabz);
+            //manba_ab = (ToggleButton) mainView.findViewById(R.id.manba_ab);
+            //pomp_ab = (ToggleButton) mainView.findViewById(R.id.pomp_ab);
+            //bargh_ezterari = (ToggleButton) mainView.findViewById(R.id.bargh_ezterari);
+            //hood = (ToggleButton) mainView.findViewById(R.id.hood);
+            //norpardazi_dakheli = (ToggleButton) mainView.findViewById(R.id.norpardazi_dakheli);
+            //norpardazi_nama = (ToggleButton) mainView.findViewById(R.id.norpardazi_nama);
+            //van = (ToggleButton) mainView.findViewById(R.id.van);
+            //hamam_master = (ToggleButton) mainView.findViewById(R.id.hamam_master);
+            //sona = (ToggleButton) mainView.findViewById(R.id.sona);
+            //alachigh = (ToggleButton) mainView.findViewById(R.id.alachigh);
+            //darb_zed_serghat = (ToggleButton) mainView.findViewById(R.id.darb_zed_serghat);
+            //pele_ezterari = (ToggleButton) mainView.findViewById(R.id.pele_ezterari);
+            //system_alarm_atashsozi = (ToggleButton) mainView.findViewById(R.id.system_alarm_atashsozi);
+            //jaro_markazi = (ToggleButton) mainView.findViewById(R.id.jaro_markazi);
+            //balkon = (ToggleButton) mainView.findViewById(R.id.balkon);
+            //kaf_seramik = (ToggleButton) mainView.findViewById(R.id.kaf_seramik);
+            //mdf = (ToggleButton) mainView.findViewById(R.id.mdf);
             gridView = (GridView) mainView.findViewById(R.id.photo_grid);
             phtoAdapter = new PhotoAdapter();
             gridView.setAdapter(phtoAdapter);
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if(position==0)
-                    {
+                    if (position == 0) {
                         ((AddPropetyActivity) getActivity()).showImageDIalog();
                     }
                 }
@@ -212,14 +209,28 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         }
         return mainView;
     }
-    CompoundButton.OnCheckedChangeListener featureListner=new CompoundButton.OnCheckedChangeListener() {
+
+    CompoundButton.OnCheckedChangeListener featureListner = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             Integer tag = (Integer) buttonView.getTag();
+            PropertyDetail propertyDetail = DBAdapter.getInstance().allProperty.get(tag);
+            if (isChecked) {
+                if (!AddPropetyActivity.property.details.contains(propertyDetail)) {
+                    AddPropetyActivity.property.details.add(propertyDetail);
+                }
+            } else {
+                AddPropetyActivity.property.details.remove(propertyDetail);
+            }
 
 
         }
     };
+
+    public void getPropertyFromField()
+    {
+
+    }
 
     private void initFeatures() {
         Vector<PropertyDetail> pDetail = DBAdapter.getInstance().allNodes.get(1113100).pDetail;
@@ -246,7 +257,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         // 2
         @Override
         public int getCount() {
-            return AddPropetyActivity.property.images.size()+1;
+            return AddPropetyActivity.property.images.size() + 1;
         }
 
         // 3
@@ -265,10 +276,10 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                if(position>0) {
+                if (position > 0) {
                     Property.Image image = AddPropetyActivity.property.images.get(position + 1);
                     final View view = layoutInflater.inflate(R.layout.collage_image_item, null);
-                    convertView=view;
+                    convertView = view;
                     ImageView imageView = (ImageView) view.findViewById(R.id.imageView5);
                     ImageView failedImage = (ImageView) view.findViewById(R.id.failed);
                     ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress);
@@ -282,11 +293,10 @@ public class PropertyCreateFragment extends Fragment implements Constant {
                     imageView.setImageBitmap(bitmapsimplesize);
                     if (AddPropetyActivity.property.remote_id != 0 || AddPropetyActivity.property.images.size() == 1)
                         VolleyService.getInstance().sendPhoto(AddPropetyActivity.property, image);
-                }else
-                {
-                    Button add=new Button(activity);
+                } else {
+                    Button add = new Button(activity);
                     add.setText("+");
-                    convertView=add;
+                    convertView = add;
                     convertView.setOnClickListener(new AddPropetyActivity());
                 }
 
@@ -299,7 +309,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     public void addImage(final Bitmap bitmapOriginal, File file, String orginal) {
         if (bitmapOriginal != null) {
             Property.Image image = new Property.Image();
-            image.bitmap=bitmapOriginal;
+            image.bitmap = bitmapOriginal;
 
             image.orginalPath = orginal;
             image.localname = file.getAbsolutePath();
@@ -309,7 +319,6 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             }
             AddPropetyActivity.property.images.add(image);
             phtoAdapter.notifyDataSetChanged();
-
 
 
         }

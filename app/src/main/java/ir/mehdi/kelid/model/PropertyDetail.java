@@ -7,4 +7,9 @@ public class PropertyDetail {
     public int id , tag ;
     public String name;
     public boolean selected;
+
+    @Override
+    public boolean equals(Object obj) {
+        return id==((PropertyDetail)obj).id;
+    }
 }
