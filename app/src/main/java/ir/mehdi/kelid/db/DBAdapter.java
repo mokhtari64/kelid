@@ -476,6 +476,7 @@ public class DBAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        loadProperty();
 //        close();
     }
 

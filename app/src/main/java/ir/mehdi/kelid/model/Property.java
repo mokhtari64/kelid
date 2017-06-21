@@ -1,5 +1,6 @@
 package ir.mehdi.kelid.model;
 
+import android.graphics.Bitmap;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
@@ -336,6 +337,7 @@ public class Property
         public ProgressBar uploadProgressBar;
         public View mainView;
         public ImageView failedImageView;
+        public Bitmap bitmap;
 
 
         @Override

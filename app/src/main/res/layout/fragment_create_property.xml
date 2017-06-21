@@ -12,23 +12,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="100dp">
-            <LinearLayout
-                android:gravity="right"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="100dp" android:id="@+id/photo_layout">
-                <Button
-                    android:text="+"
-                    android:id="@+id/addphoto"
-                    android:textSize="10sp"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
+        <!--<HorizontalScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="100dp">-->
+            <!--<LinearLayout-->
+                <!--android:gravity="right"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp" android:id="@+id/photo_layout">-->
+                <!--<Button-->
+                    <!--android:text="+"-->
+                    <!--android:id="@+id/addphoto"-->
+                    <!--android:textSize="10sp"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="100dp" />-->
 
-            </LinearLayout>
-        </HorizontalScrollView>
+            <!--</LinearLayout>-->
+        <!--</HorizontalScrollView>-->
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="3"
+            android:id="@+id/photo_grid"
+            android:stretchMode="columnWidth"
+            ></GridView>
 
 
         <include
@@ -72,13 +79,18 @@
         <Space
             android:layout_width="20px"
             android:layout_height="20px" />
-
-        <include
-            layout="@layout/extention"
-            android:layout_width="match_parent"
+        <LinearLayout android:id="@+id/proprty_layout"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp" />
+            android:layout_marginRight="3dp"></LinearLayout>
+        <!--<include-->
+            <!--layout="@layout/extention"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="3dp"-->
+            <!--android:layout_marginRight="3dp" />-->
 
         <Space
             android:layout_width="20px"

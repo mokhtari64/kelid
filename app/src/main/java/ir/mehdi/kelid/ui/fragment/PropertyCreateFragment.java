@@ -2,6 +2,7 @@ package ir.mehdi.kelid.ui.fragment;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,10 +32,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -57,6 +60,7 @@ import ir.mehdi.kelid.db.MySqliteOpenHelper;
 import ir.mehdi.kelid.model.City;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
+import ir.mehdi.kelid.model.PropertyDetail;
 import ir.mehdi.kelid.model.Region;
 import ir.mehdi.kelid.service.VolleyService;
 import ir.mehdi.kelid.ui.AddPropetyActivity;
@@ -78,28 +82,21 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     ToggleButton system_bargh_hoshmand, system_etfa_harigh, system_alarm_gaz, havasaz, estakhr, labi, seraydari, faza_sabz, manba_ab, pomp_ab, bargh_ezterari, hood;
     ToggleButton norpardazi_dakheli, norpardazi_nama, van, hamam_master, sona, alachigh, darb_zed_serghat, pele_ezterari,
             system_alarm_atashsozi, jaro_markazi, balkon, kaf_seramik, mdf;
-    Button addPhoto;
+    LinearLayout properyLayout;
+    GridView gridView;
+    PhotoAdapter phtoAdapter ;
 
-    LinearLayout photoLayout;
+//    Button addPhoto;
 
-//    int selectedIdtedId = radioGroup.getCheckedRadioButtonId();
-//
-
-//    radioButton = (RadioButton) findViewById(selectedId);
+//    LinearLayout photoLayout;
 
 
     View mainView;
-    Animation slideUp2Down;
-    View telegram_lable;
-
-    LinearLayout expandableLinearLayout;
     Property property;
     LayoutInflater layoutInflater;
     AddPropetyActivity activity;
 
     Vector<RadioButton> imageRadioButtons = new Vector<>();
-    LinearLayout imagesLayout;
-    View horizentalImage;
 
 //    int node_id = -1;
 
@@ -199,76 +196,113 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             balkon = (ToggleButton) mainView.findViewById(R.id.balkon);
             kaf_seramik = (ToggleButton) mainView.findViewById(R.id.kaf_seramik);
             mdf = (ToggleButton) mainView.findViewById(R.id.mdf);
-            addPhoto = (Button) mainView.findViewById(R.id.addphoto);
-
-            photoLayout = (LinearLayout) mainView.findViewById(R.id.photo_layout);
-            addPhoto.setOnClickListener(new View.OnClickListener() {
+            gridView = (GridView) mainView.findViewById(R.id.photo_grid);
+            phtoAdapter = new PhotoAdapter();
+            gridView.setAdapter(phtoAdapter);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onClick(View view) {
-                    ((AddPropetyActivity) getActivity()).showImageDIalog();
-
-//                    View dialogView = layoutInflater.inflate(R.layout.dialog_photo_select, null);
-//
-//                    AlertDialog.Builder builder =
-//                            new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle);
-//                    builder.setTitle(R.string.select_photo);
-//                    builder.setView(dialogView);
-//                    dialogView.findViewById(R.id.from_gallery).setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//
-//                        }
-//                    });
-//                    dialogView.findViewById(R.id.camera).setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//
-//                        }
-//                    });
-//
-//
-//                    builder.show();
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if(position==0)
+                    {
+                        ((AddPropetyActivity) getActivity()).showImageDIalog();
+                    }
                 }
             });
+            properyLayout = (LinearLayout) mainView.findViewById(R.id.proprty_layout);
+            initFeatures();
+
 
         }
         return mainView;
     }
 
+    private void initFeatures() {
+        Vector<PropertyDetail> pDetail = DBAdapter.getInstance().allNodes.get(1113100).pDetail;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        for (PropertyDetail a : pDetail) {
+            ToggleButton aaa = new ToggleButton(getActivity());
+            aaa.setText(a.name);
+            aaa.setTextOff(a.name);
+            aaa.setTextOn(a.name);
+            aaa.setBackgroundResource(R.drawable.my_toggle_background);
+            aaa.setLayoutParams(params);
+            properyLayout.addView(aaa);
+        }
+    }
+
+    class PhotoAdapter extends BaseAdapter {
+
+
+        // 1
+
+
+        // 2
+        @Override
+        public int getCount() {
+            return AddPropetyActivity.property.images.size()+1;
+        }
+
+        // 3
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        // 4
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        // 5
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                if(position>0) {
+                    Property.Image image = AddPropetyActivity.property.images.get(position + 1);
+                    final View view = layoutInflater.inflate(R.layout.collage_image_item, null);
+                    convertView=view;
+                    ImageView imageView = (ImageView) view.findViewById(R.id.imageView5);
+                    ImageView failedImage = (ImageView) view.findViewById(R.id.failed);
+                    ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress);
+                    image.uploadProgressBar = progressBar;
+                    image.uploadProgressBar.setVisibility(View.VISIBLE);
+                    image.failedImageView = failedImage;
+                    image.failedImageView.setVisibility(View.INVISIBLE);
+                    image.localImageFile = new File(image.localname);
+                    Bitmap bitmapsimplesize = Bitmap.createScaledBitmap(image.bitmap, (int) getResources().getDimension(R.dimen.advers_image_size), (int) getResources().getDimension(R.dimen.advers_image_size), true);
+                    image.bitmap.recycle();
+                    imageView.setImageBitmap(bitmapsimplesize);
+                    if (AddPropetyActivity.property.remote_id != 0 || AddPropetyActivity.property.images.size() == 1)
+                        VolleyService.getInstance().sendPhoto(AddPropetyActivity.property, image);
+                }else
+                {
+                    Button add=new Button(activity);
+                    add.setText("+");
+                    convertView=add;
+                    convertView.setOnClickListener(new AddPropetyActivity());
+                }
+
+            }
+            return convertView;
+        }
+
+    }
 
     public void addImage(final Bitmap bitmapOriginal, File file, String orginal) {
         if (bitmapOriginal != null) {
-//            Bitmap bitmapOriginal = BitmapFactory.decodeFile(image);
-            if (bitmapOriginal == null) {
-                return;
-            }
             Property.Image image = new Property.Image();
+            image.bitmap=bitmapOriginal;
 
-            image.orginalPath=orginal;
+            image.orginalPath = orginal;
             image.localname = file.getAbsolutePath();
             if (AddPropetyActivity.property.images.contains(image)) {
                 Toast.makeText(getActivity(), "Duplcation Image File", Toast.LENGTH_LONG).show();
                 return;
             }
             AddPropetyActivity.property.images.add(image);
-            final View view = layoutInflater.inflate(R.layout.collage_image_item, null);
-            ImageView imageView = (ImageView) view.findViewById(R.id.imageView5);
-            ImageView failedImage = (ImageView) view.findViewById(R.id.failed);
-            ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress);
-            image.uploadProgressBar = progressBar;
-            image.uploadProgressBar.setVisibility(View.VISIBLE);
-            image.failedImageView = failedImage;
-            image.failedImageView.setVisibility(View.INVISIBLE);
-            image.localImageFile = file;
+            phtoAdapter.notifyDataSetChanged();
 
-
-            Bitmap bitmapsimplesize = Bitmap.createScaledBitmap(bitmapOriginal, (int) getResources().getDimension(R.dimen.advers_image_size), (int) getResources().getDimension(R.dimen.advers_image_size), true);
-            bitmapOriginal.recycle();
-            imageView.setImageBitmap(bitmapsimplesize);
-
-            photoLayout.addView(view, Utils.dpToPx(getActivity(), 100), Utils.dpToPx(getActivity(), 100));
-            if (AddPropetyActivity.property.remote_id != 0 || AddPropetyActivity.property.images.size() == 1)
-                VolleyService.getInstance().sendPhoto(AddPropetyActivity.property, image);
 
 
         }
