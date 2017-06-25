@@ -37,7 +37,7 @@ public class CardItemListAdapter extends RecyclerView.Adapter<CardItemListAdapte
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_item_layout, parent, false);
 
-//        view.setOnClickListener(MainActivity.myOnClickListener);
+//        view.setOnClickListener(Main2.myOnClickListener);
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;

@@ -678,7 +678,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                     String orginalPath = imagesPath[i];
                     Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(imagesPath[i]), imagesPath[i]));
 //                    Bitmap yourbitmap = BitmapFactory.decodeFile(imagesPath[i]);
-                    File jpg = FileUtils.getInstance().createTempFile("IMG_" + System.currentTimeMillis(), "jpg");
+                    File jpg = FileUtils.getInstance().createTempFile("IMG_" + System.currentTimeMillis(), ".jpg");
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(jpg));
                     bitmap.recycle();
                     bitmap = BitmapFactory.decodeFile(orginalPath);
@@ -686,6 +686,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                         propertyCreateFragment.addImage(bitmap, jpg, orginalPath);
 
                 }
+                System.out.println(imagesPathList.size());
 //                String orginalPath = null;
 //                String[] filePathColumn = {MediaStore.Images.Media.DATA};
 //                ArrayList imagesEncodedList = new ArrayList<String>();
@@ -843,7 +844,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 //            try {
 //                Uri selectedImage = data.getData();
 //                orginalPath = ImageFilePath.getPath(getApplicationContext(), selectedImage);
-//                Intent cameraIntent = new Intent(this, MainActivity.class);
+//                Intent cameraIntent = new Intent(this, Main2.class);
 //                cameraIntent.putExtra("fix_Rate", true);
 //                Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(orginalPath), orginalPath));
 //                if (!FileUtils.getInstance().existInDefaultFoder(orginalPath)) {
@@ -860,9 +861,9 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 ////                    e.printStackTrace();
 ////                }
 //
-//               MainActivity.bitmap = bitmap;
+//               Main2.bitmap = bitmap;
 //
-//                if (MainActivity.bitmap != null) {
+//                if (Main2.bitmap != null) {
 //                    forceNotSave = true;
 //                    startActivityForResult(cameraIntent, CROP_IMAGE);
 //                } else {
@@ -900,7 +901,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 //
 //                bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
 //                bitmap.recycle();
-//                MainActivity.bitmap = BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
+//                Main2.bitmap = BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
 ////                try{
 ////                    new File(absolutePath).delete();
 ////                }catch (Exception e)
@@ -908,10 +909,10 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 ////                    e.printStackTrace();
 ////                }
 //                String aaa = mImagePath.getAbsolutePath();
-//                MainActivity.bitmap = Utils.modifyOrientation(BitmapFactory.decodeFile(aaa), aaa);//BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
+//                Main2.bitmap = Utils.modifyOrientation(BitmapFactory.decodeFile(aaa), aaa);//BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
 //
 //                forceNotSave = true;
-//                Intent cameraIntent = new Intent(this, MainActivity.class);
+//                Intent cameraIntent = new Intent(this, Main2.class);
 //                cameraIntent.putExtra("fix_Rate", true);
 //                startActivityForResult(cameraIntent, CROP_IMAGE);
 //            } catch (Exception e) {

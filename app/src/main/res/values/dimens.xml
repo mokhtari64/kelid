@@ -117,7 +117,6 @@
     <dimen name="mdtp_material_button_textpadding_horizontal">8dp</dimen>
 
 
-
     <dimen name="menu_child_size">42dp</dimen>
     <dimen name="menu_shadow_elevation">2dp</dimen>
     <dimen name="menu_shadow_border">0dp</dimen>

@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -13,20 +12,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
 
-import ir.mehdi.kelid.Const;
 import ir.mehdi.kelid.Constant;
-import ir.mehdi.kelid.MainActivity;
+import ir.mehdi.kelid.Main2;
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.arcmenulibrary.ArcMenu;
 
@@ -50,7 +43,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
 
 
     ArcMenu arcMenu;
-    MainActivity activity;
+    Main2 activity;
     private OnOptionMainMenuListner mOnOtpionOptionMainMenuListner;
     private OnMainMenuListner mOnMainMenuListner;
     Fragment fragment;
@@ -85,7 +78,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
 
     public TranslateLayout(Context context) {
         super(context);
-        activity = (MainActivity) context;
+        activity = (Main2) context;
 
         init();
     }

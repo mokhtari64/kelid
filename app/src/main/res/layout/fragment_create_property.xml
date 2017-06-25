@@ -30,6 +30,8 @@
             <!--</LinearLayout>-->
         <!--</HorizontalScrollView>-->
         <GridView
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:numColumns="3"

@@ -1,26 +1,17 @@
 package ir.mehdi.kelid.ui.fragment;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,9 +20,8 @@ import android.widget.TextView;
 
 import ir.mehdi.kelid.Const;
 import ir.mehdi.kelid.Constant;
-import ir.mehdi.kelid.MainActivity;
+import ir.mehdi.kelid.Main2;
 import ir.mehdi.kelid.R;
-import ir.mehdi.kelid.arcmenulibrary.util.Util;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.ui.CardItemListAdapter;
 import ir.mehdi.kelid.utils.Utils;
@@ -53,7 +43,7 @@ public class ListItemFragment extends Fragment implements Constant {
     boolean childeVisible = true;
     View childe;
 
-    MainActivity activity;
+    Main2 activity;
     View mainContent;
     TextView nodePath;
     LinearLayout nodeChilde;
@@ -164,7 +154,7 @@ public class ListItemFragment extends Fragment implements Constant {
     }
 
 
-    public void setActivity(MainActivity activity) {
+    public void setActivity(Main2 activity) {
         this.activity = activity;
     }
 

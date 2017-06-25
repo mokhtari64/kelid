@@ -247,7 +247,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             properyLayout.addView(aaa);
         }
     }
-
+    Button add;
     class PhotoAdapter extends BaseAdapter {
 
 
@@ -263,7 +263,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         // 3
         @Override
         public long getItemId(int position) {
-            return 0;
+            return AddPropetyActivity.property.images.size() + 1;
         }
 
         // 4
@@ -275,32 +275,37 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         // 5
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                if (position > 0) {
-                    Property.Image image = AddPropetyActivity.property.images.get(position + 1);
-                    final View view = layoutInflater.inflate(R.layout.collage_image_item, null);
-                    convertView = view;
-                    ImageView imageView = (ImageView) view.findViewById(R.id.imageView5);
-                    ImageView failedImage = (ImageView) view.findViewById(R.id.failed);
-                    ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress);
-                    image.uploadProgressBar = progressBar;
-                    image.uploadProgressBar.setVisibility(View.VISIBLE);
-                    image.failedImageView = failedImage;
-                    image.failedImageView.setVisibility(View.INVISIBLE);
-                    image.localImageFile = new File(image.localname);
-                    Bitmap bitmapsimplesize = Bitmap.createScaledBitmap(image.bitmap, (int) getResources().getDimension(R.dimen.advers_image_size), (int) getResources().getDimension(R.dimen.advers_image_size), true);
-                    image.bitmap.recycle();
-                    imageView.setImageBitmap(bitmapsimplesize);
-                    if (AddPropetyActivity.property.remote_id != 0 || AddPropetyActivity.property.images.size() == 1)
-                        VolleyService.getInstance().sendPhoto(AddPropetyActivity.property, image);
-                } else {
-                    Button add = new Button(activity);
-                    add.setText("+");
-                    convertView = add;
-                    convertView.setOnClickListener(new AddPropetyActivity());
-                }
-
+            if(add==null)
+            {
+                add = new Button(activity);
+                add.setText("+");
+                convertView = add;
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((AddPropetyActivity) getActivity()).showImageDIalog();
+                    }
+                });
+            }else if(convertView==null)
+            {
+                Property.Image image = AddPropetyActivity.property.images.get(position );
+                final View view = layoutInflater.inflate(R.layout.collage_image_item, null);
+                convertView = view;
+                ImageView imageView = (ImageView) view.findViewById(R.id.imageView5);
+                ImageView failedImage = (ImageView) view.findViewById(R.id.failed);
+                ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress);
+                image.uploadProgressBar = progressBar;
+                image.uploadProgressBar.setVisibility(View.VISIBLE);
+                image.failedImageView = failedImage;
+                image.failedImageView.setVisibility(View.INVISIBLE);
+                image.localImageFile = new File(image.localname);
+                Bitmap bitmapsimplesize = Bitmap.createScaledBitmap(image.bitmap, (int) getResources().getDimension(R.dimen.advers_image_size), (int) getResources().getDimension(R.dimen.advers_image_size), true);
+                image.bitmap.recycle();
+                imageView.setImageBitmap(bitmapsimplesize);
+                if (AddPropetyActivity.property.remote_id != 0 || AddPropetyActivity.property.images.size() == 1)
+                    VolleyService.getInstance().sendPhoto(AddPropetyActivity.property, image);
             }
+
             return convertView;
         }
 
@@ -319,6 +324,9 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             }
             AddPropetyActivity.property.images.add(image);
             phtoAdapter.notifyDataSetChanged();
+            ViewGroup.LayoutParams layoutParams = gridView.getLayoutParams();
+            layoutParams.height=(((int)AddPropetyActivity.property.images.size()/3)+1)*Utils.dpToPx(getActivity(),100);
+            gridView.setLayoutParams(layoutParams);
 
 
         }

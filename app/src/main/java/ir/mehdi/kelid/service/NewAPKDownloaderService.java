@@ -56,7 +56,7 @@ public class NewAPKDownloaderService extends Service {
                 Intent intent3 = new Intent(Constant.FANOOS_NEW_APP_DOWNLOADED);
                 intent3.putExtra(Constant.FANOOS_NEW_DOWNLOADED_MSG, "sss");
                 instance.sendBroadcast(intent3);
-//                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+//                Intent intent1 = new Intent(getApplicationContext(), Main2.class);
 //                intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
 //                intent1.putExtra("EXIT", true);
 //                startActivity(intent1);
@@ -88,7 +88,7 @@ public class NewAPKDownloaderService extends Service {
                     intent3.putExtra(Constant.FANOOS_NEW_DOWNLOADED_MSG, "");
                     instance.sendBroadcast(intent3);
 
-//                    Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+//                    Intent intent1 = new Intent(getApplicationContext(), Main2.class);
 //                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
 //                    intent1.putExtra("EXIT", true);
 //                    startActivity(intent1);

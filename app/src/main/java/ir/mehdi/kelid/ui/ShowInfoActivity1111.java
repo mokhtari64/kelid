@@ -1020,7 +1020,7 @@
 //            nodePath.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
-//                    Intent a = new Intent(UserJobDetailActivity.this, MainActivity.class);
+//                    Intent a = new Intent(UserJobDetailActivity.this, Main2.class);
 //                    a.putExtra("node_id", userJob.nodeid);
 //                    startActivity(a);
 //                }

@@ -2,10 +2,9 @@ package ir.mehdi.kelid.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import ir.mehdi.kelid.MainActivity;
+import ir.mehdi.kelid.Main2;
 import ir.mehdi.kelid.R;
 
 
@@ -36,7 +35,7 @@ public class CityListActivity extends  KelidActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
-        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent myIntent = new Intent(getApplicationContext(), Main2.class);
         startActivity(myIntent);
         return true;
 

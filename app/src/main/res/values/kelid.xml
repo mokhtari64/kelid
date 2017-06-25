@@ -357,9 +357,9 @@
 
 
     <string name="title_activity_fanoos_main">FanoosMainActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
 
-    <string name="title_activity_main">DateTimePicker Example</string>
+
+
     <string name="selected_time">The time you picked will be shown here.</string>
     <string name="selected_date">The date you picked will be shown here.</string>
     <string name="pick_time">Pick Time</string>

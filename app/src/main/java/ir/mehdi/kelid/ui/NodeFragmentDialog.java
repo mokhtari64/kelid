@@ -15,36 +15,16 @@ import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Vector;
-
-import ir.mehdi.kelid.MainActivity;
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.db.DBAdapter;
 import ir.mehdi.kelid.model.Node;
 
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-
 
 
 /**

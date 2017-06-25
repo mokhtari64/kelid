@@ -103,7 +103,7 @@ public final class MainFragment extends Fragment
 //        options.autoZoomEnabled = mCropImageView.isAutoZoomEnabled();
 //        options.maxZoomLevel = mCropImageView.getMaxZoom();
 //        setCropImageViewOptions(options);
-////        ((MainActivity) getActivity()).setCurrentOptions(options);
+////        ((Main2) getActivity()).setCurrentOptions(options);
 //    }
 
 

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import ir.mehdi.kelid.MainActivity;
+import ir.mehdi.kelid.Main2;
 import ir.mehdi.kelid.R;
 
 /**
@@ -26,7 +26,7 @@ public class SplashActivity extends Activity {
             public void run() {
 //                if(UserConfig.city!=-1) {
 //
-                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                    Intent i = new Intent(SplashActivity.this, Main2.class);
                     startActivity(i);
                 finish();
 //                }else

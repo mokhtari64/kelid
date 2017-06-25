@@ -70,13 +70,9 @@
             android:name=".ui.CityActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Main2"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.ShowInfoActivity" />
         <activity android:name=".ui.AddTest" />
@@ -95,11 +91,23 @@
         <activity
             android:name=".ui.MapsActivityTest"
             android:label="@string/title_activity_maps_test">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".ui.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

@@ -51,7 +51,7 @@ import java.util.Vector;
 
 import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.KelidApplication;
-import ir.mehdi.kelid.MainActivity;
+import ir.mehdi.kelid.Main2;
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.UserConfig;
 import ir.mehdi.kelid.db.DBAdapter;
@@ -147,7 +147,7 @@ public class VolleyService extends Service implements Constant {
         int i = 0;
         for (Property property : jobs) {
             int id = (int) System.currentTimeMillis();
-            Intent intent = new Intent(KelidApplication.applicationContext, MainActivity.class);
+            Intent intent = new Intent(KelidApplication.applicationContext, Main2.class);
             intent.putExtra("local_id", property.local_id);
             intent.putExtra("notification_id", id);
             intent.setAction(Long.toString(id));

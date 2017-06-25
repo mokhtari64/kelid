@@ -838,7 +838,7 @@ public class AddOfficeActivity extends  KelidActivity// implements Constant, Ser
 //            try {
 //                Uri selectedImage = data.getData();
 //                orginalPath = ImageFilePath.getPath(getApplicationContext(), selectedImage);
-//                Intent cameraIntent = new Intent(this, app.fanoos.ir.fanoosapp.crop.sample.MainActivity.class);
+//                Intent cameraIntent = new Intent(this, app.fanoos.ir.fanoosapp.crop.sample.Main2.class);
 //                cameraIntent.putExtra("fix_Rate", true);
 //                Bitmap bitmap = Utils.resize(Utils.modifyOrientation(BitmapFactory.decodeFile(orginalPath), orginalPath));
 //                if (!FileUtils.getInstance().existInDefaultFoder(orginalPath)) {
@@ -855,9 +855,9 @@ public class AddOfficeActivity extends  KelidActivity// implements Constant, Ser
 ////                    e.printStackTrace();
 ////                }
 //
-//                app.fanoos.ir.fanoosapp.crop.sample.MainActivity.bitmap = bitmap;
+//                app.fanoos.ir.fanoosapp.crop.sample.Main2.bitmap = bitmap;
 //
-//                if (app.fanoos.ir.fanoosapp.crop.sample.MainActivity.bitmap != null) {
+//                if (app.fanoos.ir.fanoosapp.crop.sample.Main2.bitmap != null) {
 //                    forceNotSave = true;
 //                    startActivityForResult(cameraIntent, CROP_IMAGE);
 //                } else {
@@ -900,7 +900,7 @@ public class AddOfficeActivity extends  KelidActivity// implements Constant, Ser
 //
 //                bitmap.compress(Bitmap.CompressFormat.JPEG, 87, new FileOutputStream(orginalPath));
 //                bitmap.recycle();
-//                MainActivity.bitmap = BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
+//                Main2.bitmap = BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
 ////                try{
 ////                    new File(absolutePath).delete();
 ////                }catch (Exception e)
@@ -908,10 +908,10 @@ public class AddOfficeActivity extends  KelidActivity// implements Constant, Ser
 ////                    e.printStackTrace();
 ////                }
 //                String aaa = mImagePath.getAbsolutePath();
-//                app.fanoos.ir.fanoosapp.crop.sample.MainActivity.bitmap = Utils.modifyOrientation(BitmapFactory.decodeFile(aaa), aaa);//BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
+//                app.fanoos.ir.fanoosapp.crop.sample.Main2.bitmap = Utils.modifyOrientation(BitmapFactory.decodeFile(aaa), aaa);//BitmapFactory.decodeFile(mImagePath.getAbsolutePath());
 //
 //                forceNotSave = true;
-//                Intent cameraIntent = new Intent(this, app.fanoos.ir.fanoosapp.crop.sample.MainActivity.class);
+//                Intent cameraIntent = new Intent(this, app.fanoos.ir.fanoosapp.crop.sample.Main2.class);
 //                cameraIntent.putExtra("fix_Rate", true);
 //                startActivityForResult(cameraIntent, CROP_IMAGE);
 //            } catch (Exception e) {

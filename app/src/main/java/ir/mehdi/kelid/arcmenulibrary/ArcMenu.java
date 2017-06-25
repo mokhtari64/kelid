@@ -33,6 +33,7 @@ import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -69,6 +70,7 @@ import ir.mehdi.kelid.arcmenulibrary.widget.FloatingActionButton;
 import ir.mehdi.kelid.arcmenulibrary.widget.ObservableScrollView;
 
 import ir.mehdi.kelid.utils.Utils;
+
 import java.util.ArrayList;
 
 /**
@@ -134,8 +136,9 @@ public class ArcMenu extends RelativeLayout {
     private Context mContext;
     private ArcLayout mArcLayout;
     private FloatingActionButton fabMenu;
+    ViewGroup shadowLayer;
     private ImageView mIcon;
-    private FrameLayout layMenu,maimPageLay;
+    private FrameLayout layMenu, maimPageLay;
     private ArcMenuDuration mDuration = ArcMenuDuration.LENGTH_SHORT;
     private int mChildSize;
     private int mToltalChildCount;
@@ -225,42 +228,56 @@ public class ArcMenu extends RelativeLayout {
         fabMenu.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (menuAnim && mArcLayout.isAnimDone()) {
-                    if (clickListener != null) {
-                        clickListener.onClick(fabMenu);
+                if (shadowLayer == null) {
+                    shadowLayer = (ViewGroup) ((ViewGroup) getParent()).findViewById(R.id.mainPageLay);
+                }
+                shadowLayer.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        switchMenu();
                     }
-                    ViewAnim.shrinkExpandAnimation(fabMenu);
+                });
+                switchMenu();
+            }
+        });
+    }
 
-                    if (isMenuClicked) {
-                        isMenuClicked = false;
-                        if (!isDoubleIconSet && !isOneIconSet) {
-                            ViewAnim.rotateAnimation(mIcon, false);
-                        } else if (isDoubleIconSet && !isOneIconSet) {
-                            fabMenu.setIcon(iconClose, true);
-                        }
-                        RelativeLayout parent = (RelativeLayout) getParent();
-                        Utils.change_color(parent.findViewById(R.id.mainPageLay),getResources().getColor(R.color.my_transparent2), getResources().getColor(R.color.transparent));
+    void switchMenu() {
+        if (menuAnim && mArcLayout.isAnimDone()) {
+            if (clickListener != null) {
+                clickListener.onClick(fabMenu);
+            }
+            ViewAnim.shrinkExpandAnimation(fabMenu);
+
+            if (isMenuClicked) {
+                isMenuClicked = false;
+                if (!isDoubleIconSet && !isOneIconSet) {
+                    ViewAnim.rotateAnimation(mIcon, false);
+                } else if (isDoubleIconSet && !isOneIconSet) {
+                    fabMenu.setIcon(iconClose, true);
+                }
+
+                Utils.change_color(shadowLayer, getResources().getColor(R.color.my_transparent2), getResources().getColor(R.color.transparent));
+                shadowLayer.setVisibility(INVISIBLE);
 //                        parent.setBackgroundColor(Color.TRANSPARENT);
 
 
-                    } else {
-                        isMenuClicked = true;
-                        if (!isDoubleIconSet && !isOneIconSet) {
-                            ViewAnim.rotateAnimation(mIcon, true);
-                        } else if (isDoubleIconSet && !isOneIconSet) {
-                            fabMenu.setIcon(iconOpen, true);
-                        }
-                        RelativeLayout parent = (RelativeLayout) getParent();
-                        Utils.change_color(parent.findViewById(R.id.mainPageLay),getResources().getColor(R.color.transparent), getResources().getColor(R.color.my_transparent2));
+            } else {
+                isMenuClicked = true;
+                if (!isDoubleIconSet && !isOneIconSet) {
+                    ViewAnim.rotateAnimation(mIcon, true);
+                } else if (isDoubleIconSet && !isOneIconSet) {
+                    fabMenu.setIcon(iconOpen, true);
+                }
+                shadowLayer.setVisibility(VISIBLE);
+                Utils.change_color(shadowLayer, getResources().getColor(R.color.transparent), getResources().getColor(R.color.my_transparent2));
 //                        parent.setBackgroundColor(Color.RED);
 //                        setBackgroundColor(Color.GRAY);
-                    }
-                }
-                if (mArcLayout.isAnimDone()) {
-                    mArcLayout.switchState(true);
-                }
             }
-        });
+        }
+        if (mArcLayout.isAnimDone()) {
+            mArcLayout.switchState(true);
+        }
     }
 
     /**

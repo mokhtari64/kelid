@@ -348,7 +348,7 @@ public class Property
         @Override
         public boolean equals(Object obj) {
             Image a= (Image) obj;
-            return (orginalPath!=null && a.orginalPath!=null && a.orginalPath.equals(orginalPath)) || (a!=null && a.localname!=null && localname!=null && localname.equals(a.localname)) || a.remote_Id==remote_Id;
+            return (orginalPath!=null && a.orginalPath!=null && a.orginalPath.equals(orginalPath)) || (a!=null && a.localname!=null && localname!=null && localname.equals(a.localname)) || (a.remote_Id==remote_Id && a.remote_Id!=0);
         }
     }
 

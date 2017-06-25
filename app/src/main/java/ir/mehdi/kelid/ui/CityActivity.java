@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ir.mehdi.kelid.MainActivity;
+import ir.mehdi.kelid.Main2;
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.UserConfig;
 import ir.mehdi.kelid.db.DBAdapter;
@@ -105,7 +105,7 @@ public class CityActivity extends  KelidActivity {
         switch (itemId) {
             case android.R.id.home: {
                 if (UserConfig.city != -1) {
-                    myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    myIntent = new Intent(getApplicationContext(), Main2.class);
                     startActivity(myIntent);
                     finish();
 
@@ -119,7 +119,7 @@ public class CityActivity extends  KelidActivity {
                     UserConfig.city = DBAdapter.getInstance().getCurrentCity().code;
                     UserConfig.province = DBAdapter.getInstance().getCurrentProvince().code;
 //                    UserConfig.save();
-                    myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    myIntent = new Intent(getApplicationContext(), Main2.class);
 //                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     finish();
                     startActivity(myIntent);

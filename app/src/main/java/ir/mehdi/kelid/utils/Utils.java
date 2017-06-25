@@ -120,7 +120,9 @@ public class Utils {
 
             }
 
+
         });
+
         colorAnimation.start();
     }
 
