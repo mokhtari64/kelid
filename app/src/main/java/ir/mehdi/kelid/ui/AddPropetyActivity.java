@@ -90,19 +90,17 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
 
     NodeFragmentDialog nodeFragmentDialog;
-    SupportMapFragment mapFragment;
+//    SupportMapFragment mapFragment;
 
     InfoCreateFragment infoCreateFragment;
     PropertyCreateFragment propertyCreateFragment;
-//    TestFragment testFragment;
+    //    TestFragment testFragment;
     UserPhoneFragment userPhoneFragment;
     ActivationCodeFragment activationCodeFragment;
 
     SweetAlertDialog progressDialog;
-    int currentStep = 0;
+    int currentStep = 1;
 
-
-    Marker lastMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +122,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
         }
 
-        mapFragment = new SupportMapFragment();
+//        mapFragment = new SupportMapFragment();
         propertyCreateFragment = new PropertyCreateFragment();
 
 
@@ -143,52 +141,9 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         fm.popBackStack(null, android.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
 //        ft.add(R.id.fragment_container, testFragment);
-        ft.add(R.id.fragment_container, mapFragment);
+        ft.add(R.id.fragment_container, propertyCreateFragment);
         ft.commit();
-        nextTextView.setVisibility(View.INVISIBLE);
-
-        mapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                final GoogleMap mMap = googleMap;
-
-
-                LatLng sydney = new LatLng(36.28765407836474, 59.61174532771111);
-                CameraUpdate center =
-                        CameraUpdateFactory.newLatLng(sydney);
-                mMap.getUiSettings().setZoomControlsEnabled(true);
-                CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
-
-                //lastMarker= mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(12), 5000, null);
-
-
-//                final GoogleMap mMap = googleMap;
-//                mMap.getUiSettings().setZoomControlsEnabled(true);
-//                LatLng sydney = new LatLng( (double) 36.260846224269834,(double) 59.61784802377224);
-//
-//
-//                mMap.moveCamera(center);
-//                mMap.animateCamera(zoom);
-                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        if (lastMarker != null)
-                            lastMarker.remove();
-                        CameraPosition cameraPosition = mMap.getCameraPosition();
-                        lastMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("" + cameraPosition.zoom));
-                        nextTextView.setVisibility(View.VISIBLE);
-
-                    }
-                });
-                // Add a marker in Sydney and move the camera
-
-
-//                mMap.addMarker(new MarkerOptions().position(sydney).title(""));
-//                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-            }
-        });
+//        nextTextView.setVisibility(View.INVISIBLE);
 
 
     }
@@ -553,21 +508,22 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 
     @Override
     public void doneClicked() {
-        if (currentStep == 0) {
-
-            if(lastMarker==null)
-            {
-             Toast.makeText(this,"Please select location",Toast.LENGTH_LONG).show();
-            }else {
-                android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-                ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
-                ft.replace(R.id.fragment_container, propertyCreateFragment).addToBackStack("");
-                ft.commit();
-                nextStep();
-            }
-
-        } else if (currentStep == 1) {
+//        if (currentStep == 0) {
+//
+//            if(lastMarker==null)
+//            {
+//             Toast.makeText(this,"Please select location",Toast.LENGTH_LONG).show();
+//            }else {
+//                android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+//                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+//                ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_slide_in, R.anim.pop_slide_out);
+//                ft.replace(R.id.fragment_container, propertyCreateFragment).addToBackStack("");
+//                ft.commit();
+//                nextStep();
+//            }
+//
+//        } else
+        if (currentStep == 1) {
             if (propertyCreateFragment.isValid()) {
                 android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();

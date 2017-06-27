@@ -27,6 +27,7 @@ import static ir.mehdi.kelid.Constant.DRAFT_STATUS;
  */
 public class Property
         implements Constant, Comparable<Property>, Serializable {
+    public boolean sendignFirstPhoto=false;
     public Vector<PropertyDetail> details=new Vector<>();
     public String name, title, desc, email, avenue, street, address, tel, mobile, telegram;
     public int totalTabaghe, totalVahed, vahed, tabaghe, hashieh,
@@ -326,6 +327,7 @@ public class Property
 
     public static class Image implements Serializable, Comparable<Image> {
         public long id;
+        public boolean sending=false;
         public String orginalPath;
         public int remote_Id;
         public boolean deleted;

@@ -990,20 +990,26 @@ public class VolleyService extends Service implements Constant {
     public void sendPhoto(final Property property, final Property.Image image) {
         if (image.uploadProgressBar != null)
             image.uploadProgressBar.setVisibility(View.INVISIBLE);
+        property.sendignFirstPhoto=true;
+        image.sending=true;
         PhotoPartRequest multipartRequest = new PhotoPartRequest(SEND_NEW_FILE, null, image.localImageFile, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                property.sendignFirstPhoto=false;
+                image.sending=false;
                 if (image.uploadProgressBar != null)
-                image.uploadProgressBar.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        image.uploadProgressBar.setVisibility(View.VISIBLE);
-                    }
-                });
+                    image.uploadProgressBar.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            image.uploadProgressBar.setVisibility(View.VISIBLE);
+                        }
+                    });
             }
         }, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                image.sending=false;
+                property.sendignFirstPhoto=false;
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     int id = jsonObject.getInt("id");
@@ -1014,9 +1020,8 @@ public class VolleyService extends Service implements Constant {
                     image.remote_Id = id;
                     for (int i = 0; i < property.images.size(); i++) {
                         Property.Image image1 = property.images.get(i);
-                        if(image1.remote_Id==0)
-                        {
-                            VolleyService.getInstance().sendPhoto(property,image1);
+                        if (image1.remote_Id == 0 && !image1.sending) {
+                            VolleyService.getInstance().sendPhoto(property, image1);
                         }
                     }
                     if (image.uploadProgressBar != null)

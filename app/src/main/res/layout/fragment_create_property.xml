@@ -8,36 +8,23 @@
     android:layout_margin="5dp"
     android:background="@drawable/my_background">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <!--<HorizontalScrollView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="100dp">-->
-            <!--<LinearLayout-->
-                <!--android:gravity="right"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="100dp" android:id="@+id/photo_layout">-->
-                <!--<Button-->
-                    <!--android:text="+"-->
-                    <!--android:id="@+id/addphoto"-->
-                    <!--android:textSize="10sp"-->
-                    <!--android:layout_width="100dp"-->
-                    <!--android:layout_height="100dp" />-->
 
-            <!--</LinearLayout>-->
-        <!--</HorizontalScrollView>-->
-        <GridView
-            android:focusable="false"
-            android:focusableInTouchMode="false"
+        <ir.mehdi.kelid.ui.PhotoGridView
+            android:id="@+id/photo_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:horizontalSpacing="2dp"
+            android:isScrollContainer="false"
             android:numColumns="3"
-            android:id="@+id/photo_grid"
             android:stretchMode="columnWidth"
-            ></GridView>
+            android:verticalSpacing="2dp"></ir.mehdi.kelid.ui.PhotoGridView>
 
 
         <include
@@ -81,30 +68,19 @@
         <Space
             android:layout_width="20px"
             android:layout_height="20px" />
-        <LinearLayout android:id="@+id/proprty_layout"
-            android:orientation="vertical"
+
+        <LinearLayout
+            android:id="@+id/proprty_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"></LinearLayout>
-        <!--<include-->
-            <!--layout="@layout/extention"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="3dp"-->
-            <!--android:layout_marginRight="3dp" />-->
+            android:layout_marginRight="3dp"
+            android:orientation="vertical"></LinearLayout>
+
 
         <Space
             android:layout_width="20px"
             android:layout_height="20px" />
-
-        <!--<LinearLayout-->
-            <!--android:id="@+id/proprty_layout"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="3dp"-->
-            <!--android:layout_marginRight="3dp"-->
-            <!--android:orientation="vertical"></LinearLayout>-->
 
 
     </LinearLayout>

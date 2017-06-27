@@ -24,12 +24,14 @@ import android.text.TextWatcher;
 import android.text.style.UnderlineSpan;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -55,6 +57,7 @@ import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.UserConfig;
+import ir.mehdi.kelid.arcmenulibrary.util.Util;
 import ir.mehdi.kelid.db.DBAdapter;
 import ir.mehdi.kelid.db.MySqliteOpenHelper;
 import ir.mehdi.kelid.model.City;
@@ -83,7 +86,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     //ToggleButton norpardazi_dakheli, norpardazi_nama, van, hamam_master, sona, alachigh, darb_zed_serghat, pele_ezterari,
       //      system_alarm_atashsozi, jaro_markazi, balkon, kaf_seramik, mdf;
     LinearLayout properyLayout;
-    GridView gridView;
+    ir.mehdi.kelid.ui.PhotoGridView gridView;
     PhotoAdapter phtoAdapter;
 
 
@@ -191,9 +194,18 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             //balkon = (ToggleButton) mainView.findViewById(R.id.balkon);
             //kaf_seramik = (ToggleButton) mainView.findViewById(R.id.kaf_seramik);
             //mdf = (ToggleButton) mainView.findViewById(R.id.mdf);
-            gridView = (GridView) mainView.findViewById(R.id.photo_grid);
+            gridView = (ir.mehdi.kelid.ui.PhotoGridView) mainView.findViewById(R.id.photo_grid);
+            gridView.setOnTouchListener(new View.OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return event.getAction() == MotionEvent.ACTION_MOVE;
+                }
+
+            });
             phtoAdapter = new PhotoAdapter();
             gridView.setAdapter(phtoAdapter);
+
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -275,20 +287,22 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         // 5
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if(add==null)
+            if(position==0)
             {
                 add = new Button(activity);
                 add.setText("+");
                 convertView = add;
+                GridView.LayoutParams layoutParams=new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT, Utils.dpToPx(getActivity(),100));
+                add.setLayoutParams(layoutParams);
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         ((AddPropetyActivity) getActivity()).showImageDIalog();
                     }
                 });
-            }else if(convertView==null)
+            }else
             {
-                Property.Image image = AddPropetyActivity.property.images.get(position );
+                Property.Image image = AddPropetyActivity.property.images.get(position-1 );
                 final View view = layoutInflater.inflate(R.layout.collage_image_item, null);
                 convertView = view;
                 ImageView imageView = (ImageView) view.findViewById(R.id.imageView5);
@@ -300,10 +314,14 @@ public class PropertyCreateFragment extends Fragment implements Constant {
                 image.failedImageView.setVisibility(View.INVISIBLE);
                 image.localImageFile = new File(image.localname);
                 Bitmap bitmapsimplesize = Bitmap.createScaledBitmap(image.bitmap, (int) getResources().getDimension(R.dimen.advers_image_size), (int) getResources().getDimension(R.dimen.advers_image_size), true);
-                image.bitmap.recycle();
+//                image.bitmap.recycle();
                 imageView.setImageBitmap(bitmapsimplesize);
-                if (AddPropetyActivity.property.remote_id != 0 || AddPropetyActivity.property.images.size() == 1)
+                if (AddPropetyActivity.property.remote_id != 0  )
                     VolleyService.getInstance().sendPhoto(AddPropetyActivity.property, image);
+                else if(!AddPropetyActivity.property.sendignFirstPhoto)
+                {
+                    VolleyService.getInstance().sendPhoto(AddPropetyActivity.property, image);
+                }
             }
 
             return convertView;
@@ -324,9 +342,9 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             }
             AddPropetyActivity.property.images.add(image);
             phtoAdapter.notifyDataSetChanged();
-            ViewGroup.LayoutParams layoutParams = gridView.getLayoutParams();
-            layoutParams.height=(((int)AddPropetyActivity.property.images.size()/3)+1)*Utils.dpToPx(getActivity(),100);
-            gridView.setLayoutParams(layoutParams);
+//            ViewGroup.LayoutParams layoutParams = gridView.getLayoutParams();
+//            layoutParams.height=(((int)AddPropetyActivity.property.images.size()/3)+1)*Utils.dpToPx(getActivity(),103);
+//            gridView.setLayoutParams(layoutParams);
 
 
         }
