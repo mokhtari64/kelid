@@ -3,7 +3,15 @@
     <string name="app_name">کلید</string>
     <string name="next">ادامه</string>
     <string name="createcancel">انصراف</string>
-
+    <string-array name="category">
+        <item>سایر</item>
+        <item>سرمایشی</item>
+        <item>گرمایشی</item>
+        <item>پوشش از کف</item>
+        <item>        پوشش دیوار</item>
+        <item>نما</item>
+        <item>نوع کابینت</item>
+    </string-array>
 
     <string name="galery">  </string>
     <string name="dialog_title"> انتخاب گروه </string>
@@ -283,7 +291,6 @@
     <string name="title_activity_maps_test">Map</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
-
 
 
 </resources>

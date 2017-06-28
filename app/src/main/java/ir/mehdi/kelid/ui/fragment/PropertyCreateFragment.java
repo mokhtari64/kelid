@@ -40,12 +40,15 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -63,6 +66,7 @@ import ir.mehdi.kelid.db.MySqliteOpenHelper;
 import ir.mehdi.kelid.model.City;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
+import ir.mehdi.kelid.model.PropertyCategory;
 import ir.mehdi.kelid.model.PropertyDetail;
 import ir.mehdi.kelid.model.Region;
 import ir.mehdi.kelid.service.VolleyService;
@@ -77,14 +81,16 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     TextInputLayout nameLayout, titleLayout, adverLayout, descLayout, telLayout, mobileLayout, emailLayout, telegramLayout, addressLayout;
     EditText masahat, zirbana, arse, arz_khyaban, hashye_melk;
     RadioGroup tabaghat, vahedTabaghat, vahedNo, roomNo, tarakom, omr, ab_emtiazat, gaz_emtiazat, bargh_emtiazat;
-    ToggleButton coler_abi, coler_gazi, coler_gazi_spilet, chiller, pakage, shomine, shofaj, garmayesh_az_kaf, ab_garmkon, ab_garmkon_divari, ab_garmkon_khorshidi;
-    ToggleButton moket, parket, seramik, sang, mozaeik, siman, rang_plastik, rang_roghan, kaghazdivari;
-    ToggleButton chob, divarkob, rang_hajim, divar_sang, divar_sofal, divar_kompozit, divar_chob, divar_shishe, divar_siman, divar_seramik, divar_geranit;
-    ToggleButton kabinet_felezi, kabinet_mdf, kabinet_chob, kabinet_melamine, kabinet_higlas;
-   // ToggleButton asansor, parking, anbari, service_farangi, gachbori, rangkari, jakozi, iphone_tasviri, darb_barghi, panjere_dojedare, upvc, komod_divari, security_system;
-   // ToggleButton system_bargh_hoshmand, system_etfa_harigh, system_alarm_gaz, havasaz, estakhr, labi, seraydari, faza_sabz, manba_ab, pomp_ab, bargh_ezterari, hood;
+    LinearLayout mainFeauterLayout;
+//    ToggleButton coler_abi, coler_gazi, coler_gazi_spilet, chiller, pakage, shomine, shofaj, garmayesh_az_kaf, ab_garmkon, ab_garmkon_divari, ab_garmkon_khorshidi;
+//    ToggleButton moket, parket, seramik, sang, mozaeik, siman, rang_plastik, rang_roghan, kaghazdivari;
+//    ToggleButton chob, divarkob, rang_hajim, divar_sang, divar_sofal, divar_kompozit, divar_chob, divar_shishe, divar_siman, divar_seramik, divar_geranit;
+//    ToggleButton kabinet_felezi, kabinet_mdf, kabinet_chob, kabinet_melamine, kabinet_higlas;
+//    ToggleButton[] toggleButtons;
+    // ToggleButton asansor, parking, anbari, service_farangi, gachbori, rangkari, jakozi, iphone_tasviri, darb_barghi, panjere_dojedare, upvc, komod_divari, security_system;
+    // ToggleButton system_bargh_hoshmand, system_etfa_harigh, system_alarm_gaz, havasaz, estakhr, labi, seraydari, faza_sabz, manba_ab, pomp_ab, bargh_ezterari, hood;
     //ToggleButton norpardazi_dakheli, norpardazi_nama, van, hamam_master, sona, alachigh, darb_zed_serghat, pele_ezterari,
-      //      system_alarm_atashsozi, jaro_markazi, balkon, kaf_seramik, mdf;
+    //      system_alarm_atashsozi, jaro_markazi, balkon, kaf_seramik, mdf;
     LinearLayout properyLayout;
     ir.mehdi.kelid.ui.PhotoGridView gridView;
     PhotoAdapter phtoAdapter;
@@ -120,42 +126,51 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             ab_emtiazat = (RadioGroup) mainView.findViewById(R.id.ab_emtiazat);
             gaz_emtiazat = (RadioGroup) mainView.findViewById(R.id.gaz_emtiazat);
             bargh_emtiazat = (RadioGroup) mainView.findViewById(R.id.bargh_emtiazat);
-            coler_abi = (ToggleButton) mainView.findViewById(R.id.coler_abi);
-            coler_gazi = (ToggleButton) mainView.findViewById(R.id.coler_gazi);
-            coler_gazi_spilet = (ToggleButton) mainView.findViewById(R.id.coler_gazi_spilet);
-            chiller = (ToggleButton) mainView.findViewById(R.id.chiller);
-            pakage = (ToggleButton) mainView.findViewById(R.id.pakage);
-            shomine = (ToggleButton) mainView.findViewById(R.id.shomine);
-            shofaj = (ToggleButton) mainView.findViewById(R.id.shofaj);
-            garmayesh_az_kaf = (ToggleButton) mainView.findViewById(R.id.garmayesh_az_kaf);
-            ab_garmkon = (ToggleButton) mainView.findViewById(R.id.ab_garmkon);
-            ab_garmkon_divari = (ToggleButton) mainView.findViewById(R.id.ab_garmkon_divari);
-            ab_garmkon_khorshidi = (ToggleButton) mainView.findViewById(R.id.ab_garmkon_khorshidi);
-            moket = (ToggleButton) mainView.findViewById(R.id.moket);
-            parket = (ToggleButton) mainView.findViewById(R.id.parket);
-            seramik = (ToggleButton) mainView.findViewById(R.id.seramik);
-            sang = (ToggleButton) mainView.findViewById(R.id.sang);
-            mozaeik = (ToggleButton) mainView.findViewById(R.id.mozaeik);
-            siman = (ToggleButton) mainView.findViewById(R.id.siman);
-            rang_plastik = (ToggleButton) mainView.findViewById(R.id.rang_plastik);
-            rang_roghan = (ToggleButton) mainView.findViewById(R.id.rang_roghan);
-            kaghazdivari = (ToggleButton) mainView.findViewById(R.id.kaghazdivari);
-            chob = (ToggleButton) mainView.findViewById(R.id.chob);
-            divarkob = (ToggleButton) mainView.findViewById(R.id.divarkob);
-            rang_hajim = (ToggleButton) mainView.findViewById(R.id.rang_hajim);
-            divar_sang = (ToggleButton) mainView.findViewById(R.id.divar_sang);
-            divar_sofal = (ToggleButton) mainView.findViewById(R.id.divar_sofal);
-            divar_kompozit = (ToggleButton) mainView.findViewById(R.id.divar_kompozit);
-            divar_chob = (ToggleButton) mainView.findViewById(R.id.divar_chob);
-            divar_shishe = (ToggleButton) mainView.findViewById(R.id.divar_shishe);
-            divar_siman = (ToggleButton) mainView.findViewById(R.id.divar_siman);
-            divar_seramik = (ToggleButton) mainView.findViewById(R.id.divar_seramik);
-            divar_geranit = (ToggleButton) mainView.findViewById(R.id.divar_geranit);
-            kabinet_felezi = (ToggleButton) mainView.findViewById(R.id.kabinet_felezi);
-            kabinet_mdf = (ToggleButton) mainView.findViewById(R.id.kabinet_mdf);
-            kabinet_chob = (ToggleButton) mainView.findViewById(R.id.kabinet_chob);
-            kabinet_melamine = (ToggleButton) mainView.findViewById(R.id.kabinet_melamine);
-            kabinet_higlas = (ToggleButton) mainView.findViewById(R.id.kabinet_higlas);
+            mainFeauterLayout = (LinearLayout) mainView.findViewById(R.id.emkanat);
+
+//            coler_abi = (ToggleButton) mainView.findViewById(R.id.coler_abi);
+//            coler_gazi = (ToggleButton) mainView.findViewById(R.id.coler_gazi);
+//            coler_gazi_spilet = (ToggleButton) mainView.findViewById(R.id.coler_gazi_spilet);
+//            chiller = (ToggleButton) mainView.findViewById(R.id.chiller);
+//            pakage = (ToggleButton) mainView.findViewById(R.id.pakage);
+//            shomine = (ToggleButton) mainView.findViewById(R.id.shomine);
+//            shofaj = (ToggleButton) mainView.findViewById(R.id.shofaj);
+//            garmayesh_az_kaf = (ToggleButton) mainView.findViewById(R.id.garmayesh_az_kaf);
+//            ab_garmkon = (ToggleButton) mainView.findViewById(R.id.ab_garmkon);
+//            ab_garmkon_divari = (ToggleButton) mainView.findViewById(R.id.ab_garmkon_divari);
+//            ab_garmkon_khorshidi = (ToggleButton) mainView.findViewById(R.id.ab_garmkon_khorshidi);
+//            moket = (ToggleButton) mainView.findViewById(R.id.moket);
+//            parket = (ToggleButton) mainView.findViewById(R.id.parket);
+//            seramik = (ToggleButton) mainView.findViewById(R.id.seramik);
+//            sang = (ToggleButton) mainView.findViewById(R.id.sang);
+//            mozaeik = (ToggleButton) mainView.findViewById(R.id.mozaeik);
+//            siman = (ToggleButton) mainView.findViewById(R.id.siman);
+//            rang_plastik = (ToggleButton) mainView.findViewById(R.id.rang_plastik);
+//            rang_roghan = (ToggleButton) mainView.findViewById(R.id.rang_roghan);
+//            kaghazdivari = (ToggleButton) mainView.findViewById(R.id.kaghazdivari);
+//            chob = (ToggleButton) mainView.findViewById(R.id.chob);
+//            divarkob = (ToggleButton) mainView.findViewById(R.id.divarkob);
+//            rang_hajim = (ToggleButton) mainView.findViewById(R.id.rang_hajim);
+//            divar_sang = (ToggleButton) mainView.findViewById(R.id.divar_sang);
+//            divar_sofal = (ToggleButton) mainView.findViewById(R.id.divar_sofal);
+//            divar_kompozit = (ToggleButton) mainView.findViewById(R.id.divar_kompozit);
+//            divar_chob = (ToggleButton) mainView.findViewById(R.id.divar_chob);
+//            divar_shishe = (ToggleButton) mainView.findViewById(R.id.divar_shishe);
+//            divar_siman = (ToggleButton) mainView.findViewById(R.id.divar_siman);
+//            divar_seramik = (ToggleButton) mainView.findViewById(R.id.divar_seramik);
+//            divar_geranit = (ToggleButton) mainView.findViewById(R.id.divar_geranit);
+//            kabinet_felezi = (ToggleButton) mainView.findViewById(R.id.kabinet_felezi);
+//            kabinet_mdf = (ToggleButton) mainView.findViewById(R.id.kabinet_mdf);
+//            kabinet_chob = (ToggleButton) mainView.findViewById(R.id.kabinet_chob);
+//            kabinet_melamine = (ToggleButton) mainView.findViewById(R.id.kabinet_melamine);
+//            kabinet_higlas = (ToggleButton) mainView.findViewById(R.id.kabinet_higlas);
+//            toggleButtons = new ToggleButton[]{coler_abi, coler_gazi, coler_gazi_spilet, chiller, pakage, shomine, shofaj,
+//                    garmayesh_az_kaf, ab_garmkon, ab_garmkon_divari, ab_garmkon_khorshidi, moket, parket, seramik,
+//                    sang, mozaeik, siman, rang_plastik, rang_roghan, kaghazdivari, chob, divarkob, rang_hajim, divar_sang,
+//                    divar_sofal, divar_kompozit, divar_chob, divar_shishe, divar_siman, divar_seramik, divar_geranit, kabinet_felezi,
+//                    kabinet_mdf, kabinet_chob, kabinet_melamine, kabinet_higlas};
+
+
             //asansor = (ToggleButton) mainView.findViewById(R.id.asansor);
             //parking = (ToggleButton) mainView.findViewById(R.id.parking);
             //anbari = (ToggleButton) mainView.findViewById(R.id.anbari);
@@ -195,7 +210,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             //kaf_seramik = (ToggleButton) mainView.findViewById(R.id.kaf_seramik);
             //mdf = (ToggleButton) mainView.findViewById(R.id.mdf);
             gridView = (ir.mehdi.kelid.ui.PhotoGridView) mainView.findViewById(R.id.photo_grid);
-            gridView.setOnTouchListener(new View.OnTouchListener(){
+            gridView.setOnTouchListener(new View.OnTouchListener() {
 
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -239,15 +254,62 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         }
     };
 
-    public void getPropertyFromField()
-    {
 
-    }
 
     private void initFeatures() {
-        Vector<PropertyDetail> pDetail = DBAdapter.getInstance().allNodes.get(1113100).pDetail;
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        for (PropertyDetail a : pDetail) {
+        TextView textView= (TextView) getLayoutInflater(null).inflate(R.layout.emkanat_header, null);
+        textView.setText(R.string.emkanat);
+        TableLayout tableLayout=new TableLayout(activity);
+        tableLayout.setBackgroundResource(R.drawable.my_background);
+        tableLayout.setOrientation(LinearLayout.VERTICAL);
+        tableLayout.addView(textView);
+        for (int i = 1; i<DBAdapter.getInstance().allPropertyCategory.size() ; i++) {
+            PropertyCategory propertyCategory = DBAdapter.getInstance().allPropertyCategory.get(i);
+            TableRow tableRow=new TableRow(activity);
+            HorizontalScrollView horizontalScrollView=new HorizontalScrollView(activity);
+            TableRow.LayoutParams layoutParams=new TableRow.LayoutParams();
+            layoutParams.width=0;
+            layoutParams.height=Util.dpToPx(50);
+            layoutParams.weight=10;
+            horizontalScrollView.setLayoutParams(layoutParams);
+
+            TableRow.LayoutParams layoutParams2=new TableRow.LayoutParams();
+            layoutParams2.width=0;
+            layoutParams2.height=Util.dpToPx(50);
+            layoutParams2.weight=3;
+            TextView lable=(TextView) getLayoutInflater(null).inflate(R.layout.emkanat_lable, null);
+            lable.setLayoutParams(layoutParams2);
+            lable.setText(propertyCategory.name);
+            tableRow.addView(horizontalScrollView);
+            tableRow.addView(lable);
+            LinearLayout linearLayout=new LinearLayout(activity);
+            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            horizontalScrollView.addView(linearLayout, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            for (int j = 0; j < propertyCategory.properties.size(); j++) {
+                PropertyDetail propertyDetail = propertyCategory.properties.get(j);
+                ToggleButton toggleButton = (ToggleButton)getLayoutInflater(null).inflate(R.layout.toggle_layout, null);
+                toggleButton.setTextOff(propertyDetail.name);
+                toggleButton.setText(propertyDetail.name);
+                toggleButton.setTextOn(propertyDetail.name);
+                toggleButton.setTag(propertyDetail.id);
+                toggleButton.setOnCheckedChangeListener(featureListner);
+                linearLayout.addView(toggleButton);
+            }
+            tableLayout.addView(tableRow,ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+
+        }
+        mainFeauterLayout.addView(tableLayout);
+        Vector<PropertyDetail> pDetail = DBAdapter.getInstance().allPropertyCategory.get(0).properties;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT,1);
+        LinearLayout sayerRow=null;
+        for (int i = 0; i <pDetail.size() ; i++) {
+            if(i%3==0)
+            {
+                sayerRow=new LinearLayout(activity);
+                sayerRow.setOrientation(LinearLayout.HORIZONTAL);
+                properyLayout.addView(sayerRow);
+            }
+            PropertyDetail a = pDetail.get(i);
             ToggleButton aaa = new ToggleButton(getActivity());
             aaa.setText(a.name);
             aaa.setTextOff(a.name);
@@ -256,10 +318,12 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             aaa.setLayoutParams(params);
             aaa.setTag(a.id);
             aaa.setOnCheckedChangeListener(featureListner);
-            properyLayout.addView(aaa);
+            sayerRow.addView(aaa);
         }
     }
+
     Button add;
+
     class PhotoAdapter extends BaseAdapter {
 
 
@@ -287,12 +351,11 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         // 5
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if(position==0)
-            {
+            if (position == 0) {
                 add = new Button(activity);
                 add.setText("+");
                 convertView = add;
-                GridView.LayoutParams layoutParams=new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT, Utils.dpToPx(getActivity(),100));
+                GridView.LayoutParams layoutParams = new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT, Utils.dpToPx(getActivity(), 100));
                 add.setLayoutParams(layoutParams);
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -300,9 +363,8 @@ public class PropertyCreateFragment extends Fragment implements Constant {
                         ((AddPropetyActivity) getActivity()).showImageDIalog();
                     }
                 });
-            }else
-            {
-                Property.Image image = AddPropetyActivity.property.images.get(position-1 );
+            } else {
+                Property.Image image = AddPropetyActivity.property.images.get(position - 1);
                 final View view = layoutInflater.inflate(R.layout.collage_image_item, null);
                 convertView = view;
                 ImageView imageView = (ImageView) view.findViewById(R.id.imageView5);
@@ -316,12 +378,9 @@ public class PropertyCreateFragment extends Fragment implements Constant {
                 Bitmap bitmapsimplesize = Bitmap.createScaledBitmap(image.bitmap, (int) getResources().getDimension(R.dimen.advers_image_size), (int) getResources().getDimension(R.dimen.advers_image_size), true);
 //                image.bitmap.recycle();
                 imageView.setImageBitmap(bitmapsimplesize);
-                if (AddPropetyActivity.property.remote_id != 0  )
-                    VolleyService.getInstance().sendPhoto(AddPropetyActivity.property, image);
-                else if(!AddPropetyActivity.property.sendignFirstPhoto)
-                {
-                    VolleyService.getInstance().sendPhoto(AddPropetyActivity.property, image);
-                }
+                AddPropetyActivity.property.sendPhotos();
+
+
             }
 
             return convertView;

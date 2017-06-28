@@ -17,6 +17,7 @@ import java.util.Vector;
 import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.service.VolleyService;
+import ir.mehdi.kelid.ui.AddPropetyActivity;
 import ir.mehdi.kelid.utils.FileUtils;
 import ir.mehdi.kelid.utils.Utils;
 
@@ -27,8 +28,8 @@ import static ir.mehdi.kelid.Constant.DRAFT_STATUS;
  */
 public class Property
         implements Constant, Comparable<Property>, Serializable {
-    public boolean sendignFirstPhoto=false;
-    public Vector<PropertyDetail> details=new Vector<>();
+    public boolean sendignFirstPhoto = false;
+    public Vector<PropertyDetail> details = new Vector<>();
     public String name, title, desc, email, avenue, street, address, tel, mobile, telegram;
     public int totalTabaghe, totalVahed, vahed, tabaghe, hashieh,
             rooms, tarakom, metraj, zirBana, arseZamin, omrSakhteman, samayeshi,
@@ -44,7 +45,6 @@ public class Property
     public String send_title = "", send_name = "", send_desc = "", send_email = "", send_address = "";
     public String send_tel = "", send_mobile = "", send_telegram = "";
     public int send_region, send_city, send_nodeid;
-
 
 
     public int getImageCount() {
@@ -69,6 +69,20 @@ public class Property
 
     }
 
+    public synchronized void sendPhotos()
+    {
+
+        if (remote_id != 0) {
+            for (int i = 0; i < images.size(); i++) {
+                Image image = images.get(i);
+                if(!image.sending && image.remote_Id==0)
+                    VolleyService.getInstance().sendPhoto(this, image);
+            }
+        }
+        else if (!sendignFirstPhoto && images.size()>0) {
+            VolleyService.getInstance().sendPhoto(AddPropetyActivity.property, images.get(0));
+        }
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -115,7 +129,6 @@ public class Property
     public int myproperty;//1 pishhnevis,2 taeed,-1 reject
     public int reportindex;
     public String reporttext;
-
 
 
     public Image addImage(int id, String localname, String url, int main, int deleted) {
@@ -327,7 +340,7 @@ public class Property
 
     public static class Image implements Serializable, Comparable<Image> {
         public long id;
-        public boolean sending=false;
+        public boolean sending = false;
         public String orginalPath;
         public int remote_Id;
         public boolean deleted;
@@ -349,8 +362,8 @@ public class Property
 
         @Override
         public boolean equals(Object obj) {
-            Image a= (Image) obj;
-            return (orginalPath!=null && a.orginalPath!=null && a.orginalPath.equals(orginalPath)) || (a!=null && a.localname!=null && localname!=null && localname.equals(a.localname)) || (a.remote_Id==remote_Id && a.remote_Id!=0);
+            Image a = (Image) obj;
+            return (orginalPath != null && a.orginalPath != null && a.orginalPath.equals(orginalPath)) || (a != null && a.localname != null && localname != null && localname.equals(a.localname)) || (a.remote_Id == remote_Id && a.remote_Id != 0);
         }
     }
 

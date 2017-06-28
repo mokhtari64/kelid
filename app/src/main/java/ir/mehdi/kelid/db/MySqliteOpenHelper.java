@@ -24,7 +24,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
     public static final String table_name = "PROPERTY";
     public static final String search_history_table_name = "search_history";
     public static final String table_image_name = "property_image";
-//    public static final String table_payment_name = "property_payment";
+
     private static MySqliteOpenHelper instance;
     public HashMap<Long, Property> historyPropertys = new HashMap<>();
     public HashMap<Long, Property> loadedPropertys = new HashMap<>();

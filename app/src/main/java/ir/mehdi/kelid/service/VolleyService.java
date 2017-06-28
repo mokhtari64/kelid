@@ -1018,12 +1018,7 @@ public class VolleyService extends Service implements Constant {
                     property.remote_id = propertyId;
                     image.remotename = path;
                     image.remote_Id = id;
-                    for (int i = 0; i < property.images.size(); i++) {
-                        Property.Image image1 = property.images.get(i);
-                        if (image1.remote_Id == 0 && !image1.sending) {
-                            VolleyService.getInstance().sendPhoto(property, image1);
-                        }
-                    }
+                    property.sendPhotos();
                     if (image.uploadProgressBar != null)
                         image.uploadProgressBar.post(new Runnable() {
                             @Override
@@ -1034,7 +1029,7 @@ public class VolleyService extends Service implements Constant {
                 } catch (Exception e) {
 
                 }
-//                delegate.onObjectReslut(reqCode, ServiceDelegate.OK_CODE, userJob, response);
+
             }
         });
         String code = "" + System.currentTimeMillis();

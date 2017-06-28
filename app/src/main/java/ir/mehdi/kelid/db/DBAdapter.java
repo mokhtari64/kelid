@@ -8,9 +8,11 @@ import android.graphics.RectF;
 
 
 import ir.mehdi.kelid.KelidApplication;
+import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.UserConfig;
 import ir.mehdi.kelid.model.City;
 import ir.mehdi.kelid.model.Node;
+import ir.mehdi.kelid.model.PropertyCategory;
 import ir.mehdi.kelid.model.PropertyDetail;
 import ir.mehdi.kelid.model.Province;
 import ir.mehdi.kelid.model.Region;
@@ -35,6 +37,8 @@ public class DBAdapter {
     public static final String DATABASE_NAME = "Kelid";
     public static final String tblname = "node";
     public HashMap<Integer, PropertyDetail> allProperty = new HashMap();
+    public HashMap<Integer, PropertyCategory> allPropertyCategory = new HashMap();
+
 
     public static final String path = "data/data/" + "ir.mehdi.kelid" + "/databases/";
 
@@ -120,17 +124,22 @@ public class DBAdapter {
         try {
             open();
 
-            Cursor cu = mydb.rawQuery("select * from property_detail ", null);
+            Cursor cu = mydb.rawQuery("select * from property_detail order by category ", null);
 //            cu.moveToPosition(row);
             cu.moveToFirst();
 
-            for (int i = 0; !cu.isAfterLast(); i++) {
+            for (; !cu.isAfterLast(); ) {
 //                cu.moveToPosition(i);
 
                 PropertyDetail c = new PropertyDetail();
                 c.id = cu.getInt(cu.getColumnIndex("id"));
                 c.tag = cu.getInt(cu.getColumnIndex("tag"));
                 c.name = cu.getString(cu.getColumnIndex("name"));
+                int category =cu.getInt( cu.getColumnIndex("category"));
+                System.out.println("category-------------------"+category+","+c.name);
+                PropertyCategory propertyCategory = allPropertyCategory.get(category);
+                propertyCategory.properties.add(c);
+                c.category=propertyCategory;
                 allProperty.put(c.id, c);
                 ArrayList<PropertyDetail> cc = tagProperty.get(c.tag);
                 if (cc == null) {
@@ -296,7 +305,7 @@ public class DBAdapter {
 
         try {
 
-            Cursor cu = mydb.rawQuery("select * from city order  ", null);
+            Cursor cu = mydb.rawQuery("select * from city   ", null);
 //            cu.moveToPosition(row);
             cu.moveToFirst();
 
@@ -437,6 +446,7 @@ public class DBAdapter {
     public void loadNode() {
         if (allNodes.size() > 0)
             return;
+        addCategory();
         try {
 
             Cursor cu = mydb.rawQuery("select id,parent_id,name,feature from node order by parent_id,name", null);
@@ -478,6 +488,13 @@ public class DBAdapter {
         }
         loadProperty();
 //        close();
+    }
+
+    private void addCategory() {
+        String[] stringArray = KelidApplication.applicationContext.getResources().getStringArray(R.array.category);
+        for (int i = 0; i < stringArray.length; i++) {
+            allPropertyCategory.put(i, new PropertyCategory(i,stringArray[i]));
+        }
     }
 
     public void close() {

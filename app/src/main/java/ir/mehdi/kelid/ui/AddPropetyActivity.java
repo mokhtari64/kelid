@@ -102,6 +102,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     int currentStep = 1;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

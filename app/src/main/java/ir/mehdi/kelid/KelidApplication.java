@@ -42,6 +42,7 @@ public class KelidApplication
     public void onCreate() {
         super.onCreate();
         applicationContext = getApplicationContext();
+
         UserConfig.loadConfig();
         DBAdapter.getInstance().getAllProvince();
         DBAdapter.getInstance().loadcity();

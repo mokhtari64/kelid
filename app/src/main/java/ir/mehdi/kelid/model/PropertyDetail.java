@@ -7,6 +7,7 @@ public class PropertyDetail {
     public int id , tag ;
     public String name;
     public boolean selected;
+    public PropertyCategory category;
 
     @Override
     public boolean equals(Object obj) {
