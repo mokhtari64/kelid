@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:id="@+id/main_content"
     android:layout_height="match_parent">
@@ -31,21 +32,52 @@
             android:src="@drawable/ic_back_dialog" />
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/camera"
         android:id="@+id/camera"
-        android:layout_marginRight="30dp" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_marginRight="30dp"
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            app:srcCompat="@drawable/ic_camera" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:layout_marginRight="30dp"
+            android:gravity="center_vertical"
+            android:text="@string/camera"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/gallery"
         android:id="@+id/gallery"
-        android:singleLine="false" />
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/ic_gallery" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:layout_marginRight="30dp"
+            android:gravity="center_vertical"
+            android:text="@string/gallery"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
 
 </LinearLayout>
