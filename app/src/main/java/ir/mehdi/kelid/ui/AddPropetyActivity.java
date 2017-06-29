@@ -220,9 +220,13 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     @Override
     public void onBackPressed() {
         resend = false;
-        if (curretnRequestCode != null) {
-            KelidApplication.getInstance().cancelPendingRequests(curretnRequestCode);
-            curretnRequestCode = null;
+//        if (curretnRequestCode != null) {
+//            KelidApplication.getInstance().cancelPendingRequests(curretnRequestCode);
+//            curretnRequestCode = null;
+//        }
+        if(currentStep==1 )
+        {
+            propertyCreateFragment.fillProperty();
         }
 
         if (currentStep > 2) {
@@ -526,6 +530,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 //
 //        } else
         if (currentStep == 1) {
+            propertyCreateFragment.fillProperty();
             if (propertyCreateFragment.isValid()) {
                 android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();

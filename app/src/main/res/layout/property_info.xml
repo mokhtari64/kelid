@@ -27,31 +27,37 @@
                 <RadioButton
                     android:id="@+id/tabaghat1"
                     android:text="1"
+                    android:tag="1"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/tabaghat2"
                     android:text="2"
+                    android:tag="2"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/tabaghat3"
                     android:text="3"
+                    android:tag="3"
                     style="@style/my_radio_button"/>
 
                 <RadioButton
                     android:id="@+id/tabaghat4"
                     android:text="4"
+                    android:tag="4"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/tabaghat5"
                     android:text="5+"
+                    android:tag="5"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/tabaghat10"
                     android:text="10+"
+                    android:tag="10"
                     style="@style/my_radio_button" />
 
             </RadioGroup>
@@ -83,31 +89,37 @@
                 <RadioButton
                     android:id="@+id/tabaghe1"
                     android:text="1"
+                    android:tag="1"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/tabaghe2"
                     android:text="2"
+                    android:tag="2"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/tabaghe3"
                     android:text="3"
+                    android:tag="3"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/tabaghe4"
                     android:text="4"
+                    android:tag="4"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/tabaghe5"
                     android:text="5+"
+                    android:tag="5"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/tabaghe10"
                     android:text="10+"
+                    android:tag="10"
                     style="@style/my_radio_button" />
             </RadioGroup>
         </HorizontalScrollView>
@@ -139,26 +151,31 @@
                 <RadioButton
                     android:id="@+id/vahed1"
                     android:text="1"
+                    android:tag="1"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/vahed2"
                     android:text="2"
+                    android:tag="2"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/vahed3"
                     android:text="3"
+                    android:tag="3"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/vahed4"
                     android:text="4"
+                    android:tag="4"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/vahed5"
                     android:text="5+"
+                    android:tag="5"
                     style="@style/my_radio_button" />
             </RadioGroup>
         </HorizontalScrollView>
@@ -189,26 +206,31 @@
                 <RadioButton
                     android:id="@+id/otagh1"
                     android:text="1"
+                    android:tag="1"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/otagh2"
                     android:text="2"
+                    android:tag="2"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/otagh3"
                     android:text="3"
+                    android:tag="3"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/otagh4"
                     android:text="4"
+                    android:tag="4"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/otagh5"
                     android:text="5+"
+                    android:tag="5"
                     style="@style/my_radio_button" />
             </RadioGroup>
         </HorizontalScrollView>
@@ -234,6 +256,7 @@
             <RadioButton
                 android:layout_width="0dp"
                 android:id="@+id/tarakom1"
+                android:tag="1"
                 android:text="@string/hight"
                 style="@style/my_radio_button" />
 
@@ -241,12 +264,14 @@
                 android:layout_width="0dp"
                 android:id="@+id/tarakom2"
                 android:text="@string/mid"
+                android:tag="2"
                 style="@style/my_radio_button" />
 
             <RadioButton
                 android:layout_width="0dp"
                 android:id="@+id/tarakom3"
                 android:text="@string/low"
+                android:tag="0"
                 style="@style/my_radio_button"/>
 
         </RadioGroup>
@@ -277,43 +302,51 @@
                 <RadioButton
                     android:id="@+id/kolangi"
                     android:text="@string/kolangi"
+                    android:tag="-1"
                     style="@style/my_radio_button"
                     android:layout_width="wrap_content" />
 
                 <RadioButton
                     android:id="@+id/nosaz"
                     android:text="@string/no_saz"
+                    android:tag="0"
                     style="@style/my_radio_button"
                     android:layout_width="wrap_content" />
 
                 <RadioButton
                     android:id="@+id/sal_1"
                     android:text="1"
+                    android:tag="1"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/sal_2"
                     android:text="2"
+                    android:tag="2"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/sal_3"
                     android:text="3"
+                    android:tag="3"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/sal_5"
                     android:text="5+"
+                    android:tag="4"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/sal_10"
                     android:text="10+"
+                    android:tag="4"
                     style="@style/my_radio_button" />
 
                 <RadioButton
                     android:id="@+id/sal_20"
                     android:text="20+"
+                    android:tag="20"
                     style="@style/my_radio_button" />
 
             </RadioGroup>

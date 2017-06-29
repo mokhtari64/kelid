@@ -26,6 +26,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/vahedi"
+                android:tag="1"
                 android:id="@+id/ab_vahedi"
                 style="@style/my_radio_button"/>
 
@@ -33,6 +34,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/moshtarak"
+                android:tag="2"
                 android:id="@+id/ab_moshtarak"
                 style="@style/my_radio_button"/>
 
@@ -40,6 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/mostaghel"
+                android:tag="0"
                 android:id="@+id/ab_mostaghel"
                 style="@style/my_radio_button"
                 android:checked="true" />
@@ -74,6 +77,7 @@
 
             <RadioButton
                 android:layout_width="0dp"
+                android:tag="1"
                 android:layout_height="wrap_content"
                 android:text="@string/vahedi"
                 android:id="@+id/gaz_vahedi"
@@ -83,10 +87,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/moshtarak"
+                android:tag="2"
                 android:id="@+id/gaz_moshtarak"
                 style="@style/my_radio_button"/>
 
             <RadioButton
+                android:tag="0"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/mostaghel"
@@ -124,6 +130,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/vahedi"
+                android:tag="1"
                 android:id="@+id/bargh_vahedi"
                 style="@style/my_radio_button"/>
 
@@ -132,6 +139,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/moshtarak"
+                android:tag="2"
                 android:id="@+id/bargh_moshtarak"
                 style="@style/my_radio_button"/>
 
@@ -141,6 +149,7 @@
                 android:checked="true"
                 android:layout_height="wrap_content"
                 android:text="@string/mostaghel"
+                android:tag="0"
                 android:id="@+id/bargh_mostaghel"
                 style="@style/my_radio_button"/>
 

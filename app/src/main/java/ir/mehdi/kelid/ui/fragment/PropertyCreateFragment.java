@@ -82,7 +82,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     EditText masahat, zirbana, arse, arz_khyaban, hashye_melk;
     RadioGroup tabaghat, vahedTabaghat, vahedNo, roomNo, tarakom, omr, ab_emtiazat, gaz_emtiazat, bargh_emtiazat;
     LinearLayout mainFeauterLayout;
-//    ToggleButton coler_abi, coler_gazi, coler_gazi_spilet, chiller, pakage, shomine, shofaj, garmayesh_az_kaf, ab_garmkon, ab_garmkon_divari, ab_garmkon_khorshidi;
+    //    ToggleButton coler_abi, coler_gazi, coler_gazi_spilet, chiller, pakage, shomine, shofaj, garmayesh_az_kaf, ab_garmkon, ab_garmkon_divari, ab_garmkon_khorshidi;
 //    ToggleButton moket, parket, seramik, sang, mozaeik, siman, rang_plastik, rang_roghan, kaghazdivari;
 //    ToggleButton chob, divarkob, rang_hajim, divar_sang, divar_sofal, divar_kompozit, divar_chob, divar_shishe, divar_siman, divar_seramik, divar_geranit;
 //    ToggleButton kabinet_felezi, kabinet_mdf, kabinet_chob, kabinet_melamine, kabinet_higlas;
@@ -255,39 +255,38 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     };
 
 
-
     private void initFeatures() {
-        TextView textView= (TextView) getLayoutInflater(null).inflate(R.layout.emkanat_header, null);
+        TextView textView = (TextView) layoutInflater.inflate(R.layout.emkanat_header, null);
         textView.setText(R.string.emkanat);
-        TableLayout tableLayout=new TableLayout(activity);
+        TableLayout tableLayout = new TableLayout(activity);
         tableLayout.setBackgroundResource(R.drawable.my_background);
         tableLayout.setOrientation(LinearLayout.VERTICAL);
         tableLayout.addView(textView);
-        for (int i = 1; i<DBAdapter.getInstance().allPropertyCategory.size() ; i++) {
+        for (int i = 1; i < DBAdapter.getInstance().allPropertyCategory.size(); i++) {
             PropertyCategory propertyCategory = DBAdapter.getInstance().allPropertyCategory.get(i);
-            TableRow tableRow=new TableRow(activity);
-            HorizontalScrollView horizontalScrollView=new HorizontalScrollView(activity);
-            TableRow.LayoutParams layoutParams=new TableRow.LayoutParams();
-            layoutParams.width=0;
-            layoutParams.height=Util.dpToPx(50);
-            layoutParams.weight=10;
+            TableRow tableRow = new TableRow(activity);
+            HorizontalScrollView horizontalScrollView = new HorizontalScrollView(activity);
+            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams();
+            layoutParams.width = 0;
+            layoutParams.height = Util.dpToPx(50);
+            layoutParams.weight = 10;
             horizontalScrollView.setLayoutParams(layoutParams);
 
-            TableRow.LayoutParams layoutParams2=new TableRow.LayoutParams();
-            layoutParams2.width=0;
-            layoutParams2.height=Util.dpToPx(50);
-            layoutParams2.weight=3;
-            TextView lable=(TextView) getLayoutInflater(null).inflate(R.layout.emkanat_lable, null);
+            TableRow.LayoutParams layoutParams2 = new TableRow.LayoutParams();
+            layoutParams2.width = 0;
+            layoutParams2.height = Util.dpToPx(50);
+            layoutParams2.weight = 3;
+            TextView lable = (TextView) layoutInflater.inflate(R.layout.emkanat_lable, null);
             lable.setLayoutParams(layoutParams2);
             lable.setText(propertyCategory.name);
             tableRow.addView(horizontalScrollView);
             tableRow.addView(lable);
-            LinearLayout linearLayout=new LinearLayout(activity);
+            LinearLayout linearLayout = new LinearLayout(activity);
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-            horizontalScrollView.addView(linearLayout, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            horizontalScrollView.addView(linearLayout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             for (int j = 0; j < propertyCategory.properties.size(); j++) {
                 PropertyDetail propertyDetail = propertyCategory.properties.get(j);
-                ToggleButton toggleButton = (ToggleButton)getLayoutInflater(null).inflate(R.layout.toggle_layout, null);
+                ToggleButton toggleButton = (ToggleButton) layoutInflater.inflate(R.layout.toggle_layout, null);
                 toggleButton.setTextOff(propertyDetail.name);
                 toggleButton.setText(propertyDetail.name);
                 toggleButton.setTextOn(propertyDetail.name);
@@ -295,26 +294,25 @@ public class PropertyCreateFragment extends Fragment implements Constant {
                 toggleButton.setOnCheckedChangeListener(featureListner);
                 linearLayout.addView(toggleButton);
             }
-            tableLayout.addView(tableRow,ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            tableLayout.addView(tableRow, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         }
         mainFeauterLayout.addView(tableLayout);
         Vector<PropertyDetail> pDetail = DBAdapter.getInstance().allPropertyCategory.get(0).properties;
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT,1);
-        LinearLayout sayerRow=null;
-        for (int i = 0; i <pDetail.size() ; i++) {
-            if(i%3==0)
-            {
-                sayerRow=new LinearLayout(activity);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+        LinearLayout sayerRow = null;
+        for (int i = 0; i < pDetail.size(); i++) {
+            if (i % 3 == 0) {
+                sayerRow = new LinearLayout(activity);
                 sayerRow.setOrientation(LinearLayout.HORIZONTAL);
                 properyLayout.addView(sayerRow);
             }
             PropertyDetail a = pDetail.get(i);
-            ToggleButton aaa = new ToggleButton(getActivity());
+            ToggleButton aaa = (ToggleButton) layoutInflater.inflate(R.layout.toggle_layout, null);
             aaa.setText(a.name);
             aaa.setTextOff(a.name);
             aaa.setTextOn(a.name);
-            aaa.setBackgroundResource(R.drawable.my_toggle_background);
+//            aaa.setBackgroundResource(R.drawable.my_toggle_background);
             aaa.setLayoutParams(params);
             aaa.setTag(a.id);
             aaa.setOnCheckedChangeListener(featureListner);
@@ -324,13 +322,76 @@ public class PropertyCreateFragment extends Fragment implements Constant {
 
     Button add;
 
+    public void fillProperty() {
+        if (masahat.getText().toString() != null && masahat.getText().toString().trim().length()>0)
+            AddPropetyActivity.property.metraj = Integer.parseInt(masahat.getText().toString());
+        if (zirbana.getText().toString() != null && zirbana.getText().toString().trim().length()>0)
+            AddPropetyActivity.property.zirBana = Integer.parseInt(zirbana.getText().toString());
+        if (arse.getText().toString() != null && arse.getText().toString().trim().length()>0)
+
+
+            AddPropetyActivity.property.arseZamin = Integer.parseInt(arse.getText().toString());
+        if (hashye_melk.getText().toString() != null && hashye_melk.getText().toString().trim().length()>0)
+
+            AddPropetyActivity.property.hashieh = Integer.parseInt(hashye_melk.getText().toString());
+        // if (arz_khyaban.getText() != null)
+        //   AddPropetyActivity.property.hashieh = Integer.parseInt(arz_khyaban.getText().toString());
+
+
+        int checkedRadioButtonId = tabaghat.getCheckedRadioButtonId();
+        if (checkedRadioButtonId != -1) {
+            RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
+            AddPropetyActivity.property.totalTabaghe = Integer.parseInt( a.getTag().toString());
+        }
+        checkedRadioButtonId = vahedTabaghat.getCheckedRadioButtonId();
+        if (checkedRadioButtonId != -1) {
+            RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
+            AddPropetyActivity.property.tabaghe = Integer.parseInt( a.getTag().toString());
+        }
+        checkedRadioButtonId = vahedNo.getCheckedRadioButtonId();
+        if (checkedRadioButtonId != -1) {
+            RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
+            AddPropetyActivity.property.vahed = Integer.parseInt( a.getTag().toString());
+        }
+        checkedRadioButtonId = roomNo.getCheckedRadioButtonId();
+        if (checkedRadioButtonId != -1) {
+            RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
+            AddPropetyActivity.property.rooms = Integer.parseInt( a.getTag().toString());
+        }
+        checkedRadioButtonId = tarakom.getCheckedRadioButtonId();
+        if (checkedRadioButtonId != -1) {
+            RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
+            AddPropetyActivity.property.tarakom = Integer.parseInt( a.getTag().toString());
+        }
+        checkedRadioButtonId = omr.getCheckedRadioButtonId();
+        if (checkedRadioButtonId != -1) {
+            RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
+            AddPropetyActivity.property.omrSakhteman = Integer.parseInt( a.getTag().toString());
+        }
+
+        checkedRadioButtonId = ab_emtiazat.getCheckedRadioButtonId();
+        if (checkedRadioButtonId != -1) {
+            RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
+            AddPropetyActivity.property.ab = Integer.parseInt( a.getTag().toString());
+        }
+        checkedRadioButtonId = gaz_emtiazat.getCheckedRadioButtonId();
+        if (checkedRadioButtonId != -1) {
+            RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
+            AddPropetyActivity.property.gaz = Integer.parseInt( a.getTag().toString());
+        }
+        checkedRadioButtonId = bargh_emtiazat.getCheckedRadioButtonId();
+        if (checkedRadioButtonId != -1) {
+            RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
+            AddPropetyActivity.property.bargh =Integer.parseInt( a.getTag().toString());
+        }
+
+
+
+
+    }
+
     class PhotoAdapter extends BaseAdapter {
 
-
-        // 1
-
-
-        // 2
         @Override
         public int getCount() {
             return AddPropetyActivity.property.images.size() + 1;
@@ -401,9 +462,6 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             }
             AddPropetyActivity.property.images.add(image);
             phtoAdapter.notifyDataSetChanged();
-//            ViewGroup.LayoutParams layoutParams = gridView.getLayoutParams();
-//            layoutParams.height=(((int)AddPropetyActivity.property.images.size()/3)+1)*Utils.dpToPx(getActivity(),103);
-//            gridView.setLayoutParams(layoutParams);
 
 
         }
@@ -452,17 +510,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             }
         });
         city.setText(DBAdapter.getInstance().cities.get(property.city).name);
-//        city.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//  activity.regionDialog = true;
-//        Intent a = new Intent(activity, CityActivity.class);
-//        a.putExtra("change_city", true);
-//
-//        startActivity(a);
-//        dialog.dismiss();
-//            }
-//        });
+
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
