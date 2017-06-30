@@ -26,7 +26,7 @@
         android:layout_gravity="bottom"
         android:layout_marginLeft="-3dp"
         android:layout_marginRight="-5dp"
-        android:background="@drawable/my_footer"
+        android:background="@drawable/menu_back"
         android:orientation="horizontal"
         android:scaleType="fitCenter">
 
@@ -34,27 +34,27 @@
         <ImageButton
             android:id="@+id/btn_profile"
             style="@style/my_home_main_menu"
-            app:srcCompat="@drawable/kelid_home" />
-
-        <ImageButton
-            android:id="@+id/btn_group"
-            style="@style/my_home_main_menu"
-            app:srcCompat="@drawable/kelid_home" />
-
-        <ImageButton
-            style="@style/my_home_main_menu"
-            android:visibility="invisible"
-            app:srcCompat="@drawable/kelid_home" />
+            app:srcCompat="@drawable/ic_profile2" />
 
         <ImageButton
             android:id="@+id/btn_search"
             style="@style/my_home_main_menu"
-            app:srcCompat="@drawable/kelid_home" />
+            app:srcCompat="@drawable/ic_search2" />
+
+        <ImageButton
+            style="@style/my_home_main_menu"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_main" />
+
+        <ImageButton
+            android:id="@+id/btn_category"
+            style="@style/my_home_main_menu"
+            app:srcCompat="@drawable/ic_categories2" />
 
         <ImageButton
             android:id="@+id/btn_home"
             style="@style/my_home_main_menu"
-            app:srcCompat="@drawable/kelid_home" />
+            app:srcCompat="@drawable/ic_main" />
     </LinearLayout>
     <FrameLayout
         android:id="@+id/mainPageLay"
@@ -62,6 +62,7 @@
         android:layout_height="match_parent">
 
     </FrameLayout>
+
     <ir.mehdi.kelid.arcmenulibrary.ArcMenu
         android:id="@+id/arcMenu"
         android:layout_width="wrap_content"
