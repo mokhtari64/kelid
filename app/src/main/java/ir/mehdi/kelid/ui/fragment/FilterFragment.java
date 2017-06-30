@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ir.mehdi.kelid.Constant;
+import ir.mehdi.kelid.R;
 
 /**
  * Created by admin on 24/06/2017.
@@ -17,8 +18,8 @@ public class FilterFragment  extends Fragment implements Constant {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = new View(container.getContext());
-        view.setBackgroundColor(Color.BLUE);
+        View view = inflater.inflate(R.layout.fragment_filter,null);
+
         return view;
     }
 }

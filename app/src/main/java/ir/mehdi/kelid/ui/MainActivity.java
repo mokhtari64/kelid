@@ -1,6 +1,7 @@
 package ir.mehdi.kelid.ui;
 
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -29,7 +30,7 @@ import ir.mehdi.kelid.ui.fragment.HomeFragment;
 import ir.mehdi.kelid.ui.fragment.SearchFragment;
 import ir.mehdi.kelid.ui.fragment.UserProfileFragment;
 
-public class MainActivity extends KelidActivity implements Constant {
+public class MainActivity extends KelidActivity implements Constant, View.OnClickListener {
 
     HomeFragment homeFragment;
     FilterFragment filterFragment;
@@ -37,6 +38,9 @@ public class MainActivity extends KelidActivity implements Constant {
     SearchFragment searchFragment;
     Fragment[] fragments;
 
+
+    ImageView home, search, category, profile;
+    ImageView tabImageView[];
     ArcMenu arcMenu;
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -70,11 +74,39 @@ public class MainActivity extends KelidActivity implements Constant {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         arcMenu = (ArcMenu) findViewById(R.id.arcMenu);
         initArcMenu();
+        home = (ImageView) findViewById(R.id.btn_home);
+        search = (ImageView) findViewById(R.id.btn_search);
+        category = (ImageView) findViewById(R.id.btn_category);
+        profile = (ImageView) findViewById(R.id.btn_profile);
+        tabImageView=new  ImageView[]{home,category,search,profile};
+        home.setOnClickListener(this);
+        search.setOnClickListener(this);
+        category.setOnClickListener(this);
+        profile.setOnClickListener(this);
+        currentTabImageView = home;
+        currentTabImageView.setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_IN);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                pageChange(tabImageView[position]);
 
 
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
 
     }
+
 
     private static final int[] ITEM_DRAWABLES = {R.drawable.add_image,
             R.drawable.add_text, R.drawable.preview, R.drawable.qr};
@@ -158,6 +190,31 @@ public class MainActivity extends KelidActivity implements Constant {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    ImageView currentTabImageView;
+
+    void pageChange(ImageView v) {
+        currentTabImageView.clearColorFilter();//(Color.TRANSPARENT, PorterDuff.Mode.MULTIPLY);
+        currentTabImageView = v;
+        currentTabImageView.setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_IN);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == currentTabImageView) {
+            return;
+        }
+        if (v == home || v == search || v == profile || v == category) {
+            int tag = Integer.parseInt(v.getTag().toString());
+            pageChange((ImageView) v);
+            mViewPager.setCurrentItem(tag);
+
+        }
+
+
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

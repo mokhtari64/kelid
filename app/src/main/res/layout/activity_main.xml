@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:arc="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="ir.mehdi.kelid.ui.MainActivity">
-
-
 
 
     <android.support.v4.view.ViewPager
@@ -22,8 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/defualt_msize"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-3dp"
         android:layout_gravity="bottom"
+        android:layout_marginBottom="-3dp"
         android:layout_marginLeft="-3dp"
         android:layout_marginRight="-5dp"
         android:background="@drawable/menu_back"
@@ -34,28 +32,33 @@
         <ImageButton
             android:id="@+id/btn_profile"
             style="@style/my_home_main_menu"
+            android:tag="3"
             app:srcCompat="@drawable/ic_profile2" />
 
         <ImageButton
             android:id="@+id/btn_search"
             style="@style/my_home_main_menu"
+            android:tag="2"
             app:srcCompat="@drawable/ic_search2" />
 
-        <ImageButton
+        <View
             style="@style/my_home_main_menu"
             android:visibility="invisible"
-            app:srcCompat="@drawable/ic_main" />
+            />
 
         <ImageButton
             android:id="@+id/btn_category"
             style="@style/my_home_main_menu"
+            android:tag="1"
             app:srcCompat="@drawable/ic_categories2" />
 
         <ImageButton
             android:id="@+id/btn_home"
             style="@style/my_home_main_menu"
-            app:srcCompat="@drawable/ic_main" />
+            android:tag="0"
+            app:srcCompat="@drawable/ic_main2" />
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/mainPageLay"
         android:layout_width="match_parent"
