@@ -8,14 +8,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import ir.mehdi.kelid.Constant;
-import ir.mehdi.kelid.Main2;
+
 import ir.mehdi.kelid.model.Node;
+import ir.mehdi.kelid.ui.MainActivity;
 
 /**
  * Created by Iman on 3/5/2017.
  */
 public class RootFragment extends Fragment implements Constant {
-    static Main2 activity;
+    static MainActivity activity;
     int fragmentrootid,layoutResId;
     View.OnClickListener itemClickListener;
 
@@ -31,7 +32,7 @@ public class RootFragment extends Fragment implements Constant {
     int bg;
 
 
-    public void setParameter(Main2 activity, Node node, int color, int layoutid, int fragmentid, View.OnClickListener itemClickListener) {
+    public void setParameter(MainActivity activity, Node node, int color, int layoutid, int fragmentid, View.OnClickListener itemClickListener) {
         this.activity = activity;
         this.node = node;
         this.bg = color;

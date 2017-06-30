@@ -20,10 +20,11 @@ import android.widget.TextView;
 
 import ir.mehdi.kelid.Const;
 import ir.mehdi.kelid.Constant;
-import ir.mehdi.kelid.Main2;
+
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.ui.CardItemListAdapter;
+import ir.mehdi.kelid.ui.MainActivity;
 import ir.mehdi.kelid.utils.Utils;
 
 /**
@@ -43,7 +44,7 @@ public class ListItemFragment extends Fragment implements Constant {
     boolean childeVisible = true;
     View childe;
 
-    Main2 activity;
+    MainActivity activity;
     View mainContent;
     TextView nodePath;
     LinearLayout nodeChilde;
@@ -154,7 +155,7 @@ public class ListItemFragment extends Fragment implements Constant {
     }
 
 
-    public void setActivity(Main2 activity) {
+    public void setActivity(MainActivity activity) {
         this.activity = activity;
     }
 

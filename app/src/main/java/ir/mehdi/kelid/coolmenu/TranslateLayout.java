@@ -19,9 +19,10 @@ import android.widget.TextView;
 
 
 import ir.mehdi.kelid.Constant;
-import ir.mehdi.kelid.Main2;
+
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.arcmenulibrary.ArcMenu;
+import ir.mehdi.kelid.ui.MainActivity;
 
 @SuppressLint("all")
 @SuppressWarnings("all")
@@ -43,7 +44,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
 
 
     ArcMenu arcMenu;
-    Main2 activity;
+    MainActivity activity;
     private OnOptionMainMenuListner mOnOtpionOptionMainMenuListner;
     private OnMainMenuListner mOnMainMenuListner;
     Fragment fragment;
@@ -78,7 +79,7 @@ public class TranslateLayout extends FrameLayout implements View.OnClickListener
 
     public TranslateLayout(Context context) {
         super(context);
-        activity = (Main2) context;
+        activity = (MainActivity) context;
 
         init();
     }

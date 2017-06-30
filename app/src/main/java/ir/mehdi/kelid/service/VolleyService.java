@@ -51,13 +51,14 @@ import java.util.Vector;
 
 import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.KelidApplication;
-import ir.mehdi.kelid.Main2;
+
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.UserConfig;
 import ir.mehdi.kelid.db.DBAdapter;
 import ir.mehdi.kelid.db.MySqliteOpenHelper;
 import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
+import ir.mehdi.kelid.ui.MainActivity;
 import ir.mehdi.kelid.utils.FileUtils;
 import ir.mehdi.kelid.utils.Utils;
 
@@ -147,7 +148,7 @@ public class VolleyService extends Service implements Constant {
         int i = 0;
         for (Property property : jobs) {
             int id = (int) System.currentTimeMillis();
-            Intent intent = new Intent(KelidApplication.applicationContext, Main2.class);
+            Intent intent = new Intent(KelidApplication.applicationContext, MainActivity.class);
             intent.putExtra("local_id", property.local_id);
             intent.putExtra("notification_id", id);
             intent.setAction(Long.toString(id));
@@ -952,7 +953,7 @@ public class VolleyService extends Service implements Constant {
             return code;
 //            KelidApplication.getInstance().addToRequestQueue(multipartRequest, "33333");
         } catch (Exception e) {
-//            delegate.onObjectReslut(reqCode, ServiceDelegate.ERROR_CODE, userJob, null);
+//            delegate.onObjectReslut(reqCode, ServiceDelegate.ERROR_CODE, property, null);
         }
         return null;
     }
@@ -981,7 +982,7 @@ public class VolleyService extends Service implements Constant {
             return code;
 
         } catch (Exception e) {
-//            delegate.onObjectReslut(reqCode, ServiceDelegate.ERROR_CODE, userJob, null);
+//            delegate.onObjectReslut(reqCode, ServiceDelegate.ERROR_CODE, property, null);
 //            return code;
         }
         return null;
@@ -1098,10 +1099,10 @@ public class VolleyService extends Service implements Constant {
         }
 
         private final Response.Listener<String> mListener;
-        Property userJob;
+        Property property;
 
 
-        public MultipartRequest(String url, Property userJob, Response.ErrorListener errorListener, Response.Listener<String> listener) {
+        public MultipartRequest(String url, Property property, Response.ErrorListener errorListener, Response.Listener<String> listener) {
             super(Method.POST, url, errorListener);
 
             setRetryPolicy(new DefaultRetryPolicy(5 * 60 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -1110,7 +1111,7 @@ public class VolleyService extends Service implements Constant {
 
 
             mListener = listener;
-            this.userJob = userJob;
+            this.property = property;
 
 
             buildMultipartEntity();
@@ -1119,41 +1120,41 @@ public class VolleyService extends Service implements Constant {
 
         private void buildMultipartEntity() {
             try {
-                if (userJob.remote_id != 0) {
-                    entity.addPart("id", new StringBody(Utils.asciiNumners("" + userJob.remote_id), Consts.UTF_8));
+                if (property.remote_id != 0) {
+                    entity.addPart("id", new StringBody(Utils.asciiNumners("" + property.remote_id), Consts.UTF_8));
                 }
-                if (userJob.mobile != null)
-                    entity.addPart("mobile", new StringBody(Utils.asciiNumners(userJob.mobile), Consts.UTF_8));
-                if (userJob.tel != null)
-                    entity.addPart("tel", new StringBody(Utils.asciiNumners(userJob.tel), Consts.UTF_8));
-                if (userJob.email != null)
-                    entity.addPart("email", new StringBody(userJob.email, Consts.UTF_8));
-                if (userJob.name != null)
-                    entity.addPart("name", new StringBody(userJob.name, Consts.UTF_8));
-                if (userJob.region != 0)
-                    entity.addPart("region_id", new StringBody("" + userJob.region));
-                if (userJob.address != null)
-                    entity.addPart("address", new StringBody(userJob.address, Consts.UTF_8));
-                if (userJob.title != null)
-                    entity.addPart("title", new StringBody(userJob.title, Consts.UTF_8));
-                if (userJob.qr_code != null)
-                    entity.addPart("qr_code", new StringBody(userJob.qr_code));
-                if (userJob.telegram != null)
-                    entity.addPart("telegram", new StringBody(userJob.telegram));
-                if (userJob.city != 0) entity.addPart("city", new StringBody("" + userJob.city));
-                if (userJob.desc != null)
-                    entity.addPart("description", new StringBody(userJob.desc, Consts.UTF_8));
-                if (userJob.nodeid != 0) {
-                    Node node = DBAdapter.getInstance().allNodes.get(userJob.nodeid);
-                    entity.addPart("level3", new StringBody("" + userJob.nodeid));
+                if (property.mobile != null)
+                    entity.addPart("mobile", new StringBody(Utils.asciiNumners(property.mobile), Consts.UTF_8));
+                if (property.tel != null)
+                    entity.addPart("tel", new StringBody(Utils.asciiNumners(property.tel), Consts.UTF_8));
+                if (property.email != null)
+                    entity.addPart("email", new StringBody(property.email, Consts.UTF_8));
+                if (property.name != null)
+                    entity.addPart("name", new StringBody(property.name, Consts.UTF_8));
+                if (property.region != 0)
+                    entity.addPart("region_id", new StringBody("" + property.region));
+                if (property.address != null)
+                    entity.addPart("address", new StringBody(property.address, Consts.UTF_8));
+                if (property.title != null)
+                    entity.addPart("title", new StringBody(property.title, Consts.UTF_8));
+//                if (property.qr_code != null)
+//                    entity.addPart("qr_code", new StringBody(property.qr_code));
+                if (property.telegram != null)
+                    entity.addPart("telegram", new StringBody(property.telegram));
+                if (property.city != 0) entity.addPart("city", new StringBody("" + property.city));
+                if (property.desc != null)
+                    entity.addPart("description", new StringBody(property.desc, Consts.UTF_8));
+                if (property.nodeid != 0) {
+                    Node node = DBAdapter.getInstance().allNodes.get(property.nodeid);
+                    entity.addPart("level3", new StringBody("" + property.nodeid));
                     entity.addPart("level2", new StringBody("" + node.parent.id));
                     entity.addPart("level1", new StringBody("" + node.parent.parent.id));
                 }
-                entity.addPart("province", new StringBody("" + DBAdapter.getInstance().indexCities.get(userJob.city).provincecode));
+                entity.addPart("province", new StringBody("" + DBAdapter.getInstance().indexCities.get(property.city).provincecode));
                 String defaultPic = null;
                 JSONArray delete = new JSONArray();
                 int i = 0;
-                for (Property.Image filePath : userJob.images) {
+                for (Property.Image filePath : property.images) {
                     if (filePath.deleted) {
                         delete.put(Utils.getName(filePath.localname));
                         continue;
@@ -1244,44 +1245,44 @@ public class VolleyService extends Service implements Constant {
 
         private void buildMultipartEntity() {
             try {
-//                if (userJob.remote_id != 0) {
-//                    entity.addPart("id", new StringBody(Utils.asciiNumners("" + userJob.remote_id), Consts.UTF_8));
+//                if (property.remote_id != 0) {
+//                    entity.addPart("id", new StringBody(Utils.asciiNumners("" + property.remote_id), Consts.UTF_8));
 //                }
-//                if (userJob.mobile != null)
-//                    entity.addPart("mobile", new StringBody(Utils.asciiNumners(userJob.mobile), Consts.UTF_8));
-//                if (userJob.tel != null)
-//                    entity.addPart("tel", new StringBody(Utils.asciiNumners(userJob.tel), Consts.UTF_8));
-//                if (userJob.email != null)
-//                    entity.addPart("email", new StringBody(userJob.email, Consts.UTF_8));
-//                if (userJob.name != null)
-//                    entity.addPart("name", new StringBody(userJob.name, Consts.UTF_8));
-//                if (userJob.region != 0)
-//                    entity.addPart("region_id", new StringBody("" + userJob.region));
-//                if (userJob.address != null)
-//                    entity.addPart("address", new StringBody(userJob.address, Consts.UTF_8));
-//                if (userJob.title != null)
-//                    entity.addPart("title", new StringBody(userJob.title, Consts.UTF_8));
-//                if (userJob.qr_code != null)
-//                    entity.addPart("qr_code", new StringBody(userJob.qr_code));
-//                if (userJob.telegram != null)
-//                    entity.addPart("telegram", new StringBody(userJob.telegram));
-//                if (userJob.city != 0) entity.addPart("city", new StringBody("" + userJob.city));
-//                if (userJob.desc != null)
-//                    entity.addPart("description", new StringBody(userJob.desc, Consts.UTF_8));
-//                if (userJob.nodeid != 0) {
-//                    Node node = DBAdapter.getInstance().allNodes.get(userJob.nodeid);
-//                    entity.addPart("level3", new StringBody("" + userJob.nodeid));
+//                if (property.mobile != null)
+//                    entity.addPart("mobile", new StringBody(Utils.asciiNumners(property.mobile), Consts.UTF_8));
+//                if (property.tel != null)
+//                    entity.addPart("tel", new StringBody(Utils.asciiNumners(property.tel), Consts.UTF_8));
+//                if (property.email != null)
+//                    entity.addPart("email", new StringBody(property.email, Consts.UTF_8));
+//                if (property.name != null)
+//                    entity.addPart("name", new StringBody(property.name, Consts.UTF_8));
+//                if (property.region != 0)
+//                    entity.addPart("region_id", new StringBody("" + property.region));
+//                if (property.address != null)
+//                    entity.addPart("address", new StringBody(property.address, Consts.UTF_8));
+//                if (property.title != null)
+//                    entity.addPart("title", new StringBody(property.title, Consts.UTF_8));
+//                if (property.qr_code != null)
+//                    entity.addPart("qr_code", new StringBody(property.qr_code));
+//                if (property.telegram != null)
+//                    entity.addPart("telegram", new StringBody(property.telegram));
+//                if (property.city != 0) entity.addPart("city", new StringBody("" + property.city));
+//                if (property.desc != null)
+//                    entity.addPart("description", new StringBody(property.desc, Consts.UTF_8));
+//                if (property.nodeid != 0) {
+//                    Node node = DBAdapter.getInstance().allNodes.get(property.nodeid);
+//                    entity.addPart("level3", new StringBody("" + property.nodeid));
 //                    entity.addPart("level2", new StringBody("" + node.parent.id));
 //                    entity.addPart("level1", new StringBody("" + node.parent.parent.id));
 //                }
-//                entity.addPart("province", new StringBody("" + DBAdapter.getInstance().indexCities.get(userJob.city).provincecode));
+//                entity.addPart("province", new StringBody("" + DBAdapter.getInstance().indexCities.get(property.city).provincecode));
 //                String defaultPic = null;
 //                JSONArray delete = new JSONArray();
 //                int i = 0;
-//                entity.addPart("level3", new StringBody("" + userJob.nodeid));
+//                entity.addPart("level3", new StringBody("" + property.nodeid));
                 File uploadFile = filePath;
                 entity.addPart("image", new FileBody(uploadFile));
-//                for (Property.Image filePath : userJob.images) {
+//                for (Property.Image filePath : property.images) {
 //                    if (filePath.deleted) {
 //                        delete.put(Utils.getName(filePath.localname));
 //                        continue;

@@ -488,6 +488,7 @@ public class ArcMenu extends RelativeLayout {
     }
 
     private void retFirstStatus() {
+        shadowLayer.setVisibility(INVISIBLE);
         if (isMenuClicked) {
             isMenuClicked = false;
             if (!isDoubleIconSet && !isOneIconSet) {

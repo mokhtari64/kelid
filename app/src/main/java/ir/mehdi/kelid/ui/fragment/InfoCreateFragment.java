@@ -36,6 +36,8 @@ public class InfoCreateFragment  extends Fragment implements Constant,ServiceDel
     SupportMapFragment mapFragment;
 
     Marker lastMarker;
+    private Object info;
+
     public void setActivity(AddPropetyActivity activity) {
         this.activity = activity;
     }
@@ -97,5 +99,13 @@ public class InfoCreateFragment  extends Fragment implements Constant,ServiceDel
     }
     public boolean isValid() {
         return true;
+    }
+
+    public void getInfo() {
+//        return info;
+    }
+
+    public void reFill() {
+
     }
 }

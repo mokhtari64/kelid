@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 
+import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.model.Property;
 import ir.mehdi.kelid.utils.FileUtils;
@@ -18,12 +19,15 @@ import ir.mehdi.kelid.utils.Utils;
 /**
  * Created by Iman on 7/28/2016.
  */
-public class MySqliteOpenHelper extends SQLiteOpenHelper {
+public class MySqliteOpenHelper extends SQLiteOpenHelper implements Constant {
+
+    public static Property property;
     final public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     final public static SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
     public static final String table_name = "PROPERTY";
     public static final String search_history_table_name = "search_history";
     public static final String table_image_name = "property_image";
+    public static final String table_property_detail_name = "property_detail";
 
     private static MySqliteOpenHelper instance;
     public HashMap<Long, Property> historyPropertys = new HashMap<>();
@@ -43,7 +47,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
     }
 
 
-    public static final String Property_TABLE = "CREATE TABLE Property (  local_id integer primary key AUTOINCREMENT," +
+    public static final String Property_TABLE = "CREATE TABLE " + table_name + " (  local_id integer primary key AUTOINCREMENT," +
             "  remote_id integer,\ncreated DATETIME DEFAULT CURRENT_TIMESTAMP,  bookmark integer," +
             " myproperty integer,name text,send_name text," +
             " title text,send_title text," +
@@ -58,23 +62,28 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
             " tabaghe integer,send_tabaghe integer," +
             " hashieh integer,send_hashieh integer," +
             " rooms integer,send_rooms integer," +
+            " descritpion text,send_descritpion text," +
             " tarakom integer,send_tarakom integer," +
-            " metraj integer,send_metraj integer," +
+            " masahat integer,send_metraj integer," +
             " zirBana integer,send_zirBana integer," +
             " arseZamin integer,send_arseZamin integer," +
             " omrSakhteman integer,send_omrSakhteman integer," +
-            " samayeshi integer,send_samayeshi integer," +
-            " garmayeshi integer,send_garmayeshi integer," +
-            " kaf integer,send_kaf integer, divar integer,send_divar integer," +
-            " nama integer,send_nama integer," +
-            " cabinet integer,send_cabinet integer," +
+//            " samayeshi integer,send_samayeshi integer," +
+//            " garmayeshi integer,send_garmayeshi integer," +
+//            " kaf integer,send_kaf integer, divar integer,send_divar integer," +
+//            " nama integer,send_nama integer," +
+//            " cabinet integer,send_cabinet integer," +
             " ab integer,send_ab integer," +
             " gaz integer,send_gaz integer," +
             " bargh integer,send_bargh integer," +
             " region integer,send_region integer," +
-            " city integer,send_city integer, nodeid; integer,send_ nodeid; integer," +
+            " city integer,send_city integer, nodeid integer,send_nodeid integer," +
             "  status integer," +
             "  totalvisited integer,\n  day1cnt integer,\n  day2cnt integer,\n  day3cnt integer,\n  day4cnt integer\n  )";
+    public static final String table_property_detail__table_create = "CREATE TABLE " + table_property_detail_name + " (\n" +
+            "  id integer primary key AUTOINCREMENT,\n" +
+            "  p_id integer,pd_id integer" +
+            "  )";
     public static final String search_history_table_create = "CREATE TABLE search_history (\n" +
             "  id integer primary key AUTOINCREMENT,\n" +
             "  name text\n" +
@@ -104,6 +113,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
         db.execSQL(Property_Image_TABLE);
 //        db.execSQL(Property_Payment_TABLE);
         db.execSQL(search_history_table_create);
+        db.execSQL(table_property_detail__table_create);
 
     }
 
@@ -159,7 +169,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
             property[i].local_id = cursor.getLong(cursor.getColumnIndex("local_id"));
             property[i].remote_id = cursor.getLong(cursor.getColumnIndex("remote_id"));
             property[i].title = cursor.getString(cursor.getColumnIndex("title"));
-            property[i].qr_code = cursor.getString(cursor.getColumnIndex("qr_code"));
+//            property[i].qr_code = cursor.getString(cursor.getColumnIndex("qr_code"));
             property[i].desc = cursor.getString(cursor.getColumnIndex("descritpion"));
             property[i].address = cursor.getString(cursor.getColumnIndex("address"));
             property[i].email = cursor.getString(cursor.getColumnIndex("email"));
@@ -187,16 +197,16 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
             property[i].hashieh = cursor.getInt(cursor.getColumnIndex("hashieh"));
             property[i].rooms = cursor.getInt(cursor.getColumnIndex("rooms"));
             property[i].tarakom = cursor.getInt(cursor.getColumnIndex("tarakom"));
-            property[i].metraj = cursor.getInt(cursor.getColumnIndex("metraj"));
+            property[i].masahat = cursor.getInt(cursor.getColumnIndex("masahat"));
             property[i].zirBana = cursor.getInt(cursor.getColumnIndex("zirBana"));
             property[i].arseZamin = cursor.getInt(cursor.getColumnIndex("arseZamin"));
             property[i].omrSakhteman = cursor.getInt(cursor.getColumnIndex("omrSakhteman"));
-            property[i].samayeshi = cursor.getInt(cursor.getColumnIndex("samayeshi"));
-            property[i].garmayeshi = cursor.getInt(cursor.getColumnIndex("garmayeshi"));
-            property[i].kaf = cursor.getInt(cursor.getColumnIndex("kaf"));
-            property[i].divar = cursor.getInt(cursor.getColumnIndex("divar"));
-            property[i].nama = cursor.getInt(cursor.getColumnIndex("nama"));
-            property[i].cabinet = cursor.getInt(cursor.getColumnIndex("cabinet"));
+//            property[i].samayeshi = cursor.getInt(cursor.getColumnIndex("samayeshi"));
+//            property[i].garmayeshi = cursor.getInt(cursor.getColumnIndex("garmayeshi"));
+//            property[i].kaf = cursor.getInt(cursor.getColumnIndex("kaf"));
+//            property[i].divar = cursor.getInt(cursor.getColumnIndex("divar"));
+//            property[i].nama = cursor.getInt(cursor.getColumnIndex("nama"));
+//            property[i].cabinet = cursor.getInt(cursor.getColumnIndex("cabinet"));
             property[i].ab = cursor.getInt(cursor.getColumnIndex("ab"));
             property[i].gaz = cursor.getInt(cursor.getColumnIndex("gaz"));
             property[i].bargh = cursor.getInt(cursor.getColumnIndex("bargh"));
@@ -215,12 +225,12 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
             property[i].send_zirBana = cursor.getInt(cursor.getColumnIndex("send_zirBana"));
             property[i].send_arseZamin = cursor.getInt(cursor.getColumnIndex("send_arseZamin"));
             property[i].send_omrSakhteman = cursor.getInt(cursor.getColumnIndex("send_omrSakhteman"));
-            property[i].send_samayeshi = cursor.getInt(cursor.getColumnIndex("send_samayeshi"));
-            property[i].send_garmayeshi = cursor.getInt(cursor.getColumnIndex("send_garmayeshi"));
-            property[i].send_kaf = cursor.getInt(cursor.getColumnIndex("send_kaf"));
-            property[i].send_divar = cursor.getInt(cursor.getColumnIndex("send_divar"));
-            property[i].send_nama = cursor.getInt(cursor.getColumnIndex("send_nama"));
-            property[i].send_cabinet = cursor.getInt(cursor.getColumnIndex("send_cabinet"));
+//            property[i].send_samayeshi = cursor.getInt(cursor.getColumnIndex("send_samayeshi"));
+//            property[i].send_garmayeshi = cursor.getInt(cursor.getColumnIndex("send_garmayeshi"));
+//            property[i].send_kaf = cursor.getInt(cursor.getColumnIndex("send_kaf"));
+//            property[i].send_divar = cursor.getInt(cursor.getColumnIndex("send_divar"));
+//            property[i].send_nama = cursor.getInt(cursor.getColumnIndex("send_nama"));
+//            property[i].send_cabinet = cursor.getInt(cursor.getColumnIndex("send_cabinet"));
             property[i].send_ab = cursor.getInt(cursor.getColumnIndex("send_ab"));
             property[i].send_gaz = cursor.getInt(cursor.getColumnIndex("send_gaz"));
             property[i].send_bargh = cursor.getInt(cursor.getColumnIndex("send_bargh"));
@@ -242,7 +252,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
             if (property[i].send_address == null)
                 property[i].send_address = "";
             property[i].send_city = cursor.getInt(cursor.getColumnIndex("send_city"));
-            property[i].send_region = cursor.getInt(cursor.getColumnIndex("send_region_id"));
+            property[i].send_region = cursor.getInt(cursor.getColumnIndex("send_region"));
 
             property[i].send_email = cursor.getString(cursor.getColumnIndex("send_email"));
             if (property[i].send_email == null)
@@ -268,7 +278,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
             property[i].send_name = cursor.getString(cursor.getColumnIndex("send_name"));
             if (property[i].send_name == null)
                 property[i].send_name = "";
-            property[i].send_nodeid = cursor.getInt(cursor.getColumnIndex("send_node_id"));
+            property[i].send_nodeid = cursor.getInt(cursor.getColumnIndex("send_nodeid"));
 
             property[i].send_address = cursor.getString(cursor.getColumnIndex("send_address"));
             if (property[i].send_address == null)
@@ -281,10 +291,14 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
             property[i].day3Cnt = cursor.getLong(cursor.getColumnIndex("day3cnt"));
             property[i].day4Cnt = cursor.getLong(cursor.getColumnIndex("day4cnt"));
 
-            property[i].myproperty = cursor.getInt(cursor.getColumnIndex("myProperty"));
+            property[i].myproperty = cursor.getInt(cursor.getColumnIndex("myproperty"));
             allPropertys.put(property[i].local_id, property[i]);
             if (property[i].myproperty == 1) {
                 property[i].setLoaded(true);
+                if (property[i].status == DRAFT_STATUS) {
+                    this.property = property[i];
+
+                }
                 myPropertys.put(property[i].local_id, property[i]);
                 if (property[i].remote_id != 0)
                     myPropertysremote.put(property[i].remote_id, property[i]);
@@ -321,33 +335,27 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
 
             cursor.moveToNext();
         }
+        query = "select * from " + table_property_detail_name;
+        db = getWritableDatabase();
+        cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        for (int i = 0; i < cursor.getCount(); i++) {
+
+            long local_id = cursor.getLong(cursor.getColumnIndex("p_id"));
+            Property userProperty = allPropertys.get(local_id);
+            if (userProperty == null) {
+                cursor.moveToNext();
+                continue;
+            }
+            int detail_id = cursor.getInt(cursor.getColumnIndex("pd_id"));
+
+            userProperty.details.add(DBAdapter.getInstance().allPropertyDetail.get(detail_id));
+
+
+            cursor.moveToNext();
+        }
         cursor.close();
 
-//        query = "select * from " + table_payment_name;
-//        db = getWritableDatabase();
-//        cursor = db.rawQuery(query, null);
-//        cursor.moveToFirst();
-//        for (int i = 0; i < cursor.getCount(); i++) {
-//
-//            long local_id = cursor.getLong(cursor.getColumnIndex("Property_id"));
-//            Property userProperty = allPropertys.get(local_id);
-//            Property.Payment payment = new Property.Payment();
-//            if (userProperty == null) {
-//                cursor.moveToNext();
-//                continue;
-//            }
-//            try {
-//                payment.payDate = dateFormat.parse(cursor.getString(cursor.getColumnIndex("payDate")));
-//                payment.festivalDate = dateFormat2.parse(cursor.getString(cursor.getColumnIndex("festivalDate")));
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            payment.type = cursor.getInt(cursor.getColumnIndex("type"));
-////            userProperty.payments.add(payment);
-//            cursor.moveToNext();
-//        }
-//        cursor.close();
 
         db.close();
 
@@ -377,16 +385,16 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
         contentValues.put("hashieh", property.hashieh);
         contentValues.put("rooms", property.rooms);
         contentValues.put("tarakom", property.tarakom);
-        contentValues.put("metraj", property.metraj);
+        contentValues.put("masahat", property.masahat);
         contentValues.put("zirBana", property.zirBana);
         contentValues.put("arseZamin", property.arseZamin);
         contentValues.put("omrSakhteman", property.omrSakhteman);
-        contentValues.put("samayeshi", property.samayeshi);
-        contentValues.put("garmayeshi", property.garmayeshi);
-        contentValues.put("kaf", property.kaf);
-        contentValues.put("divar", property.divar);
-        contentValues.put("nama", property.nama);
-        contentValues.put("cabinet", property.cabinet);
+//        contentValues.put("samayeshi", property.samayeshi);
+//        contentValues.put("garmayeshi", property.garmayeshi);
+//        contentValues.put("kaf", property.kaf);
+//        contentValues.put("divar", property.divar);
+//        contentValues.put("nama", property.nama);
+//        contentValues.put("cabinet", property.cabinet);
         contentValues.put("ab", property.ab);
         contentValues.put("gaz", property.gaz);
         contentValues.put("bargh", property.bargh);
@@ -417,12 +425,12 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
         contentValues.put("send_zirBana", property.send_zirBana);
         contentValues.put("send_arseZamin", property.send_arseZamin);
         contentValues.put("send_omrSakhteman", property.send_omrSakhteman);
-        contentValues.put("send_samayeshi", property.send_samayeshi);
-        contentValues.put("send_garmayeshi", property.send_garmayeshi);
-        contentValues.put("send_kaf", property.send_kaf);
-        contentValues.put("send_divar", property.send_divar);
-        contentValues.put("send_nama", property.send_nama);
-        contentValues.put("send_cabinet", property.send_cabinet);
+//        contentValues.put("send_samayeshi", property.send_samayeshi);
+//        contentValues.put("send_garmayeshi", property.send_garmayeshi);
+//        contentValues.put("send_kaf", property.send_kaf);
+//        contentValues.put("send_divar", property.send_divar);
+//        contentValues.put("send_nama", property.send_nama);
+//        contentValues.put("send_cabinet", property.send_cabinet);
         contentValues.put("send_ab", property.send_ab);
         contentValues.put("send_gaz", property.send_gaz);
         contentValues.put("send_bargh", property.send_bargh);
@@ -439,7 +447,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
         contentValues.put("bookmark", property.bookmark);
         contentValues.put("status", property.status);
 
-        contentValues.put("myProperty", property.myproperty);
+        contentValues.put("myproperty", property.myproperty);
 
 
         SQLiteDatabase writableDatabase = getWritableDatabase();
@@ -451,16 +459,27 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
             writableDatabase.update(table_name, contentValues, "local_id=" + property.local_id, null);
 
         }
-//        if (property.myProperty == 1) {
-        insertOrUpdateUserImages(property);
-//        insertOrUpdateUserPayment(property);
-//        }
+        insertORUpdatePropertyDetail(property);
+
+        insertORUpdatePropertyImage(property);
 
 
         writableDatabase.close();
         loadProperty();
         return property.local_id;
 //        property.sync();
+    }
+
+    private void insertORUpdatePropertyDetail(Property property) {
+        SQLiteDatabase writableDatabase = getWritableDatabase();
+        int count = writableDatabase.delete(table_property_detail_name, "p_id=" + property.local_id, null);
+        for (int i = 0; i < property.details.size(); i++) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("p_id", property.local_id);
+            contentValues.put("pd_id", property.details.get(i).id);
+            writableDatabase.insert(table_property_detail_name, null, contentValues);
+        }
+
     }
 
 
@@ -486,55 +505,65 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
 //
 //    }
 
-    private void insertOrUpdateUserImages(Property userProperty) {
-//        if (userProperty.payments.size() == 0)
-//            return;
-        SQLiteDatabase writableDatabase = getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        boolean hasmain = false;
-        for (int i = 0; i < userProperty.images.size(); i++) {
-            hasmain = userProperty.images.get(i).main && !userProperty.images.get(i).deleted;
-        }
-        if (!hasmain)
-            userProperty.images.get(0).main = true;
-
-
-        boolean a;
-        for (int i = 0; i < userProperty.images.size(); i++) {
-            a = false;
-            Property.Image image = userProperty.images.get(i);
-            if (image.main) {
-                contentValues.put("main", 1);
-            } else {
-                contentValues.put("main", 0);
+    private void insertORUpdatePropertyImage(Property userProperty) {
+        if (true) {
+            SQLiteDatabase writableDatabase = getWritableDatabase();
+            int count=writableDatabase.delete(table_image_name, "p_id=" + property.local_id, null);
+            for (int i = 0; i < property.details.size(); i++) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("p_id", property.local_id);
+                contentValues.put("pd_id", property.details.get(i).id);
+                writableDatabase.insert(table_property_detail_name, null, contentValues);
             }
-            if (image.remotename != null && !image.remotename.equals("null")) {
-                contentValues.put("remote_name", Utils.getName(image.remotename));
-                a = true;
+        } else {
+
+            SQLiteDatabase writableDatabase = getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            boolean hasmain = false;
+            for (int i = 0; i < userProperty.images.size(); i++) {
+                hasmain = userProperty.images.get(i).main && !userProperty.images.get(i).deleted;
             }
-            if (image.localname != null && !image.localname.equals("null")) {
-                if (userProperty.myproperty == 1 && !FileUtils.getInstance().existInDefaultFoder(image.localname) && !image.deleted) {
-                    image.localname = FileUtils.getInstance().copyToDefaultFoder(image.localname);
-                }
-                contentValues.put("local_name", Utils.getName(image.localname));
-                a = true;
-            }
-            if (a) {
-                contentValues.put("local_id", userProperty.local_id);
-                contentValues.put("deleted", (image.deleted) ? 1 : 0);
-                if (image.id == 0) {
-                    long insert = writableDatabase.insert(table_image_name, null, contentValues);
-                    image.id = insert;
+            if (!hasmain)
+                userProperty.images.get(0).main = true;
+
+
+            boolean a;
+            for (int i = 0; i < userProperty.images.size(); i++) {
+                a = false;
+                Property.Image image = userProperty.images.get(i);
+                if (image.main) {
+                    contentValues.put("main", 1);
                 } else {
-                    writableDatabase.update(table_image_name, contentValues, "id=" + image.id, null);
+                    contentValues.put("main", 0);
                 }
+                if (image.remotename != null && !image.remotename.equals("null")) {
+                    contentValues.put("remote_name", Utils.getName(image.remotename));
+                    a = true;
+                }
+                if (image.localname != null && !image.localname.equals("null")) {
+                    if (userProperty.myproperty == 1 && !FileUtils.getInstance().existInDefaultFoder(image.localname) && !image.deleted) {
+                        image.localname = FileUtils.getInstance().copyToDefaultFoder(image.localname);
+                    }
+                    contentValues.put("local_name", Utils.getName(image.localname));
+                    a = true;
+                }
+                if (a) {
+                    contentValues.put("local_id", userProperty.local_id);
+                    contentValues.put("deleted", (image.deleted) ? 1 : 0);
+                    if (image.id == 0) {
+                        long insert = writableDatabase.insert(table_image_name, null, contentValues);
+                        image.id = insert;
+                    } else {
+                        writableDatabase.update(table_image_name, contentValues, "id=" + image.id, null);
+                    }
 
+                }
             }
+
+
+            writableDatabase.close();
         }
-
-
-        writableDatabase.close();
 
 
     }

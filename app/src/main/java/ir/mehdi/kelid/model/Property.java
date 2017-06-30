@@ -1,7 +1,6 @@
 package ir.mehdi.kelid.model;
 
 import android.graphics.Bitmap;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -15,13 +14,10 @@ import java.util.Date;
 import java.util.Vector;
 
 import ir.mehdi.kelid.Constant;
-import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.service.VolleyService;
 import ir.mehdi.kelid.ui.AddPropetyActivity;
 import ir.mehdi.kelid.utils.FileUtils;
 import ir.mehdi.kelid.utils.Utils;
-
-import static ir.mehdi.kelid.Constant.DRAFT_STATUS;
 
 /**
  * Created by Mahdi on 15/07/2016.
@@ -32,14 +28,12 @@ public class Property
     public Vector<PropertyDetail> details = new Vector<>();
     public String name, title, desc, email, avenue, street, address, tel, mobile, telegram;
     public int totalTabaghe, totalVahed, vahed, tabaghe, hashieh,
-            rooms, tarakom, metraj, zirBana, arseZamin, omrSakhteman, samayeshi,
-            garmayeshi, kaf, divar, nama, cabinet, ab, gaz, bargh, region, city, nodeid;
+            rooms, tarakom, masahat, zirBana, arseZamin, omrSakhteman,      ab, gaz, bargh, region, city, nodeid;
 
 
     public String send_avenue, send_street;
     public int send_totalTabaghe, send_totalVahed, send_vahed, send_tabaghe, send_hashieh,
-            send_rooms, send_tarakom, send_metraj, send_zirBana, send_arseZamin, send_omrSakhteman, send_samayeshi,
-            send_garmayeshi, send_kaf, send_divar, send_nama, send_cabinet, send_ab, send_gaz, send_bargh;
+            send_rooms, send_tarakom, send_metraj, send_zirBana, send_arseZamin, send_omrSakhteman, send_ab, send_gaz, send_bargh;
 
 
     public String send_title = "", send_name = "", send_desc = "", send_email = "", send_address = "";
@@ -94,7 +88,7 @@ public class Property
 
     }
 
-    public String qr_code;
+//    public String qr_code;
 
     public boolean validToSend() {
         return ((name != null && name.length() > 0) && (mobile != null && mobile.length() > 0) && (desc != null && desc.length() > 0) && (title != null && title.length() > 0)
@@ -173,16 +167,16 @@ public class Property
         send_hashieh = hashieh;
         send_rooms = rooms;
         send_tarakom = tarakom;
-        send_metraj = metraj;
+        send_metraj = masahat;
         send_zirBana = zirBana;
         send_arseZamin = arseZamin;
         send_omrSakhteman = omrSakhteman;
-        send_samayeshi = samayeshi;
-        send_garmayeshi = garmayeshi;
-        send_kaf = kaf;
-        send_divar = divar;
-        send_nama = nama;
-        send_cabinet = cabinet;
+//        send_samayeshi = samayeshi;
+//        send_garmayeshi = garmayeshi;
+//        send_kaf = kaf;
+//        send_divar = divar;
+//        send_nama = nama;
+//        send_cabinet = cabinet;
         send_ab = ab;
         send_gaz = gaz;
         send_bargh = bargh;
@@ -246,7 +240,7 @@ public class Property
         if (send_tarakom != tarakom) {
             change = true;
         }
-        if (send_metraj != metraj) {
+        if (send_metraj != masahat) {
             change = true;
         }
         if (send_zirBana != zirBana) {
@@ -258,24 +252,24 @@ public class Property
         if (send_omrSakhteman != omrSakhteman) {
             change = true;
         }
-        if (send_samayeshi != samayeshi) {
-            change = true;
-        }
-        if (send_garmayeshi != garmayeshi) {
-            change = true;
-        }
-        if (send_kaf != kaf) {
-            change = true;
-        }
-        if (send_divar != divar) {
-            change = true;
-        }
-        if (send_nama != nama) {
-            change = true;
-        }
-        if (send_cabinet != cabinet) {
-            change = true;
-        }
+//        if (send_samayeshi != samayeshi) {
+//            change = true;
+//        }
+//        if (send_garmayeshi != garmayeshi) {
+//            change = true;
+//        }
+//        if (send_kaf != kaf) {
+//            change = true;
+//        }
+//        if (send_divar != divar) {
+//            change = true;
+//        }
+//        if (send_nama != nama) {
+//            change = true;
+//        }
+//        if (send_cabinet != cabinet) {
+//            change = true;
+//        }
         if (send_ab != ab) {
             change = true;
         }

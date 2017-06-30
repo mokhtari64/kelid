@@ -88,7 +88,7 @@ public class UserConfig {
             return property;
         property.city = preferences.getInt("city", -1);
         property.title = preferences.getString("title", null);
-        property.qr_code = preferences.getString("qr_code", null);
+
         property.name = preferences.getString("name", null);
 //        String ggg = preferences.getString("logopath", null);
 //        if (ggg != null)
@@ -165,7 +165,7 @@ public class UserConfig {
 
         editor.putString("email", a.email);
         editor.putString("telegram", a.telegram);
-        editor.putString("qr_code", a.qr_code);
+
         editor.putString("tel", a.tel);
         editor.putString("mobile", a.mobile);
 

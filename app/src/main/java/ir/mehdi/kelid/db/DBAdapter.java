@@ -36,7 +36,7 @@ import ir.mehdi.kelid.svgandroid.SVGParser;
 public class DBAdapter {
     public static final String DATABASE_NAME = "Kelid";
     public static final String tblname = "node";
-    public HashMap<Integer, PropertyDetail> allProperty = new HashMap();
+    public HashMap<Integer, PropertyDetail> allPropertyDetail = new HashMap();
     public HashMap<Integer, PropertyCategory> allPropertyCategory = new HashMap();
 
 
@@ -117,7 +117,7 @@ public class DBAdapter {
 
 
     public void loadProperty() {
-        if (!allProperty.isEmpty())
+        if (!allPropertyDetail.isEmpty())
             return;
 
 
@@ -140,7 +140,7 @@ public class DBAdapter {
                 PropertyCategory propertyCategory = allPropertyCategory.get(category);
                 propertyCategory.properties.add(c);
                 c.category=propertyCategory;
-                allProperty.put(c.id, c);
+                allPropertyDetail.put(c.id, c);
                 ArrayList<PropertyDetail> cc = tagProperty.get(c.tag);
                 if (cc == null) {
                     cc = new ArrayList<>();
@@ -169,7 +169,7 @@ public class DBAdapter {
                 continue;
             String[] split = a.feature.split(",");
             for (String s : split)
-                a.pDetail.add(allProperty.get(Integer.parseInt(s)));
+                a.pDetail.add(allPropertyDetail.get(Integer.parseInt(s)));
 
         }
     }

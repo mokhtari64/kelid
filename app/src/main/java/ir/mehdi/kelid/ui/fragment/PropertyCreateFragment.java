@@ -1,49 +1,24 @@
 package ir.mehdi.kelid.ui.fragment;
 
-import android.Manifest;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.text.Editable;
-import android.text.SpannableString;
-import android.text.TextWatcher;
-import android.text.style.UnderlineSpan;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -57,21 +32,13 @@ import java.io.File;
 import java.util.Vector;
 
 import ir.mehdi.kelid.Constant;
-import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.R;
-import ir.mehdi.kelid.UserConfig;
 import ir.mehdi.kelid.arcmenulibrary.util.Util;
 import ir.mehdi.kelid.db.DBAdapter;
-import ir.mehdi.kelid.db.MySqliteOpenHelper;
-import ir.mehdi.kelid.model.City;
-import ir.mehdi.kelid.model.Node;
 import ir.mehdi.kelid.model.Property;
 import ir.mehdi.kelid.model.PropertyCategory;
 import ir.mehdi.kelid.model.PropertyDetail;
-import ir.mehdi.kelid.model.Region;
-import ir.mehdi.kelid.service.VolleyService;
 import ir.mehdi.kelid.ui.AddPropetyActivity;
-import ir.mehdi.kelid.ui.CityActivity;
 import ir.mehdi.kelid.utils.Utils;
 
 /**
@@ -231,6 +198,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             });
             properyLayout = (LinearLayout) mainView.findViewById(R.id.proprty_layout);
             initFeatures();
+            reFill();
 
 
         }
@@ -241,7 +209,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             Integer tag = (Integer) buttonView.getTag();
-            PropertyDetail propertyDetail = DBAdapter.getInstance().allProperty.get(tag);
+            PropertyDetail propertyDetail = DBAdapter.getInstance().allPropertyDetail.get(tag);
             if (isChecked) {
                 if (!AddPropetyActivity.property.details.contains(propertyDetail)) {
                     AddPropetyActivity.property.details.add(propertyDetail);
@@ -291,6 +259,11 @@ public class PropertyCreateFragment extends Fragment implements Constant {
                 toggleButton.setText(propertyDetail.name);
                 toggleButton.setTextOn(propertyDetail.name);
                 toggleButton.setTag(propertyDetail.id);
+                if (AddPropetyActivity.property.details.contains(propertyDetail)) {
+                    toggleButton.setChecked(true);
+                } else {
+                    toggleButton.setChecked(false);
+                }
                 toggleButton.setOnCheckedChangeListener(featureListner);
                 linearLayout.addView(toggleButton);
             }
@@ -312,26 +285,119 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             aaa.setText(a.name);
             aaa.setTextOff(a.name);
             aaa.setTextOn(a.name);
-//            aaa.setBackgroundResource(R.drawable.my_toggle_background);
+//            ViewGroup.LayoutParams layoutParams = aaa.getLayoutParams();
+//            layoutParams.height=LinearLayout.LayoutParams.MATCH_PARENT;
+//            aaa.setLayoutParams(layoutParams);
+
             aaa.setLayoutParams(params);
+            if (AddPropetyActivity.property.details.contains(a)) {
+                aaa.setChecked(true);
+            } else {
+                aaa.setChecked(false);
+            }
             aaa.setTag(a.id);
             aaa.setOnCheckedChangeListener(featureListner);
-            sayerRow.addView(aaa);
+            sayerRow.addView(aaa);//,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.MATCH_PARENT);
         }
     }
 
     Button add;
 
-    public void fillProperty() {
-        if (masahat.getText().toString() != null && masahat.getText().toString().trim().length()>0)
-            AddPropetyActivity.property.metraj = Integer.parseInt(masahat.getText().toString());
-        if (zirbana.getText().toString() != null && zirbana.getText().toString().trim().length()>0)
+    public void reFill() {
+        if(AddPropetyActivity.property.masahat!=0)
+        masahat.setText(""+AddPropetyActivity.property.masahat);
+        if(AddPropetyActivity.property.zirBana!=0)
+        zirbana.setText(""+AddPropetyActivity.property.zirBana);
+        if(AddPropetyActivity.property.arseZamin!=0)
+        arse.setText(""+AddPropetyActivity.property.arseZamin);
+        if(AddPropetyActivity.property.hashieh!=0)
+        hashye_melk.setText(""+AddPropetyActivity.property.hashieh);
+        int count = tabaghat.getChildCount();
+        for (int i = 0; i < count; i++) {
+            RadioButton o = (RadioButton) tabaghat.getChildAt(i);
+            if (Integer.parseInt(o.getTag().toString()) == AddPropetyActivity.property.totalTabaghe) {
+                o.setChecked(true);
+                break;
+            }
+        }
+        count = vahedTabaghat.getChildCount();
+        for (int i = 0; i < count; i++) {
+            RadioButton o = (RadioButton) vahedTabaghat.getChildAt(i);
+            if (Integer.parseInt(o.getTag().toString()) == AddPropetyActivity.property.tabaghe) {
+                o.setChecked(true);
+                break;
+            }
+        }
+        count = vahedNo.getChildCount();
+        for (int i = 0; i < count; i++) {
+            RadioButton o = (RadioButton) vahedNo.getChildAt(i);
+            if (Integer.parseInt(o.getTag().toString()) == AddPropetyActivity.property.vahed) {
+                o.setChecked(true);
+                break;
+            }
+        }
+        count = roomNo.getChildCount();
+        for (int i = 0; i < count; i++) {
+            RadioButton o = (RadioButton) roomNo.getChildAt(i);
+            if (Integer.parseInt(o.getTag().toString()) == AddPropetyActivity.property.rooms) {
+                o.setChecked(true);
+                break;
+            }
+        }
+
+
+        count = tarakom.getChildCount();
+        for (int i = 0; i < count; i++) {
+            RadioButton o = (RadioButton) tarakom.getChildAt(i);
+            if (Integer.parseInt(o.getTag().toString())== AddPropetyActivity.property.tarakom) {
+                o.setChecked(true);
+                break;
+            }
+        }
+        count = omr.getChildCount();
+        for (int i = 0; i < count; i++) {
+            RadioButton o = (RadioButton) omr.getChildAt(i);
+            if (Integer.parseInt(o.getTag().toString()) == AddPropetyActivity.property.omrSakhteman) {
+                o.setChecked(true);
+                break;
+            }
+        }
+        count = ab_emtiazat.getChildCount();
+        for (int i = 0; i < count; i++) {
+            RadioButton o = (RadioButton) ab_emtiazat.getChildAt(i);
+            if (Integer.parseInt(o.getTag().toString()) == AddPropetyActivity.property.ab) {
+                o.setChecked(true);
+                break;
+            }
+        }count = gaz_emtiazat.getChildCount();
+        for (int i = 0; i < count; i++) {
+            RadioButton o = (RadioButton) gaz_emtiazat.getChildAt(i);
+            if (Integer.parseInt(o.getTag().toString())== AddPropetyActivity.property.gaz) {
+                o.setChecked(true);
+                break;
+            }
+        }
+        count = bargh_emtiazat.getChildCount();
+        for (int i = 0; i < count; i++) {
+            RadioButton o = (RadioButton) bargh_emtiazat.getChildAt(i);
+            if (Integer.parseInt(o.getTag().toString()) == AddPropetyActivity.property.bargh) {
+                o.setChecked(true);
+                break;
+            }
+        }
+
+    }
+
+    public void getProperty() {
+        if (masahat.getText().toString() != null && masahat.getText().toString().trim().length() > 0)
+            AddPropetyActivity.property.masahat = Integer.parseInt(masahat.getText().toString());
+        if (zirbana.getText().toString() != null && zirbana.getText().toString().trim().length() > 0)
             AddPropetyActivity.property.zirBana = Integer.parseInt(zirbana.getText().toString());
-        if (arse.getText().toString() != null && arse.getText().toString().trim().length()>0)
+        if (arse.getText().toString() != null && arse.getText().toString().trim().length() > 0)
 
 
             AddPropetyActivity.property.arseZamin = Integer.parseInt(arse.getText().toString());
-        if (hashye_melk.getText().toString() != null && hashye_melk.getText().toString().trim().length()>0)
+        if (hashye_melk.getText().toString() != null && hashye_melk.getText().toString().trim().length() > 0)
 
             AddPropetyActivity.property.hashieh = Integer.parseInt(hashye_melk.getText().toString());
         // if (arz_khyaban.getText() != null)
@@ -341,51 +407,49 @@ public class PropertyCreateFragment extends Fragment implements Constant {
         int checkedRadioButtonId = tabaghat.getCheckedRadioButtonId();
         if (checkedRadioButtonId != -1) {
             RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
-            AddPropetyActivity.property.totalTabaghe = Integer.parseInt( a.getTag().toString());
+            AddPropetyActivity.property.totalTabaghe = Integer.parseInt(a.getTag().toString());
         }
         checkedRadioButtonId = vahedTabaghat.getCheckedRadioButtonId();
         if (checkedRadioButtonId != -1) {
             RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
-            AddPropetyActivity.property.tabaghe = Integer.parseInt( a.getTag().toString());
+            AddPropetyActivity.property.tabaghe = Integer.parseInt(a.getTag().toString());
         }
         checkedRadioButtonId = vahedNo.getCheckedRadioButtonId();
         if (checkedRadioButtonId != -1) {
             RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
-            AddPropetyActivity.property.vahed = Integer.parseInt( a.getTag().toString());
+            AddPropetyActivity.property.vahed = Integer.parseInt(a.getTag().toString());
         }
         checkedRadioButtonId = roomNo.getCheckedRadioButtonId();
         if (checkedRadioButtonId != -1) {
             RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
-            AddPropetyActivity.property.rooms = Integer.parseInt( a.getTag().toString());
+            AddPropetyActivity.property.rooms = Integer.parseInt(a.getTag().toString());
         }
         checkedRadioButtonId = tarakom.getCheckedRadioButtonId();
         if (checkedRadioButtonId != -1) {
             RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
-            AddPropetyActivity.property.tarakom = Integer.parseInt( a.getTag().toString());
+            AddPropetyActivity.property.tarakom = Integer.parseInt(a.getTag().toString());
         }
         checkedRadioButtonId = omr.getCheckedRadioButtonId();
         if (checkedRadioButtonId != -1) {
             RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
-            AddPropetyActivity.property.omrSakhteman = Integer.parseInt( a.getTag().toString());
+            AddPropetyActivity.property.omrSakhteman = Integer.parseInt(a.getTag().toString());
         }
 
         checkedRadioButtonId = ab_emtiazat.getCheckedRadioButtonId();
         if (checkedRadioButtonId != -1) {
             RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
-            AddPropetyActivity.property.ab = Integer.parseInt( a.getTag().toString());
+            AddPropetyActivity.property.ab = Integer.parseInt(a.getTag().toString());
         }
         checkedRadioButtonId = gaz_emtiazat.getCheckedRadioButtonId();
         if (checkedRadioButtonId != -1) {
             RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
-            AddPropetyActivity.property.gaz = Integer.parseInt( a.getTag().toString());
+            AddPropetyActivity.property.gaz = Integer.parseInt(a.getTag().toString());
         }
         checkedRadioButtonId = bargh_emtiazat.getCheckedRadioButtonId();
         if (checkedRadioButtonId != -1) {
             RadioButton a = (RadioButton) mainView.findViewById(checkedRadioButtonId);
-            AddPropetyActivity.property.bargh =Integer.parseInt( a.getTag().toString());
+            AddPropetyActivity.property.bargh = Integer.parseInt(a.getTag().toString());
         }
-
-
 
 
     }
@@ -466,73 +530,6 @@ public class PropertyCreateFragment extends Fragment implements Constant {
 
         }
 
-
-    }
-
-    public void showRegionDIalog() {
-        Region[] regionss = DBAdapter.getInstance().getRegion(property.city, "");
-        if (regionss == null || regionss.length == 0) {
-            Toast.makeText(activity, activity.getString(R.string.no_region), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        final Dialog dialog = new Dialog(activity);
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        dialog.setTitle(R.string.region);
-        Window window = dialog.getWindow();
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int width = (int) (displaymetrics.widthPixels * 0.8);
-        int height = (int) (displaymetrics.heightPixels * 0.9);
-        window.setLayout(width, height);
-        dialog.setContentView(R.layout.collage_region_dialog);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            dialog.findViewById(R.id.main_content).setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
-        }
-        Button city = (Button) dialog.findViewById(R.id.button2);
-        dialog.findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        EditText editText = (EditText) dialog.findViewById(R.id.editText);
-        final ListView listView = (ListView) dialog.findViewById(R.id.listView2);
-        ArrayAdapter<Region> adapter = new ArrayAdapter<Region>(activity, android.R.layout.simple_list_item_1, regionss);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Region item = (Region) parent.getAdapter().getItem(position);
-                dialog.dismiss();
-                property.region = item.id;
-
-
-            }
-        });
-        city.setText(DBAdapter.getInstance().cities.get(property.city).name);
-
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Region[] region = DBAdapter.getInstance().getRegion(UserConfig.city, s.toString());
-
-                ArrayAdapter<Region> adapter = new ArrayAdapter<Region>(activity, android.R.layout.simple_list_item_1, region);
-                listView.setAdapter(adapter);
-            }
-        });
-
-
-        dialog.show();
 
     }
 

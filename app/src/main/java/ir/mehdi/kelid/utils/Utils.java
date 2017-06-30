@@ -497,7 +497,7 @@ public class Utils {
             if (property.address != null) addFormField(writer, "address", property.address);
 //                if (property.dateString != null) contentValues.put("created", property.dateString);
             if (property.title != null) addFormField(writer, "title", property.title);
-            if (property.qr_code != null) addFormField(writer, "qr_code", property.qr_code);
+//            if (property.qr_code != null) addFormField(writer, "qr_code", property.qr_code);
             if (property.city != 0) addFormField(writer, "city", "" + property.city);
             if (property.desc != null) addFormField(writer, "description", property.desc);
 

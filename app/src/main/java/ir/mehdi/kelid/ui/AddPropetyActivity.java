@@ -28,16 +28,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -107,7 +97,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        property = new Property();
+
         mainHandler = new Handler(Looper.getMainLooper());
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -145,10 +135,25 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 //        ft.add(R.id.fragment_container, testFragment);
         ft.add(R.id.fragment_container, propertyCreateFragment);
         ft.commit();
-//        nextTextView.setVisibility(View.INVISIBLE);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras==null)
+        {
+            property=MySqliteOpenHelper.getInstance().property;
+
+            if(property==null)
+                property=new Property();
+        }
+        property.myproperty=1;
+//        reFill();
 
 
     }
+
+//    private void reFill() {
+//        propertyCreateFragment.reFill();
+//        infoCreateFragment.reFill();
+//    }
 
 
     public void showNodeDialog() {
@@ -206,6 +211,9 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
             }
+            propertyCreateFragment.getProperty();
+            infoCreateFragment.getInfo();
+            MySqliteOpenHelper.getInstance().insertORUpdateProperty(property);
             finish();
             return;
         } else if (v == backImageView) {
@@ -220,17 +228,9 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
     @Override
     public void onBackPressed() {
         resend = false;
-//        if (curretnRequestCode != null) {
-//            KelidApplication.getInstance().cancelPendingRequests(curretnRequestCode);
-//            curretnRequestCode = null;
-//        }
-        if(currentStep==1 )
-        {
-            propertyCreateFragment.fillProperty();
-        }
-
         if (currentStep > 2) {
             finish();
+            MySqliteOpenHelper.getInstance().insertORUpdateProperty(AddPropetyActivity.property);
 
         } else {
             if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
@@ -238,6 +238,9 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 previousStep();
             } else {
                 super.onBackPressed();
+                propertyCreateFragment.getProperty();
+                MySqliteOpenHelper.getInstance().insertORUpdateProperty(AddPropetyActivity.property);
+
             }
         }
     }
@@ -530,7 +533,6 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
 //
 //        } else
         if (currentStep == 1) {
-            propertyCreateFragment.fillProperty();
             if (propertyCreateFragment.isValid()) {
                 android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
