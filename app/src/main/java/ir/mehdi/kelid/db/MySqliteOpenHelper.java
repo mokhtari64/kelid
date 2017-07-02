@@ -65,6 +65,8 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper implements Constant {
             " descritpion text,send_descritpion text," +
             " tarakom integer,send_tarakom integer," +
             " masahat integer,send_metraj integer," +
+            " latitude integer,longitude integer," +
+
             " zirBana integer,send_zirBana integer," +
             " arseZamin integer,send_arseZamin integer," +
             " omrSakhteman integer,send_omrSakhteman integer," +

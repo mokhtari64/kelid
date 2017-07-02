@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -28,11 +29,14 @@ import ir.mehdi.kelid.ui.AddPropetyActivity;
  * Created by Iman on 5/29/2017.
  */
 
-public class InfoCreateFragment  extends Fragment implements Constant,ServiceDelegate {
+public class InfoCreateFragment extends Fragment implements Constant, ServiceDelegate {
     AddPropetyActivity activity;
-    LinearLayout imageLayout,main;
+    LinearLayout main;
+    EditText telephone, mobile, address, avinue, street, mail;
+    LatLng location;
+
     LayoutInflater layoutInflater;
-    Button addImage,send;
+
     SupportMapFragment mapFragment;
 
     Marker lastMarker;
@@ -41,13 +45,20 @@ public class InfoCreateFragment  extends Fragment implements Constant,ServiceDel
     public void setActivity(AddPropetyActivity activity) {
         this.activity = activity;
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(main==null) {
+        if (main == null) {
             layoutInflater = inflater;
-            main= (LinearLayout) inflater.inflate(R.layout.fragment_create_info, null);
-            mapFragment=(SupportMapFragment) getChildFragmentManager()    .findFragmentById(R.id.map);
+            main = (LinearLayout) inflater.inflate(R.layout.fragment_create_info, null);
+            mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+            mobile = (EditText) main.findViewById(R.id.mobile);
+            mail = (EditText) main.findViewById(R.id.email);
+            telephone = (EditText) main.findViewById(R.id.tel);
+            address = (EditText) main.findViewById(R.id.address);
+            avinue = (EditText) main.findViewById(R.id.khyaban_asli);
+            street = (EditText) main.findViewById(R.id.khyaban_faree);
 
 
             mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -67,7 +78,6 @@ public class InfoCreateFragment  extends Fragment implements Constant,ServiceDel
                     mMap.animateCamera(CameraUpdateFactory.zoomTo(5), 5000, null);
 
 
-
                     mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                         @Override
                         public void onMapClick(LatLng latLng) {
@@ -75,6 +85,7 @@ public class InfoCreateFragment  extends Fragment implements Constant,ServiceDel
                                 lastMarker.remove();
                             CameraPosition cameraPosition = mMap.getCameraPosition();
                             lastMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("" + cameraPosition.zoom));
+                            location=latLng;
 
 
                         }
@@ -88,7 +99,6 @@ public class InfoCreateFragment  extends Fragment implements Constant,ServiceDel
             });
 
 
-
         }
         return main;
     }
@@ -97,12 +107,21 @@ public class InfoCreateFragment  extends Fragment implements Constant,ServiceDel
     public void onObjectReslut(int requestCode, int status, Object requestObject, Object responseObject) {
 
     }
+
     public boolean isValid() {
         return true;
     }
 
     public void getInfo() {
-//        return info;
+        AddPropetyActivity.property.street = street.getText().toString().trim();
+        AddPropetyActivity.property.avenue = avinue.getText().toString().trim();
+        AddPropetyActivity.property.email = mail.getText().toString().trim();
+        AddPropetyActivity.property.mobile = mobile.getText().toString().trim();
+        AddPropetyActivity.property.tel = telephone.getText().toString().trim();
+        AddPropetyActivity.property.address = address.getText().toString().trim();
+        AddPropetyActivity.property.location = location;
+
+
     }
 
     public void reFill() {

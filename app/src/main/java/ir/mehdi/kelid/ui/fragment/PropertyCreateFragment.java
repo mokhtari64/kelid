@@ -391,15 +391,20 @@ public class PropertyCreateFragment extends Fragment implements Constant {
     public void getProperty() {
         if (masahat.getText().toString() != null && masahat.getText().toString().trim().length() > 0)
             AddPropetyActivity.property.masahat = Integer.parseInt(masahat.getText().toString());
+        else
+            AddPropetyActivity.property.masahat =0;
         if (zirbana.getText().toString() != null && zirbana.getText().toString().trim().length() > 0)
             AddPropetyActivity.property.zirBana = Integer.parseInt(zirbana.getText().toString());
+        else
+            AddPropetyActivity.property.zirBana =0;
         if (arse.getText().toString() != null && arse.getText().toString().trim().length() > 0)
-
-
-            AddPropetyActivity.property.arseZamin = Integer.parseInt(arse.getText().toString());
+                      AddPropetyActivity.property.arseZamin = Integer.parseInt(arse.getText().toString());
+        else
+            AddPropetyActivity.property.arseZamin =0;
         if (hashye_melk.getText().toString() != null && hashye_melk.getText().toString().trim().length() > 0)
-
             AddPropetyActivity.property.hashieh = Integer.parseInt(hashye_melk.getText().toString());
+        else
+            AddPropetyActivity.property.hashieh =0;
         // if (arz_khyaban.getText() != null)
         //   AddPropetyActivity.property.hashieh = Integer.parseInt(arz_khyaban.getText().toString());
 

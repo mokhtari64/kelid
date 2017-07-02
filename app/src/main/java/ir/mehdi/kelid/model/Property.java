@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONObject;
 
 import java.io.File;
@@ -29,7 +31,7 @@ public class Property
     public String name, title, desc, email, avenue, street, address, tel, mobile, telegram;
     public int totalTabaghe, totalVahed, vahed, tabaghe, hashieh,
             rooms, tarakom, masahat, zirBana, arseZamin, omrSakhteman,      ab, gaz, bargh, region, city, nodeid;
-
+    public LatLng location;
 
     public String send_avenue, send_street;
     public int send_totalTabaghe, send_totalVahed, send_vahed, send_tabaghe, send_hashieh,
