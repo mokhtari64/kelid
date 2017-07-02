@@ -505,33 +505,33 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper implements Constant {
 //
 //    }
 
-    private void insertORUpdatePropertyImage(Property userProperty) {
+    private void insertORUpdatePropertyImage(Property property) {
         if (true) {
-            SQLiteDatabase writableDatabase = getWritableDatabase();
-            int count=writableDatabase.delete(table_image_name, "p_id=" + property.local_id, null);
-            for (int i = 0; i < property.details.size(); i++) {
-                ContentValues contentValues = new ContentValues();
-                contentValues.put("p_id", property.local_id);
-                contentValues.put("pd_id", property.details.get(i).id);
-                writableDatabase.insert(table_property_detail_name, null, contentValues);
-            }
+//            SQLiteDatabase writableDatabase = getWritableDatabase();
+//            int count=writableDatabase.delete(table_image_name, "p_id=" + MySqliteOpenHelper.property.local_id, null);
+//            for (int i = 0; i < MySqliteOpenHelper.property.details.size(); i++) {
+//                ContentValues contentValues = new ContentValues();
+//                contentValues.put("p_id", MySqliteOpenHelper.property.local_id);
+//                contentValues.put("pd_id", MySqliteOpenHelper.property.details.get(i).id);
+//                writableDatabase.insert(table_property_detail_name, null, contentValues);
+//            }
         } else {
 
             SQLiteDatabase writableDatabase = getWritableDatabase();
 
             ContentValues contentValues = new ContentValues();
             boolean hasmain = false;
-            for (int i = 0; i < userProperty.images.size(); i++) {
-                hasmain = userProperty.images.get(i).main && !userProperty.images.get(i).deleted;
+            for (int i = 0; i < property.images.size(); i++) {
+                hasmain = property.images.get(i).main && !property.images.get(i).deleted;
             }
             if (!hasmain)
-                userProperty.images.get(0).main = true;
+                property.images.get(0).main = true;
 
 
             boolean a;
-            for (int i = 0; i < userProperty.images.size(); i++) {
+            for (int i = 0; i < property.images.size(); i++) {
                 a = false;
-                Property.Image image = userProperty.images.get(i);
+                Property.Image image = property.images.get(i);
                 if (image.main) {
                     contentValues.put("main", 1);
                 } else {
@@ -542,14 +542,14 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper implements Constant {
                     a = true;
                 }
                 if (image.localname != null && !image.localname.equals("null")) {
-                    if (userProperty.myproperty == 1 && !FileUtils.getInstance().existInDefaultFoder(image.localname) && !image.deleted) {
+                    if (property.myproperty == 1 && !FileUtils.getInstance().existInDefaultFoder(image.localname) && !image.deleted) {
                         image.localname = FileUtils.getInstance().copyToDefaultFoder(image.localname);
                     }
                     contentValues.put("local_name", Utils.getName(image.localname));
                     a = true;
                 }
                 if (a) {
-                    contentValues.put("local_id", userProperty.local_id);
+                    contentValues.put("local_id", property.local_id);
                     contentValues.put("deleted", (image.deleted) ? 1 : 0);
                     if (image.id == 0) {
                         long insert = writableDatabase.insert(table_image_name, null, contentValues);

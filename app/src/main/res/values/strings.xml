@@ -5,6 +5,9 @@
     cheese caerphilly cheddar cheesecake cream cheese manchego lancashire. Roquefort squirty cheese
     the big cheese.</string>
     <string name="app_name">کلید</string>
+    <string name="best">برترین ها</string>
+    <string name="newst">جدیدترین ها</string>
+    <string name="golchin">ویژه ها</string>
     <string name="next">ادامه</string>
     <string name="createcancel">انصراف</string>
     <string-array name="category">

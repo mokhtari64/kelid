@@ -272,11 +272,11 @@ public class MainActivity extends KelidActivity implements Constant, View.OnClic
         int height = (int) (displaymetrics.heightPixels * 0.8);
         window.setLayout(width, -2);
 
-//                    dialog.setTitle(getString(R.string.select_photo));
+
         dialog.findViewById(R.id.camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                pickFromCamera();
+
                 if (ContextCompat.checkSelfPermission(MainActivity.this,
                         Manifest.permission.READ_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
@@ -308,7 +308,6 @@ public class MainActivity extends KelidActivity implements Constant, View.OnClic
         dialog.findViewById(R.id.gallery).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                requestImageFromGallery();
 
                 if (ContextCompat.checkSelfPermission(MainActivity.this,
                         Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -352,14 +351,11 @@ public class MainActivity extends KelidActivity implements Constant, View.OnClic
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         try {
-            // place where to store camera taken picture
-
-//            mImagePath = FileUtils.getInstance().createTempFile("IMG_" + System.currentTimeMillis(), ".jpg");
             mImagePath = FileUtils.getInstance().createLocalFile(FileUtils.Camera_DIR, "IMG_" + System.currentTimeMillis(), ".jpg");
             mImageUri = Uri.fromFile(mImagePath);
-//            mImagePath.delete();
+
             intent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
-//            orginalPath = mImagePath.getAbsolutePath();
+
 
             startActivityForResult(intent, CAMERA_REQUEST);
         } catch (Exception e) {
@@ -367,8 +363,7 @@ public class MainActivity extends KelidActivity implements Constant, View.OnClic
         }
 
 
-//        Intent cameraIntent = new Intent;
-//        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

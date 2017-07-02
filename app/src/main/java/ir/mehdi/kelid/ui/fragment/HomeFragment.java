@@ -31,9 +31,11 @@ import ir.mehdi.kelid.ui.ShowInfoActivity;
 
 public class HomeFragment extends Fragment implements Constant {
     private ViewPager mViewPager;
-    Button showInfo;
+//    Button showInfo;
     private AdversSliderAdapter adversSliderAdapter;
-    int[] colors=new int[]{Color.RED,Color.BLUE,Color.YELLOW};
+//    int[] colors=new int[]{Color.RED,Color.BLUE,Color.YELLOW};
+    int sliders[]=new int[]{R.drawable.slider1,R.drawable.slider2,R.drawable.slider3,R.drawable.slider4
+            ,R.drawable.slider5,R.drawable.slider6,R.drawable.slider7,R.drawable.slider8,R.drawable.slider9};
     CirclePageIndicator circlePageIndicator;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,19 +43,19 @@ public class HomeFragment extends Fragment implements Constant {
         View view = inflater.inflate(R.layout.fragment_home,null);
         adversSliderAdapter=new AdversSliderAdapter(getActivity());
         mViewPager= (ViewPager) view.findViewById(R.id.container);
-        showInfo= (Button) view.findViewById(R.id.button3);
+//        showInfo= (Button) view.findViewById(R.id.button3);
         mViewPager.setAdapter(adversSliderAdapter);
         circlePageIndicator = (CirclePageIndicator) view.findViewById(R.id.viewpagerindicator);
 
 
         circlePageIndicator.setViewPager(mViewPager);
-        showInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent a = new Intent(getActivity(), ShowInfoActivity.class);
-                getActivity().startActivity(a);
-            }
-        });
+//        showInfo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent a = new Intent(getActivity(), ShowInfoActivity.class);
+//                getActivity().startActivity(a);
+//            }
+//        });
 //        view.setBackgroundColor(Color.BLACK);
         return view;
     }
@@ -77,7 +79,7 @@ public class HomeFragment extends Fragment implements Constant {
 
         @Override
         public int getCount() {
-            return colors.length;
+            return sliders.length;
         }
 
         @Override
@@ -85,7 +87,7 @@ public class HomeFragment extends Fragment implements Constant {
             View myImageLayout = inflater.inflate(R.layout.fragment_image_slider, view, false);
             ImageView myImage = (ImageView) myImageLayout
                     .findViewById(R.id.image);
-            myImage.setBackgroundColor(colors[position]);
+            myImage.setImageResource(sliders[position]);
 
 //            myImage.setImageResource(images.get(position));
             view.addView(myImageLayout, 0);

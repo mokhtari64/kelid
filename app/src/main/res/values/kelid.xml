@@ -123,7 +123,8 @@
     <string name="delete_warining">با حذف کسب و کار به مدت 8 روز کاری قادر به ثبت کسب و کار در این گروه نیستم.</string>
     <string name="delete_success">حذف با موفقیت انجام شد</string>
     <string name="immediate_text">می خواهم کسب و کارم را فوری کنم</string>
-    <string name="my_advers">کسب و کار های من</string>
+    <string name="my_kelid">کلیدمن</string>
+    <string name="my_rate">امتیازها</string>
     <string name="bookmark">نشان گذاری ها</string>
     <string name="fanoos_share">معرفی به دوستان</string>
     <string name="bookmark_text">کسب و کار نشان شد</string>
