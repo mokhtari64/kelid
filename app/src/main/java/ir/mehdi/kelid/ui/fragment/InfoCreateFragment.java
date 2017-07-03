@@ -85,7 +85,7 @@ public class InfoCreateFragment extends Fragment implements Constant, ServiceDel
                                 lastMarker.remove();
                             CameraPosition cameraPosition = mMap.getCameraPosition();
                             lastMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("" + cameraPosition.zoom));
-                            location=latLng;
+                            location = latLng;
 
 
                         }
@@ -113,13 +113,15 @@ public class InfoCreateFragment extends Fragment implements Constant, ServiceDel
     }
 
     public void getInfo() {
-        AddPropetyActivity.property.street = street.getText().toString().trim();
-        AddPropetyActivity.property.avenue = avinue.getText().toString().trim();
-        AddPropetyActivity.property.email = mail.getText().toString().trim();
-        AddPropetyActivity.property.mobile = mobile.getText().toString().trim();
-        AddPropetyActivity.property.tel = telephone.getText().toString().trim();
-        AddPropetyActivity.property.address = address.getText().toString().trim();
-        AddPropetyActivity.property.location = location;
+        if (main != null) {
+            AddPropetyActivity.property.street = street.getText().toString().trim();
+            AddPropetyActivity.property.avenue = avinue.getText().toString().trim();
+            AddPropetyActivity.property.email = mail.getText().toString().trim();
+            AddPropetyActivity.property.mobile = mobile.getText().toString().trim();
+            AddPropetyActivity.property.tel = telephone.getText().toString().trim();
+            AddPropetyActivity.property.address = address.getText().toString().trim();
+            AddPropetyActivity.property.location = location;
+        }
 
 
     }

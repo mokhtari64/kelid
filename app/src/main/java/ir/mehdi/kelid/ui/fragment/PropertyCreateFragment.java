@@ -1,6 +1,7 @@
 package ir.mehdi.kelid.ui.fragment;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -505,6 +506,8 @@ public class PropertyCreateFragment extends Fragment implements Constant {
                 image.failedImageView = failedImage;
                 image.failedImageView.setVisibility(View.INVISIBLE);
                 image.localImageFile = new File(image.localname);
+                if(image.bitmap==null)
+                    image.bitmap=  BitmapFactory.decodeFile(image.localname);
                 Bitmap bitmapsimplesize = Bitmap.createScaledBitmap(image.bitmap, (int) getResources().getDimension(R.dimen.advers_image_size), (int) getResources().getDimension(R.dimen.advers_image_size), true);
 //                image.bitmap.recycle();
                 imageView.setImageBitmap(bitmapsimplesize);
@@ -551,7 +554,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             if (isChecked) {
                 Property.Image a = (Property.Image) buttonView.getTag();
 //                property.imagepath.remove(a);
-                a.main = true;
+                a.main = 1;
                 for (RadioButton bu : imageRadioButtons) {
                     if (bu != buttonView) {
                         bu.setChecked(false);
@@ -560,7 +563,7 @@ public class PropertyCreateFragment extends Fragment implements Constant {
             } else {
                 Property.Image a = (Property.Image) buttonView.getTag();
 //                property.imagepath.remove(a);
-                a.main = false;
+                a.main = 1;
 
             }
 

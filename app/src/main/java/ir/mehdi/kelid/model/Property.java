@@ -28,6 +28,7 @@ public class Property
         implements Constant, Comparable<Property>, Serializable {
     public boolean sendignFirstPhoto = false;
     public Vector<PropertyDetail> details = new Vector<>();
+    public Vector<Image> images = new Vector<>();
     public String name, title, desc, email, avenue, street, address, tel, mobile, telegram;
     public int totalTabaghe, totalVahed, vahed, tabaghe, hashieh,
             rooms, tarakom, masahat, zirBana, arseZamin, omrSakhteman,      ab, gaz, bargh, region, city, nodeid;
@@ -46,7 +47,7 @@ public class Property
     public int getImageCount() {
         int cnt = 0;
         for (int i = 0; i < images.size(); i++) {
-            if (!images.get(i).deleted)
+            if (images.get(i).deleted!=0)
                 cnt++;
 
         }
@@ -57,7 +58,7 @@ public class Property
         Vector<Image> images = new Vector<>();
 
         for (int i = 0; i < this.images.size(); i++) {
-            if (!this.images.get(i).deleted)
+            if (this.images.get(i).deleted!=0)
                 images.add(this.images.get(i));
 
         }
@@ -114,7 +115,7 @@ public class Property
     public int status = DRAFT_STATUS;
 
 
-    public Vector<Image> images = new Vector<>();
+
 
 
     public String dateString;
@@ -129,7 +130,7 @@ public class Property
 
     public Image addImage(int id, String localname, String url, int main, int deleted) {
         Image a = new Image();
-        a.deleted = deleted == 1;
+        a.deleted = deleted = 1;
         a.id = id;
         a.localname = localname;
         if (url != null) {
@@ -138,10 +139,10 @@ public class Property
 
         }
 
-        a.main = main == 1;
-        if (a.main) {
+        a.main = main = 1;
+        if (a.main==1) {
             for (int i = 0; i < images.size(); i++) {
-                images.get(i).main = false;
+                images.get(i).main = 0;
             }
         }
         images.add(a);
@@ -291,11 +292,11 @@ public class Property
             change = true;
         }
 
-        for (int i = 0; i < images.size(); i++) {
-            if ((images.get(i).deleted && images.get(i).remotename != null) || images.get(i).remotename == null) {
-                change = true;
-            }
-        }
+//        for (int i = 0; i < images.size(); i++) {
+//            if ((images.get(i).deleted && images.get(i).remotename != null) || images.get(i).remotename == null) {
+//                change = true;
+//            }
+//        }
 
         return change;
     }
@@ -334,27 +335,26 @@ public class Property
 //        return date.compareTo(o.date);
 //    }
 
-    public static class Image implements Serializable, Comparable<Image> {
+    public static class Image implements Serializable {
         public long id;
         public boolean sending = false;
         public String orginalPath;
         public int remote_Id;
-        public boolean deleted;
+        public int deleted;
         public String localname;
         public String remotename;
         public String thumbnail;
-        public boolean main;
+        public int main;
         public File localImageFile;
         public ProgressBar uploadProgressBar;
-        public View mainView;
         public ImageView failedImageView;
         public Bitmap bitmap;
 
 
-        @Override
-        public int compareTo(Image o) {
-            return (main) ? -1 : (o.main) ? 1 : -1;
-        }
+//        @Override
+//        public int compareTo(Image o) {
+//            return (main) ? -1 : (o.main) ? 1 : -1;
+//        }
 
         @Override
         public boolean equals(Object obj) {

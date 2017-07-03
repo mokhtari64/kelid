@@ -212,6 +212,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
                 toast.show();
             }
             propertyCreateFragment.getProperty();
+            if(infoCreateFragment.isValid())
             infoCreateFragment.getInfo();
             MySqliteOpenHelper.getInstance().insertORUpdateProperty(property);
             finish();

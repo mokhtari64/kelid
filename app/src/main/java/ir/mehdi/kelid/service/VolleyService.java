@@ -1155,11 +1155,11 @@ public class VolleyService extends Service implements Constant {
                 JSONArray delete = new JSONArray();
                 int i = 0;
                 for (Property.Image filePath : property.images) {
-                    if (filePath.deleted) {
+                    if (filePath.deleted==1) {
                         delete.put(Utils.getName(filePath.localname));
                         continue;
                     }
-                    if (filePath.main)
+                    if (filePath.main==1)
                         defaultPic = Utils.getName(filePath.localname);
                     File uploadFile = new File(filePath.localname);
 

@@ -91,10 +91,11 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper implements Constant {
             "  name text\n" +
             "  )";
     public static final String Property_Image_TABLE = "CREATE TABLE " + table_image_name +
-            " ( local_id integer,\n" +
+            " ( p_id integer,\n" +
             "id integer primary key AUTOINCREMENT," +
-            "local_name text," +
-            "remote_name text," +
+            "localname text," +
+            "remotename text," +
+            "remote_id integer," +
             "main number DEFAULT 0," +
             "deleted number DEFAULT 0" +
             "  )";
@@ -153,7 +154,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper implements Constant {
         allPropertys = new HashMap<>();
         bookmarkPropertys = new HashMap<>();
         String query = "select * from " + table_name;
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
         Property[] property = new Property[cursor.getCount()];
@@ -313,32 +314,36 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper implements Constant {
             cursor.moveToNext();
         }
         cursor.close();
-        db.close();
+//        db.close();
 
         query = "select * from " + table_image_name;
-        db = getWritableDatabase();
+//        db = getReadableDatabase();
         cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
         for (int i = 0; i < cursor.getCount(); i++) {
 
-            long local_id = cursor.getLong(cursor.getColumnIndex("local_id"));
+            long local_id = cursor.getLong(cursor.getColumnIndex("p_id"));
             Property userProperty = allPropertys.get(local_id);
             if (userProperty == null) {
                 cursor.moveToNext();
                 continue;
             }
-            String localname = cursor.getString(cursor.getColumnIndex("local_name"));
-            String remotename = cursor.getString(cursor.getColumnIndex("remote_name"));
-            int main = cursor.getInt(cursor.getColumnIndex("main"));
-            int deleted = cursor.getInt(cursor.getColumnIndex("deleted"));
+            Property.Image image=new Property.Image();
+            image.localname = cursor.getString(cursor.getColumnIndex("localname"));
+            image.remotename = cursor.getString(cursor.getColumnIndex("remotename"));
+            image.remote_Id = cursor.getInt(cursor.getColumnIndex("remote_id"));
+            image.main = cursor.getInt(cursor.getColumnIndex("main"));
+            image.deleted = cursor.getInt(cursor.getColumnIndex("deleted"));
             int id = cursor.getInt(cursor.getColumnIndex("id"));
-            userProperty.addImage(id, (localname == null) ? localname : FileUtils.getInstance().getImageFile(localname).getAbsolutePath(), (remotename == null || remotename.equals("-1")) ? null : remotename, main, deleted);
+            userProperty.images.add(image);
+//            userProperty.addImage(id, (localname == null) ? localname : FileUtils.getInstance().getImageFile(localname).getAbsolutePath(), (remotename == null || remotename.equals("-1")) ? null : remotename, main, deleted);
 
 
             cursor.moveToNext();
         }
         query = "select * from " + table_property_detail_name;
-        db = getWritableDatabase();
+//        db = getReadableDatabase();
+        cursor.close();
         cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
         for (int i = 0; i < cursor.getCount(); i++) {
@@ -461,6 +466,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper implements Constant {
             writableDatabase.update(table_name, contentValues, "local_id=" + property.local_id, null);
 
         }
+        writableDatabase.close();
         insertORUpdatePropertyDetail(property);
 
         insertORUpdatePropertyImage(property);
@@ -481,6 +487,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper implements Constant {
             contentValues.put("pd_id", property.details.get(i).id);
             writableDatabase.insert(table_property_detail_name, null, contentValues);
         }
+        writableDatabase.close();
 
     }
 
@@ -509,50 +516,56 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper implements Constant {
 
     private void insertORUpdatePropertyImage(Property property) {
         if (true) {
-//            SQLiteDatabase writableDatabase = getWritableDatabase();
-//            int count=writableDatabase.delete(table_image_name, "p_id=" + MySqliteOpenHelper.property.local_id, null);
-//            for (int i = 0; i < MySqliteOpenHelper.property.details.size(); i++) {
-//                ContentValues contentValues = new ContentValues();
-//                contentValues.put("p_id", MySqliteOpenHelper.property.local_id);
-//                contentValues.put("pd_id", MySqliteOpenHelper.property.details.get(i).id);
-//                writableDatabase.insert(table_property_detail_name, null, contentValues);
-//            }
+            SQLiteDatabase writableDatabase = getWritableDatabase();
+            int count=writableDatabase.delete(table_image_name, "p_id=" + property.local_id, null);
+            for (int i = 0; i < property.images.size(); i++) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("p_id", property.local_id);
+                contentValues.put("remote_id", property.images.get(i).remote_Id);
+                contentValues.put("remotename", property.images.get(i).remotename);
+                contentValues.put("localname", property.images.get(i).localname);
+                contentValues.put("main", property.images.get(i).main);
+                contentValues.put("deleted", property.images.get(i).deleted);
+                long insert = writableDatabase.insert(table_image_name, null, contentValues);
+                System.out.println("------------------------          "+insert);
+            }
+            writableDatabase.close();
         } else {
 
             SQLiteDatabase writableDatabase = getWritableDatabase();
 
             ContentValues contentValues = new ContentValues();
             boolean hasmain = false;
-            for (int i = 0; i < property.images.size(); i++) {
-                hasmain = property.images.get(i).main && !property.images.get(i).deleted;
-            }
-            if (!hasmain)
-                property.images.get(0).main = true;
+//            for (int i = 0; i < property.images.size(); i++) {
+//                hasmain = property.images.get(i).main && !property.images.get(i).deleted;
+//            }
+//            if (!hasmain)
+//                property.images.get(0).main = true;
 
 
             boolean a;
             for (int i = 0; i < property.images.size(); i++) {
                 a = false;
                 Property.Image image = property.images.get(i);
-                if (image.main) {
-                    contentValues.put("main", 1);
-                } else {
-                    contentValues.put("main", 0);
-                }
+//                if (image.main) {
+//                    contentValues.put("main", 1);
+//                } else {
+//                    contentValues.put("main", 0);
+//                }
                 if (image.remotename != null && !image.remotename.equals("null")) {
                     contentValues.put("remote_name", Utils.getName(image.remotename));
                     a = true;
                 }
-                if (image.localname != null && !image.localname.equals("null")) {
-                    if (property.myproperty == 1 && !FileUtils.getInstance().existInDefaultFoder(image.localname) && !image.deleted) {
-                        image.localname = FileUtils.getInstance().copyToDefaultFoder(image.localname);
-                    }
-                    contentValues.put("local_name", Utils.getName(image.localname));
-                    a = true;
-                }
+//                if (image.localname != null && !image.localname.equals("null")) {
+//                    if (property.myproperty == 1 && !FileUtils.getInstance().existInDefaultFoder(image.localname) && !image.deleted) {
+//                        image.localname = FileUtils.getInstance().copyToDefaultFoder(image.localname);
+//                    }
+//                    contentValues.put("local_name", Utils.getName(image.localname));
+//                    a = true;
+//                }
                 if (a) {
                     contentValues.put("local_id", property.local_id);
-                    contentValues.put("deleted", (image.deleted) ? 1 : 0);
+                    contentValues.put("deleted", image.deleted);
                     if (image.id == 0) {
                         long insert = writableDatabase.insert(table_image_name, null, contentValues);
                         image.id = insert;

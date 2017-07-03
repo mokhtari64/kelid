@@ -176,10 +176,10 @@ public class UserConfig {
         for (int i = 0; i < a.images.size(); i++) {
             Property.Image image = a.images.get(i);
             if (image != null && image.localname != null && image.localname.length() > 0) {
-                if(image.deleted)
+                if(image.deleted==1)
                     continue;
 
-                if (image.main) {
+                if (image.main==1) {
                     editor.putString("businesscardpathlocal", image.localname);
                 } else {
                     imagespathtext.append(image.localname).append(";");
