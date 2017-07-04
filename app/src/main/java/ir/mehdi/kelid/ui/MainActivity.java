@@ -78,10 +78,10 @@ public class MainActivity extends KelidActivity implements Constant, View.OnClic
         searchFragment = new SearchFragment();
         userProfileFragment = new UserProfileFragment();
         fragments = new Fragment[]{
-                homeFragment,
-                filterFragment,
+                userProfileFragment,
                 searchFragment,
-                userProfileFragment
+                filterFragment,
+                homeFragment,
         };
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -98,7 +98,7 @@ public class MainActivity extends KelidActivity implements Constant, View.OnClic
         search = (ImageView) findViewById(R.id.btn_search);
         category = (ImageView) findViewById(R.id.btn_category);
         profile = (ImageView) findViewById(R.id.btn_profile);
-        tabImageView = new ImageView[]{home, category, search, profile};
+        tabImageView = new ImageView[]{   profile,search,category,home};
         home.setOnClickListener(this);
         search.setOnClickListener(this);
         category.setOnClickListener(this);
@@ -123,6 +123,13 @@ public class MainActivity extends KelidActivity implements Constant, View.OnClic
 
             }
         });
+        mViewPager.setCurrentItem(3);
+//        mViewPager.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                m
+//            }
+//        });
 
 
     }
@@ -130,7 +137,7 @@ public class MainActivity extends KelidActivity implements Constant, View.OnClic
 
     private static final int[] ITEM_DRAWABLES = {R.drawable.add_image,
             R.drawable.add_text, R.drawable.preview, R.drawable.qr};
-    private String[] str = {"Facebook", "Twiiter", "Flickr", "Instagram"};
+    private String[] str ;
     private int type[] = new int[]{PROPERTY
             , SERVICE
             , OFFICE
@@ -140,6 +147,7 @@ public class MainActivity extends KelidActivity implements Constant, View.OnClic
     private void initArcMenu() {
         final int itemCount = ITEM_DRAWABLES.length;
         arcMenu.setToolTipTextSize(14);
+        str=getResources().getStringArray(R.array.add_lable);
 //        arcMenu.setMinRadius(104);
 //        arcMenu.setArc(175,255);
         arcMenu.setToolTipSide(ArcMenu.TOOLTIP_UP);
@@ -268,7 +276,7 @@ public class MainActivity extends KelidActivity implements Constant, View.OnClic
         Window window = dialog.getWindow();
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int width = (int) (displaymetrics.widthPixels * 0.7);
+        int width = (int) (displaymetrics.widthPixels * 0.95);
         int height = (int) (displaymetrics.heightPixels * 0.8);
         window.setLayout(width, -2);
 

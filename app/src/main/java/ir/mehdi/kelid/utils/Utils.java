@@ -90,6 +90,7 @@ public class Utils {
         v.animate().translationX(0).setDuration(Const.AnimDuration);
     }
 
+
 //    public static void collapse(final View v, Activity activity) {
 //        float sw = app.shome.ir.shome.Utils.getScreenWidth(activity);
 //        v.animate().translationX(-sw).setDuration(Const.AnimDuration);

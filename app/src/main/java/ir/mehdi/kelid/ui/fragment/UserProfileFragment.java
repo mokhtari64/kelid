@@ -1,6 +1,9 @@
 package ir.mehdi.kelid.ui.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -10,12 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TabHost;
 
 import java.io.File;
 
 import ir.mehdi.kelid.Constant;
+import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.R;
+import ir.mehdi.kelid.UserConfig;
 import ir.mehdi.kelid.ui.MainActivity;
 
 /**
@@ -25,7 +31,8 @@ import ir.mehdi.kelid.ui.MainActivity;
 public class UserProfileFragment  extends Fragment implements Constant {
     View main;
     ImageView userImage;
-    RecyclerView myKelidList;
+
+    ListView rateListview,myKelidListview,bookmarkListview;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,9 +40,14 @@ public class UserProfileFragment  extends Fragment implements Constant {
 
 
             main = inflater.inflate(R.layout.fragment_userprofile, null);
-            myKelidList= (RecyclerView) main.findViewById(R.id.my_kelid);
+
             userImage= (ImageView) main.findViewById(R.id.userimage);
-            userImage.setImageResource(R.drawable.iman);
+            if(UserConfig.userphoto!=null)
+            {
+                Bitmap bitmap = BitmapFactory.decodeFile(UserConfig.userphoto);
+                userImage.setImageBitmap(bitmap);
+            }
+
             CollapsingToolbarLayout collapsingToolbar =
                     (CollapsingToolbarLayout) main.findViewById(R.id.collapsing_toolbar);
             collapsingToolbar.setTitle("iman pourreza");
@@ -45,6 +57,9 @@ public class UserProfileFragment  extends Fragment implements Constant {
                     ((MainActivity) getActivity()).showImageDIalog();
                 }
             });
+            rateListview= (ListView) main.findViewById(R.id.rate_listview);
+            myKelidListview= (ListView) main.findViewById(R.id.mykelid_listview);
+            bookmarkListview= (ListView) main.findViewById(R.id.bookmark_listview);
 
             TabHost host = (TabHost)main.findViewById(R.id.tabHost);
             host.setup();
@@ -75,5 +90,10 @@ public class UserProfileFragment  extends Fragment implements Constant {
 
     public void changeImage(Bitmap bitmap, File jpg) {
         userImage.setImageBitmap(bitmap);
+        SharedPreferences preferences = KelidApplication.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        UserConfig.userphoto=jpg.getAbsolutePath();
+        edit.putString("userphoto", UserConfig.userphoto);
+        edit.commit();
     }
 }

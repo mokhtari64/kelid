@@ -4,6 +4,12 @@
     bergkase cream cheese fromage frais cheesy feet port-salut airedale. St. agur blue cheese rubber
     cheese caerphilly cheddar cheesecake cream cheese manchego lancashire. Roquefort squirty cheese
     the big cheese.</string>
+    <string-array name="add_lable">
+        <item>ثبت ملک</item>
+        <item>ثبت املاک</item>
+        <item>ثبت مشاوره</item>
+        <item>ثبت ثبت</item>
+    </string-array>
     <string name="app_name">کلید</string>
     <string name="best">برترین ها</string>
     <string name="newst">جدیدترین ها</string>

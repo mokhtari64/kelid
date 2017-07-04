@@ -32,13 +32,13 @@
         <ImageButton
             android:id="@+id/btn_profile"
             style="@style/my_home_main_menu"
-            android:tag="3"
+            android:tag="0"
             app:srcCompat="@drawable/ic_profile" />
 
         <ImageButton
             android:id="@+id/btn_search"
             style="@style/my_home_main_menu"
-            android:tag="2"
+            android:tag="1"
             app:srcCompat="@drawable/ic_search" />
 
         <View
@@ -49,13 +49,13 @@
         <ImageButton
             android:id="@+id/btn_category"
             style="@style/my_home_main_menu"
-            android:tag="1"
+            android:tag="2"
             app:srcCompat="@drawable/ic_categories" />
 
         <ImageButton
             android:id="@+id/btn_home"
             style="@style/my_home_main_menu"
-            android:tag="0"
+            android:tag="3"
             app:srcCompat="@drawable/ic_main" />
     </LinearLayout>
 

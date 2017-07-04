@@ -939,7 +939,7 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
         Window window = dialog.getWindow();
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int width = (int) (displaymetrics.widthPixels * 0.7);
+        int width = (int) (displaymetrics.widthPixels * 0.95);
         int height = (int) (displaymetrics.heightPixels * 0.8);
         window.setLayout(width, -2);
 

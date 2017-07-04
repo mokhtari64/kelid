@@ -30,6 +30,7 @@ public class UserConfig {
     public static String temp_phone;
     private static Property property = null;
     public static String userToken;
+    public static String userphoto;
 
 
 //    static {
@@ -52,6 +53,7 @@ public class UserConfig {
         change_log = preferences.getString("change_log", "");
         lastLatitue=preferences.getFloat("lastLatitue",0);
         lastLongtitue=preferences.getFloat("lastLongtitue",0);
+        userphoto=preferences.getString("userphoto",null);
 
     }
 
