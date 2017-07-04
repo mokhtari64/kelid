@@ -553,6 +553,8 @@ public class AddPropetyActivity extends KelidActivity implements Constant, Servi
             }
         } else if (currentStep == 3) {
             if (userPhoneFragment.isValid()) {
+                property.status=WAIT_STATUS;
+                MySqliteOpenHelper.getInstance().insertORUpdateProperty(property);
                 finish();
             }
         }
