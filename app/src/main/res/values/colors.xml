@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#d7fa4b</color>
-    <color name="colorPrimaryDark">#8ba915</color>
+    <color name="colorPrimary">#223f43</color>
+    <color name="colorPrimaryDark">#2e4d50</color>
     <color name="colorAccent">#FF4081</color>
     <color name="color_white">#FFFFFF</color>
     <color name="cascadeTitleColor">#FFFFFF</color>

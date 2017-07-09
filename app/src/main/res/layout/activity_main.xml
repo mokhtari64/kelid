@@ -24,7 +24,7 @@
         android:layout_marginBottom="-3dp"
         android:layout_marginLeft="-3dp"
         android:layout_marginRight="-5dp"
-        android:background="@drawable/menu_back"
+        android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:scaleType="fitCenter">
 
@@ -43,8 +43,7 @@
 
         <View
             style="@style/my_home_main_menu"
-            android:visibility="invisible"
-            />
+            android:visibility="invisible" />
 
         <ImageButton
             android:id="@+id/btn_category"

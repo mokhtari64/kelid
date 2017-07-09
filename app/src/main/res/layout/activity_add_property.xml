@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/defualt_msize"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/menu_back"
+        android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
         <LinearLayout

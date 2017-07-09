@@ -69,6 +69,7 @@
     <string name="max"> حداکثر </string>
     <string name="building_area"> زیربنا (متر مربع) </string>
     <string name="perimeter"> محیط </string>
+    <string name="price"> قیمت </string>
     <string name="meter"> متر مربع </string>
     <string name="area"> متراژ زمین (متر مربع) </string>
     <string name="street"> بلوار یا خیابان اصلی </string>
