@@ -43,20 +43,12 @@ public class HomeFragment extends Fragment implements Constant {
         View view = inflater.inflate(R.layout.fragment_home,null);
         adversSliderAdapter=new AdversSliderAdapter(getActivity());
         mViewPager= (ViewPager) view.findViewById(R.id.container);
-//        showInfo= (Button) view.findViewById(R.id.button3);
+
         mViewPager.setAdapter(adversSliderAdapter);
         circlePageIndicator = (CirclePageIndicator) view.findViewById(R.id.viewpagerindicator);
 
 
         circlePageIndicator.setViewPager(mViewPager);
-//        showInfo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent a = new Intent(getActivity(), ShowInfoActivity.class);
-//                getActivity().startActivity(a);
-//            }
-//        });
-//        view.setBackgroundColor(Color.BLACK);
         return view;
     }
 

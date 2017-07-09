@@ -12,16 +12,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TabHost;
 
 import java.io.File;
+import java.util.Collection;
+import java.util.Vector;
 
 import ir.mehdi.kelid.Constant;
 import ir.mehdi.kelid.KelidApplication;
 import ir.mehdi.kelid.R;
 import ir.mehdi.kelid.UserConfig;
+import ir.mehdi.kelid.db.MySqliteOpenHelper;
+import ir.mehdi.kelid.model.Property;
+import ir.mehdi.kelid.ui.CardItemListAdapter;
 import ir.mehdi.kelid.ui.MainActivity;
 
 /**
@@ -31,12 +37,15 @@ import ir.mehdi.kelid.ui.MainActivity;
 public class UserProfileFragment  extends Fragment implements Constant {
     View main;
     ImageView userImage;
+    Vector<Property> myKelidProperty;
 
-    ListView rateListview,myKelidListview,bookmarkListview;
+    RecyclerView rateListview,myKelidListview,bookmarkListview;
+    LayoutInflater inflater;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if(main==null) {
+            this.inflater=inflater;
 
 
             main = inflater.inflate(R.layout.fragment_userprofile, null);
@@ -57,9 +66,9 @@ public class UserProfileFragment  extends Fragment implements Constant {
                     ((MainActivity) getActivity()).showImageDIalog();
                 }
             });
-            rateListview= (ListView) main.findViewById(R.id.rate_listview);
-            myKelidListview= (ListView) main.findViewById(R.id.mykelid_listview);
-            bookmarkListview= (ListView) main.findViewById(R.id.bookmark_listview);
+            rateListview= (RecyclerView) main.findViewById(R.id.rate_listview);
+            myKelidListview= (RecyclerView) main.findViewById(R.id.mykelid_listview);
+            bookmarkListview= (RecyclerView) main.findViewById(R.id.bookmark_listview);
 
             TabHost host = (TabHost)main.findViewById(R.id.tabHost);
             host.setup();
@@ -83,7 +92,13 @@ public class UserProfileFragment  extends Fragment implements Constant {
 
             host.addTab(spec);
 
+
         }
+        myKelidProperty=new Vector<>();
+        Collection<Property> values = MySqliteOpenHelper.getInstance().myPropertys.values();
+        myKelidProperty.addAll(values);
+        MykelidAdapter adapter=new MykelidAdapter();
+        myKelidListview.setAdapter(adapter);
 
         return main;
     }
@@ -95,5 +110,46 @@ public class UserProfileFragment  extends Fragment implements Constant {
         UserConfig.userphoto=jpg.getAbsolutePath();
         edit.putString("userphoto", UserConfig.userphoto);
         edit.commit();
+    }
+
+    class MykelidAdapter extends RecyclerView.Adapter
+    {
+
+
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.myadver_item, parent, false);
+
+//        view.setOnClickListener(Main2.myOnClickListener);
+
+            MyKelidViewHoder myViewHolder = new MyKelidViewHoder(view);
+            return myViewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        }
+
+//        @Override
+//        public long getItemId(int position) {
+//            return myKelidProperty.get(position).local_id;
+//        }
+
+        @Override
+        public int getItemCount() {
+            return 10;//myKelidProperty.size();
+        }
+
+
+    }
+    class MyKelidViewHoder extends RecyclerView.ViewHolder
+    {
+
+        public MyKelidViewHoder(View itemView) {
+            super(itemView);
+        }
     }
 }

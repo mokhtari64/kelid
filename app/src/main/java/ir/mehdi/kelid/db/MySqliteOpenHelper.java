@@ -148,6 +148,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper implements Constant {
 //    }
 
     public void loadProperty() {
+        property=null;
         historyPropertys = new HashMap<>();
         myPropertys = new HashMap<>();
         myPropertysremote = new HashMap<>();
